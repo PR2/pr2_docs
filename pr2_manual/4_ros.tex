@@ -1,0 +1,62 @@
+\chapter {ROS}
+\section{What is ROS}
+ROS is a meta operating-system designed for, but not limited to robotics.  It is a system for getting, writing, building, organizing, and running code across multiple computers.  ROS doesn't operate in hard real-time, but is designed for streaming operation and online processing of data, and a full ROS system can contain hard real-time components.
+
+\section{Runtime system}
+A running ROS system consists of many distributed processes, called {\it nodes}, coordinated by a central name-server, called the {\it master}.  The nodes transfer data peer-to-peer over a network.  The primary means of data transfer is via asynchronous {\it topics}, which transfer {\it messages} via a publish-subscribe framework, and via synchronous {\it services}, which act as remote procedure calls.  Access to the system is provided to {\it nodes} by the client libraries, each of which supports a differnet programming languages, as well as via a collection of command-line tools that make the system available to the user or to simple scripts.
+\subsection{Master}
+In addition to the {\it nodes}, every ROS system has a program called the {\it master}, which acts as a name-server for the full system.
+The master tracks the state of the system, and allows nodes to find one another for data transfer, but once nodes are connected to one another all data is sent peer-to-peer, so the master is not responsible for moving data around a running system.
+
+On startup, the master is given a URI that it listens on.  Connecting to that same URI is the way that all other {\it nodes} will connect to the system.  For testing small networks on a single machine, the address "localhost" can be used, but for systems that will span multiple machines, the master URI will have to point to a unique location that can be seen by all the computers in the system.
+
+In general, the master will be started up together with a set of other nodes that play central roles in the system.  These include the parameter server, diagnostics logging, and centralized error reporting.  Together, this collection of processes is called {\it roscore}.
+\subsection{Nodes}
+A running ROS system consists of a collection of programs, called {\it nodes}, which pass data between one another at runtime.
+These nodes can be written in a variety of languages (python and C++ are recommended, although experimental client libraries exist for lisp, java, octave), and nodes written in different languages can co-exist in a single system.
+
+ROS nodes can talk with hardware, process data, access files, display GUIs, or act like any other program. Int addition, the client library lets them talk over ROS to the master and to other nodes to send and recieve {\it messages} with other nodes, make {\it service} calls to other nodes, set and read {\it parameters}, or query the state of the full system.  To write nodes in C++ or python, see the detailed documentation for roscpp\ref{roscpp} or rospy\ref{rospy}
+
+\subsection{Topics}
+Topics are named buses over which Nodes exchange Messages. Topics have anonymous publish/subscribe semantics, which decouples the production of information from its consumption. In general, nodes are not aware of who they are communicating with. Instead, nodes that are interested in data subscribe to the relevant topic; nodes that generate data publish to the relevant topic. There can be multiple publishers and subscribers to a topic.
+
+Topics are intended for unidirectional, streaming communication. Nodes that need to perform remote procedure calls, i.e. receive a response to a request, should use Services instead. There is also the Parameter Server for maintaining small amounts of state. 
+
+Each Topic is strongly typed by the ROS Message type used to publish to it and nodes can only receive messages with a matching type. The Topic type is declared by the first publisher. The Master does not enforce type consistency among the publishers, but subscribers will not establish message transport unless the types match. Furthermore, all ROS clients check to make sure that an md5sum computed from the msg files match. This check ensures that the ROS Nodes were compiled from consistent code bases. 
+\subsection{Messages}
+A Message is a simply a data structure, comprising typed fields. Standard primitive types (integer, floating point, boolean, etc.) are supported, as are arrays of primitive types. Messages can include arbitrarily nested structures and arrays (much like C structs).
+
+\subsection{Services}
+\subsection{Parameters}
+\subsection{Naming}
+Discuss naming conventions / limits
+Types of names (global, relative, and local)
+\subsubsection{Namespaces}
+Talk about how to push down into name-spaces
+\section{Runtime tools}
+This section will have detailed and structured introduction to all the runtime tools and how to use them.  The previous section will reference this section, but will focus on explaining concepts and not on attempting to provide full documentation of any software tools.  This section will need a template-based approach.
+
+\section{Code structure}
+\subsection{Packages}
+\subsection{command-line tools}
+\subsubsection{rospack}
+\subsubsection{roscd}
+\subsubsection{rosed}
+\subsubsection{rosls}
+\subsubsection{roscd}
+\subsubsection{roscd}
+\subsection{Packages}
+\subsection{Repositories}
+ROS follows a federated model, with many repositories for code.  Current maintainers of ROS repositories include:
+\begin{itemize}
+\item Stanford
+\item CMU
+\item MIT
+\item Wash-U
+\item Georgia Tech
+\item Bosch
+\item Willow Garage
+\end{itemize}
+\subsubsection{roslocate}
+\section{Code structure tools}
+TODO - figure out if the tools here and the tools in the runtime tools should actually be introduced together and just referenced from the two preceding chapters.  Likely is the case, and this chapter will serve as a reference for all the tools in /bin.

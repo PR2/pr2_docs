@@ -1,0 +1,27 @@
+\chapter{Maintaining PR2}
+\section{Installing upgraded stacks}
+Instructions on using the pr2\_admin user to install new version of stacks and apps next to what is already on the system.
+
+Instructions on how users set up their accounts to be either using the latest code all the time or to be locked to a particular version.  Discussion of the advantages of each.
+\section{Installing updated disk images}
+Instructions on installing an updated disk image from WG on the PR2 for, e.g. OS changes or robot configuration updates.  We need to figure out what is maintained during updates (e.g. network configuration?), and what is over-written.  This needs to be crisp and well-documented.
+\section{Resetting PR2}
+Sometimes, you may want to reset PR2 to factory defaults.  This is the process.
+This can either be done while preserving user data, or can be done as a full factory reset.
+
+Essentially, this is a full update to the last-installed disk image.
+\section{Diagnostics Logs}
+Since the PR2 is currently in beta, it is important for us to learn as much as we can about robot hardware usage and how problems develop.  To address this, we are requiring all PR2 beta sites to regularly transfer diagnostics logs to Willow Garage.
+
+These logs are gathered automatically by pr2\_core in the /hwlogs partition.  This directory should not be used for anything else, since everything there will be periodically transfered to Willow Garage.
+\subsection{Setting up automatic transfer}
+To make this process easier, we have provided a set of scripts to perform this log transfer automatically.  To enable those, just add the line XXX to the pr2\_admin crontab via these instructions:
+\subsection{Manual transfer}
+If you would prefer to not have the robot transfer logs back to Willow Garage automatically, you can transfer them manually instead.  To do this, either run the script "transfer\_logs", or look inside it to understand what it's doing and perform the transfer yourself.
+\section{Solving hardware problems}
+\subsection{Figuring out what's wrong}
+The first step if you suspect hardware problems should be to check the diagnostics display in pr2\_dashboard.  If that doesn't help you resolve the problem, you can run the full robot self test.  This is a GUI which allows you to select the portions of the robot you wish to qualify, and runs them through a variety of tests to diagnose problems.  Instructions on using it and interpreting the data it outputs go here.
+\subsection{Asking Willow Garage for help}
+For hardware issues, please send email either to pr2\_users or to the maintnenance list at XXX.
+\subsection{Documentation}
+For more detailed documentation, see the hardware maintenance manual at XXX.  This includes drawings and step-by-step instructions for replacing all user-servicable parts, as well as guidelines and checklists you can use to figure out if what you're seeing is normal for the system.

@@ -1,0 +1,39 @@
+\chapter{Computers on PR2}
+Covers the configuration of software that comes installed on the robot
+\section{Computer hardware}
+PR2 has two computers on-board.  Each of them has 24 Gb of ram, 2 quad-core Nehalem processors, and two attached hard-drives.  The motherboards are XXX from Rackable systems.  For more information about the computers themselves, please see the users's manual and documentation at XXX (link to Rackable information).
+
+Each computer has two hard-drives - one internal 2.5" drive, and a slot for a removable 3.5" SATA hard-drive that is exposed on the top of the robot base.
+\section{Networking}
+The majority of communication between components onboard the PR2 happens via an onboard ethernet network.
+Access to the robot is provided via four network interfaces - two wired and two wireless.
+\subsection{Network segments}
+\subsection{LAN port}
+\subsection{Wireless access point}
+\subsection{WAN port}
+\subsection{Wireless router}
+The PR2 has a \href{http://www.linksysbycisco.com/US/en/products/WRT610N}{Linksys WRT610N} 
+dual-N band wireless router.
+
+\section{OS}
+The computers run the Ubuntu 9.04 distribution of Linux.  In general, they can be administered like traditional Ubuntu machines.  If you are unfamiliar with Ubuntu, XXX has a lot of good information about the system.  Computer c2 netboots off of computer c1, so software should generally be installed on c1.  TODO: figure out if unionfs is the answer, and if so point people to instructions for installing software on the ystem well.
+\subsection{Kernel}
+Discuss RT\_PREEMT and anything else non-vanilla about the kernel
+\subsection{Storage}
+List locations for:OS, home directories, log files, hardware logs, etc.  Explain NFS setup
+\subsection{User accounts}
+The pr2 ships with several default user accounts, which are used for system utilities, maintenance, running demos, etc.  These accounts are:
+\begin{itemize}
+\item{pr2\_admin}
+\item{pr2\_demo}
+\end{itemize}
+In addition to these accounts, the expectation is that each person logging into the robot to develop code will have their own user account.  For instructions on creating user accounts, see \href{http://ss64.com/bash/useradd.html}{adduser}.
+\subsection{Clock synchronization}
+Consistent time-stamping of data from the two computers is important for interpreting sensor data on a moving system.
+As a result, keeping the system time on the two computers synced together requires some attention.  The system that is used for this is chrony (point to chrony reference), and the general strategy is to have the two computers tightly coupled to one another, but loosely coupled to an external time source to prevent the robot time from drifting too far from the outside world.  For more information on this, see ref(chrony)
+\section{System installs}
+When the robots ship, the most recent version of ROS and the PR2 software stacks is installed in /usr/lib/ros(?).  By default, new users will have a ROS installation which references the pre-installed code.  Users who wish to modify or replace a part of the system are recommended to install a development version of the stacks or packages which they wish to modify, but to continue to use the base installation for most of the robot functionality.
+
+The pr2\_admin user can install updated versions of stacks into this globally visible space.
+
+

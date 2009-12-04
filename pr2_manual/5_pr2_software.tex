@@ -1,0 +1,46 @@
+\chapter{Software on PR2}
+\section{pr2\_core}
+There is a core set of code that always runs by default on the robot.  This includes:
+\begin{description}
+\item[roscore]
+\item[diagnostics logging] to /hwlogs
+\item[web interface] which exports a set of webpages at XXX for basic robot control
+\item[pr2\_etherCAT]
+\item[power\_board]
+\item[battery\_monitor]
+\item[sensor drivers]
+This list is controlled by the launch files in XXX, which are used by rosinit on startup, and any time that the robot needs to "reset" to the default state (or when a developer wants to change one of those components)
+\end{description} 
+\section{pr2\_dashboard}
+pr2\_dashboard, Figure~\ref{fig:dashboard}, is a GUI for debugging and controlling low-level state of the PR2. The dashboard displays the diagnostic, 
+circuit breaker, runstop, and battery status.
+\begin{figure}[h]
+\centering
+\includegraphics[width=150px]{pr2_dashboard.png}
+\caption{The PR2 dasboard.}
+\label{fig:dashboard}
+\end{figure}
+\begin{description}
+\item[Diagnostic Status]
+
+\item[Circuit Breaker Status]
+
+\item[Runstop Status]
+
+\item[Battery Status]
+
+\end{description}
+
+\section{Apps}
+This section should contain a list of all the top-level useful apps shipping with the PR2.  We need some template for structuring this data, and ideally this documentation would be pulled from the apps themselves.
+
+\subsection{joystick\_teleop or replacement}
+\subsection{...}
+\section{Data and robot configuration}
+\subsection{Robot description}
+\subsection{pr2.launch and pr2.urdf}
+Local versions of launch file and urdf that live in /etc/pr2/ and can be calibrated, changed to accomodate new sensors or robot changes, etc.
+
+Describe API of full robot here (what topics, services, etc. the PR2 has when it's up)
+\subsubsection{Integrating calibration data}
+Basically, over-write /etc/pr2/pr2.launch
