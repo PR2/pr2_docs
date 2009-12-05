@@ -47,6 +47,17 @@ the state of one or all of them:
 \label{fig:dashboard}
 \end{figure}
 
+    \newcolumntype{S}{>{\centering\arraybackslash} m{1.7cm} }%       
+    \begin{tabular}{m{3cm}SSSS}
+     & Enabled & Standby & Disabled & Stale\\
+    Breaker Status & \includegraphics[scale=0.5]{L_ok.png}\includegraphics[scale=0.5]{B_ok.png}\includegraphics[scale=0.5]{R_ok.png}&
+                     \includegraphics[scale=0.5]{L_stby.png}\includegraphics[scale=0.5]{B_stby.png}\includegraphics[scale=0.5]{R_stby.png}&
+                     \includegraphics[scale=0.5]{L_dis.png}\includegraphics[scale=0.5]{B_dis.png}\includegraphics[scale=0.5]{R_dis.png}&
+                     \includegraphics[scale=0.5]{L_stale.png}\includegraphics[scale=0.5]{B_stale.png}\includegraphics[scale=0.5]{R_stale.png}\\
+
+
+   \end{tabular}
+
 
 
 \item[Runstop Status]
