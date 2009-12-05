@@ -59,7 +59,16 @@ the state of one or all of them:
 
 
 \item[Runstop Status] The runstop indicators display the staus of the PR2 runstops and their state cannot be changed using the dashboard. 
-There are two runstops on the robot, a wireless runstop, see \ref{wirelessrunstop}, and a physical runstop on the back of the robot.
+There are two runstops on the robot, a wireless runstop, see \ref{wirelessrunstop}, and a physical runstop on the back of the robot.\\
+
+    \newcolumntype{S}{>{\centering\arraybackslash} m{2.5cm} }%                                                                                                         
+    \begin{tabular}{m{2.6cm}SSS}
+     & OK & Physical Stop & Wireless Stop\\
+    Runstop Status & \includegraphics[scale=0.5]{runstop-green.png}\includegraphics[scale=0.5]{runstop-green.png}&
+                     \includegraphics[scale=0.5]{runstop-red.png}\includegraphics[scale=0.5]{runstop-green.png}&
+                     \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop-red.png}\\
+   \end{tabular}
+
 
 \item[Battery Status]
 
