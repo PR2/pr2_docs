@@ -38,29 +38,28 @@ circuit breaker, runstop, and battery status.
    \end{tabular}
 
 \item[Circuit Breaker Status] The circuit breakers are labeled L/B/R, which stand for Left Arm, Base/Spine, and Right Arm. 
-Each breaker can be in one of four states, and clicking on any of the breakers will pop up a menu allowing you to change 
+Each breaker can be in one of four states, and clicking on any of the breakers will pop up a menu, Figure~\ref{fig:breaker_menu}, allowing you to change 
 the state of one or all of them:
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{breakers_menu.png}
 \caption{The circuit breaker options menu.}
-\label{fig:dashboard}
+\label{fig:breaker_menu}
 \end{figure}
 
     \newcolumntype{S}{>{\centering\arraybackslash} m{1.7cm} }%       
-    \begin{tabular}{m{3cm}SSSS}
+    \begin{tabular}{m{2.6cm}SSSS}
      & Enabled & Standby & Disabled & Stale\\
     Breaker Status & \includegraphics[scale=0.5]{L_ok.png}\includegraphics[scale=0.5]{B_ok.png}\includegraphics[scale=0.5]{R_ok.png}&
                      \includegraphics[scale=0.5]{L_stby.png}\includegraphics[scale=0.5]{B_stby.png}\includegraphics[scale=0.5]{R_stby.png}&
                      \includegraphics[scale=0.5]{L_dis.png}\includegraphics[scale=0.5]{B_dis.png}\includegraphics[scale=0.5]{R_dis.png}&
                      \includegraphics[scale=0.5]{L_stale.png}\includegraphics[scale=0.5]{B_stale.png}\includegraphics[scale=0.5]{R_stale.png}\\
-
-
    \end{tabular}
 
 
 
-\item[Runstop Status]
+\item[Runstop Status] The runstop indicators display the staus of the PR2 runstops and their state cannot be changed using the dashboard. 
+There are two runstops on the robot, a wireless runstop, see \ref{wirelessrunstop}, and a physical runstop on the back of the robot.
 
 \item[Battery Status]
 
