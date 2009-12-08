@@ -43,6 +43,27 @@ Describe motion control architecture, capabilities, performance.
 \subsubsection{Environmental specs}
 \subsubsection{Forces and torques}
 \subsubsection{Joint limits and range of travel}
+\begin{tabular}{ll*{2}{c}}
+Joint  & Type  & Limit (+) & Limit (-) \\
+\hline \hline
+$\ast$\_caster\_rotation\_joint        & continuous & -            & - \\
+$\ast$\_caster\_wheel\_$\ast$\_joint   & continuous & -            & - \\
+torso\_lift\_joint                     & prismatic  & 396 mm       & 30 mm \\
+laser\_tilt\_joint                     & revolute   & 85$^\circ$   & 45$^\circ$ \\
+head\_pan\_joint                       & revolute   & 168$^\circ$  & 168$^\circ$  \\
+head\_tilt\_joint                      & revolute   & 60$^\circ$   & 30$^\circ$  \\
+$\ast$\_shoulder\_pan\_joint           & revolute   & 90$^\circ$   & 90$^\circ$  \\
+$\ast$\_shoulder\_lift\_joint          & revolute   & 75$^\circ$   & 35$^\circ$  \\
+$\ast$\_upper\_arm\_roll\_joint        & revolute   & 135$^\circ$  & 135$^\circ$  \\
+$\ast$\_elbow\_flex\_joint             & revolute   & 50$^\circ$   & 90$^\circ$  \\
+$\ast$\_forearm\_roll\_joint           & continuous & -            & - \\
+$\ast$\_wrist\_flex\_joint             & revolute   & 138$^\circ$  & 9$^\circ$  \\
+$\ast$\_wrist\_roll\_joint             & continuous & -            & - \\
+$\ast$\_gripper\_joint                 & continuous & -            & - \\
+
+
+\end{tabular}
+
 
 \section{Sensors}
 The PR2 has a variety of sensors spread out over it's body:
