@@ -42,7 +42,9 @@ Describe motion control architecture, capabilities, performance.
 \subsection{Mechanical specs}
 \subsubsection{Environmental specs}
 \subsubsection{Forces and torques}
-\subsubsection{Joint limits and range of travel}
+\subsubsection{Joint Limits and Types}
+The 
+
 \begin{tabular}{ll*{2}{c}}
 Joint  & Type  & Limit (+) & Limit (-) \\
 \hline \hline
@@ -59,9 +61,7 @@ $\ast$\_elbow\_flex\_joint             & revolute   & 50$^\circ$   & 90$^\circ$ 
 $\ast$\_forearm\_roll\_joint           & continuous & -            & - \\
 $\ast$\_wrist\_flex\_joint             & revolute   & 138$^\circ$  & 9$^\circ$  \\
 $\ast$\_wrist\_roll\_joint             & continuous & -            & - \\
-$\ast$\_gripper\_joint                 & continuous & -            & - \\
-
-
+$\ast$\_gripper\_joint                 & prismatic  & X mm         & 0 mm \\
 \end{tabular}
 
 
