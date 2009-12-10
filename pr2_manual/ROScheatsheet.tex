@@ -100,57 +100,57 @@
 \begin{center}
      \Large{\textbf{ROS Cheat Sheet}} \\
 \end{center}
-
-\section{Filesystem Concepts}
 \newlength{\MyLen}
 \settowidth{\MyLen}{\texttt{letterpaper}/\texttt{a4paper} \ }
-\begin{tabular}{@{}p{\the\MyLen}%
-                @{}p{\linewidth-\the\MyLen}@{}}
-\texttt{\href{http://www.ros.org/wiki/Packages}{package}}   & The lowest level of ROS software organization. \\
-\texttt{\href{http://www.ros.org/wiki/Manifest}{manifest}}  & Description of a ROS package. \\
-\texttt{\href{http://www.ros.org/wiki/Stack}{stack}} & Collections of ROS packages that form a higher-level library. \\
-\texttt{\href{http://www.ros.org/wiki/Stack Manifest}{stack manifest}}  & Description of a ROS stack.
-\end{tabular}
 
+%\section{Filesystem Concepts}
+%\begin{tabular}{@{}p{\the\MyLen}%
+ %               @{}p{\linewidth-\the\MyLen}@{}}
+%\texttt{\href{http://www.ros.org/wiki/Packages}{package}}   & The lowest level of ROS software organization. \\
+%\texttt{\href{http://www.ros.org/wiki/Manifest}{manifest}}  & Description of a ROS package. \\
+%\texttt{\href{http://www.ros.org/wiki/Stack}{stack}} & Collections of ROS packages that form a higher-level library. \\
+%\texttt{\href{http://www.ros.org/wiki/Stack Manifest}{stack manifest}}  & Description of a ROS stack.
+%\end{tabular}
 
 \section{Filesystem Command-line Tools}
-
 \begin{tabular}{@{}p{\the\MyLen}%
                 @{}p{\linewidth-\the\MyLen}@{}}
-\texttt{\href{http://www.ros.org/wiki/rospack}{rospack}}/\texttt{rosstack} & A tool inspecting packages/stacks. \\
+\texttt{\href{http://www.ros.org/wiki/rospack}{rospack}}/\texttt{rosstack} & A tool inspecting \href{http://www.ros.org/wiki/Packages}{packages}/\href{http://www.ros.org/wiki/Stack}{stacks}. \\
 \texttt{roscd} & Changes directories to a package or stack. \\
 \texttt{rosls} & Lists package or stack information. \\
 \texttt{\href{http://www.ros.org/wiki/roscreate}{roscreate}-pkg} & Creates a new ROS package. \\
 \texttt{\href{http://www.ros.org/wiki/roscreate}{roscreate}-stack} & Creates a new ROS stack.\\
 \texttt{\href{http://www.ros.org/wiki/rosdep}{rosdep}} & Installs ROS package system dependencies.\\
-\texttt{\href{http://www.ros.org/wiki/rosmake}{rosmake}} & Builds a ROS package.
+\texttt{\href{http://www.ros.org/wiki/rosmake}{rosmake}} & Builds a ROS package.\\
+\texttt{\href{http://www.ros.org/wiki/rosmsg}{rosmsg}}/\texttt{rossrv} & Displays information about ROS \href{http://www.ros.org/wiki/msg}{message}/\href{http://www.ros.org/wiki/srv}{service} types .
 \end{tabular}
 
 \begin{tabbing}
 Us\=age:\\
-\> \$ rospack find [package]\\  
-\> \$ roscd [package[/subdir]]\\
-\> \$ rosls [package[/subdir]]\\
-\> \$ roscreate-pkg [package\_name]\\
-\> \$ rosmake [package]\\
-\> \$ rosdep install [package]
+\> \texttt{\$ rospack find [package]}\\  
+\> \texttt{\$ roscd [package[/subdir]]}\\
+\> \texttt{\$ rosls [package[/subdir]]}\\
+\> \texttt{\$ roscreate-pkg [package\_name]}\\
+\> \texttt{\$ rosmake [package]}\\
+\> \texttt{\$ rosdep install [package]}\\
+\> \texttt{\$ rosmsg show [message type]}
 \end{tabbing}
 
-\section{Graph Concepts}
+%\section{Graph Concepts}
 %\settowidth{\MyLen}{\texttt{multicol} }
-\begin{tabular}{@{}p{\the\MyLen}%
-                @{}p{\linewidth-\the\MyLen}@{}}
-\texttt{\href{http://www.ros.org/wiki/Master}{master}}   & Provides naming and registration services to ROS nodes. \\
-\texttt{\href{http://www.ros.org/wiki/Nodes}{nodes}}   & Process that performs computation. \\
-\texttt{\href{http://www.ros.org/wiki/Topics}{topics}}  & Named buses over which ROS nodes exchange ROS messages. \\
-\texttt{\href{http://www.ros.org/wiki/Messages}{messages}} & A data structure comprising typed fields. \\
-\texttt{\href{http://www.ros.org/wiki/Services}{services}}  & A data structure comprising typed fields with a request and reply.\\
-\texttt{\href{http://www.ros.org/wiki/Parameter Server}{parameter server}}  & A shared multi-variate dictionary where ROS nodes can store and retrieve parameters at runtime.
-\end{tabular}
+%\begin{tabular}{@{}p{\the\MyLen}%
+%                @{}p{\linewidth-\the\MyLen}@{}}
+%\texttt{\href{http://www.ros.org/wiki/Master}{master}}   & Provides naming and registration services to ROS nodes. \\
+%\texttt{\href{http://www.ros.org/wiki/Nodes}{nodes}}   & Process that performs computation. \\
+%\texttt{\href{http://www.ros.org/wiki/Topics}{topics}}  & Named buses over which ROS nodes exchange ROS messages. \\
+%\texttt{\href{http://www.ros.org/wiki/Messages}{messages}} & A data structure comprising typed fields. \\
+%\texttt{\href{http://www.ros.org/wiki/Services}{services}}  & A data structure comprising typed fields with a request and reply.\\
+%\texttt{\href{http://www.ros.org/wiki/Parameter Server}{parameter server}}  & A shared multi-variate dictionary where ROS nodes can store and retrieve parameters at runtime.
+%\end{tabular}
 
 \section{Graph Command-line Tools}
 \subsection{\href{http://www.ros.org/wiki/roscore}{roscore}}
-A collection of nodes and programs that are pre-requisites of a ROS-based system. You must have a roscore running in order for ROS nodes to communicate.\\
+A collection of \href{http://www.ros.org/wiki/Nodes}{nodes} and programs that are pre-requisites of a ROS-based system. You must have a roscore running in order for ROS nodes to communicate.\\
 \begin{tabbing}
 ro\=score is currently defined as:\\
 \> \texttt{\href{http://www.ros.org/wiki/Master}{master}}\\
@@ -159,11 +159,11 @@ ro\=score is currently defined as:\\
 \end{tabbing}
 \begin{tabbing}
 Us\=age:\\
-\> \$ roscore
+\> \texttt{\$ roscore}
 \end{tabbing}
 
 \subsection{\href{http://www.ros.org/wiki/rostopic}{rostopic}}
-A tool for displaying debug information about ROS topics, including publishers, subscribers, publishing rate, and ROS messages.\\
+A tool for displaying debug information about ROS \href{http://www.ros.org/wiki/Topics}{topics}, including publishers, subscribers, publishing rate, and messages.\\
 \vspace{2.5 mm}
 Current list of supported commands: \\ 
 \begin{tabular}{@{}p{\the\MyLen}%
@@ -178,9 +178,19 @@ Current list of supported commands: \\
 \end{tabular}
 \begin{tabbing}
 Us\=age:\\
-\> \$ rostopic list [topic\_name]\\
-\> \$ rostopic echo [topic\_name]\\
-\> \$ rostopic pub [topic\_name] [topic\_type] [data\_to\_publish]
+\> \texttt{\$ rostopic [command] -h}
+\end{tabbing}
+
+\begin{tabbing}
+E\=x\=amples:\\
+\> Publish hello at 10 Hz:\\
+\> \>\texttt{\$ rostopic pub -r 10 /topic\_name std\_msgs/String hello}\\
+\> Clear the screen after each message is published:\\
+\> \>\texttt{\$ rostopic echo -c /topic\_name}\\
+\> Display messages that match a given Python expression:\\
+\> \>\texttt{\$ rostopic echo --filter "m.data=='foo'"  /topic\_name}\\
+\> Pipe the output of rostopic to rosmsg to view the msg type:\\
+\> \>\texttt{\$ rostopic type /topic\_name | rosmsg show}
 \end{tabbing}
 
 
