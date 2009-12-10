@@ -163,6 +163,41 @@ Us\=age:\\
 \> \texttt{\$ roscore}
 \end{tabbing}
 
+\subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
+Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
+\vspace{2.5 mm}
+\includegraphics[width=\columnwidth]{rxgraph.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rxgraph}
+\end{tabbing}
+
+\subsection{\href{http://www.ros.org/wiki/rosnode}{rosnode}}
+Displays debugging information about ROS nodes, including publications, subscriptions and connections.\\
+\vspace{2.5 mm}
+Current list of supported commands: \\ 
+\begin{tabular}{@{}p{\the\MyLen}%
+                @{}p{\linewidth-\the\MyLen}@{}}
+\texttt{rosnode ping}    & Test connectivity to node. \\
+\texttt{rosnode list}    & List active nodes. \\
+\texttt{rosnode info}    & Print information about a node. \\
+\texttt{rosnode machine} & List nodes running on a particular machine. \\
+\texttt{rosnode kill}    & Kills a running node. 
+\end{tabular}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rosnode [command] -h}
+\end{tabbing}
+\begin{tabbing}
+E\=x\=amples:\\
+\> Kill all nodes:\\
+\> \> \texttt{\$ rosnode kill -a}\\
+\> List nodes on a machine:\\
+\> \> \texttt{\$ rosnode machine aqy.local}\\
+\> Ping all nodes:\\
+\> \> \texttt{\$ rosnode ping --all} 
+\end{tabbing}
+
 \subsection{\href{http://www.ros.org/wiki/rostopic}{rostopic}}
 A tool for displaying debug information about ROS \href{http://www.ros.org/wiki/Topics}{topics}, including publishers, subscribers, publishing rate, and messages.\\
 \vspace{2.5 mm}
@@ -194,15 +229,12 @@ E\=x\=amples:\\
 \> \>\texttt{\$ rostopic type /topic\_name | rosmsg show}
 \end{tabbing}
 
-\subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
-Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
-\vspace{2.5 mm}
-\includegraphics[width=\columnwidth]{rxgraph.png}
+\subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
+Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
 \begin{tabbing}
 Us\=age:\\
-\> \texttt{\$ rxgraph}
+\> \texttt{\$ roslaunch [package\_name] [file\_name]}
 \end{tabbing}
-
 
 
 \settowidth{\MyLen}{\texttt{.author.text.} }
