@@ -7,6 +7,7 @@
 \usepackage[landscape]{geometry}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, filecolor=black, linkcolor=black, urlcolor=blue, citecolor=black}
+\graphicspath{{./images/}}
 
 
 % To make this come out properly in landscape mode, do one of the following
@@ -192,6 +193,16 @@ E\=x\=amples:\\
 \> Pipe the output of rostopic to rosmsg to view the msg type:\\
 \> \>\texttt{\$ rostopic type /topic\_name | rosmsg show}
 \end{tabbing}
+
+\subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
+Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
+\vspace{2.5 mm}
+\includegraphics[width=\columnwidth]{rxgraph.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rxgraph}
+\end{tabbing}
+
 
 
 \settowidth{\MyLen}{\texttt{.author.text.} }
