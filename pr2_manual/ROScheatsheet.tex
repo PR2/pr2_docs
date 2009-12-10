@@ -123,7 +123,8 @@
 \texttt{\href{http://www.ros.org/wiki/roscreate}{roscreate}-stack} & Creates a new ROS stack.\\
 \texttt{\href{http://www.ros.org/wiki/rosdep}{rosdep}} & Installs ROS package system dependencies.\\
 \texttt{\href{http://www.ros.org/wiki/rosmake}{rosmake}} & Builds a ROS package.\\
-\texttt{\href{http://www.ros.org/wiki/rosmsg}{rosmsg}}/\texttt{rossrv} & Displays information about ROS \href{http://www.ros.org/wiki/msg}{message}/\href{http://www.ros.org/wiki/srv}{service} types .
+\texttt{\href{http://www.ros.org/wiki/rosmsg}{rosmsg}}/\texttt{rossrv} & Displays information about ROS \href{http://www.ros.org/wiki/msg}{message}/\href{http://www.ros.org/wiki/srv}{service} types .\\
+\texttt{\href{http://www.ros.org/wiki/rxdeps}{rxdeps}} & Displays package structure and dependencies.\\
 \end{tabular}
 
 \begin{tabbing}
@@ -134,7 +135,8 @@ Us\=age:\\
 \> \texttt{\$ roscreate-pkg [package\_name]}\\
 \> \texttt{\$ rosmake [package]}\\
 \> \texttt{\$ rosdep install [package]}\\
-\> \texttt{\$ rosmsg show [message type]}
+\> \texttt{\$ rosmsg show [message type]}\\
+\> \texttt{\$ rxdeps [options]}
 \end{tabbing}
 
 %\section{Graph Concepts}
@@ -169,14 +171,14 @@ Displays a graph of the ROS nodes that are currently running, as well as the ROS
 \includegraphics[width=\columnwidth]{rxgraph.png}
 \begin{tabbing}
 Us\=age:\\
-\> \texttt{\$ rxgraph}
+\> \texttt{\$ rxgraph}\\
 \end{tabbing}
 
 \subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
 Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
 \begin{tabbing}
 Us\=age:\\
-\> \texttt{\$ roslaunch [package\_name] [file\_name]}
+\> \texttt{\$ roslaunch [options] [package\_name] [file\_name]}
 \end{tabbing}
 
 \subsection{\href{http://www.ros.org/wiki/rosnode}{rosnode}}
