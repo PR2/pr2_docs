@@ -172,6 +172,13 @@ Us\=age:\\
 \> \texttt{\$ rxgraph}
 \end{tabbing}
 
+\subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
+Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ roslaunch [package\_name] [file\_name]}
+\end{tabbing}
+
 \subsection{\href{http://www.ros.org/wiki/rosnode}{rosnode}}
 Displays debugging information about ROS nodes, including publications, subscriptions and connections.\\
 \vspace{2.5 mm}
@@ -229,11 +236,16 @@ E\=x\=amples:\\
 \> \>\texttt{\$ rostopic type /topic\_name | rosmsg show}
 \end{tabbing}
 
-\subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
-Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
+\subsection{\href{http://www.ros.org/wiki/rxtools}{rxplot}}
+A tool for plotting data from one or more ROS topic fields using matplotlib.\\
 \begin{tabbing}
-Us\=age:\\
-\> \texttt{\$ roslaunch [package\_name] [file\_name]}
+U\=s\=age:\\
+\> To graph the data in different plots:\\
+\> \>\texttt{\$ rxplot /topic1/field1 /topic2/field2}\\
+\> To graph the data all on the same plot:\\
+\> \>\texttt{\$ rxplot /topic1/field1,/topic2/field2}\\
+\> To graph multiple fields of a message:\\
+\> \>\texttt{\$ rxplot /topic1/field1:field2:field3}\\
 \end{tabbing}
 
 \subsection{\href{http://www.ros.org/wiki/rosparam}{rosparam}}
@@ -291,6 +303,9 @@ E\=x\=amples:\\
 \> Display all services of a particular type:\\
 \> \>\texttt{\$ rosservice find rospy\_tutorials/AddTwoInts}\\
 \end{tabbing}
+
+
+
 
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
