@@ -66,13 +66,22 @@ $\ast$\_gripper\_joint                 & prismatic  & X mm         & 0 mm \\
 
 
 \section{Sensors}
-The PR2 has a variety of sensors spread out over it's body:
+The PR2 has a variety of sensors spread out over it's body:\\\\
+\begin{overpic}[scale=0.45]{sensors.png}
+\put(46.9,50.9){\href{http://www.ros.org/wiki/prosilica_camera}{\includegraphics[scale=0.45]{sensors_prosilica.png}}}
+\put(49,51){\href{http://www.ros.org/wiki/wge100_camera}{\includegraphics[scale=0.45]{sensor_camera.png}}}
+\put(55.3,50.9){\href{http://www.ros.org/wiki/}{\includegraphics[scale=0.45]{sensors_projector.png}}}
+\put(47.6,43.7){\href{http://www.ros.org/wiki/hokuyo_node}{\includegraphics[scale=0.45]{sensors_tilt_laser.png}}}
+
+\end{overpic}
+
 \subsection{Base Laser}
 The base laser of the PR2 is \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)} 
 scanning range finder that has a 30m and 270$^\circ$ scanning range. For more information please see the 
 \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Tilting Laser}
+\label{tilting laser}
 In addition to the base laser, the PR2 has a \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)}
 mounted on a tilting platform below the pan-tilt head. The tilting platform can sweep the scanning 
 laser through 135$^\circ$ ($+90^\circ$ and $-45^\circ$ from level) and can be controlled using the
@@ -82,7 +91,7 @@ and \href{http://www.ros.org/wiki/pr2_default_controllers}{pr2\_default\_control
 \subsection{Head Cameras}
 The PR2 pan-tilt head has three cameras and a textured light projector:
 \begin{description}
-
+\label{stereo camera}
 \item[Wide Stereo Camera]
 The wide stereo of the PR2 is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo uses the
 \href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC} imager chip
@@ -100,6 +109,7 @@ lens. For more information please see the \href{http://www.ros.org/wiki/wge100_c
 at \href{http://www.ros.org}{ros.org}.
 
 \item[Gigabit Ethernet Camera]
+\label{ethernet camera}
 The PR2 has a gigabit ethernet camera located to the left of the dual stereo pair on the pan-tilt head. 
 The gigabit ethernet camera is a \href{http://www.prosilica.com/products/gc2450.html}{Prosilica GC2450C} 
 which uses the Sony ICX-625AQ imager chip and has a max resolution of 2448 x 2050 pixels at 15 fps. 
@@ -108,6 +118,7 @@ For more information please see the \href{http://www.ros.org/wiki/prosilica_came
 at \href{http://www.ros.org}{ros.org}.
 
 \item[Textured Light Projector]
+\label{texture projector}
 The PR2 has a textured light projector located to the right of the dual stereo pair on the pan-tilt head. The projector has a 
 FOV of approximately $55^\circ$ and a 5.6mm F2.0 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa LM12JC} 
 lens.  For more information please see the \href{http://www.ros.org/wiki/TODO}{TODO} package at \href{http://www.ros.org}{ros.org}.
