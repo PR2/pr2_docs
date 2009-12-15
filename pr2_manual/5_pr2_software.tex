@@ -1,20 +1,20 @@
 \chapter{Running the PR2}
-The software on PR2 is based on ROS (http://www.ros.org), the BSD-licensed Robot Operating System.  A ROS system consists of multiple processes running on multiple computers.  If you are not familiar with ROS, it is highly recommended that you follow some of the beginner tutorials on ros.org, since familiarity with ros tools will make using the robot much easier.  In particular, you should understand what a launch file is and how to run it, and how a ROS system with nodes running on multiple computers works.
+The software on PR2 is based on ROS (\href{http://www.ros.org}{http://www.ros.org}), the BSD-licensed Robot Operating System.  A ROS system consists of multiple processes running on multiple computers.  If you are not familiar with ROS, it is highly recommended that you follow some of the \href{http://www.ros.org/wiki/ROS/Tutorials}{beginner tutorials} on ros.org, since familiarity with ros tools will make using the robot much easier.  In particular, you should understand what a launch file is and how to run it, and how a ROS system with nodes running on multiple computers works.
 
 
 \section{Getting set up}
 \subsection{Out of the box}
-If you are starting your PR2 for the first time at your institution, please read the section below, ref{Setting up PR2 in your lab}.  This will give you advice on setting up the network, setting the administrative password, and picking a safe location for charging the PR2.  This chapter assumes that the PR2 is already set up for your lab.
+If you are starting your PR2 for the first time at your institution, please read the previous sections,\ref{Setting up PR2 in your lab}.  This will give you advice on setting up the network, setting the administrative password, and picking a safe location for charging the PR2.  This chapter assumes that the PR2 is already set up for your lab.
 \subsection{Batteries and power}
 Before running the robot, you need to make sure it has power.  The battery life of the PR2 is approximately 2 hours, so keeping it plugged in when not in use is a good idea.  You can follow the instructions in this chapter to start up the PR2 while it is plugged into the power outlet, which will keep the batteries re-charged.
 \subsection{Run-stop}
 The PR2 will not run it's motors unless both run-stop buttons (the red push-button on the middle of the back, and the yellow wireless run-stop transmitter) are enabled.  Before you operate the PR2, you should have the wireless run-stop nearby, so that you can shut down the motors if you need to.  Before turning on the robot, press the red button on the wireless run-stop transmitter to prevent the motors from moving before you are ready for them.
 \subsection{Getting an account}
-Before using the PR2, you will also need an account on the robot computers.  Ask the robot administrator to create an account for you, using the instructions in section ref{Creating accounts}.
+Before using the PR2, you will also need an account on the robot computers.  Ask the robot administrator to create an account for you, using the instructions in section \ref{creating accounts}.
 \section{Turning PR2 on}
 After verifying that the yellow run-stop tranmitter is off (press the red button, and make sure there are no flashing lights on the transmitter), switch the red DC breaker on the back of the robot to the on position.  You should hear the fans spin up and hear several beeps from the computers as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can skip this step (but should still disable the wireless run-stop).
 \subsection{Logging in}
-Once the robot is on, ssh into the main computer using the account created for you by the administrator (in the following tutorial, we will use prx1 to refer to the first robot computer.  Ask your administrator what name you should use to contact the robot.
+Once the robot is on, \href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh} into the main computer using the account created for you by the administrator (in the following tutorial, we will use prx1 to refer to the first robot computer.  Ask your administrator what name you should use to contact the robot.
 \begin{verbatim}
 ssh username@prx1
 \end{verbatim}
@@ -47,7 +47,7 @@ roslaunch /etc/pr2/pr2.launch
 \end{verbatim}
 to start up the pr2.  Running pr2 start will basically start the roslaunch for you in the background as a system user, so that you can continues to use your terminal and the robot will keep running after you log out.  If you prefer to see everything that's going on, you can run the roslaunch by hand, but you will need to keep that window open until you're done using the robot. 
 
-The robot should now be running, but since you have the wireless run-stop disabled you won't see it moving any motors.  You can use the ROS tools like ``rostopic list'' to see the topics being published by the ystem now.
+The robot should now be running, but since you have the wireless run-stop disabled you won't see it moving any motors.  You can use the ROS tools like ``rostopic list'' to see the topics being published by the system now.
 \section{Running the dashboard}
 When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will let you know if something is going wrong, and is also how you turn the motors and power on and off.  On a computer with a built ROS installation (the base-station that ships with the robot is a good option here), set your ROS\_MASTER\_URI to point at the master running on the robot and launch the dashboard with
 \begin{verbatim}
@@ -55,7 +55,7 @@ export ROS_MASTER_URI=http://prx1:11311
 rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
 You should see the pr2\_dashboard control panel come up and give you information about the state of the robot.  You can get a feeling for the health of your robot by looking at the diagnostics information (click on the wrench on the far left).  Since you have the runstop disabled, you will expect to see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY ROBOT SHIP DATE).  You should also expect a warning because the robot was just turned on and the encoders on the joints have not been calibrated yet.
-If you see warnings or errors in any other sections, you should read the error messages and try to figure out what the problem is.  Ask your robot administrator for help if there are errors you don't understant.
+If you see warnings or errors in any other sections, you should read the error messages and try to figure out what the problem is.  Ask your robot administrator for help if there are errors you don't understand.
 \subsection{Understanding pr2\_dashboard}
 When running the PR2, the most important piece of software for you to use to understand and control the state of the system is the pr2\_dashboard.
 pr2\_dashboard, Figure~\ref{fig:dashboard}, is a GUI for debugging and controlling low-level state of the PR2. The dashboard displays the diagnostic, 
@@ -128,11 +128,18 @@ Finally, check that the area around the robot is safe for it to move its arms, c
 To move the robot, try driving it around with the joystick.  To do this, you will need to open a new ssh connection to the robot and run the teleop\_joystick launch file
 \begin{verbatim}
 ssh username@prx1
-roslaunch pr2_alpha teleop_joystick.launch
+roslaunch pr2_alpha teleop_joystick.launch 
 \end{verbatim}
-(NOTE - THIS WILL MOVE OUT OF THE PR2\_ALPHA PACKAGE BEFORE RELEASE)
+(NOTE- Move out of pr2\_alpha before release and document button mapping)
+Once the teleop\_joystick node is running, press the parring button (Figure~\ref{fig:pairing}) in the middle of the joystick to pair it with the robot (the 4 leds on the jostick will flash when paired), and you can drive the robot around.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{pairing.png}
+\caption{Pairing the joystick with the PR2.}
+\label{fig:pairing}
+\end{figure}
 
-Once the teleop\_joystick node is running, just hit the white button in the middle of the joystick to pair it with the robot (you should see the 4 leds on the joystick start flashing when you do this), and you can drive the robot around (TODO - NEED TO DOCUMENT JOYSTICK MAPPING FOR DRIVING THE ROBOT)
+
 \section{Visualizing sensor data}
 To see the sensor data from the robot, you can use rviz on the offboard computer that you've been using.  Again, you'll need to configure the ROS\_MASTER\_URI to point at the robot, so run
 \begin{verbatim}

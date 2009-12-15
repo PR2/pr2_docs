@@ -22,12 +22,13 @@ Discuss RT\_PREEMT and anything else non-vanilla about the kernel
 \subsection{Storage}
 List locations for:OS, home directories, log files, hardware logs, etc.  Explain NFS setup
 \subsection{User accounts}
+\label{creating accounts}
 The pr2 ships with several default user accounts, which are used for system utilities, maintenance, running demos, etc.  These accounts are:
 \begin{itemize}
 \item{pr2\_admin}
 \item{pr2\_demo}
 \end{itemize}
-In addition to these accounts, the expectation is that each person logging into the robot to develop code will have their own user account.  For instructions on creating user accounts, see \href{http://ss64.com/bash/useradd.html}{adduser}.
+In addition to these accounts, the expectation is that each person logging into the robot to develop code will have their own user account.  For instructions on creating user accounts, see \href{http://unixhelp.ed.ac.uk/CGI/man-cgi?adduser}{adduser}.
 \subsection{Clock synchronization}
 Consistent time-stamping of data from the two computers is important for interpreting sensor data on a moving system.
 As a result, keeping the system time on the two computers synced together requires some attention.  The system that is used for this is chrony (point to chrony reference), and the general strategy is to have the two computers tightly coupled to one another, but loosely coupled to an external time source to prevent the robot time from drifting too far from the outside world.  For more information on this, see ref(chrony)
