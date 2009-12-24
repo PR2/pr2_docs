@@ -19,15 +19,17 @@ The PR2 will not run its motors unless both run-stop buttons (the red push-butto
 \end{figure}
 
 \subsection{Getting an account}
-Before using the PR2, you will also need an account on the robot computers.  Ask the robot administrator to create an account for you, using the instructions in section \ref{creating accounts}.
+Before using the PR2, you will also need an account on the robot computers.  If you try to log in to the robot and the robot administrator has not created an account for you on the robot yet, then you will see, ``Permission denied, please try again'' when you try to log in to the robot. Ask the robot administrator to create an account for you, using the instructions in section \ref{creating accounts}.
 \section{Turning PR2 on}
-To verify that the yellow run-stop tranmitter is off, press the red button, and make sure there are no flashing lights on the transmitter. Then switch the red DC breaker on the back panel of the robot to the "on" position.  
+To turn the PR2 on, you should first verify that the wireless run-stop is off. On the wireless run-stop, press the red button, and make sure there are no flashing lights on the wireless run-stop. Then switch the red DC breaker on the back panel of the robot to the ``on'' position.  
 
 %Add image of red DC breaker switch
 
-You should hear the fans spin up and hear several beeps from the computers as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can skip this step (but should still disable the wireless run-stop).
+You should see the red lights on the computers turn on, hear the fans spin up, and hear several beeps from the computers as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can skip this step (but should still disable the wireless run-stop).
 \subsection{Logging in}
-Once the robot is on, \href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh} into the main computer using the account created for you by the administrator (in the following tutorial, we will use prx1 to refer to the first robot computer.  Ask your administrator what name you should use for the robot you want to run.
+Once the robot is on, \href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh} into the main computer using the account created for you by the administrator. 
+
+In the following tutorial, we will use pr\textcolor{red}{x}1 to refer to the first computer on robot \textcolor{red}{x}.  Ask your robot  administrator what name you should use for the robot you want to run. To log in to the robot, type
 \begin{verbatim}
 ssh username@prx1
 \end{verbatim}
@@ -39,17 +41,17 @@ and you should see a list of the ros packages currently on your path.
 %LT: What if they don't see this? What should they do? Contact administrator and say X?
 
 \subsection{Checking for other users}
-If you logged in to a robot that was already running, you should check to see if anyone else is using the robot.  To find out who else is using the roobt, type
+If you logged in to a robot that was already running, you should check to see if anyone else is using the robot.  To find out who else is using the robot, type
 \begin{verbatim}
 ckill list
 \end{verbatim}
-This will show you what programs are currently running on the robot.  If other people have processes running on the robot, you will need to find out if you can interrupt their work to do your own. You should find out who is on the roobt and ask them to stop running on the robot, or to allow you to kill their processes.  If it is fine for you to kill the other processes running on the robot (ask the robot adminstrator for guidance on what the policy is in your lab if you're not sure), you can type
+This will show you what programs are currently running on the robot.  If other people have processes running on the robot, you will need to find out if you can interrupt their work. You should find out who is on the robot and ask them to allow you to kill their processes so that you can work on the robot.  If you cannot find the people running processes on the robot, ask the robot adminstrator for guidance on what the policy is in your lab. If it is fine for you to kill the other processes running on the robot, you can type
 \begin{verbatim}
 sudo ckill kill
 \end{verbatim}
 and all the processes that are being run on the robot will be killed.
 \section{Starting the software}
-The launch file /etc/pr2/pr2.launch is used to start up the basic functionality of the robot.  This includes drivers for the sensors, motors, speakers, projector, power system, and joystick as well as the default set of realtime controllers, processing and logging of diagnostics information, and monitors for various types of problems your robot could experience.  On a new robot, this launch file is standard, but if the robot you are working on has been altered (e.g., added sensors, only one arm), then it is likely that someone administering the robot has also updated the /etc/pr2/pr2.launch file to work with your robot's configuration.
+The launch file /etc/pr2/pr2.launch is used to start up the basic functionality of the robot.  This includes drivers for the sensors, motors, speakers, projector, power system, and joystick as well as the default set of realtime controllers, processing and logging of diagnostics information, and monitors for various types of problems your robot could experience.  On a new robot, this launch file is standard, but if the robot you are working on has been altered (e.g., has additional sensors, has only one arm), then it is likely that someone administering the robot has also updated the /etc/pr2/pr2.launch file to work with your robot's configuration.
 
 Once you are logged in and ready to start the robot, you can run the robot by typing
 \begin{verbatim}
@@ -64,14 +66,28 @@ to start up the pr2.  Running pr2 start will start the roslaunch for you in the 
 If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that window open until you are done using the robot. Closing that the terminal in which you roslaunched will %LT: How would you describe what happens if you closed or ctrl-C'ed that terminal?
 .
 
-The robot should now be running, but since you have the wireless run-stop disabled, the motors will not be moving.  You can use ROS tools such as ``rostopic list'' to see the topics being published by the system.
+The robot should now be running, but since you have the wireless run-stop disabled, the motors will not be moving.  
+
+If you used ``pr2 start'' then you will not need to open a new terminal to complete other commands. You can type 
+\begin{verbatim}
+rostopic list
+\end{verbatim}
+to see the topics being published by the system. 
+
+If you used ``roslaunch'' to start the robot, then you will need to open a new terminal and type
+\begin{verbatim}
+ssh username@prx1
+rostopic list
+\end{verbatim}
+to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the original terminal.
+
 \section{Running the dashboard}
-When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will let you know if something is going wrong, and is also how you turn the motors and power on and off.  On a computer with a built ROS installation (the base-station that ships with the robot is a good option here), set your ROS\_MASTER\_URI to point at the master running on the robot and launch the dashboard with
+When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will let you know if something is going wrong, and is also how you turn the motors and power on and off.  On a computer with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), set your ROS\_MASTER\_URI to point at the master running on the robot and launch the dashboard by typing
 \begin{verbatim}
 export ROS_MASTER_URI=http://prx1:11311
 rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
-You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot.  Take a moment to review the state of the robot. You can get a sense for the health of your robot by looking at the diagnostics information (click on the wrench on the far left).  Since you have the run-stop disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY ROBOT SHIP DATE).  You should see a warning because the robot was just turned on and the encoders on the joints have not been calibrated yet.
+You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot.  Take a moment to review the state of the robot. You can get a sense for the health of your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY ROBOT SHIP DATE).  You should see a warning because the robot was just turned on and the encoders on the joints have not been calibrated yet.
 If you see warnings or errors in any other sections, you should read the error messages and try to figure out what the problem is.  Ask your robot administrator for help if there are errors that you do not understand.
 \subsection{Understanding pr2\_dashboard}
 When running the PR2, the most important piece of software for you to understand and control the state of the system is the pr2\_dashboard.
