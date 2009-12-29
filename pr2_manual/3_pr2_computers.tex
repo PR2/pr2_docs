@@ -1,40 +1,301 @@
-\chapter{Computers on PR2}
-Covers the configuration of software that comes installed on the robot
+\chapter{PR2 Computers}
+Covers the configuration of the computers and software that comes installed on the robot
 \section{Computer hardware}
-PR2 has two computers on-board.  Each of them has 24 Gb of ram, 2 quad-core Nehalem processors, and two attached hard-drives.  The motherboards are XXX from Rackable systems.  For more information about the computers themselves, please see the users's manual and documentation at XXX (link to Rackable information).
+PR2 has two computers on-board.  Each of them has 24 Gb of ram, 2
+quad-core Nehalem processors, and two attached hard-drives.  The
+motherboards are XXX from Rackable systems.  For more information
+about the computers themselves, please see the users's manual and
+documentation at XXX (link to Rackable information).
 
-Each computer has two hard-drives - one internal 2.5" drive, and a slot for a removable 3.5" SATA hard-drive that is exposed on the top of the robot base.
+Additionally, the PR2 ships with a basestation computer which
+facilitates seamless communication with the PR2 when transitioning
+between wired and wireless networks and additionally serves a role in
+a number of maintenance tasks.
+\subsection{Computer 1 (Master)}
+Computer 1 is the computer physically located on the right side of the
+robot. It is referred to as the master computer because it serves a
+number of key roles for the computer infrastructure:
+\begin{itemize}
+\item It stores the Operating System for both computers. As such
+  computer 2 cannot boot unless 1 has booted first.
+\item It is connected to the PR2 ethercat network, and as such is the
+  only computer where motor control can be done.
+\item It provides routing for the rest of the robot when it is plugged
+  in via the WAN port .
+\item It provides routing for the rest of the robot when connected to
+  another network via an openVPN tunnel
+\item It provides DHCP services for other devices connected to the
+  robot internal network.
+\end{itemize}
+
+Computer 1's PCI slot is used for a 4-port ethernet card, giving it a
+total of 6 ethernet ports. These are:
+\begin{itemize}
+\item \texttt{lan0 - lan4}: connection to internal robot network 
+\item \texttt{wan0}: connected directly to WAN port on back of robot 
+\item \texttt{ecat0}: connected to robot ethercat network 
+\end{itemize}
+
+\subsection{Computer 2 (Slave)}
+Computer 2 is the computer physically located on the left side of the
+robot. It is referred to as the slave computer because it netboots
+from Computer 1.
+
+Computer 2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1},
+both of which are connected to the internal robot network.
+
+\subsection{Basestation}
+The basestation is a zareason XXX.  It is intended to be a dedicated
+point of contact through which network traffic to the robot can be
+routed.  It has 2 ethernet ports, \texttt{eth0}, on the motherboard,
+is the primary ethernet port.  It is intended to be plugged into your
+local network.  By default it is configured to acquire an IP address
+via DHCP, but can be given a static IP address if desired.
+\texttt{eth1}, on the pci card is a dedicated port for servicing the
+robot.  When necessary, this port should be plugged directly into the
+robot service port.
+
+When configured properly, it is important that the basestation is
+visible on port \texttt{1194} both via your local wired network as
+well as via your local wireless network.  This will likely require
+assistance from your local network administrator.
+
 \section{Networking}
-The majority of communication between components onboard the PR2 happens via an onboard ethernet network.
-Access to the robot is provided via four network interfaces - two wired and two wireless.
+The majority of communication between components onboard the PR2
+happens via an onboard ethernet network.  This onboard network can be
+accessed directly via either wired or wireless connections.
+Additionally, the robot can be accessed via the basestation through a
+VPN tunnel.
 \subsection{Network segments}
-\subsection{LAN port}
-\subsection{Wireless access point}
-\subsection{WAN port}
+\begin{itemize}
+\item \texttt{10.68.0.0}: Robot Internal Network. The
+  \texttt{10.68.0.0} subnet is the primary network used internally by
+  the robot.  Both computers have addresses on this subnet.  All
+  ethernet-based devices, such as the cameras and the power board, are
+  given addresses on this subnet.  The robot Service Port, and the
+  cradlepoint ctr350 Wireless Access Point are directly connected to this
+  network.  The master computer, if booted, will give out IP addresses
+  via DHCP in the range \texttt{10.68.0.100-10.68.0.199}.  Important
+  addresses on this network:
+  \begin{itemize}
+  \item \texttt{10.68.0.1} - c1 (master computer)
+  \item \texttt{10.68.0.2} - c2 (slave computer)
+  \item \texttt{10.68.0.5} - wifi-router (linksys router)
+  \item \texttt{10.68.0.6} - reserved for basestation on local network
+  \item \texttt{10.68.0.91} - c1-esms (master computer enterprise server management system)
+  \item \texttt{10.68.0.92} - c2-esms (master computer enterprise server management system)
+  \item \texttt{10.68.0.250} - wap (wireless access point)
+  \end{itemize}
+\item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
+  basestation is to function as a VPN server for the robot.  Each
+  robot can be given a unique VPN subnet to facilitate the operation
+  of multiple robots using a single VPN server.  Under normal
+  operation the basestation will automatically forward relevant
+  traffic into the VPN network, hiding this from the end-user.
+  However, if greater security is desired, the basestation can instead
+  be configured to require users to be assigned a key to access the
+  robot VPN network.  Important addresses on this network:
+  \begin{itemize}
+  \item \texttt{10.68.X.1} - c1 (master computer)
+  \item \texttt{10.68.X.2} - c2 (slave computer)
+  \item \texttt{10.68.255.1} - basestation
+  \end{itemize}
+\end{itemize}
+
+\subsection{Service Port} The robot service port is the bottom
+ethernet port on the back panel of the robot.  It connects directly to
+the robot internel network, allowing you to connect to the computers
+directly.  \textit{DO NOT PLUG THIS PORT INTO YOUR LOCAL NETWORK.}
+The master computer serves DHCP for this network and if it conflicts
+with another DHCP server this will most likely cause problems both on
+your local network and on the robot network depending on which DHCP
+server takes precedence.
+\subsection{Wireless access point} The robot comes configured with a
+cradlepoint ctr350 configured as a wireless access point
+\href{http://www.cradlepoint.com/products/ctr350-mobile-broadband-router}.
+The ESSID of this network defaults to PRLAN, and allows direct access
+to the Robot Internal Network.
+\subsection{WAN port} The robot WAN port is the top ethernet port on
+the back panel of the robot.  This connects directly to \texttt{wan0}
+on the master computer.  This port is intended to be plugged into your
+local network.  The robot will attempt to acquire an IP address via
+DHCP, and then attempt to contact the basestation at a known IP
+address.
 \subsection{Wireless router}
-The PR2 has a \href{http://www.linksysbycisco.com/US/en/products/WRT610N}{Linksys WRT610N} 
-dual-N band wireless router.
+The PR2 has a
+\href{http://www.linksysbycisco.com/US/en/products/WRT610N}{Linksys
+  WRT610N} dual-N band wireless router.  This router can be configured
+to connect to your local wireless network.  In the absence of a WAN
+connection, the robot will attempt to contact the basestation through
+the wireless router instead.
 
 \section{OS}
-The computers run the Ubuntu 9.04 distribution of Linux.  In general, they can be administered like traditional Ubuntu machines.  If you are unfamiliar with Ubuntu, XXX has a lot of good information about the system.  Computer c2 netboots off of computer c1, so software should generally be installed on c1.  TODO: figure out if unionfs is the answer, and if so point people to instructions for installing software on the ystem well.
+The operating system running on the PR2 computers is an extended
+version of Ubuntu 9.04 (Jaunty Jackalope). It depends on a number of
+additional packages for system configuration, but should otherwise be
+familiar to for Ubuntu users. If you run into a computer problem not
+covered by the PR2 documentation, the
+\href{https://help.ubuntu.com/9.04/index.html}{Ubuntu Documentation}
+is the next place to look.
+
+\subsection{NFS and Unionfs}
+The single largest difference between a normal Ubuntu installation and
+the PR2 configuration is that the Slave computer mounts nearly its
+entire filesystem via NFS.  The exceptions to this are the directories
+\texttt{/etc}, \texttt{/var}, and \texttt{/pr2bin} which are mounted
+via unionfs-fuse.  In short, unionfs allows one to specify an
+additional overlay on top of the underlying filesystem.  The contents
+of this overlay can be found in the directory \texttt{/slave} on the
+master machine.  Files added here will show up in the appropriate
+location on the slave machine.  For more information on how this is
+set up, see the man page for \texttt{unionfs-fuse} and look at the
+init-script \texttt{unionfs-fuse-nfs-root}.
+
+New software and configuration changes should only be made on the
+master machine.  Since the slave machine mounts most of its
+filesystems read-only, this will usually be enforced for you.  If you
+are using a non-standard piece of software that attempts to write to
+the filesystem outside of your home directory you will likely need to
+make accommodating changes to either the computer configuration or the
+software you are trying to run.
+
+\subsection{autofs}
+Both of the computers have automount configured for mounting the
+\texttt{/home} partition of the other computer in a
+computer-independent way using autofs. These automounts are located in
+the directory \texttt{/pr}. To get to the home partition on computer 1
+you can use the path \texttt{/pr/1/} and to get to the home partition
+on computer 2 you can use the path \texttt{/pr/2/}. You should rarely
+need to do this explicitly, but it is necessary to make sense of home
+directory locations.
+
+\subsection{Home directories}
+The default configuration for user home directories (as given in
+\texttt{/etc/passwd} is \texttt{/u/username}.  Instead of a directory,
+this location is by default a symlink to \texttt{/pr/1/username}.  To
+place a users home directory at a different location, such as the disk
+on the slave computer, an admin can simply move (or copy) the home
+directory and update the symlink accordingly.
+
 \subsection{Kernel}
 Discuss RT\_PREEMT and anything else non-vanilla about the kernel
+
 \subsection{Storage}
-List locations for:OS, home directories, log files, hardware logs, etc.  Explain NFS setup
+Each computer has two hard-drives - one internal 2.5" drive, and a
+slot for a removable 3.5" SATA hard-drive that is exposed on the top
+of the robot base.
+
+By default the only hard-drive used is the internal drive on the
+Master computer.  There are 3 relevant partitions created during
+installation:
+\begin{itemize}
+\item  \texttt{c1:/dev/sda1} -- \texttt{/} -- holds the root filesystem for the OS
+\item  \texttt{c1:/dev/sda5} -- \texttt{c1:/home} -- stores user home directories (linked to by \texttt{/u} by way of \texttt{/pr/1})
+\item  \texttt{c1:/dev/sda6} -- \texttt{/hwlog} -- stores hardware logs generated by the pr2
+\end{itemize}
+
+The internal hard-drive on the Slave computer has a single partition,
+which is generally used as extra user storage:
+\begin{itemize}
+\item  \texttt{c2:/dev/sda1} -- \texttt{c2:/home} -- stores user home directories (linked to by \texttt{/u} by way of \texttt{/pr/2})
+\end{itemize}
+
+Finally, both computers are configured to make use of the additional
+removable drives.  Any drive loaded into the removable bay will always
+show up as \texttt{/dev/removable}.
+\begin{itemize}
+\item \texttt{/dev/removable1} -- \texttt{/removable} -- stores
+  temporary data users may want to move off the robot, primarily used
+  for large bag files.  This NOT mounted by default.  Users must
+  explicitly
+\begin{verbatim}
+$ mount /dev/removable
+\end{verbatim}
+to use it, and should 
+\begin{verbatim}
+$ umount /dev/removable
+\end{verbatim}
+when done.
+\end{itemize}
+
 \subsection{User accounts}
 \label{creating accounts}
-The pr2 ships with several default user accounts, which are used for system utilities, maintenance, running demos, etc.  These accounts are:
+The pr2 ships with several default user accounts, which are used for
+system utilities, maintenance, running demos, etc.  These accounts
+are:
 \begin{itemize}
 \item{pr2\_admin}
 \item{pr2\_demo}
 \end{itemize}
-In addition to these accounts, the expectation is that each person logging into the robot to develop code will have their own user account.  For instructions on creating user accounts, see \href{http://unixhelp.ed.ac.uk/CGI/man-cgi?adduser}{adduser}.
-\subsection{Clock synchronization}
-Consistent time-stamping of data from the two computers is important for interpreting sensor data on a moving system.
-As a result, keeping the system time on the two computers synced together requires some attention.  The system that is used for this is chrony (point to chrony reference), and the general strategy is to have the two computers tightly coupled to one another, but loosely coupled to an external time source to prevent the robot time from drifting too far from the outside world.  For more information on this, see ref(chrony)
-\section{System installs}
-When the robots ship, the most recent version of ROS and the PR2 software stacks is installed in /usr/lib/ros(?).  By default, new users will have a ROS installation which references the pre-installed code.  Users who wish to modify or replace a part of the system are recommended to install a development version of the stacks or packages which they wish to modify, but to continue to use the base installation for most of the robot functionality.
+In addition to these accounts, the expectation is that each person
+logging into the robot to develop code will have their own user
+account.  Any robot admin can create a new user using the
+\texttt{adduser} command (not the \texttt{useradd} command).
 
-The pr2\_admin user can install updated versions of stacks into this globally visible space.
+Some examples:
+\begin{verbatim}
+$ sudo adduser bob
+$ sudo adduser bill --shell /usr/bin/tcsh --uid 2000
+\end{verbatim}
+
+\textit{Note: it may be helpful to assign users the same UID used on
+  your local network so the UIDs are consistent when mounting shares
+  or moving around the removable drives.}
+
+Moving the home directory and creating the symlink is handled
+automatically by the script: \texttt{/usr/local/sbin/adduser.local}.
+
+\subsection{User groups}
+There are a couple of important groups on the pr2:
+\begin{itemize}
+\item \texttt{admin} -- Members of this group have full root privileges when using the sudo command
+\item \texttt{pr2-admin} -- Members of this group have access to change pr2-specific configuration settings
+\item \texttt{apt} -- Members of this group can install new software
+\end{itemize}
+
+To add a user to a group, use the \texttt{usermod} command.  The most
+common invocation is \texttt{-a} (append) \texttt{-G} (group).  For example:
+
+\begin{verbatim}
+$ sudo usermod -a -G admin bob
+\end{verbatim}
+
+\subsection{Backing up and restoring users}
+Before reinstalling the robot operating system you will likely want to
+back up the user accounts.  This can be done with the command:
+\texttt{pr2-usermigrate}.
+
+To save users:
+\begin{verbatim}
+$ sudo pr2-usermigrate save myrobot.users
+\end{verbatim}
+
+Move this file off the robot before reinstalling.  Then, to restore users:
+\begin{verbatim}
+$ sudo pr2-usermigrate load myrobot.users
+\end{verbatim}
+
+
+\subsection{Clock synchronization}
+Consistent time-stamping of data from the two computers is important
+for interpreting sensor data on a moving system.  As a result, keeping
+the system time on the two computers synced together requires some
+attention.  The system that is used for this is
+\href{http://chrony.tuxfamily.org/}{chrony}, and the general strategy
+is to have the two computers tightly coupled to one another, but
+loosely coupled to an external time source to prevent the robot time
+from drifting too far from the outside world.
+
+\section{System installs}
+When the robots ship, the most recent version of ROS and the PR2
+software stacks is installed in /opr/ros.  By default, new users will
+have a ROS installation which references the pre-installed code.
+Users who wish to modify or replace a part of the system are
+recommended to install a development version of the stacks or packages
+which they wish to modify, but to continue to use the base
+installation for most of the robot functionality.
+
+The pr2\_admin user can install updated versions of stacks into this
+globally visible space.
 
 
