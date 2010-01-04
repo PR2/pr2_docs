@@ -1,7 +1,7 @@
 \chapter{PR2 Computers}
 Covers the configuration of the computers and software that comes installed on the robot
 \section{Computer hardware}
-PR2 has two computers on-board.  Each of them has 24 Gb of ram, 2
+PR2 has two computers, each has 24 Gb of random-access memory (RAM), 2
 quad-core Nehalem processors, and two attached hard-drives.  The
 motherboards are XXX from Rackable systems.  For more information
 about the computers themselves, please see the users's manual and
@@ -16,15 +16,15 @@ Computer 1 is the computer physically located on the right side of the
 robot. It is referred to as the master computer because it serves a
 number of key roles for the computer infrastructure:
 \begin{itemize}
-\item It stores the Operating System for both computers. As such
-  computer 2 cannot boot unless 1 has booted first.
-\item It is connected to the PR2 ethercat network, and as such is the
-  only computer where motor control can be done.
-\item It provides routing for the rest of the robot when it is plugged
+\item Computer 1 stores the operating system for both computers. 
+  Computer 2 cannot boot unless computer 1 has booted first.
+\item Computer 1 is connected to the PR2 ethercat network, and is the
+  only computer that can perform motor control.
+\item Computer 1 provides routing for the rest of the robot when it is plugged
   in via the WAN port .
-\item It provides routing for the rest of the robot when connected to
+\item Computer 1 provides routing for the rest of the robot when connected to
   another network via an openVPN tunnel
-\item It provides DHCP services for other devices connected to the
+\item Computer 1 provides DHCP services for other devices connected to the
   robot internal network.
 \end{itemize}
 
@@ -39,7 +39,7 @@ total of 6 ethernet ports. These are:
 \subsection{Computer 2 (Slave)}
 Computer 2 is the computer physically located on the left side of the
 robot. It is referred to as the slave computer because it netboots
-from Computer 1.
+from computer 1.
 
 Computer 2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1},
 both of which are connected to the internal robot network.
@@ -181,7 +181,7 @@ directory and update the symlink accordingly.
 Discuss RT\_PREEMT and anything else non-vanilla about the kernel
 
 \subsection{Storage}
-Each computer has two hard-drives - one internal 2.5" drive, and a
+Each computer has two hard-drives - one internal 2.5" 500Gb \href{http://www.seagate.com/www/en-us/products/laptops/momentus/momentus_7200.4_g_force/}{Seagate Momentus} drive, and a
 slot for a removable 3.5" SATA hard-drive that is exposed on the top
 of the robot base.
 
