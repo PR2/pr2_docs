@@ -1,5 +1,6 @@
 \chapter{Safety and the PR2}
-Point out which parts of the code are considered part of the hardware safety systems (e.g. joint current limits), and make it clear that changing them can cause problems.
+Point out which parts of the code are considered part of the hardware safety systems (e.g. joint current limits), 
+and make it clear that changing them can cause problems.
 
 Talk about guidelines for safe operation (e.g. is it OK in a normal lab environment?)
 
@@ -11,7 +12,8 @@ The PR2 will arrive in a big crate.  In the crate should be:
 \subsection{Wireless run-stop}
 \label{wirelessrunstop}
 The PR2 comes with an \href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50} 
-wireless run-stop transmitter. When stopped or out of range, the wireless run-stop transmitter will halt the motors and put the power system in standby mode. 
+wireless run-stop transmitter. When stopped or out of range, the wireless run-stop transmitter will halt the motors 
+and put the power system in standby mode. 
 
 \begin{figure}[h]
 \centering
@@ -21,7 +23,9 @@ wireless run-stop transmitter. When stopped or out of range, the wireless run-st
 \end{figure}
 
 To start the run-stop, press the green start button (Figure~\ref{fig:runstop}); if this works properly, you will see a 
-light flashing on the run-stop. While transmitting, the run-stop has a range of approximately 800 ft. The run-stop is powered by four AA batteries; the battery light will flash when the battery charge is low, which is an indication that you should change the batteries.
+light flashing on the run-stop. While transmitting, the run-stop has a range of approximately 800 ft. The run-stop is 
+powered by four AA batteries; the battery light will flash when the battery charge is low, which is an indication that 
+you should change the batteries.
 
 \subsection{Wireless Joystick}
 The PR2 ships with a bluetooth joystick for teleoperating the robot. The bluetooth joystick is a 
@@ -40,7 +44,8 @@ wireless controller. It can be charged using any standard USB A to mini-B USB ca
 \section{Mechanism}
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
 \subsection{Robot anatomy}
-Include the information from the robot anatomy document here.  Official names of all components, links, and joints in the robot with pictures.
+Include the information from the robot anatomy document here.  Official names of all components, links, and 
+joints in the robot with pictures.
 
 \begin{figure}[h]
 \centering
@@ -93,8 +98,8 @@ The PR2 has a variety of sensors spread out over it's body:\\\\
 
 \subsection{Base Laser}
 The base laser of the PR2 is \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)} 
-scanning range finder that is located on PR2's base. This laser has a 30 m and 270$^\circ$ scanning range. For more information, see the 
-\href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at \href{http://www.ros.org}{ros.org}.
+scanning range finder that is located on PR2's base. This laser has a 30 m and 270$^\circ$ scanning range. For more information, 
+see the \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Tilting Laser}
 \label{tilting laser}
@@ -109,8 +114,8 @@ The PR2 pan-tilt head has three cameras and a textured light projector:
 \begin{description}
 \label{stereo camera}
 \item[Wide Stereo Camera]
-The wide stereo camera of the PR2 is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo uses the
-\href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC} imager chip
+The wide stereo camera of the PR2 is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo 
+uses the \href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC} imager chip
 and has a maximum resolution of 752 x 480 pixels at 15 fps. The camera has a field of view (FOV) of approximately 
 $90^\circ$ and a 2.5mm F2.5 \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4402.5-2.5-HR).pdf}{Marshall V-4402.5-2.5-HR} 
 lens. For more information, see the \href{http://www.ros.org/wiki/wge100_camera}{TODO} package
@@ -129,14 +134,14 @@ at \href{http://www.ros.org}{ros.org}.
 The PR2 has a gigabit ethernet camera located to the left of the dual stereo pair on the pan-tilt head. 
 The gigabit ethernet camera is a \href{http://www.prosilica.com/products/gc2450.html}{Prosilica GC2450C},  
 which uses the Sony ICX-625AQ imager chip and has a maximum resolution of 2448 x 2050 pixels at 15 fps. 
-Additionally, the gigabit ethernet camera has a 8mm F1.4-F16 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM8JC&co=10000348}{Kowa LM8JC} lens.
-For more information, see the \href{http://www.ros.org/wiki/prosilica_camera}{prosilica\_camera} package
-at \href{http://www.ros.org}{ros.org}.
+Additionally, the gigabit ethernet camera has a 8mm F1.4-F16 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM8JC&co=10000348}{Kowa LM8JC} 
+lens. For more information, see the \href{http://www.ros.org/wiki/prosilica_camera}{prosilica\_camera} 
+package at \href{http://www.ros.org}{ros.org}.
 
 \item[Textured Light Projector]
 \label{texture projector}
-The PR2 has a textured light projector located to the (robot's) left of the dual stereo pair on the pan-tilt head. The projector has a 
-FOV of approximately $55^\circ$ and a 5.6mm F2.0 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa LM12JC} 
+The PR2 has a textured light projector located to the (robot's) left of the dual stereo pair on the pan-tilt head. 
+The projector has a FOV of approximately $55^\circ$ and a 5.6mm F2.0 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa LM12JC} 
 lens.  For more information, see the \href{http://www.ros.org/wiki/TODO}{TODO} package at \href{http://www.ros.org}{ros.org}.
 
 \end{description}
@@ -168,7 +173,8 @@ package at \href{http://www.ros.org}{ros.org}.
 The PR2 has an inertial measurement unit (IMU) located next to the tilting laser. The IMU is a 
 \href{http://www.microstrain.com/3dm-gx2.aspx}{MicroStrain Inertial-Link 3DM-GX2} which has an 
 accelerometer range of $\pm$5g and a gyro range of $300^\circ/s$. For more information, see 
-the \href{http://www.ros.org/wiki/microstrain_3dmgx2_imu}{microstrain\_3dmgx2\_imu} package at \href{http://www.ros.org}{ros.org}.
+the \href{http://www.ros.org/wiki/microstrain_3dmgx2_imu}{microstrain\_3dmgx2\_imu} package 
+at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Speaker}
 The PR2 has one \href{http://www.logitech.com/index.cfm/speakers_audio/home_pc_speakers/devices/199&cl=us,en}{Logitech V20 notebook speaker} 
@@ -193,14 +199,15 @@ The robot has several internal power busses:
 \subsection{Batteries}
 The battery system has four battery bays comprised of four \href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL}
 14.4V Li-ion batteries, a \href{http://www.v-infinity.com/adtemplate_child.asp?c=710918&p=903285&catky=764537&subcatky1=46887&subcatky2=320934}{V-INFINITY VF-S320-18A-CF}
-18V AC-DC Power Supply, and a \href{http://www.oceanserver-store.com/xpmibamamo.html}{Ocean Server XP-04SRW} four-channel high current battery controller. 
-This provides the PR2 with approximately two hours of countinous operation after a full recharge. For more information, see the 
-\href{http://www.ros.org/wiki/ocean\_server}{ocean\_server} package at \href{http://www.ros.org}{ros.org}.
+18V AC-DC Power Supply, and a \href{http://www.oceanserver-store.com/xpmibamamo.html}{Ocean Server XP-04SRW} four-channel high 
+current battery controller. This provides the PR2 with approximately two hours of countinous operation after a full recharge. 
+For more information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean\_server} package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Power board}
 
 \subsection{Modularity and expansion}
-Talk here about the head bolt-pattern and electrical connections, plus other interfaces.  Question of whether to try to have full specs for all interfaces or not.
+Talk here about the head bolt-pattern and electrical connections, plus other interfaces.  Question of whether 
+to try to have full specs for all interfaces or not.
 
 
 
