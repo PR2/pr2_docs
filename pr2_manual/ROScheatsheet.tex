@@ -43,7 +43,7 @@
 % if using A4 paper. (This probably isn't strictly necessary.)
 % If using another size paper, use default 1cm margins.
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
-	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{ \geometry{top=.40in,left=.5in,right=.5in,bottom=.40in} }
 	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
 		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
@@ -56,15 +56,15 @@
 % Redefine section commands to use less space
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
-                                {-1ex plus -.5ex minus -.2ex}%
-                                {0.5ex plus .2ex}%x
+                                {-0mm} %plus -.5mm minus -.5mm}%
+                                {0.5mm}%x
                                 {\normalfont\large\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
-                                {-1explus -.5ex minus -.2ex}%
+                                {-0mm}%
                                 {0.5ex plus .2ex}%
                                 {\normalfont\normalsize\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
-                                {-1ex plus -.5ex minus -.2ex}%
+                                {-1mm}%
                                 {1ex plus .2ex}%
                                 {\normalfont\small\bfseries}}
 \makeatother
@@ -112,7 +112,7 @@
 %\texttt{\href{http://www.ros.org/wiki/Stack}{stack}} & Collections of ROS packages that form a higher-level library. \\
 %\texttt{\href{http://www.ros.org/wiki/Stack Manifest}{stack manifest}}  & Description of a ROS stack.
 %\end{tabular}
-
+\vspace{-2.5 mm}
 \section{Filesystem Command-line Tools}
 \begin{tabular}{@{}p{\the\MyLen}%
                 @{}p{\linewidth-\the\MyLen}@{}}
@@ -124,6 +124,7 @@
 \texttt{\href{http://www.ros.org/wiki/rosdep}{rosdep}} & Installs ROS package system dependencies.\\
 \texttt{\href{http://www.ros.org/wiki/rosmake}{rosmake}} & Builds a ROS package.\\
 \texttt{\href{http://www.ros.org/wiki/rosmsg}{rosmsg}}/\texttt{rossrv} & Displays information about ROS \href{http://www.ros.org/wiki/msg}{message}/\href{http://www.ros.org/wiki/srv}{service} types .\\
+\texttt{\href{http://www.ros.org/wiki/roswtf}{roswtf}} & Displays a errors and warnings about a running ROS system or launch file.\\
 \texttt{\href{http://www.ros.org/wiki/rxdeps}{rxdeps}} & Displays package structure and dependencies.\\
 \end{tabular}
 
@@ -136,22 +137,12 @@ Us\=age:\\
 \> \texttt{\$ rosmake [package]}\\
 \> \texttt{\$ rosdep install [package]}\\
 \> \texttt{\$ rosmsg show [message type]}\\
+\> \texttt{\$ roswtf or roswtf [file]}\\
 \> \texttt{\$ rxdeps [options]}
 \end{tabbing}
 
-%\section{Graph Concepts}
-%\settowidth{\MyLen}{\texttt{multicol} }
-%\begin{tabular}{@{}p{\the\MyLen}%
-%                @{}p{\linewidth-\the\MyLen}@{}}
-%\texttt{\href{http://www.ros.org/wiki/Master}{master}}   & Provides naming and registration services to ROS nodes. \\
-%\texttt{\href{http://www.ros.org/wiki/Nodes}{nodes}}   & Process that performs computation. \\
-%\texttt{\href{http://www.ros.org/wiki/Topics}{topics}}  & Named buses over which ROS nodes exchange ROS messages. \\
-%\texttt{\href{http://www.ros.org/wiki/Messages}{messages}} & A data structure comprising typed fields. \\
-%\texttt{\href{http://www.ros.org/wiki/Services}{services}}  & A data structure comprising typed fields with a request and reply.\\
-%\texttt{\href{http://www.ros.org/wiki/Parameter Server}{parameter server}}  & A shared multi-variate dictionary where ROS nodes can store and retrieve parameters at runtime.
-%\end{tabular}
-
-\section{Graph Command-line Tools}
+\vspace{-2.5 mm}
+\section{Common Command-line Tools}
 \subsection{\href{http://www.ros.org/wiki/roscore}{roscore}}
 A collection of \href{http://www.ros.org/wiki/Nodes}{nodes} and programs that are pre-requisites of a ROS-based system. You must have a roscore running in order for ROS nodes to communicate.\\
 \begin{tabbing}
@@ -165,28 +156,10 @@ Us\=age:\\
 \> \texttt{\$ roscore}
 \end{tabbing}
 
-\subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
-Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
-\vspace{2.5 mm}
-\includegraphics[width=\columnwidth]{rxgraph.png}
-\begin{tabbing}
-Us\=age:\\
-\> \texttt{\$ rxgraph}\\
-\end{tabbing}
-
-\subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
-Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
-\begin{tabbing}
-E\=x\=amples:\\
-\> Launch on a different port:\\
-\> \> \texttt{\$ roslaunch -p 1234 package filename.launch}\\
-\> Launch on the local nodes:\\
-\> \> \texttt{\$ roslaunch --local package filename.launch}\\
-\end{tabbing}
-
+\vspace{-1.5 mm}
 \subsection{\href{http://www.ros.org/wiki/rosnode}{rosnode}}
 Displays debugging information about ROS nodes, including publications, subscriptions and connections.\\
-
+\vspace{2.5 mm}
 Commands: \\ 
 \begin{tabular}{@{}p{\the\MyLen}%
                 @{}p{\linewidth-\the\MyLen}@{}}
@@ -206,6 +179,20 @@ E\=x\=amples:\\
 \> \> \texttt{\$ rosnode ping --all} 
 \end{tabbing}
 
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/roslaunch}{roslaunch}}
+Starts ROS nodes locally and remotely via SSH, as well as setting parameters on the parameter server.\\
+\begin{tabbing}
+E\=x\=amples:\\
+\> Launch on a different port:\\
+\> \> \texttt{\$ roslaunch -p 1234 package filename.launch}\\
+\> Launch on the local nodes:\\
+\> \> \texttt{\$ roslaunch --local package filename.launch}
+\end{tabbing}
+
+
+\vspace{-1.5 mm}
 \subsection{\href{http://www.ros.org/wiki/rostopic}{rostopic}}
 A tool for displaying debug information about ROS \href{http://www.ros.org/wiki/Topics}{topics}, including publishers, subscribers, publishing rate, and messages.\\
 \vspace{2.5 mm}
@@ -232,18 +219,7 @@ E\=x\=amples:\\
 \> \>\texttt{\$ rostopic type /topic\_name | rosmsg show}
 \end{tabbing}
 
-\subsection{\href{http://www.ros.org/wiki/rxtools}{rxplot}}
-A tool for plotting data from one or more ROS topic fields using matplotlib.\\
-\begin{tabbing}
-E\=x\=amples:\\
-\> To graph the data in different plots:\\
-\> \>\texttt{\$ rxplot /topic1/field1 /topic2/field2}\\
-\> To graph the data all on the same plot:\\
-\> \>\texttt{\$ rxplot /topic1/field1,/topic2/field2}\\
-\> To graph multiple fields of a message:\\
-\> \>\texttt{\$ rxplot /topic1/field1:field2:field3}\\
-\end{tabbing}
-
+\vspace{-1.5 mm}
 \subsection{\href{http://www.ros.org/wiki/rosparam}{rosparam}}
 A tool for getting and setting ROS \href{http://www.ros.org/wiki/Parameter Server}{parameters} on the parameter server using YAML-encoded files.\\
 \vspace{2.5 mm}
@@ -263,10 +239,11 @@ E\=x\=amples:\\
 \> \>\texttt{\$ rosparam list /namespace}\\
 \> Setting a list with one as a string, integer, and float:\\
 \> \>\texttt{\$ rosparam set /foo "['1', 1, 1.0]"}\\
-\> Dump only the the parameters in the specified namespace to file:\\
+\> Dump only the parameters in a specific namespace to file:\\
 \> \>\texttt{\$ rosparam dump dump.yaml /namespace}
 \end{tabbing}
 
+\vspace{-1.5 mm}
 \subsection{\href{http://www.ros.org/wiki/rosservice}{rosservice}}
 A tool for listing and querying ROS services.\\
 \vspace{2.5 mm}
@@ -291,6 +268,56 @@ E\=x\=amples:\\
 \> \>\texttt{\$ rosservice find rospy\_tutorials/AddTwoInts}\\
 \end{tabbing}
 
+\vspace{-2.5 mm}
+\section{Logging Command-line Tools}
+\subsection{\href{http://www.ros.org/wiki/rosrecord}{rosrecord}}
+Records currently published topics and generates a ``.bag'' file (so named for historical reasons).
+\begin{tabbing}
+E\=x\=amples:\\
+\> Record all topics:\\
+\> \>\texttt{\$ rosrecord -a}\\
+\> Record select topics:\\
+\> \>\texttt{\$ rosrecord topic1 topic2}\\
+\end{tabbing}
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rosplay}{rosplay}}
+Replays the contents of one or more ``.bag'' files in a time-synchronized fashion.
+\begin{tabbing}
+E\=x\=amples:\\
+\> Replay all messages without waiting:\\
+\> \>\texttt{\$ rosplay -a demo\_log.bag}\\
+\> Replay several bag files at once:\\
+\> \>\texttt{\$ rosplay demo1.bag demo2.bag}\\
+\> Check contents of the bag without playing back:\\
+\> \>\texttt{\$ rosplay -c demo1.bag}\\
+\end{tabbing}
+
+\vspace{-2.5 mm}
+\section{Graphical Command-line Tools}
+\subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
+Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
+\includegraphics[width=\columnwidth]{rxgraph.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rxgraph}\\
+\end{tabbing}
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rxtools}{rxplot}}
+A tool for plotting data from one or more ROS topic fields using matplotlib.\\
+\vspace{2.5 mm}
+\includegraphics[width=\columnwidth]{rxplot.png}
+\begin{tabbing}
+E\=x\=amples:\\
+\> To graph the data in different plots:\\
+\> \>\texttt{\$ rxplot /topic1/field1 /topic2/field2}\\
+\> To graph the data all on the same plot:\\
+\> \>\texttt{\$ rxplot /topic1/field1,/topic2/field2}\\
+\> To graph multiple fields of a message:\\
+\> \>\texttt{\$ rxplot /topic1/field1:field2:field3}\\
+\end{tabbing}
+
 
 
 
@@ -298,7 +325,7 @@ E\=x\=amples:\\
 \scriptsize
 
 Copyright \copyright\ 2009 Willow Garage
-
+\vspace{3000 mm}
 
 
 \end{multicols}
