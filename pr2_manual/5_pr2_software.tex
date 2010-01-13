@@ -6,7 +6,6 @@ on ros.org. Familiarity with ROS tools will make using the robot much easier.  I
 what a launch file is and how to run it, and how to run ROS with nodes on multiple computers. This chapter will walk 
 you through starting up and running a PR2, using ROS.
 
-
 \section{Getting set up}
 \subsection{Out of the box}
 If you are starting your PR2 for the first time at your institution, please read the previous sections,\ref{Setting up PR2 in your lab}.  
@@ -14,12 +13,12 @@ This will give you advice on setting up the network, setting the administrative 
 charging the PR2.  This chapter assumes that the PR2 is already set up for your lab.
 \subsection{Batteries and power}
 Before running the robot, you need to make sure it has power.  The battery life of the PR2 is approximately two hours, 
-so keeping PR2 plugged in when not in use is a good idea.  You can follow the instructions in this chapter to start up 
+so it is a good idea to keep the PR2 plugged in when not in use.  You can follow the instructions in this chapter to start up 
 the PR2 while it is plugged into the power outlet, which will keep the batteries charged.
 \subsection{Run-stop}
 The PR2 will not run its motors unless both run-stop buttons (the red push-button on the middle of the PR2's back, and 
 the yellow wireless run-stop transmitter) are enabled.  Before you operate the PR2, you should have the wireless run-stop 
-nearby, so that you can shut down the motors if you need to.  Before turning on the robot, press the red button on the 
+nearby, so that you can shut down the motors if you need to.  Before turning on the robot, press the red ``stop'' button on the 
 wireless run-stop transmitter to prevent the motors from moving before you are ready.
 
 %Add image of red push-button on PR2's back here
@@ -28,6 +27,15 @@ wireless run-stop transmitter to prevent the motors from moving before you are r
 \includegraphics[width=150px]{run_stop.png}
 \caption{The PR2 wireless run-stop.}
 \label{fig:runstop}
+\end{figure}
+
+The wireless run-stop also uses battery power, which can run down. Therefore, it is a good idea to turn the wireless run-stop off when not in use. If the wireless run-stop runs out of battery charge, then the battery light (the light next to the battery symbol in the lower half of the wireless run-stop face) will flash. To change the battery, you will need a slotted screwdriver to open the wireless run-stop case and replace the batteries.
+
+\begin{figure}[h]
+\centering
+\includegraphics{opening_runstop.png}
+\caption{Opening the PR2 wireless run-stop to change the batteries.}
+\label{fig:opening-runstop}
 \end{figure}
 
 \subsection{Getting an account}
@@ -50,7 +58,7 @@ the back panel of the robot to the ``on'' position.
 \label{fig:dc_breaker}
 \end{figure}
 
-You should see the red lights on the computers turn on, hear the fans spin up, and hear several beeps from the computers 
+You should see the red lights on the computers turn on, hear the fans spin up, and hear several rising-tone beeps from the computers 
 as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can 
 skip this step (but should still disable the wireless run-stop).
 \subsection{Logging in}
@@ -67,7 +75,6 @@ You will notice that you are already set up with a ROS environment.  To see what
 $ rospack list-names
 \end{verbatim}
 and you should see a list of the ros packages currently in your path.
-%LT: What if they don't see this? What should they do? Contact administrator and say X?
 
 \subsection{Checking for other users}
 If you logged in to a robot that was already running, you should check to see if anyone else is using the robot. To 
@@ -103,8 +110,6 @@ allow you to continue to use your current terminal and the robot will keep runni
 If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
 window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the 
 roslaunch.
-%LT: How would you describe what happens if you closed or ctrl-C'ed that terminal?
-
 
 The robot should now be running, but since you have the wireless run-stop disabled, the motors will not be moving.  
 
@@ -120,19 +125,24 @@ $ ssh username@prx1
 $ rostopic list
 \end{verbatim}
 to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the 
-original terminal.
+original terminal. Remember that \textcolor{red}{x} is a placeholding variable to be replaced with your robot's ID.
 
 \section{Running the dashboard}
 When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will 
-let you know if something is going wrong, and is also how you turn the motors and power on and off.  On a computer 
-with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), set your ROS\_MASTER\_URI 
+let you know if something is going wrong, and is also how you turn the motors and power on and off.  
+
+On a computer with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), set your ROS\_MASTER\_URI 
 to point at the master running on the robot and launch the dashboard by typing
 \begin{verbatim}
 $ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
 You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information 
-about the state of the robot.  Take a moment to review the state of the robot. You can get a sense for the health of 
+about the state of the robot. It is ok if not all of the icons are green. In fact, the Runstops should be ``warning'' you that the wireless runstop is not on. 
+
+
+
+Take a moment to review the state of the robot. You can get a sense for the health of 
 your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop 
 disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY 
 ROBOT SHIP DATE).  You should see a warning because the robot was just turned on and the encoders on the joints have not 
@@ -191,7 +201,7 @@ There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessruns
 
     \newcolumntype{S}{>{\centering\arraybackslash} m{2.5cm} }%                                                                                                         
     \begin{tabular}{m{2.6cm}SSS}
-     & OK & Physical Stop & Wireless Stop\\
+     & OK & Physical Stop is Off & Wireless Stop is Off\\
     Runstop Status & \includegraphics[scale=0.5]{runstop-green.png}\includegraphics[scale=0.5]{runstop-green.png}&
                      \includegraphics[scale=0.5]{runstop-red.png}\includegraphics[scale=0.5]{runstop-green.png}&
                      \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop-red.png}\\
