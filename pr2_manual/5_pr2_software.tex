@@ -131,8 +131,7 @@ original terminal. Remember that \textcolor{red}{x} is a placeholding variable t
 When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will 
 let you know if something is going wrong, and is also how you turn the motors and power on and off.  
 
-On a computer with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), set your ROS\_MASTER\_URI 
-to point at the master running on the robot and launch the dashboard by typing
+On a computer with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), not on the robot itself, set your ROS\_MASTER\_URI to point at the master running on the robot and launch the dashboard by typing
 \begin{verbatim}
 $ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun pr2_dashboard pr2_dashboard
@@ -257,7 +256,7 @@ While pressing L1, use the other buttons for the following movements:
 \label{fig:buttons}
 \end{figure}
 
-
+Be sure to check to see if the robot is plugged in (e.g., ethernet cables or power cables)! If it is plugged in, then be very cautious to avoid pulling the cables out improperly.
 
 For more information about how to drive the robot around, see the 
 \href{http://www.ros.org/wiki/ps3joy/Tutorials/UsingJoystickWithPR2}{ps3joy} tutorial at \href{http://www.ros.org}{ros.org}. 
@@ -277,3 +276,14 @@ of data coming from the robot, See the \href{http://ros.org/wiki/rviz}{rviz} doc
 \section{What next?}
 From here, you can do what you want on the robot.  Point to instructions for writing code and to a list of other 
 applications and things to do with the robot.
+
+\section{Putting Away the PR2}
+To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireles run-stop, shut down your proceses on the robot, and log off of the robot.
+
+First, put away the robot. Drive the robot to the appropriate location in your lab and plug it in to recharge.
+% Add notes here about how to recharge the robot without getting shocked.
+
+Second, shut down all of your processes running on the robot (e.g., Ctrl-C in each terminal running on the robot computers) and log off of the robot by typing:
+\begin{verbatim}
+$ exit
+\end{verbatim}
