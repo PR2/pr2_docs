@@ -196,7 +196,7 @@ Each breaker can be in one of four states, and clicking on any of the breakers w
 
 
 
-\item[Runstop Status] The runstop indicators display the staus of the PR2 runstops and their states cannot be changed using the dashboard. 
+\item[Runstop Status] The runstop indicators display the status of the PR2 runstops and their states cannot be changed using the dashboard. 
 There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessrunstop}, and a red push button run-stop on the back of the robot.\\
 
     \newcolumntype{S}{>{\centering\arraybackslash} m{2.5cm} }%                                                                                                         
@@ -231,15 +231,34 @@ $ ssh username@prx1
 $ roslaunch pr2_alpha teleop_joystick.launch 
 \end{verbatim}
 (NOTE- Move out of pr2\_alpha before release and document button mapping)
-Once the teleop\_joystick node is running, press the parring button (Figure~\ref{fig:pairing}) in the middle of the 
-joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). Then you should be able to 
-drive the robot around.
+Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:pairing}) in the middle of the 
+joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.40]{pairing.png}
 \caption{Pairing the joystick with the PR2.}
-\label{fig:pairing}
+\label{fig:ps3_pairing}
 \end{figure}
+Then to control the robot, use L1 (button 10 in Figure~\ref{fig:buttons}) as the deadman.
+No commands are send without the deadman engaged.
+While pressing L1, use the other buttons for the following movements:
+\begin{enumerate}
+\item Right stick: translate the base
+\item Left stick: Yaw (rotate) the base
+\item "L2": The "head button" allows the sticks to control the head instead of the base.
+\item "R1" : Run button commands the base faster
+\item "Triangle", "X": Move the torso up and down 
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{ps3_buttons.png}
+\includegraphics[scale=0.40]{ps3_buttons_front.png}
+\caption{The PS3 buttons.}
+\label{fig:buttons}
+\end{figure}
+
+
+
 For more information about how to drive the robot around, see the 
 \href{http://www.ros.org/wiki/ps3joy/Tutorials/UsingJoystickWithPR2}{ps3joy} tutorial at \href{http://www.ros.org}{ros.org}. 
 
