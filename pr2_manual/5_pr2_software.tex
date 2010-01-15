@@ -31,9 +31,9 @@ wireless run-stop transmitter to prevent the motors from moving before you are r
 
 The wireless run-stop also uses battery power, which can run down. Therefore, it is a good idea to turn the wireless run-stop off when not in use. If the wireless run-stop runs out of battery charge, then the battery light (the light next to the battery symbol in the lower half of the wireless run-stop face) will flash. To change the battery, you will need a slotted screwdriver to open the wireless run-stop case and replace the batteries.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \centering
-\includegraphics{opening_runstop.png}
+\includegraphics[width=125px]{opening_runstop.png}
 \caption{Opening the PR2 wireless run-stop to change the batteries.}
 \label{fig:opening-runstop}
 \end{figure}
@@ -98,26 +98,28 @@ processing and logging of diagnostics information, and monitors for various type
 
 Once you are logged in and ready to start the robot, you can run the robot by typing
 \begin{verbatim}
-$ pr2 start
+$ robot start
 \end{verbatim}
-OR
+If this does not work, try typing
 \begin{verbatim}
-$ roslaunch /etc/pr2/pr2.launch
+$ sudo robot start
 \end{verbatim}
-to start up the pr2.  Running pr2 start will start the roslaunch for you in the background as a system user. This will 
+Running robot start will start the roslaunch for you in the background as a system user. This will 
 allow you to continue to use your current terminal and the robot will keep running after you log out.  
 
-If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
-window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the 
-roslaunch.
-
-The robot should now be running, but since you have the wireless run-stop disabled, the motors will not be moving.  
-
-If you used ``pr2 start'' then you will not need to open a new terminal to complete other commands. You can type 
+If you used ``robot start'' then you will not need to open a new terminal to complete other commands. You can type 
 \begin{verbatim}
 $ rostopic list
 \end{verbatim}
 to see the topics being published by the system. 
+
+Alternatively, if you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
+window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the 
+roslaunch.
+\begin{verbatim}
+$ roslaunch /etc/pr2/pr2.launch
+\end{verbatim}
+to start up the pr2.  
 
 If you used ``roslaunch'' to start the robot, then you will need to open a new terminal and type
 \begin{verbatim}
@@ -126,6 +128,8 @@ $ rostopic list
 \end{verbatim}
 to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the 
 original terminal. Remember that \textcolor{red}{x} is a placeholding variable to be replaced with your robot's ID.
+
+Either way, the robot should be running, but since you have the wireless run-stop disabled, the motors will not be moving.  
 
 \section{Running the dashboard}
 When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will 
