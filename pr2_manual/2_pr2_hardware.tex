@@ -163,7 +163,20 @@ of the accelerometer can be selected in software. For more information, see the 
 package at \href{http://www.ros.org}{ros.org}.
 
 \item[Fingertip Pressure Sensors]
+The default fingertips of the PR2 are sturdy aluminum blocks with non-slip 
+rubber covers, for added friction and compliance in grasping.  However, the 
+aluminum tips can be swapped out for an (included) set of RoboTouch tactile 
+sensing pads made by Pressure Profile Systems, each with 22 tactile sensing 
+elements: 15 in a 5x3 array on the front surface, 2 on top, 2 on each side, 
+and 1 in back, near the top.  Each tactile element has a pressure range of 
+0-30 psi (0-205 kPa) and sensitivity of 0.1 psi (0.7 kPa).  The sensors 
+connect to the robot via an SPI ribbon cable and two screws, and have a 
+maximum scan rate of 35 Hz.
 
+The tactile sensors are highly fragile when not protected by the rubber 
+covering, and so care should be taken not to damage the rubber covering when 
+the tactile sensors are being used on the robot.  For more information, 
+see the \href{http://www.ros.org/wiki/fingertip\_pressure}{fingertip\_pressure} package at \href{http://ros.org}{ros.org}.
 
 \item[Calibration LED]
 
