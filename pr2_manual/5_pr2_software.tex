@@ -231,9 +231,8 @@ To move the robot, you can now drive it around with the joystick.  To do this, y
 to the robot and run the teleop\_joystick launch file
 \begin{verbatim}
 $ ssh username@prx1
-$ roslaunch pr2_alpha teleop_joystick.launch 
+$ roslaunch pr2_teleop teleop_joystick.launch 
 \end{verbatim}
-(NOTE- Move out of pr2\_alpha before release and document button mapping)
 Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:pairing}) in the middle of the 
 joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
 \begin{figure}[H]
@@ -243,7 +242,7 @@ joystick to pair it with the robot (the four LEDs on the jostick will flash when
 \label{fig:ps3_pairing}
 \end{figure}
 Then to control the robot, use L1 (button 10 in Figure~\ref{fig:buttons}) as the deadman.
-No commands are send without the deadman engaged.
+No commands are sent without the deadman engaged.
 While pressing L1, use the other buttons for the following movements:
 \begin{enumerate}
 \item Right stick: translate the base
