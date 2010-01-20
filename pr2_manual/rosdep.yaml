@@ -1,0 +1,3 @@
+latex:
+  ubuntu:
+    9.10: texlive-latex-extra
