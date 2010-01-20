@@ -294,10 +294,10 @@ E\=x\=amples:\\
 \end{tabbing}
 
 \vspace{-2.5 mm}
-\section{Graphical Command-line Tools}
+\section{Graphical Tools}
 \subsection{\href{http://www.ros.org/wiki/rosgraph}{rxgraph}}
 Displays a graph of the ROS nodes that are currently running, as well as the ROS topics that connect them.\\
-\includegraphics[width=\columnwidth]{rxgraph.png}
+\includegraphics[width=.75\columnwidth]{rxgraph.png}
 \begin{tabbing}
 Us\=age:\\
 \> \texttt{\$ rxgraph}\\
@@ -307,7 +307,7 @@ Us\=age:\\
 \subsection{\href{http://www.ros.org/wiki/rxtools}{rxplot}}
 A tool for plotting data from one or more ROS topic fields using matplotlib.\\
 \vspace{2.5 mm}
-\includegraphics[width=\columnwidth]{rxplot.png}
+\includegraphics[width=.75\columnwidth]{rxplot.png}
 \begin{tabbing}
 E\=x\=amples:\\
 \> To graph the data in different plots:\\
@@ -317,6 +317,29 @@ E\=x\=amples:\\
 \> To graph multiple fields of a message:\\
 \> \>\texttt{\$ rxplot /topic1/field1:field2:field3}\\
 \end{tabbing}
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rxbag}{rxbag}}
+A tool for visualizing, inspecting, and replaying histories (bag files) of ROS messages.\\
+\vspace{2.5 mm}
+\includegraphics[width=.75\columnwidth]{rxbag-1.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rxbag bag\_file.bag}\\
+\end{tabbing}
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rxconsole}{rxconsole}}
+A tool for displaying and filtering messages published on rosout.\\
+\vspace{2.5 mm}
+\includegraphics[width=.75\columnwidth]{rxconsole.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rxconsole}\\
+\end{tabbing}
+
+
+
 
 
 
