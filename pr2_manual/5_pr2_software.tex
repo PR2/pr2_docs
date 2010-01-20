@@ -205,14 +205,25 @@ There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessruns
     \newcolumntype{S}{>{\centering\arraybackslash} m{2.5cm} }%                                                                                                         
     \begin{tabular}{m{2.6cm}SSS}
      & OK & Physical Stop is Off & Wireless Stop is Off\\
-    Runstop Status & \includegraphics[scale=0.5]{runstop-green.png}\includegraphics[scale=0.5]{runstop-green.png}&
-                     \includegraphics[scale=0.5]{runstop-red.png}\includegraphics[scale=0.5]{runstop-green.png}&
-                     \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop-red.png}\\
+    Runstop Status & \includegraphics[scale=0.5]{runstop-green.png}\includegraphics[scale=0.5]{runstop_wireless_ok.png}&
+                     \includegraphics[scale=0.5]{runstop-red.png}\includegraphics[scale=0.5]{runstop_wireless_ok.png}&
+                     \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop_wireless_stop.png}\\
    \end{tabular}
 
 
 \item[Battery Status]
-%LT: NEED CONTENT HERE; how should one interpret the battery status indicator?
+The battery will change its color and \% filled based on the amount of battery remaining. It will also show a power-plug symbol if the robot is charging.
+    \newcolumntype{S}{>{\centering\arraybackslash} m{1.85cm} }%                                                      
+                                                                                                                      
+    \begin{tabular}{m{2.5cm}SSSS}
+     & $>$ 50\% & 30 - 50\% & $<$ 30\% & Charging\\
+    Battery Status & \includegraphics[scale=0.5]{battery_green.png}&
+                     \includegraphics[scale=0.5]{battery_yellow.png}&
+                     \includegraphics[scale=0.5]{battery_red.png}&
+                     \includegraphics[scale=0.5]{battery_charging.png}\\
+   \end{tabular}
+
+
 \end{description}
 
 \section{Calibrating the joints}
@@ -233,7 +244,7 @@ to the robot and run the teleop\_joystick launch file
 $ ssh username@prx1
 $ roslaunch pr2_teleop teleop_joystick.launch 
 \end{verbatim}
-Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:pairing}) in the middle of the 
+Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:ps3_pairing}) in the middle of the 
 joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
 \begin{figure}[H]
 \centering
