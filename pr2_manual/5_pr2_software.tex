@@ -98,10 +98,6 @@ processing and logging of diagnostics information, and monitors for various type
 
 Once you are logged in and ready to start the robot, you can run the robot by typing
 \begin{verbatim}
-$ robot start
-\end{verbatim}
-If this does not work, try typing
-\begin{verbatim}
 $ sudo robot start
 \end{verbatim}
 Running robot start will start the roslaunch for you in the background as a system user. This will 
@@ -150,7 +146,7 @@ to navigate to the pr2\_dashboard directory. Then type
 \begin{verbatim}
 $ rosmake pr2_dashboard
 \end{verbatim}
-to make pr2\_dashboard.
+to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
 your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY 
@@ -166,11 +162,38 @@ of the PR2. The dashboard displays the diagnostic, circuit breaker, run-stop, an
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{pr2_dashboard.png}
-\caption{The PR2 dashboard.}
+\caption{The PR2 dashboard when all is well.}
 \label{fig:dashboard}
 \end{figure}
+The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1.png}.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{dashboard1.png}
+\caption{The PR2 dashboard when all is well.}
+\label{fig:dashboard1}
+\end{figure}
+The dashboard should look like Figure~\ref{fig:dashboard1.png} because the wireless run-stop should be off. You can tell that the wireless run-stop is off by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2.png}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{dashboard2.png}
+\caption{The PR2 dashboard when starting up the robot.}
+\label{fig:dashboard2}
+\end{figure}
+
+Now you can enable the wireless run-stop by pressing the green "START" button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard. The dashboard should update to look like Figure~\ref{fig:dashboard3.png}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{dashboard3.png}
+\caption{The PR2 dashboard when the wireless run-stop is enabled.}
+\label{fig:dashboard3}
+\end{figure}
+
+The following sections describe the other information displayed in the dashboard.
+
 \begin{description}
-\item[Diagnostic Status] The state of the robot is shown by the diagnoctic indicators in the pr2\_dashboard. \\
+\item[Diagnostic Status] The state of the robot is shown by the diagnostic indicators in the pr2\_dashboard. \\
 
     \newcolumntype{S}{>{\centering\arraybackslash} m{.9cm} }%
     \begin{tabular}{m{6cm}SSSS}
@@ -217,8 +240,6 @@ There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessruns
                      \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop_wireless_stop.png}\\
    \end{tabular}
 
-Now you can enable the wireless run-stop by pressing the green "START" button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard.
-
 \item[Battery Status]
 The battery will change its color and \% filled based on the amount of battery remaining. It will also show a power-plug symbol if the robot is charging.
     \newcolumntype{S}{>{\centering\arraybackslash} m{1.85cm} }%                                                      
@@ -250,7 +271,19 @@ dashboard reading OK.
 
 Before driving a robot around, it is best to tuck the robot arms. If you do not tuck the robot arms before driving, then the arms are likely to swing around while the robot is moving.
 
-(TO BE WRITTEN)
+To run the tuckarm package, type:
+\begin{verbatim}
+$ export ROS_MASTER_URI=http://prx1:11311
+$ rosrun pr2_tuckarm tuckarm.py b
+\end{verbatim}
+This will tuck both robot arms. The feedback from tuckarm should display something like this:
+\begin{verbatim}
+[INFO] 1264099125.710039: Waiting for controller manager to start
+[INFO] 1264099125.718283: Tucking both left and right arm
+\end{verbatim}
+
+For more information about how to drive the robot around, see the 
+\href{http://www.ros.org/wiki/pr2_tuckarm}{tuckarm} instructions at \href{http://www.ros.org}{ros.org}.
 
 \section{Driving with the joystick}
 To move the robot, you can now drive it around with the joystick.  To do this, you will need to open a new ssh connection 
@@ -308,7 +341,7 @@ to navigate to the rviz directory. Then type
 \begin{verbatim}
 $ rosmake rviz
 \end{verbatim}
-to make rviz.
+to make rviz. Once this is done, you can try launching rviz again.
 
 For more information about how to view different types 
 of data coming from the robot, see the \href{http://ros.org/wiki/rviz}{rviz} documentation at 
@@ -320,14 +353,21 @@ From here, you can do what you want on the robot.  Point to instructions for wri
 applications and things to do with the robot.
 
 \section{Putting Away the PR2}
-To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireles run-stop, shut down your proceses on the robot, and log off of the robot.
+To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireles run-stop, stop the proceses on the robot, and log off of the robot.
 
 First, put away the robot. Drive the robot to the appropriate location in your lab and plug it in to recharge.
 % Add notes here about how to recharge the robot without getting shocked.
 
-Second, shut down all of your processes running on the robot (e.g., Ctrl-C in each terminal running on the robot computers) and log off of the robot by typing:
+Second, stop all the processes running on the robot. If you want to stop all of the processes running on the robot and log off of the robot, but not turn off the robot computers, then type:
+\begin{verbatim}
+$ sudo robot stop
+$ exit
+\end{verbatim}
+If you also want to turn off the robot computers, then type:
 \begin{verbatim}
 $ sudo pr2-shutdown
 $ exit
 \end{verbatim}
 You will hear four sets of descending beeps from the robot computers. Then the red lights on each of the computers will turn off. If this does not happen, then the robot computers might not be completely shut down properly.
+
+If someone was waiting to use the robot after you, be sure to let them know that you are done with the robot.
