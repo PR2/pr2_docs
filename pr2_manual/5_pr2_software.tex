@@ -136,7 +136,7 @@ On a computer with a built ROS installation (e.g., the base-station desktop comp
 $ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
-You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the Runstops should be ``warning'' you that the wireless runstop is not on. 
+You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the run-stops should be ``warning'' you that the wireless runstop is not on. 
 
 If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet ``made'' the pr2\_dashboard. To do this, type
 \begin{verbatim}
@@ -149,9 +149,9 @@ $ rosmake pr2_dashboard
 to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
-your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY 
-ROBOT SHIP DATE).  You should see a warning because the robot was just turned on and the encoders on the joints have not 
-been calibrated yet.
+your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning because the robot was just turned on and the encoders on the joints have not 
+been calibrated yet. 
+% (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY ROBOT SHIP DATE)
 
 If you see warnings or errors in any other sections, you should read the error messages and try to figure out what the 
 problem is.  Ask your robot administrator for help if there are errors that you do not understand.
@@ -165,14 +165,14 @@ of the PR2. The dashboard displays the diagnostic, circuit breaker, run-stop, an
 \caption{The PR2 dashboard when all is well.}
 \label{fig:dashboard}
 \end{figure}
-The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1.png}.
+The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{dashboard1.png}
 \caption{The PR2 dashboard when all is well.}
 \label{fig:dashboard1}
 \end{figure}
-The dashboard should look like Figure~\ref{fig:dashboard1.png} because the wireless run-stop should be off. You can tell that the wireless run-stop is off by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2.png}.
+The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless run-stop should be off. You can tell that the wireless run-stop is off by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2}.
 
 \begin{figure}[h]
 \centering
@@ -181,7 +181,7 @@ The dashboard should look like Figure~\ref{fig:dashboard1.png} because the wirel
 \label{fig:dashboard2}
 \end{figure}
 
-Now you can enable the wireless run-stop by pressing the green "START" button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard. The dashboard should update to look like Figure~\ref{fig:dashboard3.png}.
+Now you can enable the wireless run-stop by pressing the green "START" button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard. The dashboard should update to look like Figure~\ref{fig:dashboard3}.
 
 \begin{figure}[h]
 \centering
@@ -229,7 +229,7 @@ Each breaker can be in one of four states, and clicking on any of the breakers w
 
 
 
-\item[Runstop Status] The runstop indicators display the status of the PR2 runstops and their states cannot be changed using the dashboard. 
+\item[Run-stop Status] The runstop indicators display the status of the PR2 runstops and their states cannot be changed using the dashboard. 
 There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessrunstop}, and a red push button run-stop on the back of the robot.\\
 
     \newcolumntype{S}{>{\centering\arraybackslash} m{2.5cm} }%                                                                                                         
