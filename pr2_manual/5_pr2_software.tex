@@ -140,16 +140,23 @@ On a computer with a built ROS installation (e.g., the base-station desktop comp
 $ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
-You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information 
-about the state of the robot. It is ok if not all of the icons are green. In fact, the Runstops should be ``warning'' you that the wireless runstop is not on. 
+You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the Runstops should be ``warning'' you that the wireless runstop is not on. 
 
-
+If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet ``made'' the pr2\_dashboard. To do this, type
+\begin{verbatim}
+$ roscd pr2_dashboard
+\end{verbatim}
+to navigate to the pr2_dashboard directory. Then type
+\begin{verbatim}
+$ rosmake pr2_dashboard
+\end{verbatim}
+to make pr2_dashboard.
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
-your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop 
-disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY 
+your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY 
 ROBOT SHIP DATE).  You should see a warning because the robot was just turned on and the encoders on the joints have not 
 been calibrated yet.
+
 If you see warnings or errors in any other sections, you should read the error messages and try to figure out what the 
 problem is.  Ask your robot administrator for help if there are errors that you do not understand.
 \subsection{Understanding pr2\_dashboard}
@@ -210,6 +217,7 @@ There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessruns
                      \includegraphics[scale=0.5]{runstop-yellow.png}\includegraphics[scale=0.5]{runstop_wireless_stop.png}\\
    \end{tabular}
 
+Now you can enable the wireless run-stop by pressing the green "START" button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard.
 
 \item[Battery Status]
 The battery will change its color and \% filled based on the amount of battery remaining. It will also show a power-plug symbol if the robot is charging.
@@ -237,6 +245,13 @@ Finally, check that the area around the robot is safe for it to move its arms, c
 select ``reset motors.''  When you do this, the robot will move its joints to find the absolute reference positions of 
 each joint so that it can calibrate the mechanism.  When calibration is finished, you should see all the icons in the 
 dashboard reading OK.
+
+\section{Tucking the robot arms}
+
+Before driving a robot around, it is best to tuck the robot arms. If you do not tuck the robot arms before driving, then the arms are likely to swing around while the robot is moving.
+
+(TO BE WRITTEN)
+
 \section{Driving with the joystick}
 To move the robot, you can now drive it around with the joystick.  To do this, you will need to open a new ssh connection 
 to the robot and run the teleop\_joystick launch file
@@ -244,6 +259,7 @@ to the robot and run the teleop\_joystick launch file
 $ ssh username@prx1
 $ roslaunch pr2_teleop teleop_joystick.launch 
 \end{verbatim}
+
 Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:ps3_pairing}) in the middle of the 
 joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
 \begin{figure}[H]
@@ -282,8 +298,20 @@ need to configure the ROS\_MASTER\_URI to point at the robot, so run
 $ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun rviz rviz
 \end{verbatim}
-and you should see rviz launch with a visualization of the robot.  For more information about how to view different types 
-of data coming from the robot, See the \href{http://ros.org/wiki/rviz}{rviz} documentation at 
+and you should see rviz launch with a visualization of the robot.  
+
+If you do not see the rviz appear, then there is a chance that you have not yet ``made'' rviz yet. To do this, type
+\begin{verbatim}
+$ roscd rviz
+\end{verbatim}
+to navigate to the rviz directory. Then type
+\begin{verbatim}
+$ rosmake rviz
+\end{verbatim}
+to make rviz.
+
+For more information about how to view different types 
+of data coming from the robot, see the \href{http://ros.org/wiki/rviz}{rviz} documentation at 
 \href{http://www.ros.org}{ros.org}.
 (TODO - WITH THE CURRENT LAUNCH FILE, YOU WILL NOT BE ABLE TO SEE CAMERA DATA)
 
