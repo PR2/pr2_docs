@@ -231,8 +231,6 @@ Each breaker can be in one of four states, and clicking on any of the breakers w
                      \includegraphics[scale=0.5]{L_stale.png}\includegraphics[scale=0.5]{B_stale.png}\includegraphics[scale=0.5]{R_stale.png}\\
    \end{tabular}
 
-
-
 \item[Run-stop Status] The runstop indicators display the status of the PR2 runstops and their states cannot be changed using the dashboard. 
 There are two run-stops on the robot, a wireless run-stop, see \ref{wirelessrunstop}, and a red push button run-stop on the back of the robot.\\
 
@@ -275,9 +273,8 @@ dashboard reading OK.
 
 Before driving a robot around, it is best to tuck the robot arms. If you do not tuck the robot arms before driving, then the arms are likely to swing around while the robot is moving.
 
-To run the tuckarm package, type:
+To run the tuckarm package, type into the robot computer (prx1):
 \begin{verbatim}
-$ export ROS_MASTER_URI=http://prx1:11311
 $ rosrun pr2_tuckarm tuckarm.py b
 \end{verbatim}
 This will tuck both robot arms. The feedback from tuckarm should display something like this:
@@ -290,7 +287,7 @@ For more information about how to drive the robot around, see the
 \href{http://www.ros.org/wiki/pr2_tuckarm}{tuckarm} instructions at \href{http://www.ros.org}{ros.org}.
 
 \section{Driving with the joystick}
-To move the robot, you can now drive it around with the joystick.  To do this, you will need to open a new ssh connection 
+To move the robot, you can now drive it around with the joystick.  To do this, you will need to open a new terminal window with a new ssh connection 
 to the robot and run the teleop\_joystick launch file
 \begin{verbatim}
 $ ssh username@prx1
