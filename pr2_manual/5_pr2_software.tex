@@ -16,10 +16,17 @@ Before running the robot, you need to make sure it has power.  The battery life 
 so it is a good idea to keep the PR2 plugged in when not in use.  You can follow the instructions in this chapter to start up 
 the PR2 while it is plugged into the power outlet, which will keep the batteries charged.
 \subsection{Run-stop}
-The PR2 will not run its motors unless both run-stop buttons (the red push-button on the middle of the PR2's back, and 
-the yellow wireless run-stop transmitter) are enabled.  Before you operate the PR2, you should have the wireless run-stop 
-nearby, so that you can shut down the motors if you need to.  Before turning on the robot, press the red ``stop'' button on the 
+Before you operate the PR2, you should have the wireless run-stop 
+nearby (Figure~\ref{fig:run-stop}), so that you can shut down the motors if you need to. 
+Before turning on the robot, press the red ``stop'' button on the 
 wireless run-stop transmitter to prevent the motors from moving before you are ready.
+
+The PR2 has two run-stop buttons: the red push-button on the middle of the PR2's back, and 
+the yellow wireless run-stop transmitter. If either one is in the stop position, the motors are disabled so the
+robot cannot move. {\bf In an emergency, press the stop button on the wireless transmitter, or
+hit the push-button in the back}. Putting either run-stop button in the stop position does not
+damage the robot or turn off the computers, it simply stops the motors.
+
 
 %Add image of red push-button on PR2's back here
 \begin{figure}[h]
@@ -29,7 +36,12 @@ wireless run-stop transmitter to prevent the motors from moving before you are r
 \label{fig:runstop}
 \end{figure}
 
-The wireless run-stop also uses battery power, which can run down. Therefore, it is a good idea to turn the wireless run-stop off when not in use. If the wireless run-stop runs out of battery charge, then the battery light (the light next to the battery symbol in the lower half of the wireless run-stop face) will flash. To change the battery, you will need a slotted screwdriver to open the wireless run-stop case and replace the batteries.
+The wireless run-stop also uses battery power, which can run down.
+Therefore, it is a good idea anyway to turn the wireless run-stop off when not in use.
+If the wireless run-stop runs out of battery charge, then the battery light
+(the light next to the battery symbol in the lower half of the wireless run-stop face)
+will flash. To change the battery, you will need a slotted screwdriver to open
+the wireless run-stop case (Figure~\ref{fig:opening-runstop}).
 
 \begin{figure}[!h]
 \centering
@@ -47,9 +59,9 @@ Permission denied, please try again
 when you try to log in to the robot. Ask the robot administrator to create an account for you, using the instructions 
 in section \ref{creating accounts}.
 \section{Turning PR2 on}
-To turn the PR2 on, you should first verify that the wireless run-stop is off. On the wireless run-stop, press the 
-red button, and make sure there are no flashing lights on the wireless run-stop. Then switch the red DC breaker on 
-the back panel of the robot to the ``on'' position.  
+To turn the PR2 on, you should first verify that the wireless run-stop is in the stop position. On the wireless run-stop, press the 
+red stop button, and make sure there are no flashing lights on the wireless run-stop. Then switch the red run-stop button on 
+the back panel of the robot to the ``on'' position (turn it clockwise and it will pop out).
 
 \begin{figure}[h]
 \centering
@@ -60,7 +72,7 @@ the back panel of the robot to the ``on'' position.
 
 You should see the red lights on the computers turn on, hear the fans spin up, and hear several rising-tone beeps from the computers 
 as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can 
-skip this step (but should still disable the wireless run-stop).
+skip this step (but should put the wireless run-stop in the stop position).
 \subsection{Logging in}
 Once the robot is on, \texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh}} into the main computer using the account 
 created for you by the administrator. 
@@ -70,7 +82,7 @@ Ask your robot  administrator what name you should use for the robot you want to
 \begin{verbatim}
 $ ssh username@prx1
 \end{verbatim}
-You will notice that you are already set up with a ROS environment.  To see what packages are available to you, type
+You should already have access to all the ROS tools. For instance, to see what packages are available to you, type
 \begin{verbatim}
 $ rospack list-names
 \end{verbatim}
@@ -93,9 +105,9 @@ $ sudo robot stop
 and all the processes that are being run on the robot will be killed.
 
 \section{Starting the software}
-The launch file /etc/pr2/pr2.launch is used to start up the basic functionality of the robot.  This includes drivers for 
+The launch file /etc/ros/robot.launch is used to start up the basic functionality of the robot.  This includes drivers for 
 the sensors, motors, speakers, projector, power system, and joystick as well as the default set of realtime controllers, 
-processing and logging of diagnostics information, and monitors for various types of problems your robot could experience.  On a new robot, this launch file is standard, but if the robot you are working on has been altered (e.g., has additional sensors, has only one arm), then it is likely that someone administering the robot has also updated the /etc/pr2/pr2.launch file to work with your robot's configuration.
+processing and logging of diagnostics information, and monitors for various types of problems your robot could experience.  On a new robot, this launch file is standard, but if the robot you are working on has been altered (e.g., has additional sensors, has only one arm), then it is likely that someone administering the robot has also updated the /etc/ros/robot.launch file to work with your robot's configuration.
 
 There are two ways to start the software on the PR2. The first way is easier than the second way.
  \subsection{Starting the software the easier way}
@@ -117,7 +129,7 @@ This is a good way to check to see if you started up ROS successfully.
 As an alternative to starting the software the easier way, you can also start the software manually. If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
 window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the roslaunch.
 \begin{verbatim}
-$ roslaunch /etc/pr2/pr2.launch
+$ roslaunch /etc/ros/robot.launch
 \end{verbatim}
 to start up the pr2.  
 
@@ -129,7 +141,7 @@ $ rostopic list
 to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the 
 original terminal. Remember that \textcolor{red}{x} is a placeholding variable to be replaced with your robot's ID.
 
-Either way, the robot should be running, but since you have the wireless run-stop disabled, the motors will not be moving.  
+Either way, the robot should be running, but since you have the wireless run-stop in the stop position, the motors will not be moving.  
 
 \section{Running the dashboard}
 When running the robot, the pr2\_dashboard should always be up on your screen.  This is how the robot software will 
@@ -153,7 +165,8 @@ $ rosmake pr2_dashboard
 to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
-your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop disabled, you see that the motors are giving you a warning because the robot was just turned on and the encoders on the joints have not 
+your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop in the
+stop position, you see that the motors are giving you a warning because the robot was just turned on and the encoders on the joints have not 
 been calibrated yet. 
 % (CURRENTLY THIS IS AN ERROR.  SHOULD CHANGE TO WARNING BY ROBOT SHIP DATE)
 
@@ -163,12 +176,12 @@ problem is.  Ask your robot administrator for help if there are errors that you 
 When running the PR2, the most important piece of software for you to understand and control the state of the system is 
 the pr2\_dashboard. pr2\_dashboard, Figure~\ref{fig:dashboard}, is a GUI for debugging and controlling low-level state 
 of the PR2. The dashboard displays the diagnostic, circuit breaker, run-stop, and battery status.
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{pr2_dashboard.png}
-\caption{The PR2 dashboard when all is well.}
-\label{fig:dashboard}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=0.5]{pr2_dashboard.png}
+%\caption{The PR2 dashboard when all is well.}
+%\label{fig:dashboard}
+%\end{figure}
 The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1}.
 \begin{figure}[h]
 \centering
@@ -176,7 +189,8 @@ The robot will not usually start up with all green lights. In fact, if you bring
 \caption{The PR2 dashboard when all is well.}
 \label{fig:dashboard1}
 \end{figure}
-The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless run-stop should be off. You can tell that the wireless run-stop is off by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2}.
+The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless run-stop should be in the stop position.
+You can tell that the wireless run-stop is in the stop position by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2}.
 
 \begin{figure}[h]
 \centering
@@ -185,12 +199,14 @@ The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless 
 \label{fig:dashboard2}
 \end{figure}
 
-Now you can enable the wireless run-stop by pressing the green ``START'' button on the wireless run-stop. If this works properly, then you should see the robot run-stop icon turn green in the dashboard. The dashboard should update to look like Figure~\ref{fig:dashboard3}.
+Now you can press the green ``START'' button on the wireless run-stop.
+If this works properly, then you should see the robot run-stop icon turn green in the dashboard.
+The dashboard should update to look like Figure~\ref{fig:dashboard3}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{dashboard3.png}
-\caption{The PR2 dashboard when the wireless run-stop is enabled.}
+\caption{The PR2 dashboard when the wireless run-stop is in the start position.}
 \label{fig:dashboard3}
 \end{figure}
 
@@ -353,7 +369,8 @@ From here, you can do what you want on the robot.  (NOTE TO AUTHORS: Point to in
 applications and things to do with the robot.)
 
 \section{Putting Away the PR2}
-To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireless run-stop, stop the processes on the robot, and log off of the robot.
+To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries,
+press STOP on the wireless run-stop, stop the processes on the robot, and log off of the robot.
 
 First, put away the robot. Drive the robot to the appropriate location in your lab and plug it in to recharge.
 % Add notes here about how to recharge the robot without getting shocked.
