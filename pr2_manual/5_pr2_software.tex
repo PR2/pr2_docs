@@ -91,10 +91,14 @@ the other processes running on the robot, you can type
 $ sudo robot stop
 \end{verbatim}
 and all the processes that are being run on the robot will be killed.
+
 \section{Starting the software}
 The launch file /etc/pr2/pr2.launch is used to start up the basic functionality of the robot.  This includes drivers for 
 the sensors, motors, speakers, projector, power system, and joystick as well as the default set of realtime controllers, 
 processing and logging of diagnostics information, and monitors for various types of problems your robot could experience.  On a new robot, this launch file is standard, but if the robot you are working on has been altered (e.g., has additional sensors, has only one arm), then it is likely that someone administering the robot has also updated the /etc/pr2/pr2.launch file to work with your robot's configuration.
+
+There are two ways to start the software on the PR2. The first way is easier than the second way.
+ \subsection{Starting the software the easier way}
 
 Once you are logged in and ready to start the robot, you can run the robot by typing
 \begin{verbatim}
@@ -103,15 +107,15 @@ $ sudo robot start
 Running robot start will start the roslaunch for you in the background as a system user. This will 
 allow you to continue to use your current terminal and the robot will keep running after you log out.  
 
-If you used ``robot start'' then you will not need to open a new terminal to complete other commands. You can type 
+To see what topics are being published in ROS now, you can type 
 \begin{verbatim}
 $ rostopic list
 \end{verbatim}
-to see the topics being published by the system. 
+This is a good way to check to see if you started up ROS successfully.
 
-Alternatively, if you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
-window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the 
-roslaunch.
+\subsection{Starting the software the manual way}
+As an alternative to starting the software the easier way, you can also start the software manually. If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
+window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the roslaunch.
 \begin{verbatim}
 $ roslaunch /etc/pr2/pr2.launch
 \end{verbatim}
