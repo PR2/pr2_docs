@@ -349,25 +349,29 @@ of data coming from the robot, see the \href{http://ros.org/wiki/rviz}{rviz} doc
 (TODO - WITH THE CURRENT LAUNCH FILE, YOU WILL NOT BE ABLE TO SEE CAMERA DATA)
 
 \section{What next?}
-From here, you can do what you want on the robot.  Point to instructions for writing code and to a list of other 
-applications and things to do with the robot.
+From here, you can do what you want on the robot.  (NOTE TO AUTHORS: Point to instructions for writing code and to a list of other 
+applications and things to do with the robot.)
 
 \section{Putting Away the PR2}
-To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireles run-stop, stop the proceses on the robot, and log off of the robot.
+To properly put away the PR2, you should drive the robot to the appropriate location in your lab, plug in the robot to recharge the batteries, turn off the wireless run-stop, stop the processes on the robot, and log off of the robot.
 
 First, put away the robot. Drive the robot to the appropriate location in your lab and plug it in to recharge.
 % Add notes here about how to recharge the robot without getting shocked.
 
-Second, stop all the processes running on the robot. If you want to stop all of the processes running on the robot and log off of the robot, but not turn off the robot computers, then type:
+Second, stop all the processes running on the robot. If you want to stop all of the processes running on the robot and log off of the robot, but not turn off the robot computers, then open a new terminal and type:
 \begin{verbatim}
+$ ssh username@prx1
 $ sudo robot stop
 $ exit
 \end{verbatim}
-If you also want to turn off the robot computers, then type:
+This logs you into the robot, stops the robot, and exits from that robot computer terminal.
+
+As an alternative, if you also want to turn off the robot computers, then open a new terminal and type:
 \begin{verbatim}
+$ ssh username@prx1
 $ sudo pr2-shutdown
 $ exit
 \end{verbatim}
-You will hear four sets of descending beeps from the robot computers. Then the red lights on each of the computers will turn off. If this does not happen, then the robot computers might not be completely shut down properly.
+If you turn off the robot, you will hear four sets of descending beeps from the robot computers. Then the red lights on each of the computers will turn off. If this does not happen, then the robot computers might not be completely shut down properly.
 
 If someone was waiting to use the robot after you, be sure to let them know that you are done with the robot.
