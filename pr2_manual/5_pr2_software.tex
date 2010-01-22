@@ -294,6 +294,8 @@ $ ssh username@prx1
 $ roslaunch pr2_teleop teleop_joystick.launch 
 \end{verbatim}
 
+Be sure to check to see if the robot is plugged in (e.g., ethernet cables or power cables)! If it is plugged in, then be very cautious to avoid pulling the cables out improperly.
+
 Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:ps3_pairing}) in the middle of the 
 joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
 \begin{figure}[H]
@@ -318,9 +320,6 @@ While pressing L1, use the other buttons for the following movements:
 \item "R1" : Run button commands the base faster
 \item "Triangle", "X": Move the torso up and down 
 \end{enumerate}
-
-
-Be sure to check to see if the robot is plugged in (e.g., ethernet cables or power cables)! If it is plugged in, then be very cautious to avoid pulling the cables out improperly.
 
 For more information about how to drive the robot around, see the 
 \href{http://www.ros.org/wiki/ps3joy/Tutorials/UsingJoystickWithPR2}{ps3joy} tutorial at \href{http://www.ros.org}{ros.org}. 
