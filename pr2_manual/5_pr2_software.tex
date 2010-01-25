@@ -12,14 +12,13 @@ If you are starting your PR2 for the first time at your institution, please read
 This will give you advice on setting up the network, setting the administrative password, and picking a safe location for 
 charging the PR2.  This chapter assumes that the PR2 is already set up for your lab.
 \subsection{Batteries and power}
-Before running the robot, you need to make sure it has power.  The battery life of the PR2 is approximately two hours, 
-so it is a good idea to keep the PR2 plugged in when not in use.  You can follow the instructions in this chapter to start up 
-the PR2 while it is plugged into the power outlet, which will keep the batteries charged.
+Before running the robot, you need to make sure it has power, which is easiest to do by making sure the robot is plugged in to a wall outlet. You can follow the instructions in this chapter to start up the PR2 while it is plugged into the power outlet, which will keep the batteries charged.  The battery life of the PR2 is approximately two hours, so it is a good idea to keep the PR2 plugged in when not in use.  
+
+%Add instructions about Ethernet being plugged in, too? User#2 recommended to add this information.
+
 \subsection{Run-stop}
-Before you operate the PR2, you should have the wireless run-stop 
+Before you running the robot, you should also have the wireless run-stop 
 nearby (Figure~\ref{fig:run-stop}), so that you can shut down the motors if you need to. 
-Before turning on the robot, press the red ``stop'' button on the 
-wireless run-stop transmitter to prevent the motors from moving before you are ready.
 
 The PR2 has two run-stop buttons: the red push-button on the middle of the PR2's back, and 
 the yellow wireless run-stop transmitter. If either one is in the stop position, the motors are disabled so the
@@ -51,17 +50,16 @@ the wireless run-stop case (Figure~\ref{fig:opening-runstop}).
 \end{figure}
 
 \subsection{Getting an account}
-Before using the PR2, you will also need an account on the robot computers.  If you try to log in to the robot and the 
-robot administrator has not created an account for you on the robot yet, then you will see:
-\begin{verbatim}
-Permission denied, please try again
-\end{verbatim}
-when you try to log in to the robot. Ask the robot administrator to create an account for you, using the instructions 
+Before using the PR2, you will also need an account on the robot computers. Ask the robot administrator to create an account for you, using the instructions 
 in section \ref{creating accounts}.
 \section{Turning PR2 on}
-To turn the PR2 on, you should first verify that the wireless run-stop is in the stop position. On the wireless run-stop, press the 
-red stop button, and make sure there are no flashing lights on the wireless run-stop. Then switch the red run-stop button on 
-the back panel of the robot to the ``on'' position (turn it clockwise and it will pop out).
+If the robot is already running, you can skip this step, but should still put the wireless run-stop in the stop position. 
+
+To turn the PR2 on, you should first verify that the wireless run-stop is in the stop position. If it is not yet in the stop position, then press the wireless run-stop's red ``STOP'' button; the lights on the wireless run-stop should turn off. 
+
+Second, switch the red run-stop button on the back panel of the robot to the ``on'' position; turn it clockwise and it will pop out.
+
+Third, if the DC breaker switch at the back panel of the robot is switched off, then flip the DC breaker switch (Figure~\ref{fig:dc_breaker}) to the ``on'' position.
 
 \begin{figure}[h]
 \centering
@@ -71,16 +69,17 @@ the back panel of the robot to the ``on'' position (turn it clockwise and it wil
 \end{figure}
 
 You should see the red lights on the computers turn on, hear the fans spin up, and hear several rising-tone beeps from the computers 
-as they boot.  The process of booting the computers will take about 5 minutes.  If the robot is already running, you can 
-skip this step (but should put the wireless run-stop in the stop position).
+as they boot.  The process of booting the computers will take about 5 minutes.  You will know that the computers are on when you see a red light illuminate on each of the computers in the robot base.  
 \subsection{Logging in}
 Once the robot is on, \texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh}} into the main computer using the account 
-created for you by the administrator. 
+created for you by the administrator, using the steps below.
 
-In the following tutorial, we will use pr\textcolor{red}{x}1 to refer to the first computer on robot \textcolor{red}{x}.  
-Ask your robot  administrator what name you should use for the robot you want to run. To log in to the robot, type
+In the following tutorial, we will use pr\textless x\textgreater 1 to refer to the first computer on robot \textless x\textgreater and \textless username\textgreater to refer to your account username.
+Ask your robot  administrator what name you should use for the robot you want to run. 
+
+To log in to the robot, open a terminal window and type
 \begin{verbatim}
-$ ssh username@prx1
+$ ssh <username>@pr<x>1
 \end{verbatim}
 You should already have access to all the ROS tools. For instance, to see what packages are available to you, type
 \begin{verbatim}
@@ -126,7 +125,7 @@ $ rostopic list
 This is a good way to check to see if you started up ROS successfully.
 
 \subsection{Starting the software the manual way}
-As an alternative to starting the software the easier way, you can also start the software manually. If you prefer to see everything that is going on, you can run the roslaunch manually, but you will need to keep that 
+As an alternative to starting the software the easier way, you can also start the software manually. If you prefer to see everything that is going on, you can also start the robot software manually, but you will need to keep that 
 window open until you are done using the robot. Closing that the terminal in which you roslaunched will terminate the roslaunch.
 \begin{verbatim}
 $ roslaunch /etc/ros/robot.launch
@@ -135,11 +134,11 @@ to start up the pr2.
 
 If you used ``roslaunch'' to start the robot, then you will need to open a new terminal and type
 \begin{verbatim}
-$ ssh username@prx1
+$ ssh <username>@pr<x>1
 $ rostopic list
 \end{verbatim}
 to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the 
-original terminal. Remember that \textcolor{red}{x} is a placeholding variable to be replaced with your robot's ID.
+original terminal. Remember that \textless x\textgreater is a placeholding variable to be replaced with the ID of the robot you are using.
 
 Either way, the robot should be running, but since you have the wireless run-stop in the stop position, the motors will not be moving.  
 
@@ -149,20 +148,11 @@ let you know if something is going wrong, and is also how you turn the motors an
 
 On a computer with a built ROS installation (e.g., the base-station desktop computer that ships with the robot), not on the robot itself, set your ROS\_MASTER\_URI to point at the master running on the robot and launch the dashboard by typing
 \begin{verbatim}
-$ export ROS_MASTER_URI=http://prx1:11311
+$ export ROS_MASTER_URI=http://pr<x>1:11311
 $ rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
-You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the run-stops should be ``warning'' you that the wireless runstop is not on. 
-
-If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet ``made'' the pr2\_dashboard. To do this, type
-\begin{verbatim}
-$ roscd pr2_dashboard
-\end{verbatim}
-to navigate to the pr2\_dashboard directory. Then type
-\begin{verbatim}
-$ rosmake pr2_dashboard
-\end{verbatim}
-to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.
+You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the run-stops should be ``warning'' you that the wireless runstop is not on.\footnote{If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet ``made'' the pr2\_dashboard. 
+To do this, type \texttt{rosmake pr2\_dashboard} to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.}
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
 your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop in the
@@ -186,7 +176,7 @@ The robot will not usually start up with all green lights. In fact, if you bring
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{dashboard1.png}
-\caption{The PR2 dashboard when all is well.}
+\caption{The PR2 dashboard when starting up the robot.}
 \label{fig:dashboard1}
 \end{figure}
 The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless run-stop should be in the stop position.
@@ -195,19 +185,8 @@ You can tell that the wireless run-stop is in the stop position by mousing over 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{dashboard2.png}
-\caption{The PR2 dashboard when starting up the robot.}
+\caption{The PR2 dashboard when starting up the robot, showing tooltips.}
 \label{fig:dashboard2}
-\end{figure}
-
-Now you can press the green ``START'' button on the wireless run-stop.
-If this works properly, then you should see the robot run-stop icon turn green in the dashboard.
-The dashboard should update to look like Figure~\ref{fig:dashboard3}.
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{dashboard3.png}
-\caption{The PR2 dashboard when the wireless run-stop is in the start position.}
-\label{fig:dashboard3}
 \end{figure}
 
 The following sections describe the other information displayed in the dashboard.
@@ -274,22 +253,31 @@ The battery will change its color and \% filled based on the amount of battery r
 \end{description}
 
 \section{Calibrating the joints}
-If you do not discover any problems in the diagnostics, and you want to continue with robot bringup, press the green 
-button on the wireless run-stop.  This should change the state of the run-stop indicator on the dashboard to a green 
-circle, and will allow the robot to turn power on for the motors.  The next step is to enable the circuit breakers 
-(marked L, B, R).  When you click on the circuit-breaker icon, select ``enable all'' from the menu to turn on all 
-three breakers.
+If you do not discover any problems in the diagnostics, and you want to continue with robot bringup, first check the physical area around the robot to ensure that the robot will not hit anything around it when it calibrates. Once the physical area is cleared, press the green 
+``START'' button on the wireless run-stop.  This should change the state of the run-stop indicator on the dashboard to a green 
+circle, and will allow the robot to turn power on for the motors.
 
-Finally, check that the area around the robot is safe for it to move its arms, click on the picture of a motor, and 
-select ``reset motors.''  When you do this, the robot will move its joints to find the absolute reference positions of 
-each joint so that it can calibrate the mechanism.  When calibration is finished, you should see all the icons in the 
-dashboard reading OK.
+If the robot circuit breakers are not yet enabled, the next step is to enable the circuit breakers (marked L, B, R).  When you click on the circuit-breaker icon, select ``enable all'' from the menu to turn on all three breakers.
+
+If the robot motors are not yet reset, then click on the picture of a motor, and 
+select ``reset motors.''  
+
+When you have started the wireless run-stop, enabled all the robot circuit breakers, and have reset thr boto motors, the robot will move its joints to find the absolute reference positions of each joint so that it can calibrate the mechanism.  When calibration is finished, you should see all the icons in the dashboard reading OK (Figure~\ref{fig:dashboard3}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{dashboard3.png}
+\caption{The PR2 dashboard when the wireless run-stop is in the start position.}
+\label{fig:dashboard3}
+\end{figure}
+
+If this calibration step fails, then you can use the pr2\_dashboard to diagnose the problems with the robot. See your robot administrator if you need assistance in understanding and addressesing the issues.
 
 \section{Tucking the robot arms}
 
 Before driving a robot around, it is best to tuck the robot arms. If you do not tuck the robot arms before driving, then the arms are likely to swing around while the robot is moving.
 
-To run the tuckarm package, type into the robot computer (prx1):
+To run the tuckarm package, type into the robot computer (pr\textless x\textgreater 1):
 \begin{verbatim}
 $ rosrun pr2_tuckarm tuckarm.py b
 \end{verbatim}
@@ -306,14 +294,14 @@ For more information about how to drive the robot around, see the
 To move the robot, you can now drive it around with the joystick.  To do this, you will need to open a new terminal window with a new ssh connection 
 to the robot and run the teleop\_joystick launch file
 \begin{verbatim}
-$ ssh username@prx1
+$ ssh <username>@pr<x>1
 $ roslaunch pr2_teleop teleop_joystick.launch 
 \end{verbatim}
 
 Be sure to check to see if the robot is plugged in (e.g., ethernet cables or power cables)! If it is plugged in, then be very cautious to avoid pulling the cables out improperly.
 
 Once the teleop\_joystick node is running, press the pairing button (Figure~\ref{fig:ps3_pairing}) in the middle of the 
-joystick to pair it with the robot (the four LEDs on the jostick will flash when paired). 
+joystick to pair it with the robot. Be sure to unplug the robot from wall outlets if you are going to drive the robot around. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.40]{pairing.png}
@@ -344,20 +332,10 @@ For more information about how to drive the robot around, see the
 To see the sensor data from the robot, you can use rviz on the offboard computer (e.g., base station).  Again, you will 
 need to open a new terminal window and configure the ROS\_MASTER\_URI to point at the robot, so run
 \begin{verbatim}
-$ export ROS_MASTER_URI=http://prx1:11311
+$ export ROS_MASTER_URI=http://pr<x>1:11311
 $ rosrun rviz rviz
 \end{verbatim}
-and you should see rviz launch with a visualization of the robot.  
-
-If you do not see the rviz appear, then there is a chance that you have not yet ``made'' rviz yet. To do this, type
-\begin{verbatim}
-$ roscd rviz
-\end{verbatim}
-to navigate to the rviz directory. Then type
-\begin{verbatim}
-$ rosmake rviz
-\end{verbatim}
-to make rviz. Once this is done, you can try launching rviz again.
+and you should see rviz launch with a visualization of the robot.\footnote{If you do not see rviz appear, then there is a chance that you have not yet ``made'' rviz yet. To do this, type \texttt{rosmake rviz} to make rviz. Once this is done, you can try launching rviz again.}
 
 For more information about how to view different types 
 of data coming from the robot, see the \href{http://ros.org/wiki/rviz}{rviz} documentation at 
@@ -377,18 +355,22 @@ First, put away the robot. Drive the robot to the appropriate location in your l
 
 Second, stop all the processes running on the robot. If you want to stop all of the processes running on the robot and log off of the robot, but not turn off the robot computers, then open a new terminal and type:
 \begin{verbatim}
-$ ssh username@prx1
+$ ssh <username>@pr<x>1
 $ sudo robot stop
-$ exit
 \end{verbatim}
-This logs you into the robot, stops the robot, and exits from that robot computer terminal.
+This logs you into the robot and stops the robot processes.
 
-As an alternative, if you also want to turn off the robot computers, then open a new terminal and type:
+As an alternative to simply stopping the proceeses running on the robot, you can also turn off the robot computers. To do this, open a new terminal and type:
 \begin{verbatim}
-$ ssh username@prx1
+$ ssh <username>@pr<x>1
 $ sudo pr2-shutdown
+\end{verbatim}
+
+If you turn off the robot, you will hear four sets of descending beeps from the robot computers. Then the red lights on each of the computers will turn off. If this does not happen, then the robot computers might not be completely shut down properly.
+
+Finally, to exit from the robot computer terminal, type
+\begin{verbatim}
 $ exit
 \end{verbatim}
-If you turn off the robot, you will hear four sets of descending beeps from the robot computers. Then the red lights on each of the computers will turn off. If this does not happen, then the robot computers might not be completely shut down properly.
 
 If someone was waiting to use the robot after you, be sure to let them know that you are done with the robot.
