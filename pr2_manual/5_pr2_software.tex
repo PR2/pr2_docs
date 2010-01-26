@@ -308,22 +308,27 @@ joystick to pair it with the robot. Be sure to unplug the robot from wall outlet
 \caption{Pairing the joystick with the PR2.}
 \label{fig:ps3_pairing}
 \end{figure}
-Then to control the robot, use L1 (Figure~\ref{fig:buttons}) as the deadman.
-No commands are sent without the deadman engaged.
-While pressing L1, use the other buttons for the following movements:
+Then to control the robot, use L1 (Figure~\ref{fig:buttons}) as the ``deadman'' switch. L1 should be held down with your left pointer finger (like a trigger) whenever you wish to control the robot. If you let go of the L1 button, then commands will no longer be sent from the controller to the robot. While pressing L1, use the other buttons for the following movements:
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.75]{ps3joy_buttons.png}
-\caption{The PS3 buttons.}
+\includegraphics[scale=0.3]{ps3diagram.png}
+\caption{The PS3 controller mapped to robot movements.}
 \label{fig:buttons}
 \end{figure}
 \begin{enumerate}
-\item Right stick: translate the base
-\item Left stick: Yaw (rotate) the base
-\item "L2": The "head button" allows the sticks to control the head instead of the base.
-\item "R1" : Run button commands the base faster
-\item "Triangle", "X": Move the torso up and down 
+\item L1 (left pointer finger): The ``dead man'' switch allows the controller to send commands to the robot
+\item L2 (right pointer finger): The head switch allows the joysticks to control the head instead of the base
+\item Right joystick (right thumb): Translates the base or head (i.e., front, back, left, right)
+\item Left joystick (left thumb): Rotates the base or head (i.e., spin clockwise or counter-clockwise)
+\item R1 (left pointer finger): The ``run'' switch commands the base to move faster
+\item Triangle and X (right thumb): Moves the torso up and down 
 \end{enumerate}
+
+To drive the robot around (i.e., driving the base), hold down L1 and use the two joysticks to control its direction of movement (right joystick) and rotation (left joystick). To drive the robot around at faster speeds, also hold down R1.
+
+To move the robot head, hold down L1 and use the two joysticks to control the head movements.
+
+To move the robot torso, hold down L1 and press the triangle button to move the torso up or the X button to move the torso down. The torso moves slowy.
 
 For more information about how to drive the robot around, see the 
 \href{http://www.ros.org/wiki/ps3joy/Tutorials/UsingJoystickWithPR2}{ps3joy} tutorial at \href{http://www.ros.org}{ros.org}. 
