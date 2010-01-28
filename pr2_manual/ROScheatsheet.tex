@@ -338,8 +338,35 @@ Us\=age:\\
 \> \texttt{\$ rxconsole}\\
 \end{tabbing}
 
+\vspace{-2.5 mm}
+\section{TF Command-line Tools}
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/tf\#tf_echo}{tf\_echo}}
+A tool that prints the information about a particular transformation between a source\_frame and a target\_frame.\\
+\vspace{2.5 mm}
+%\includegraphics[width=.75\columnwidth]{rxconsole.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rosrun tf tf\_echo <source\_frame> <target\_frame>}\\
+\end{tabbing}
+\begin{tabbing}
+E\=x\=amples:\\
+\> To echo the transform between /map and /odom:\\
+\> \>\texttt{\$ rosrun tf tf\_echo /map /odom}\\
+\end{tabbing}
 
 
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/tf\#view_frames}{view\_frames}}
+A tool for visualizing the full tree of coordinate transforms.\\
+\vspace{2.5 mm}
+%\includegraphics[width=.75\columnwidth]{rxconsole.png}
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rosrun tf view\_frames}\\
+\> \texttt{\$ evince frames.pdf}
+\end{tabbing}
 
 
 
