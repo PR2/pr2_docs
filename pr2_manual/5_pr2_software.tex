@@ -8,7 +8,7 @@ you through starting up and running a PR2, using ROS.
 
 \section{Getting set up}
 \subsection{Out of the box}
-If you are starting your PR2 for the first time at your institution, please read the previous sections,\ref{Setting up PR2 in your lab}.  
+If you are starting your PR2 for the first time at your institution, please read the previous sections, \ref{Setting up PR2 in your lab}.  
 This will give you advice on setting up the network, setting the administrative password, and picking a safe location for 
 charging the PR2.  This chapter assumes that the PR2 is already set up for your lab.
 \subsection{Batteries and power}
@@ -17,8 +17,8 @@ Before running the robot, you need to make sure it has power, which is easiest t
 %Add instructions about Ethernet being plugged in, too? User#2 recommended to add this information.
 
 \subsection{Run-stop}
-Before you running the robot, you should also have the wireless run-stop 
-nearby (Figure~\ref{fig:run-stop}), so that you can shut down the motors if you need to. 
+Before running the robot, you should also have the wireless run-stop 
+nearby (Figure~\ref{fig:runstop}), so that you can shut down the motors if you need to. 
 
 The PR2 has two run-stop buttons: the red push-button on the middle of the PR2's back, and 
 the yellow wireless run-stop transmitter. If either one is in the stop position, the motors are disabled so the
@@ -35,8 +35,8 @@ damage the robot or turn off the computers, it simply stops the motors.
 \label{fig:runstop}
 \end{figure}
 
-The wireless run-stop also uses battery power, which can run down.
-Therefore, it is a good idea anyway to turn the wireless run-stop off when not in use.
+The wireless run-stop is also powered by batteries, which can run down.
+Therefore, it is a good idea anyway to turn the wireless run-stop off (by pressing the "STOP" button) when not in use.
 If the wireless run-stop runs out of battery charge, then the battery light
 (the light next to the battery symbol in the lower half of the wireless run-stop face)
 will flash. To change the battery, you will need a slotted screwdriver to open
@@ -52,8 +52,8 @@ the wireless run-stop case (Figure~\ref{fig:opening-runstop}).
 \subsection{Getting an account}
 Before using the PR2, you will also need an account on the robot computers. Ask the robot administrator to create an account for you, using the instructions 
 in section \ref{creating accounts}.
-\section{Turning PR2 on}
-If the robot is already running, you can skip this step, but should still put the wireless run-stop in the stop position. 
+\section{Turning on PR2}
+If the robot is already running, you can skip this step, but you should still put the wireless run-stop in the stop position. 
 
 To turn the PR2 on, you should first verify that the wireless run-stop is in the stop position. If it is not yet in the stop position, then press the wireless run-stop's red ``STOP'' button; the lights on the wireless run-stop should turn off. 
 
@@ -74,7 +74,7 @@ as they boot.  The process of booting the computers will take about 5 minutes.  
 Once the robot is on, \texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh}{ssh}} into the main computer using the account 
 created for you by the administrator, using the steps below.
 
-In the following tutorial, we will use pr\textless x\textgreater 1 to refer to the first computer on robot \textless x\textgreater and \textless username\textgreater to refer to your account username.
+In the following tutorial, we will use pr\textless x\textgreater 1 to refer to the first computer on robot \textless x\textgreater\ and \textless username\textgreater\ to refer to your account username.
 Ask your robot  administrator what name you should use for the robot you want to run. 
 
 To log in to the robot, open a terminal window and type
@@ -138,7 +138,7 @@ $ ssh <username>@pr<x>1
 $ rostopic list
 \end{verbatim}
 to see what topics are being published by the system in the new terminal while the roslaunch continues to run in the 
-original terminal. Remember that \textless x\textgreater is a placeholding variable to be replaced with the ID of the robot you are using.
+original terminal. Remember that \textless x\textgreater\ is a placeholding variable to be replaced with the ID of the robot you are using.
 
 Either way, the robot should be running, but since you have the wireless run-stop in the stop position, the motors will not be moving.  
 
@@ -151,8 +151,8 @@ On a computer with a built ROS installation (e.g., the base-station desktop comp
 $ export ROS_MASTER_URI=http://pr<x>1:11311
 $ rosrun pr2_dashboard pr2_dashboard
 \end{verbatim}
-You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the run-stops should be ``warning'' you that the wireless runstop is not on.\footnote{If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet ``made'' the pr2\_dashboard. 
-To do this, type \texttt{rosmake pr2\_dashboard} to make pr2\_dashboard. Once this is done, you can try launching the dashboard again.}
+You should see the pr2\_dashboard control panel (a graphical user interface) appear and provide you with information about the state of the robot. It is ok if not all of the icons are green. In fact, the run-stops should be ``warning'' you that the wireless runstop is not on.\footnote{If you do not see the pr2\_dashboard control panel appear, then there is a chance that you have not yet built the pr2\_dashboard. 
+To do this, type \texttt{rosmake pr2\_dashboard} to build pr2\_dashboard. Once this is done, you can try launching the dashboard again.}
 
 Take a moment to review the state of the robot. You can get a sense for the health of 
 your robot by looking at the diagnostics information; click on the wrench on the far left.  Since you have the run-stop in the
@@ -164,7 +164,7 @@ If you see warnings or errors in any other sections, you should read the error m
 problem is.  Ask your robot administrator for help if there are errors that you do not understand.
 \subsection{Understanding pr2\_dashboard}
 When running the PR2, the most important piece of software for you to understand and control the state of the system is 
-the pr2\_dashboard. pr2\_dashboard, Figure~\ref{fig:dashboard}, is a GUI for debugging and controlling low-level state 
+the pr2\_dashboard. pr2\_dashboard, Figure~\ref{fig:dashboard1}, is a GUI for debugging and controlling low-level state 
 of the PR2. The dashboard displays the diagnostic, circuit breaker, run-stop, and battery status.
 %\begin{figure}[h]
 %\centering
@@ -172,14 +172,14 @@ of the PR2. The dashboard displays the diagnostic, circuit breaker, run-stop, an
 %\caption{The PR2 dashboard when all is well.}
 %\label{fig:dashboard}
 %\end{figure}
-The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{dashboard1.png}
 \caption{The PR2 dashboard when starting up the robot.}
 \label{fig:dashboard1}
 \end{figure}
-The dashboard should look like Figure~\ref{fig:dashboard1} because the wireless run-stop should be in the stop position.
+The robot will not usually start up with all green lights. In fact, if you bring up the robot properly, then you should see a dashboard display that looks more like Figure~\ref{fig:dashboard1}.
+This is because the wireless run-stop should be in the stop position.
 You can tell that the wireless run-stop is in the stop position by mousing over the dashboard to see the tooltips, which describe what each icon means. See Figure~\ref{fig:dashboard2}.
 
 \begin{figure}[h]
@@ -189,7 +189,13 @@ You can tell that the wireless run-stop is in the stop position by mousing over 
 \label{fig:dashboard2}
 \end{figure}
 
-The following sections describe the other information displayed in the dashboard.
+The following sections describe the other information displayed in the
+dashboard.  Some of the indicators in the dashboard can have a status
+of ``stale.''  This means that some component of the robot has stopped
+reporting status information.  A stale status is usually caused by a
+network problem (e.g., bad wireless connection from the base station to the
+robot).
+
 
 \begin{description}
 \item[Diagnostic Status] The state of the robot is shown by the diagnostic indicators in the pr2\_dashboard. \\
@@ -253,7 +259,7 @@ The battery will change its color and \% filled based on the amount of battery r
 \end{description}
 
 \section{Calibrating the joints}
-If you do not discover any problems in the diagnostics, and you want to continue with robot bringup, first check the physical area around the robot to ensure that the robot will not hit anything around it when it calibrates. Once the physical area is cleared, press the green 
+If you do not discover any problems in the diagnostics, and you want to continue with robot bringup, first check the physical area around the robot to ensure that the robot will not hit anything around it when it calibrates. The robot's arms will be fully extended and the spine will move up and down during calibration.  Once the physical area is cleared, press the green 
 ``START'' button on the wireless run-stop.  This should change the state of the run-stop indicator on the dashboard to a green 
 circle, and will allow the robot to turn power on for the motors.
 
@@ -340,7 +346,7 @@ need to open a new terminal window and configure the ROS\_MASTER\_URI to point a
 $ export ROS_MASTER_URI=http://pr<x>1:11311
 $ rosrun rviz rviz
 \end{verbatim}
-and you should see rviz launch with a visualization of the robot.\footnote{If you do not see rviz appear, then there is a chance that you have not yet ``made'' rviz yet. To do this, type \texttt{rosmake rviz} to make rviz. Once this is done, you can try launching rviz again.}
+and you should see rviz launch with a visualization of the robot.\footnote{If you do not see rviz appear, then there is a chance that you have not yet built rviz yet. To do this, type \texttt{rosmake rviz} to build rviz. Once this is done, you can try launching rviz again.}
 
 For more information about how to view different types 
 of data coming from the robot, see the \href{http://ros.org/wiki/rviz}{rviz} documentation at 
