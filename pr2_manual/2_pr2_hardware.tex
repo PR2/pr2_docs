@@ -62,8 +62,40 @@ joints in the robot with pictures.
 
 \subsection{Drivetrains}
 Discuss the drive-train approach, how/why things work, what types of errors we expect to see and don't expect to see
+
 \subsection{Motion control}
-Describe motion control architecture, capabilities, performance.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=290px]{images/mechanism_control.png}
+\caption{Motion control layout.}
+\label{fig:motion_control}
+\end{figure}
+
+
+\subsubsection{Motor controller boards}
+Each motor/encoder on the PR2 has its dedicated \emph{Motor Controller
+  Board} (MCB). The MCB detects and counts transitions in the encoder
+signal, measures the current the motor is using, and commands the
+voltage going to the motor. Each MCB runs a PI-control loop to control
+the motor current to a desired value, by commanding the motor
+voltage. This control loop is executed at 100~kHz on an FPGA.  A
+shared etherCAT link allows all MCB's in the PR2 to communicate with
+the main computers.
+
+\subsubsection{Controller manager}
+The \emph{Controller Manager} (CM) is the lowest level software
+component that directly talks to the MCB's. The CM runs in a hard
+realtime process and is guaranteed to be executed at 1~kHz. This means
+the CM sends desired motor torques to the MCB's every milisecond, and
+receives measured motor torques and positions in the same milisecond.
+
+The CM has a dynamic plugin loading mechanism that allows controller
+algorithms to get inserted and executed inside the 1~kHz realtime
+loop.
+
+
 \subsection{Mechanical specs}
 \subsubsection{Environmental specs}
 \subsubsection{Forces and torques}

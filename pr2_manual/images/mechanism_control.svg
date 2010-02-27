@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47pre4 r22446"
+   sodipodi:docname="mechanism_control.svg"
+   inkscape:export-filename="/u/wim/mechanism_control.png"
+   inkscape:export-xdpi="254.29292"
+   inkscape:export-ydpi="254.29292">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3674"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3608"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="254.3496"
+     inkscape:cy="610.59897"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1924"
+     inkscape:window-height="1058"
+     inkscape:window-x="3"
+     inkscape:window-y="55"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.15857399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2816"
+       width="132.1714"
+       height="54.521828"
+       x="172.31029"
+       y="468.5936" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.74758815999999939px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;font-family:Bitstream Vera Sans;stroke-opacity:1;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+       x="182.87436"
+       y="482.5939"
+       id="text3590"><tspan
+         sodipodi:role="line"
+         id="tspan3592"
+         x="182.87436"
+         y="482.5939">Motor Controller Boards</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 4;stroke-dashoffset:0"
+       d="m 312.26907,445.64375 128.34524,0"
+       id="path3598"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="323.32849"
+       y="459.00641"
+       id="text3590-8"><tspan
+         sodipodi:role="line"
+         id="tspan3592-2"
+         x="323.32849"
+         y="459.00641">Hardware</tspan></text>
+    <text
+       id="text3625"
+       y="437.00641"
+       x="323.32849"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="437.00641"
+         x="323.32849"
+         id="tspan3627"
+         sodipodi:role="line">Software, realtime</tspan></text>
+    <path
+       id="path3629"
+       d="m 312.26907,343.64375 129.05953,0"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 4;stroke-dashoffset:0"
+       sodipodi:nodetypes="cc" />
+    <text
+       id="text3631"
+       y="357.00641"
+       x="325.32849"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="357.00641"
+         x="325.32849"
+         id="tspan3633"
+         sodipodi:role="line">Software, realtime</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="325.32849"
+       y="335.00641"
+       id="text3635"><tspan
+         sodipodi:role="line"
+         id="tspan3637"
+         x="325.32849"
+         y="335.00641">Software, non-realtime</tspan></text>
+    <rect
+       y="374.5936"
+       x="172.31029"
+       height="51.486115"
+       width="132.1714"
+       id="rect3654"
+       style="fill:none;stroke:#000000;stroke-width:1.15857399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       id="text3656"
+       y="388.5939"
+       x="182.87436"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="388.5939"
+         x="182.87436"
+         id="tspan3658"
+         sodipodi:role="line">Controller Manager</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.15857399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3660"
+       width="132.1714"
+       height="23.807543"
+       x="172.31029"
+       y="296.5936" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+       x="182.87436"
+       y="310.5939"
+       id="text3662"><tspan
+         sodipodi:role="line"
+         id="tspan3664"
+         x="182.87436"
+         y="310.5939">ROS</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 189.46429,426.90325 0,41.70893"
+       id="path4120"
+       sodipodi:nodetypes="cc" />
+    <path
+       id="path4306"
+       d="m 189.46429,319.645 0,54.96718"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:9.50792789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="431.24323"
+       y="-200.35457"
+       id="text4308"
+       transform="matrix(0,1,-1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4310"
+         x="431.24323"
+         y="-200.35457">Torque</tspan></text>
+    <rect
+       y="570.95074"
+       x="172.31029"
+       height="34.700371"
+       width="50.385696"
+       id="rect4312"
+       style="fill:none;stroke:#000000;stroke-width:1.15857399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       id="text4314"
+       y="584.95099"
+       x="182.87436"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="584.95099"
+         x="182.87436"
+         id="tspan4316"
+         sodipodi:role="line">Motors</tspan></text>
+    <path
+       id="path4328"
+       d="m 187.46429,523.18361 0,47.14285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       sodipodi:nodetypes="cc" />
+    <text
+       transform="matrix(0,1,-1,0,0,0)"
+       id="text4330"
+       y="-173.78857"
+       x="529.22601"
+       style="font-size:9.50792789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="-173.78857"
+         x="529.22601"
+         id="tspan4332"
+         sodipodi:role="line">Voltage</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 206.07143,571.29075 0,-47.5"
+       id="path4334"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:9.50792789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="531.22601"
+       y="-213.78857"
+       id="text4520"
+       transform="matrix(0,1,-1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4522"
+         x="531.22601"
+         y="-213.78857">Current</tspan></text>
+    <path
+       id="path4524"
+       d="m 276.07143,468.29075 0,-41.26513"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       sodipodi:nodetypes="cc" />
+    <text
+       transform="matrix(0,1,-1,0,0,0)"
+       id="text4526"
+       y="-259.03094"
+       x="429.24326"
+       style="font-size:9.50792789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="-259.03094"
+         x="429.24326"
+         id="tspan4528"
+         sodipodi:role="line">Torque</tspan><tspan
+         y="-247.14606"
+         x="429.24326"
+         sodipodi:role="line"
+         id="tspan4530">Position</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.74758816px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+       x="254.87436"
+       y="584.95099"
+       id="text4534"><tspan
+         sodipodi:role="line"
+         id="tspan4536"
+         x="254.87436"
+         y="584.95099">Encoders</tspan></text>
+    <path
+       id="path4544"
+       d="m 276.07143,570.75503 0,-46.96428"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       sodipodi:nodetypes="cc" />
+    <text
+       transform="matrix(0,1,-1,0,0,0)"
+       id="text4546"
+       y="-285.14572"
+       x="530.22601"
+       style="font-size:9.50792789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="-285.14572"
+         x="530.22601"
+         id="tspan4548"
+         sodipodi:role="line">Position</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.08449745px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="210.396"
+       y="507.58429"
+       id="text4554"><tspan
+         sodipodi:role="line"
+         id="tspan4556"
+         x="210.396"
+         y="507.58429">100 kHz loop</tspan></text>
+    <text
+       id="text4558"
+       y="415.58429"
+       x="208.396"
+       style="font-size:8.08449745px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="415.58429"
+         x="208.396"
+         id="tspan4560"
+         sodipodi:role="line">1 kHz loop</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.15857399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect4562"
+       width="50.385696"
+       height="34.700371"
+       x="250.31029"
+       y="570.95074" />
+    <text
+       xml:space="preserve"
+       style="font-size:11.05858135px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="99.633865"
+       y="346.59653"
+       id="text2863"><tspan
+         sodipodi:role="line"
+         id="tspan2865"
+         x="99.633865"
+         y="346.59653">ROS messages</tspan></text>
+    <text
+       id="text2867"
+       y="444.59653"
+       x="99.633865"
+       style="font-size:11.05858135px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="444.59653"
+         x="99.633865"
+         id="tspan2869"
+         sodipodi:role="line">EtherCAT</tspan></text>
+  </g>
+</svg>
