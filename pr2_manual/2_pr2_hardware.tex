@@ -181,17 +181,58 @@ loop.
 
 
 \subsection{Mechanical specs}
+
+Before undertaking any new or risky operations with your PR2, please consult these mechanical specifications. Do not operate the PR2 outside of these specifications. If you have any questions about your PR2's specifications, please contact Willow Garage Support.
+
 \subsubsection{Environmental specs}
+
+The PR2 is an indoor, household robot. Operating outside this type of environment could cause damage to the PR2, or injury or death to operators.
+
+\paragraph{Water}
+
+The PR2 has not been tested for any type of contact with water. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) or liquid handling. Water contact can cause damage to the electrical circuitry and the mechanism.
+
+\paragraph{Temperature and Humidity}
+
+Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. Temperatures outside of this range can cause malfunctions in the PR2 power system and instruments. The PR2 has been tested in high humidity, but under no circumstances should condensation be allowed to form on the vehicle.
+
 \subsubsection{Forces and torques}
+
+Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the "/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity, and implement "virtual springs" at joint limits to prevent overtravel. These limits are enforced by pr2_controller_manager, and are designed to prevent poorly designed controllers from damaging the PR2.
+
+These limits have been carefully implemented and validated by Willow Garage. Under no circumstances should they be changed without prior written authorization by Willow Garage Safety. Unauthorized and unvalidated modification of these limits could cause mechanism damage and injury or death to PR2 operators. 
+
+The limits below are from the PR2 URDF file. If a velocity or torque limit is not specified, no value is enforced by pr2_controller_manager.
+
+\begin{tabular}{l*{2}{c}}
+Joint  & Velocity (rad/s or m/s) & Torque (Nm or N) \\
+\hline \hline
+$\ast$\_caster\_rotation\_joint        & -     & - \\
+$\ast$\_caster\_wheel\_$\ast$\_joint   & -     & - \\
+torso\_lift\_joint                     & 0.013 & 10000 \\
+laser\_tilt\_joint                     & 10.0  & 0.7 \\
+head\_pan\_joint                       & 6.0   & 2.7  \\
+head\_tilt\_joint                      & 5.0   & 15  \\
+$\ast$\_shoulder\_pan\_joint           & 2.0   & 30  \\
+$\ast$\_shoulder\_lift\_joint          & 2.0   & 30  \\
+$\ast$\_upper\_arm\_roll\_joint        & 3.3   & 30  \\
+$\ast$\_elbow\_flex\_joint             & 3.3   & 30  \\
+$\ast$\_forearm\_roll\_joint           & 3.6   & 30 \\
+$\ast$\_wrist\_flex\_joint             & 3.0   & 10  \\
+$\ast$\_wrist\_roll\_joint             & 3.0   & 10 \\
+$\ast$\_gripper\_joint                 & 0.2   & 1000 \\
+\end{tabular}
+
 \subsubsection{Joint Limits and Types}
-The 
+
+The position limits for the PR2 are specified below. 
 
 \begin{tabular}{ll*{2}{c}}
 Joint  & Type  & Limit (+) & Limit (-) \\
 \hline \hline
 $\ast$\_caster\_rotation\_joint        & continuous & -            & - \\
 $\ast$\_caster\_wheel\_$\ast$\_joint   & continuous & -            & - \\
-torso\_lift\_joint                     & prismatic  & 396 mm       & 30 mm \\
+torso\_lift\_joint                     & prismatic  & 310 mm       & 0 mm \\
 laser\_tilt\_joint                     & revolute   & 85$^\circ$   & 45$^\circ$ \\
 head\_pan\_joint                       & revolute   & 168$^\circ$  & 168$^\circ$  \\
 head\_tilt\_joint                      & revolute   & 60$^\circ$   & 30$^\circ$  \\
@@ -202,8 +243,11 @@ $\ast$\_elbow\_flex\_joint             & revolute   & 50$^\circ$   & 90$^\circ$ 
 $\ast$\_forearm\_roll\_joint           & continuous & -            & - \\
 $\ast$\_wrist\_flex\_joint             & revolute   & 138$^\circ$  & 9$^\circ$  \\
 $\ast$\_wrist\_roll\_joint             & continuous & -            & - \\
-$\ast$\_gripper\_joint                 & prismatic  & X mm         & 0 mm \\
+$\ast$\_gripper\_joint                 & prismatic  & 86 mm         & 0 mm \\
 \end{tabular}
+
+
+
 
 
 \section{Sensors}
