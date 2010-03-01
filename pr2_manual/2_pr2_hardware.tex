@@ -384,9 +384,30 @@ For more information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean
 
 \subsection{Power board}
 
-\subsection{Modularity and expansion}
-Talk here about the head bolt-pattern and electrical connections, plus other interfaces.  Question of whether 
-to try to have full specs for all interfaces or not.
+\subsection{Getting Power for sensors}
+The electrical system in the robot is comprised of two primary systems. One operates from the batteries and is an unregulated voltage. The second bus provides a well regulated 12V supply. The regulated 12V supply is the only supply designed for additions and expansion. This 12V supply is essentially always on once the Power board completes a self test. It is also monitored for undervoltage conditions and is fairly robust.
 
 
+A few limitations should be followed when adding loads to the 12V user supply. This supply is already supporting the 2 Hokuyo scanners, 2 ethernet switches, the wireless AP and the E-stop receiver. Considering the loads and the supplies capabilities with some headroom this leaves 5A for expansion.\\
 
+{\bf 5A limit on 12V expansion}\\
+
+Access to the 12V accessory bus is available in several locations:\\
+
+Inside the top head assembly.\\
+
+{\bf insert picture}\\
+
+
+In the upper back.\\
+
+{\bf insert picture}\\
+
+
+In the lower back, directly connecting to the power board.\\
+
+{\bf insert picture}\\
+
+Before something is connected to this bus, strongly consider if hot plugging is safe. If you are uncertain, the safest choice is to shut the power system off completely.\\
+
+All 12V connectors in the robot use the same connector, a 2x1 Molex Mini-Fit Jr. The mating connector part number is {\bf 39-01-3022} or from Digikey {\bf WM1021-ND}. Pin one is negative and pin 2 is positive. Pin 2 is the pin closest to the latch.
