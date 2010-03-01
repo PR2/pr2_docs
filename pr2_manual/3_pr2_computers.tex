@@ -45,15 +45,13 @@ Computer 2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1},
 both of which are connected to the internal robot network.
 
 \subsection{Basestation}
-The basestation is a zareason XXX.  It is intended to be a dedicated
+The basestation is a zareason xPC.  It is intended to be a dedicated
 point of contact through which network traffic to the robot can be
 routed.  It has 2 ethernet ports, \texttt{eth0}, on the motherboard,
 is the primary ethernet port.  It is intended to be plugged into your
-local network.  By default it is configured to acquire an IP address
-via DHCP, but can be given a static IP address if desired.
-\texttt{eth1}, on the pci card is a dedicated port for servicing the
-robot.  When necessary, this port should be plugged directly into the
-robot service port.
+local network.  \texttt{eth1}, on the pci card is a dedicated port for
+servicing the robot.  When necessary, this port should be plugged
+directly into the robot service port.
 
 When configured properly, it is important that the basestation is
 visible on port \texttt{1194} both via your local wired network as
@@ -68,15 +66,16 @@ Additionally, the robot can be accessed via the basestation through a
 VPN tunnel.
 \subsection{Network segments}
 \begin{itemize}
-\item \texttt{10.68.0.0}: Robot Internal Network. The
+\item \texttt{10.68.0.0}: Robot Internal Network 1. The
   \texttt{10.68.0.0} subnet is the primary network used internally by
-  the robot.  Both computers have addresses on this subnet.  All
-  ethernet-based devices, such as the cameras and the power board, are
-  given addresses on this subnet.  The robot Service Port, and the
-  cradlepoint ctr350 Wireless Access Point are directly connected to this
-  network.  The master computer, if booted, will give out IP addresses
-  via DHCP in the range \texttt{10.68.0.100-10.68.0.199}.  Important
-  addresses on this network:
+  the computers on the robot.  Both computers have addresses on this
+  subnet.  Many of the ethernet-based devices, such as the power
+  board, are given addresses on this subnet.  The robot Service Port,
+  and the cradlepoint ctr350 Wireless Access Point are directly
+  connected to this network.  The master computer, if booted, will
+  give out IP addresses via DHCP in the range
+  \texttt{10.68.0.100-10.68.0.199}.  Important addresses on this
+  network:
   \begin{itemize}
   \item \texttt{10.68.0.1} - c1 (master computer)
   \item \texttt{10.68.0.2} - c2 (slave computer)
@@ -86,6 +85,12 @@ VPN tunnel.
   \item \texttt{10.68.0.92} - c2-esms (master computer enterprise server management system)
   \item \texttt{10.68.0.250} - wap (wireless access point)
   \end{itemize}
+\item \texttt{10.69.0.0}: Robot Internal Network 2.  The
+  \texttt{10.69.0.0} network is a second subnet internal to the robot.
+  The cameras are given addresses on this subnet to partition traffic
+  accross the two network interfaces of the computers.  This way heavy
+  network utilization by the cameras is less likely to interfere with
+  more critical computer functions such as NFS.
 \item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
   basestation is to function as a VPN server for the robot.  Each
   robot can be given a unique VPN subnet to facilitate the operation
@@ -93,8 +98,8 @@ VPN tunnel.
   operation the basestation will automatically forward relevant
   traffic into the VPN network, hiding this from the end-user.
   However, if greater security is desired, the basestation can instead
-  be configured to require users to be assigned a key to access the
-  robot VPN network.  Important addresses on this network:
+  be configured to require users to be assigned a vpn key to access
+  the robot VPN network.  Important addresses on this network:
   \begin{itemize}
   \item \texttt{10.68.X.1} - c1 (master computer)
   \item \texttt{10.68.X.2} - c2 (slave computer)
@@ -178,12 +183,13 @@ on the slave computer, an admin can simply move (or copy) the home
 directory and update the symlink accordingly.
 
 \subsection{Kernel}
-Discuss RT\_PREEMT and anything else non-vanilla about the kernel
+Discuss RT\_PREEMT and anything else non-vanilla about the kernel.  (BLAISE HAS AGREED TO FILL THIS IN).
 
 \subsection{Storage}
-Each computer has two hard-drives - one internal 2.5" 500Gb \href{http://www.seagate.com/www/en-us/products/laptops/momentus/momentus_7200.4_g_force/}{Seagate Momentus} drive, and a
-slot for a removable 3.5" SATA hard-drive that is exposed on the top
-of the robot base.
+Each computer has two hard-drives - one internal 2.5" 500Gb
+\href{http://www.seagate.com/www/en-us/products/laptops/momentus/momentus_7200.4_g_force/}{Seagate
+  Momentus} drive, and a slot for a removable 3.5" SATA hard-drive
+that is exposed on the top of the robot base.
 
 By default the only hard-drive used is the internal drive on the
 Master computer.  There are 3 relevant partitions created during
@@ -218,19 +224,22 @@ $ umount /dev/removable
 when done.
 \end{itemize}
 
+\subsubsection{Formatting Drives}
+If you want to partion / reformat one of the removable drives, or the
+the internal drive on the slave machine, yuo can use the
+\texttt{formatdisk} helper utility.  Simply pass it the name of the
+drive you want to format, for example:
+\begin{verbatim}
+$ sudo formatdisk /dev/sda
+\end{verbatim}
+
 \subsection{User accounts}
 \label{creating accounts}
-The pr2 ships with several default user accounts, which are used for
-system utilities, maintenance, running demos, etc.  These accounts
-are:
-\begin{itemize}
-\item{pr2\_admin}
-\item{pr2\_demo}
-\end{itemize}
-In addition to these accounts, the expectation is that each person
-logging into the robot to develop code will have their own user
-account.  Any robot admin can create a new user using the
-\texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?adduser}{adduser}} command (not the \texttt{useradd} command).
+The expectation is that each person logging into the robot to develop
+code will have their own user account.  Any robot admin can create a
+new user using the
+\texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?adduser}{adduser}}
+command (NOT the \texttt{useradd} command).
 
 Some examples:
 \begin{verbatim}
@@ -286,14 +295,64 @@ from drifting too far from the outside world.
 
 \section{System installs}
 When the robots ship, the most recent version of ROS and the PR2
-software stacks is installed in /opr/ros.  By default, new users will
+software stacks is installed in /opt/ros.  By default, new users will
 have a ROS installation which references the pre-installed code.
 Users who wish to modify or replace a part of the system are
 recommended to install a development version of the stacks or packages
 which they wish to modify, but to continue to use the base
 installation for most of the robot functionality.
 
-The pr2\_admin user can install updated versions of stacks into this
-globally visible space.
+Debian packages exist for all of the custom software and
+configurations on the robot.  The package which pulls in all the other
+requirements is called \texttt{pr2-environment}.
+\texttt{pr2-environment} depends on \texttt{pr2-core}, which in turn
+depends on \texttt{ros-boxturtle-pr2}, the meta-package which contains
+all of the ROS software for the PR2.
+
+To upgrade the software on your robot, you can simply use \texttt{apt}:
+
+\begin{verbatim}
+$ sudo apt-get dist-upgrade
+\end{verbatim}
+
+Which will update all packages on your system, pulling in security fixes for
+the pr2 configuration as well as for the appropriate ros-release.
+
+
+\subsection{Reinstall the Robot}
+
+To reinstall the robot, first back up anything you need off of the
+master machine.  Next, shutdown the comptuers using
+\texttt{pr2-shutdown}.
+
+You must then plug the service port directly into the basestation.
+You can then run the robot installer:
+
+\begin{verbatim}
+$ sudo robot_installer
+\end{verbatim}
+
+At that point you must be able hit f12 on the keyboard.  You can do this in one of two ways.
+
+The easier way to to connect up to the KVM.  (See section XYZ on connecting to the KVM.)
+
+Alternatively, plug a keyboard into the PR2.  This can be done using
+the aux usb port under the back cover.  To remove this cover, follow
+the instructions in section XYZ.
+
+Boot the Master computer by pushing the power button with a paperclip.
+
+You will hear 2 beeps followed by a short pause, and then another 2
+beeps.  After the 4th beep, hit f12 on the keyboard (either physically
+or through the KVM) to force the Master computer to netboot.
+
+After N minutes, the netconsole on the basestation will show the
+isntall diaglog.  Hit enter to start the installer and wait for it to
+complete.
+
+\subsection{Pairing the robot with the basestation}
+
+This section needs work.  Still changing the mechanism that this uses.
+
 
 
