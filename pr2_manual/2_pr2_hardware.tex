@@ -198,11 +198,11 @@ Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. T
 
 \subsubsection{Forces and torques}
 
-Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the "/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity, and implement "virtual springs" at joint limits to prevent overtravel. These limits are enforced by pr2_controller_manager, and are designed to prevent poorly designed controllers from damaging the PR2.
+Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the "/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity, and implement "virtual springs" at joint limits to prevent overtravel. These limits are enforced by pr2\_controller\_manager, and are designed to prevent poorly designed controllers from damaging the PR2.
 
 These limits have been carefully implemented and validated by Willow Garage. Under no circumstances should they be changed without prior written authorization by Willow Garage Safety. Unauthorized and unvalidated modification of these limits could cause mechanism damage and injury or death to PR2 operators. 
 
-The limits below are from the PR2 URDF file. If a velocity or torque limit is not specified, no value is enforced by pr2_controller_manager.
+The limits below are from the PR2 URDF file. If a velocity or torque limit is not specified, no value is enforced by pr2\_controller\_manager.
 
 \begin{tabular}{l*{2}{c}}
 Joint  & Velocity (rad/s or m/s) & Torque (Nm or N) \\
