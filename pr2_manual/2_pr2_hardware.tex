@@ -44,8 +44,14 @@ wireless controller. It can be charged using any standard USB A to mini-B USB ca
 \section{Mechanism}
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
 \subsection{Robot anatomy}
-Include the information from the robot anatomy document here.  Official names of all components, links, and 
-joints in the robot with pictures.
+The entire PR2 robot can be roughly divided into the following main components:  head, torso lift, arms, base and casters.
+The arms can be further subdivided into shoulder, upper arm, forearm and gripper.
+
+A detailed kinematic and dynamic description of the PR2 including CAD approximated inertia matrices can be found in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description} package.
+
+\subsubsection{PR2 Coordinate System}
+The reference "home-pose" of the PR2 robot is defined as the robot pose with all the joint angles at zero,
+with the PR2 robot facing the positive x-direction, positive z-axis pointing upwards and positive y-axis pointing to "robot-left".
 
 \begin{figure}[!h]
 \centering
