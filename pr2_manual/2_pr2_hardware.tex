@@ -219,17 +219,17 @@ The PR2 is ready for ADA compatible ramps, which specifies a 1/12 slope. Ramps t
 
 \subsubsection{Forces and torques}
 
-Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the "/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity, and implement "virtual springs" at joint limits to prevent overtravel. These limits are enforced by pr2\_controller\_manager, and are designed to prevent poorly designed controllers from damaging the PR2.
+Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the ``/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity to prevent overtravel. These limits are enforced by pr2\_controller\_manager, and are designed to prevent poorly designed controllers from damaging the PR2 and harming operators. 
 
-These limits have been carefully implemented and validated by Willow Garage. Under no circumstances should they be changed without prior written authorization by Willow Garage Safety. Unauthorized and unvalidated modification of these limits could cause mechanism damage and injury or death to PR2 operators. 
+
 
 The limits below are from the PR2 URDF file. If a velocity or torque limit is not specified, no value is enforced by pr2\_controller\_manager.
 
 \begin{tabular}{l*{2}{c}}
 Joint  & Velocity (rad/s or m/s) & Torque (Nm or N) \\
 \hline \hline
-$\ast$\_caster\_rotation\_joint        & -     & 0.65  \\
-$\ast$\_caster\_wheel\_$\ast$\_joint   & -     & 0.65  \\
+$\ast$\_caster\_rotation\_joint        & -     & -  \\
+$\ast$\_caster\_wheel\_$\ast$\_joint   & -     & -  \\
 torso\_lift\_joint                     & 0.013 & 10000 \\
 laser\_tilt\_joint                     & 10.00 & 0.65  \\
 head\_pan\_joint                       & 6.00  & 2.65  \\
@@ -244,9 +244,32 @@ $\ast$\_wrist\_roll\_joint             & 3.60  & 10.00 \\
 $\ast$\_gripper\_joint                 & 0.20  & 1000  \\
 \end{tabular}
 
+The PR2 motor controller boards (MCB's) will not allow a current command greater than the maximum continuous current specified for the joint's actuator. This means that maximum joint effort may be lower than the maximum effort specified above. Below are the actuators for each joint (Maxon part number), and their maximum allowable commanded current. 
+
+\begin{tabular}{ll*{2}{c}}
+Joint  & Motor & Power (W) & Max Current \\
+\hline \hline
+$\ast$\_caster\_rotation\_joint       & 236672 & 20  & 0.655 \\
+$\ast$\_caster\_wheel\_$\ast$\_joint  & 236672 & 20  & 0.655 \\
+torso\_lift\_joint                    & 148877 & 150 & 3.12  \\
+laser\_tilt\_joint                    & 310009 & 60  & 1.72  \\
+head\_pan\_joint                      & 310009 & 60  & 1.72  \\
+head\_tilt\_joint                     & 310009 & 60  & 1.72  \\
+$\ast$\_shoulder\_pan\_joint          & 148877 & 150 & 3.12  \\
+$\ast$\_shoulder\_lift\_joint         & 148877 & 150 & 3.12  \\
+$\ast$\_upper\_arm\_roll\_joint       & 148877 & 150 & 3.12  \\
+$\ast$\_elbow\_flex\_joint            & 148877 & 150 & 3.12  \\
+$\ast$\_forearm\_roll\_joint          & 310009 & 60  & 1.72  \\
+$\ast$\_wrist\_flex\_joint            & 310009 & 60  & 1.72  \\
+$\ast$\_wrist\_roll\_joint            & 310009 & 60  & 1.72  \\
+$\ast$\_gripper\_joint                & 222057 & 11  & 0.204 \\
+\end{tabular}
+
+More information about each actuator may be found in Maxon datasheets.
+
 \subsubsection{Joint Limits and Types}
 
-The position limits for the PR2 are specified below. These "hard limits" are the maximum travel for the mechanism. On the PR2, "soft limits" stop the joints from reaching the full range of motion to prevent damage to the mechanism. These soft limits, similar to a virual spring, are specified in the robot's URDF file. For an explanation of their implementation, see http://www.ros.org/wiki/pr2_controller_manager/safety_limits.
+The position limits for the PR2 are specified below. These ``hard limits" are the maximum travel for the mechanism. 
 
 \begin{tabular}{ll*{2}{c}}
 Joint  & Type  & Limit (+) & Limit (-) \\
@@ -257,11 +280,11 @@ torso\_lift\_joint                     & prismatic  & 310 mm       & 0 mm \\
 laser\_tilt\_joint                     & revolute   & 85$^\circ$   & 45$^\circ$ \\
 head\_pan\_joint                       & revolute   & 168$^\circ$  & 168$^\circ$  \\
 head\_tilt\_joint                      & revolute   & 60$^\circ$   & 30$^\circ$  \\
-r_shoulder\_pan\_joint                 & revolute   & 40$^\circ$   & 130$^\circ$  \\
-l_shoulder\_pan\_joint                 & revolute   & 130$^\circ$  & -40$^\circ$  \\
+r\_shoulder\_pan\_joint                 & revolute   & 40$^\circ$   & 130$^\circ$  \\
+l\_shoulder\_pan\_joint                 & revolute   & 130$^\circ$  & -40$^\circ$  \\
 $\ast$\_shoulder\_lift\_joint          & revolute   & 80$^\circ$   & 30$^\circ$  \\
-r_upper\_arm\_roll\_joint              & revolute   & 44$^\circ$   & -224$^\circ$  \\
-l_upper\_arm\_roll\_joint              & revolute   & 224$^\circ$  & -44$^\circ$  \\
+r\_upper\_arm\_roll\_joint              & revolute   & 44$^\circ$   & -224$^\circ$  \\
+l\_upper\_arm\_roll\_joint              & revolute   & 224$^\circ$  & -44$^\circ$  \\
 $\ast$\_elbow\_flex\_joint             & revolute   & 133$^\circ$  & 0$^\circ$  \\
 $\ast$\_forearm\_roll\_joint           & continuous & -            & - \\
 $\ast$\_wrist\_flex\_joint             & revolute   & 130$^\circ$  & 0$^\circ$  \\
@@ -269,9 +292,13 @@ $\ast$\_wrist\_roll\_joint             & continuous & -            & - \\
 $\ast$\_gripper\_joint                 & prismatic  & 86 mm        & 0 mm \\
 \end{tabular}
 
+\subsubsection{Modifying Joint Limits}
 
+On the PR2, ``soft limits" stop the joints from reaching the full range of motion to prevent damage to the mechanism. These soft limits, similar to a virual spring, are specified in the robot's URDF file. For an explanation of their implementation, see http://www.ros.org/wiki/pr2\_controller\_manager/safety\_limits.
 
+The soft limits have been carefully implemented and validated by Willow Garage. Under no circumstances should they be changed without prior written authorization by Willow Garage Safety. Unauthorized and unvalidated modification of these limits could cause mechanism damage and injury or death to PR2 operators. 
 
+Changing maximum allowable effort or maximum actuator current could cause serious damage to the PR2 and injury or death to operators. 
 
 \section{Sensors}
 The PR2 has a variety of sensors spread out over it's body:\\\\
