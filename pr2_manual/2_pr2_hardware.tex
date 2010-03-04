@@ -196,11 +196,26 @@ The PR2 is an indoor, household robot. Operating outside this type of environmen
 
 \paragraph{Water}
 
-The PR2 has not been tested for any type of contact with water. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) or liquid handling. Water contact can cause damage to the electrical circuitry and the mechanism.
+The PR2 has not been tested for any type of contact with water or any other liquid. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) or liquid handling. Water contact can cause damage to the electrical circuitry and the mechanism.
 
 \paragraph{Temperature and Humidity}
 
 Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. Temperatures outside of this range can cause malfunctions in the PR2 power system and instruments. The PR2 has been tested in high humidity, but under no circumstances should condensation be allowed to form on the vehicle.
+
+\paragraph{Drive Surface}
+
+The drive surface of the PR2 must be capable of supporting the entire weight of the PR2, about 450 pounds (220 kgs). If the surface is too soft, the PR2 can get stuck and fail to drive. A commercial carpet or tile is recommended. 
+
+\paragraph{Incline Surface}
+
+The PR2 is ready for ADA compatible ramps, which specifies a 1/12 slope. Ramps that are steeper than 1/12 slope are unsafe and may be a tip over hazard.
+
+\paragraph{Other Environmental Specs}
+
+\begin{itemize}
+\item UV exposure should be minimized. UV radiation can damage the PR2's skin
+\item Dust and dirt can clog air filters
+\end{itemize}
 
 \subsubsection{Forces and torques}
 
@@ -213,25 +228,25 @@ The limits below are from the PR2 URDF file. If a velocity or torque limit is no
 \begin{tabular}{l*{2}{c}}
 Joint  & Velocity (rad/s or m/s) & Torque (Nm or N) \\
 \hline \hline
-$\ast$\_caster\_rotation\_joint        & -     & - \\
-$\ast$\_caster\_wheel\_$\ast$\_joint   & -     & - \\
+$\ast$\_caster\_rotation\_joint        & -     & 0.65  \\
+$\ast$\_caster\_wheel\_$\ast$\_joint   & -     & 0.65  \\
 torso\_lift\_joint                     & 0.013 & 10000 \\
-laser\_tilt\_joint                     & 10.0  & 0.7 \\
-head\_pan\_joint                       & 6.0   & 2.7  \\
-head\_tilt\_joint                      & 5.0   & 15  \\
-$\ast$\_shoulder\_pan\_joint           & 2.0   & 30  \\
-$\ast$\_shoulder\_lift\_joint          & 2.0   & 30  \\
-$\ast$\_upper\_arm\_roll\_joint        & 3.3   & 30  \\
-$\ast$\_elbow\_flex\_joint             & 3.3   & 30  \\
-$\ast$\_forearm\_roll\_joint           & 3.6   & 30 \\
-$\ast$\_wrist\_flex\_joint             & 3.0   & 10  \\
-$\ast$\_wrist\_roll\_joint             & 3.0   & 10 \\
-$\ast$\_gripper\_joint                 & 0.2   & 1000 \\
+laser\_tilt\_joint                     & 10.00 & 0.65  \\
+head\_pan\_joint                       & 6.00  & 2.65  \\
+head\_tilt\_joint                      & 5.00  & 15.00 \\
+$\ast$\_shoulder\_pan\_joint           & 2.10  & 30.00 \\
+$\ast$\_shoulder\_lift\_joint          & 2.10  & 30.00 \\
+$\ast$\_upper\_arm\_roll\_joint        & 3.27  & 30.00 \\
+$\ast$\_elbow\_flex\_joint             & 3.30  & 30.00 \\
+$\ast$\_forearm\_roll\_joint           & 3.60  & 30.00 \\
+$\ast$\_wrist\_flex\_joint             & 3.10  & 10.00 \\
+$\ast$\_wrist\_roll\_joint             & 3.60  & 10.00 \\
+$\ast$\_gripper\_joint                 & 0.20  & 1000  \\
 \end{tabular}
 
 \subsubsection{Joint Limits and Types}
 
-The position limits for the PR2 are specified below. 
+The position limits for the PR2 are specified below. These "hard limits" are the maximum travel for the mechanism. On the PR2, "soft limits" stop the joints from reaching the full range of motion to prevent damage to the mechanism. These soft limits, similar to a virual spring, are specified in the robot's URDF file. For an explanation of their implementation, see http://www.ros.org/wiki/pr2_controller_manager/safety_limits.
 
 \begin{tabular}{ll*{2}{c}}
 Joint  & Type  & Limit (+) & Limit (-) \\
@@ -242,14 +257,16 @@ torso\_lift\_joint                     & prismatic  & 310 mm       & 0 mm \\
 laser\_tilt\_joint                     & revolute   & 85$^\circ$   & 45$^\circ$ \\
 head\_pan\_joint                       & revolute   & 168$^\circ$  & 168$^\circ$  \\
 head\_tilt\_joint                      & revolute   & 60$^\circ$   & 30$^\circ$  \\
-$\ast$\_shoulder\_pan\_joint           & revolute   & 90$^\circ$   & 90$^\circ$  \\
-$\ast$\_shoulder\_lift\_joint          & revolute   & 75$^\circ$   & 35$^\circ$  \\
-$\ast$\_upper\_arm\_roll\_joint        & revolute   & 135$^\circ$  & 135$^\circ$  \\
-$\ast$\_elbow\_flex\_joint             & revolute   & 50$^\circ$   & 90$^\circ$  \\
+r_shoulder\_pan\_joint                 & revolute   & 40$^\circ$   & 130$^\circ$  \\
+l_shoulder\_pan\_joint                 & revolute   & 130$^\circ$  & -40$^\circ$  \\
+$\ast$\_shoulder\_lift\_joint          & revolute   & 80$^\circ$   & 30$^\circ$  \\
+r_upper\_arm\_roll\_joint              & revolute   & 44$^\circ$   & -224$^\circ$  \\
+l_upper\_arm\_roll\_joint              & revolute   & 224$^\circ$  & -44$^\circ$  \\
+$\ast$\_elbow\_flex\_joint             & revolute   & 133$^\circ$  & 0$^\circ$  \\
 $\ast$\_forearm\_roll\_joint           & continuous & -            & - \\
-$\ast$\_wrist\_flex\_joint             & revolute   & 138$^\circ$  & 9$^\circ$  \\
+$\ast$\_wrist\_flex\_joint             & revolute   & 130$^\circ$  & 0$^\circ$  \\
 $\ast$\_wrist\_roll\_joint             & continuous & -            & - \\
-$\ast$\_gripper\_joint                 & prismatic  & 86 mm         & 0 mm \\
+$\ast$\_gripper\_joint                 & prismatic  & 86 mm        & 0 mm \\
 \end{tabular}
 
 
