@@ -1,0 +1,10 @@
+before opening the template
+
+run 
+/usr/lib/openoffice/program/spadmin
+ 
+click on Fonts
+then click on Add
+then select the font in this directory interstate mono.ttf
+
+then open template so that it doesn't make a substitution
