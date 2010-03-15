@@ -56,7 +56,7 @@ A CAD approximated kinematic and inertial description of the PR2 can be found in
 There we use a XML and Document Object Model (DOM) representation called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}, which represents the PR2 mechanism model
 by a tree rather than a graph.  In the tree representation of the PR2, further restriction is imposed on the mechanism model where each node (link) can be connected to only one parent node but can have arbitrarily many child nodes.
 
-Rather than diving into all 32 DOF's of the PR2 in detail, we'll examine the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
+Rather than diving into all 32 DOF's of the PR2 in detail right away, we'll examine the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
 
 \subsubsection{Head}
 The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
@@ -65,7 +65,36 @@ The {\bf head\_pan\_link} is attached to the PR2 torso ({\bf torso\_lift\_link})
 We will examine the head sensors separately in the section~\ref{subsec:pr2_sensors}
 
 \subsubsection{Arms}
-The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.
+The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.  We'll describe each components in detail below:
+\begin{itemize}
+\item Shoulers
+  \begin{itemize}
+  \item {\bf l\_shoulder\_pan\_link} {\bf r\_shoulder\_pan\_link}
+  \item {\bf l\_shoulder\_lift\_link} {\bf r\_shoulder\_lift\_link}
+  \item {\bf l\_upper\_arm\_roll\_link} {\bf r\_upper\_arm\_roll\_link}
+  \end{itemize}
+\item Upper Arms
+  \begin{itemize}
+  \item {\bf l\_upper\_arm\_link} {\bf r\_upper\_arm\_link}
+  \item {\bf l\_elbow\_flex\_link} {\bf r\_elbow\_flex\_link}
+  \item {\bf l\_forearm\_roll\_link} {\bf r\_forearm\_roll\_link}
+  \end{itemize}
+\item Forearms
+  \begin{itemize}
+  \item {\bf l\_forearm\_link} {\bf r\_forearm\_link}
+  \item {\bf l\_wrist\_flex\_link} {\bf r\_wrist\_flex\_link}
+  \item {\bf l\_wrist\_roll\_link} {\bf r\_wrist\_roll\_link}
+  \end{itemize}
+\item Grippers
+  \begin{itemize}
+  \item {\bf l\_gripper\_palm\_link} {\bf r\_gripper\_palm\_link}
+  \item {\bf l\_gripper\_l\_finger\_link} {\bf l\_gripper\_r\_finger\_link}
+        {\bf r\_gripper\_l\_finger\_link} {\bf r\_gripper\_r\_finger\_link}
+  \item {\bf l\_gripper\_l\_finger\_tip\_link} {\bf l\_gripper\_r\_finger\_tip\_link}
+        {\bf r\_gripper\_l\_finger\_tip\_link} {\bf r\_gripper\_r\_finger\_tip\_link}
+  \end{itemize}
+\end{itemize}
+
 
 \subsubsection{Torso}
 The PR2 {\bf torso\_lift\_link} refers to the torso part of the PR2 that moves up and down with the elevator actuator.
@@ -75,6 +104,11 @@ The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 comp
 
 \subsubsection{Casters}
 The PR2 has 4 caster units.  Each caster contains one actuated steering degree of freedom and two individually actuated wheels.
+
+\subsubsection{Frames}
+Frames can be described as links without collision or inertial components, they are rigidly attached to parent links via fixed joints and cannot have children links.
+Frames serves an important function of facilitating transform generation through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)} for information such as
+reference frames of optical images, origin and coordinates of range sensor generated point cloud data and gripper grasping positions.
 
 \subsubsection{Home Pose}
 In order to describe the PR2 robot pose and joint positions in a consistent manner, we have defined a {\bf home pose} of the robot.  The {\bf home pose} is depicted in Figure~\ref{fig:pr2_home_pose}.
@@ -87,6 +121,10 @@ The PR2 contains the following sensors:
 \item Image Sensors
   \begin{itemize}
   \item Dual Stereo Cameras
+    \begin{itemize}
+    \item Narrow Stereo Camera Pair
+    \item Wide Stereo Camera Pair
+    \end{itemize}
   \item Prosilica Camera
   \item Forearm Cameras
   \end{itemize}
