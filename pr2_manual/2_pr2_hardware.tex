@@ -51,13 +51,21 @@ Kinematically speaking, the PR2 can be broken down into {\bf links} by individua
 rigid body component that can be represented by a single collision model and a single lumped inertial property.
 All links are interconnected together by {\bf joint} constraints in the form of revolute, prismatic or fixed {\bf joints}.
 In this literature, a revolute joint without limits is also called a continuous joint.
-In general, the entire PR2 mechanism is represented by a graph where each node is a {\bf link} and the edges connecting nodes are {\bf joints}.
-A CAD approximated kinematic and inertial description of the PR2 can be found in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description package}.
-A robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)},
-   is used to describe the PR2 mechanism model by a tree rather than a graph.
-In the tree representation of the PR2, restriction is imposed on the mechanism model where each node (link) can be connected to only one parent node but can have arbitrarily many child nodes.
+In general, the entire PR2 mechanism is represented by a tree where each node is a {\bf link}
+  and the edges connecting individual nodes are {\bf joints}.
+In the tree representation of the PR2, each node (link) can be connected (via joints) to only one parent node but can have arbitrarily many child nodes.
 
-Rather than diving into all 32 DOF's of the PR2 in detail right away, the next section examines the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
+A link without collision or inertial components is referred to as a {\bf frame}. Frames are always rigidly attached to parent links via fixed joints and cannot have children links.
+A frame serves an important function of facilitating transform record keeping through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)}
+  for propagating information such as reference coordinates of an optical image, origin of range sensor generated point cloud data or the reference pose for the grasp point of a gripper.
+
+A CAD approximated kinematic and inertial description of the PR2 can be found
+  in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description} package.
+This package uses a robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation
+  called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)} created here at Willow Garage.
+
+Rather than diving into all 32 DOF's of the PR2 in detail right away, the next section examines the robot by its major components:  head, torso, arms, base and casters.
+This overall breakdown of the PR2 robot is depicted in Figure~\ref{fig:pr2_basic_breakdown}.
 
 \subsubsection{Head}
 The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
@@ -105,11 +113,6 @@ The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 comp
 
 \subsubsection{Casters}
 The PR2 has 4 caster units.  Each caster contains one actuated steering degree of freedom and two individually actuated wheels.
-
-\subsubsection{Frames}
-Frames can be described as links without collision or inertial components, they are rigidly attached to parent links via fixed joints and cannot have children links.
-Frames serves an important function of facilitating transform generation through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)} for information such as
-reference frames of optical images, origin and coordinates of range sensor generated point cloud data and gripper grasping positions.
 
 \subsubsection{Home Pose}
 In order to describe the PR2 robot pose and joint positions in a consistent manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system} (Figure~\ref{fig:pr2_home_pose}).
