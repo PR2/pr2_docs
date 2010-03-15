@@ -53,19 +53,20 @@ All links are interconnected together by {\bf joint} constraints in the form of 
 In this literature, a revolute joint without limits is also called a continuous joint.
 In general, the entire PR2 mechanism is represented by a graph where each node is a {\bf link} and the edges connecting nodes are {\bf joints}.
 A CAD approximated kinematic and inertial description of the PR2 can be found in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description package}.
-There we use a XML and Document Object Model (DOM) representation called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}, which represents the PR2 mechanism model
-by a tree rather than a graph.  In the tree representation of the PR2, further restriction is imposed on the mechanism model where each node (link) can be connected to only one parent node but can have arbitrarily many child nodes.
+A robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)},
+   is used to describe the PR2 mechanism model by a tree rather than a graph.
+In the tree representation of the PR2, restriction is imposed on the mechanism model where each node (link) can be connected to only one parent node but can have arbitrarily many child nodes.
 
-Rather than diving into all 32 DOF's of the PR2 in detail right away, we'll examine the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
+Rather than diving into all 32 DOF's of the PR2 in detail right away, the next section examines the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
 
 \subsubsection{Head}
 The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
 The {\bf head\_pan\_link} is attached to the PR2 torso ({\bf torso\_lift\_link}) by another revolute joint called the {\bf head\_pan\_joint}.
 
-We will examine the head sensors separately in the section~\ref{subsec:pr2_sensors}
+The individual head sensors are detailed separately in the section~\ref{subsec:pr2_sensors}
 
 \subsubsection{Arms}
-The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.  We'll describe each components in detail below:
+The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.  Each components is separately described in detail below:
 \begin{itemize}
 \item Shoulers
   \begin{itemize}
@@ -111,7 +112,7 @@ Frames serves an important function of facilitating transform generation through
 reference frames of optical images, origin and coordinates of range sensor generated point cloud data and gripper grasping positions.
 
 \subsubsection{Home Pose}
-In order to describe the PR2 robot pose and joint positions in a consistent manner, we have defined a {\bf home pose} of the robot.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system} (Figure~\ref{fig:pr2_home_pose}).
+In order to describe the PR2 robot pose and joint positions in a consistent manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system} (Figure~\ref{fig:pr2_home_pose}).
 
 \subsubsection{Sensors}
 \label{subsec:pr2_sensors}
@@ -143,8 +144,8 @@ The PR2 contains the following sensors:
 
 \subsubsection{PR2 Coordinate System}
 \label{sec:pr2_coordinate_system}
-The reference "home-pose" of the PR2 robot is defined as the robot pose with all the joint angles at zero,
-with the PR2 robot facing the positive x-direction, positive z-axis pointing upwards and positive y-axis pointing to "robot-left".
+The reference {\bf home pose} of the PR2 robot is defined as the robot pose with all the joint angles at zero,
+with the PR2 robot facing the positive x-direction, positive z-axis pointing upwards and positive y-axis pointing to the {\it robot-left}.
 
 \begin{figure}[!h]
 \centering
