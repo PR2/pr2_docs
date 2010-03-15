@@ -41,13 +41,67 @@ wireless controller. It can be charged using any standard USB A to mini-B USB ca
 \end{figure}
 
 \subsection{Base-station computer}
+
 \section{Mechanism}
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
-\subsection{Robot anatomy}
-The entire PR2 robot can be roughly divided into the following main components:  head, torso lift, arms, base and casters.
-The arms can be further subdivided into shoulder, upper arm, forearm and gripper.
 
-A detailed kinematic and dynamic description of the PR2 including CAD approximated inertia matrices can be found in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description} package.
+\subsection{Robot Anatomy}
+
+Kinematically speaking, the PR2 can be broken down into {\bf links} by individual degrees of freedoms.  Each {\bf link} consist of one
+rigid body component that can be represented by a single collision model and a single lumped inertial property.
+All links are interconnected together by {\bf joint} constraints in the form of revolute, prismatic or fixed {\bf joints}.
+In this literature, a revolute joint without limits is also called a continuous joint.
+In general, the entire PR2 mechanism is represented by a graph where each node is a {\bf link} and the edges connecting nodes are {\bf joints}.
+A CAD approximated kinematic and inertial description of the PR2 can be found in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description package}.
+There we use a XML and Document Object Model (DOM) representation called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}, which represents the PR2 mechanism model
+by a tree rather than a graph.  In the tree representation of the PR2, further restriction is imposed on the mechanism model where each node (link) can be connected to only one parent node but can have arbitrarily many child nodes.
+
+Rather than diving into all 32 DOF's of the PR2 in detail, we'll examine the robot by its major components:  head, torso, arms, base and casters as depicted in Figure~\ref{fig:pr2_basic_breakdown}.
+
+\subsubsection{Head}
+The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
+The {\bf head\_pan\_link} is attached to the PR2 torso ({\bf torso\_lift\_link}) by another revolute joint called the {\bf head\_pan\_joint}.
+
+We will examine the head sensors separately in the section~\ref{subsec:pr2_sensors}
+
+\subsubsection{Arms}
+The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.
+
+\subsubsection{Torso}
+The PR2 {\bf torso\_lift\_link} refers to the torso part of the PR2 that moves up and down with the elevator actuator.
+
+\subsubsection{Base}
+The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 computers and is also rigidly attached to the base Hokuyo laser scanner.
+
+\subsubsection{Casters}
+The PR2 has 4 caster units.  Each caster contains one actuated steering degree of freedom and two individually actuated wheels.
+
+\subsubsection{Home Pose}
+In order to describe the PR2 robot pose and joint positions in a consistent manner, we have defined a {\bf home pose} of the robot.  The {\bf home pose} is depicted in Figure~\ref{fig:pr2_home_pose}.
+
+\subsubsection{Sensors}
+\label{subsec:pr2_sensors}
+Details of the PR2 sensors are described here.
+The PR2 contains the following sensors:
+\begin{itemize}
+\item Image Sensors
+  \begin{itemize}
+  \item Dual Stereo Cameras
+  \item Prosilica Camera
+  \item Forearm Cameras
+  \end{itemize}
+\item Range Sensors
+  \begin{itemize}
+  \item Tilting Hokuyo Laser Scanner
+  \item Base Hokuyo Laser Scanner
+  \end{itemize}
+\item Accelerometers
+  \begin{itemize}
+  \item IMU
+  \item Gripper Palm Mounted Accelerometers
+  \end{itemize}
+\end{itemize}
+
 
 \subsubsection{PR2 Coordinate System}
 The reference "home-pose" of the PR2 robot is defined as the robot pose with all the joint angles at zero,
@@ -89,8 +143,8 @@ The following motors use belt drives as described above:
 \subitem Note: The gearbox is replaced by gears, with the encoder on the mechanism side of the gears.  
 \item Shoulder Pan
 \item Shoulder Lift
-\item Upperarm Roll
-\item Upperarm Flex
+\item Upper Arm Roll
+\item Upper Arm Flex
 \subitem Note: There is an additional 90 degree bevel gear pair on this joint between the gearbox and the belt drive. 
 \item Laser Tilt
 \subitem Note: There is no gearbox, there is a flex coupler in it's place.  And the encoder is on the mechanism side of the flex coupler.
