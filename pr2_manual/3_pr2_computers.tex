@@ -258,7 +258,7 @@ automatically by the script: \texttt{/usr/local/sbin/adduser.local}.
 There are a couple of important groups on the pr2:
 \begin{itemize}
 \item \texttt{admin} -- Members of this group have full root privileges when using the sudo command
-\item \texttt{pr2-admin} -- Members of this group have access to change pr2-specific configuration settings
+\item \texttt{rosadmin} -- Members of this group have access to change pr2-specific configuration settings
 \item \texttt{apt} -- Members of this group can install new software
 \end{itemize}
 
@@ -293,7 +293,186 @@ is to have the two computers tightly coupled to one another, but
 loosely coupled to an external time source to prevent the robot time
 from drifting too far from the outside world.
 
-\section{System installs}
+\section{Basestation Setup and Pairing}
+Before you can use the robot and basestation, it needs to be
+configured.  This configuration can be done by logging into the
+basestation.  The default account is ``pr2admin'' with password
+``willow''.  The following instructions assume that the basestation is
+plugged into the robot via the service port.
+
+\subsection{Requirements}
+For the basestation to work properly the IP address you assign it,
+either via DHCP or via static IP, must be visible on both the wired
+and wireless networks on port \texttt{1194}.  This is the port that
+VPN uses when the robot makes its connection back to the basestation.
+Depending on how secure your network is, you may need assistance from
+your local sysadmin to configure this properly.
+
+Additionally, for the robot to be able to find the basestation, both
+the wired and wireless networks must provide a DHCP server.  The
+operation of the system is that the robot will acquire an IP address
+via DHCP and then contact the robot.
+
+\subsection{Initialize the Basestation VPN Server}
+One of the primary functions of the basestation is to host a VPN
+server that the robot can connect to.  The server needs an appropriate
+key.  To generate the key for the VPN server run:
+
+\begin{verbatim}
+$ sudo /etc/openvpn/gen_server_key
+\end{verbatim}
+
+It will prompt you for some information.  It is good practice to get
+the information correct, but will not actually impact the performance
+of the robot.
+
+\subsection{Configure the Basestation Network}
+
+There are two ways to set up the basestation, using DHCP or static IP.
+
+\subsubsection{DHCP}
+
+If you are using DHCP, you must make sure that your DHCP server
+respects the client-id specification.  The default client-id for the
+basestation is ``basestation.''  If you need to change this, you must
+edit the file \texttt{/etc/dhcp3/dhclient.conf}, and change the line:
+\begin{verbatim}
+send dhcp-client-identifier "basestation";
+\end{verbatim}
+To use a different client-id of your choice.
+
+\subsubsection{Static IP}
+
+To configure the basestation with a static IP, you must edit the file
+\texttt{/etc/network/interfaces} and change eth0 to use a staic ip
+address, for example:
+\begin{verbatim}
+iface eth0 inet static
+      address 192.168.1.100
+      netmask 255.255.255.0
+      gateway 192.168.1.1
+      post-up robot_forward start
+      pre-down robot_forward stop
+\end{verbatim}
+You will also need to update \texttt{/etc/resolv.conf} to contain the
+appropriate nameserver, e.g.,
+\begin{verbatim}
+domain school.edu
+search school.edu
+nameserver 192.168.1.1
+\end{verbatim}
+
+\subsubsection{Hostname}
+If you want to change the hostname of the robot to something other
+than ``basestation,'' you will need to edit the files:
+\texttt{/etc/hostname}, and \texttt{/etc/hosts}, replacing instances
+of ``basestation'' with your new name as appropriate.
+
+\subsubsection{Applying Settings}
+Once you have reconfigured the network, you should run:
+\begin{verbatim}
+/etc/init.d/networking restart
+\end{verbatim}
+for the changes to take effect.
+
+\subsection{Configure the Robot Wifi}
+The Linksys wrt610n on the robot is located at the IP address:
+\texttt{10.68.0.5}. To configure it, open a web-browser on the robot
+and go to: \texttt{http://10.68.0.5}.  Click on the
+``Wireless'' tab.  The default login should be ``root'' and
+``willow,'' although after a factory reset the router may end up with
+login, ``root'' and ``admin''.  Make sure one of the radios is in
+client mode and enter the SSID for your network.  If you need to
+change other settings, make sure that under ``Setup,'' the WAN
+connection type is ``Automatic Configuration - DHCP'', the local IP
+Address is \texttt{10.68.0.5}, and the DHCP Server is Disabled.
+
+To test the setup of the wireless, you can temporarily add a route on
+the basestation which will route a particular IP address through the
+wifi router.
+\begin{verbatim}
+$ sudo ip route add 157.22.19.22 via 10.68.0.5 dev eth1
+\end{verbatim}
+Then point your web-browser to:
+\texttt{http://157.22.19.22}. This should take you to the
+willowgarage home page.  Once that is working, you should remember to
+disable the route so that it works if the robot is not plugged into
+the service port.
+\begin{verbatim}
+$ sudo ip route del 157.22.19.22 via 10.68.0.5 dev eth1
+\end{verbatim}
+
+\subsection{Pairing with the Robot}
+
+Robot pairing is performed with the the \texttt{robot\_setup} command
+on the basestation.  It takes 3 arguments:
+
+\begin{itemize}
+\item name -- This is the name your robot will be given.  The Master will be ``name1'' and the slave will be ``name2''.
+\item VPN subnet -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.
+\item Basestation IP -- This is the IP address where the robot can reach the basestation.
+\end{itemize}
+
+
+\begin{verbatim}
+$ sudo robot_setup <NAME> <VPN_SUBNET> <BASESTATION_IP>
+\end{verbatim}
+
+For example, if your robot were going to be named ``prx'' and your basestation was located at \texttt{192.168.1.100}, you would run:
+
+\begin{verbatim}
+$ sudo robot_setup prx 10.68.1.0 192.168.1.100
+\end{verbatim}
+
+During the pairing, you will be given the option to reformat the slave
+disk and removable drives.  If you choose yes to this, all data will
+be removed.
+
+When the script finishes, you should be able to connect to the robot over the VPN:
+
+\begin{verbatim}
+$ ssh pr2admin@10.68.1.1
+\end{verbatim}
+
+\subsection{Forwarding IPs to the robot}
+
+To make contacting the robot from your local network more convenient,
+the basestation can be configured to forward IP addresses (assigned
+statically or via DHCP) to the robot.
+
+To set this up, edit the file: \texttt{/etc/robot\_forward.conf} and add the lines:
+
+\begin{verbatim}
+<NAME>1 10.68.1.1 <ROBOT_IP1>
+<NAME>2 10.68.1.2 <ROBOT_IP2>
+\end{verbatim}
+
+For example
+
+\begin{verbatim}
+prx1 10.68.1.1 192.168.1.101
+prx2 10.68.1.2 192.168.1.102
+\end{verbatim}
+
+Alternatively, you can also have these IPs assigned via DHCP:
+
+\begin{verbatim}
+prx1 10.68.1.1 dhcp
+prx2 10.68.1.2 dhcp
+\end{verbatim}
+
+If this is the case the IP addresses will be acquired using the
+client-id's ``prx1'' and ``prx2'' respectively.
+
+Robot forwarding is enabled whenever the networking starts, but to
+manually start forwarding, just run:
+
+\begin{verbatim}
+sudo robot_forward stop
+\end{verbatim}
+
+\section{Software Maintenance}
+
 When the robots ship, the most recent version of ROS and the PR2
 software stacks is installed in /opt/ros.  By default, new users will
 have a ROS installation which references the pre-installed code.
@@ -319,11 +498,11 @@ Which will update all packages on your system, pulling in security fixes for
 the pr2 configuration as well as for the appropriate ros-release.
 
 
-\subsection{Reinstall the Robot}
+\section{Reinstall the Robot}
 
 To reinstall the robot, first back up anything you need off of the
 master machine.  Next, shutdown the comptuers using
-\texttt{pr2-shutdown}.
+\texttt{pr2-shutdown --netboot}.
 
 You must then plug the service port directly into the basestation.
 You can then run the robot installer:
@@ -332,7 +511,16 @@ You can then run the robot installer:
 $ sudo robot_installer
 \end{verbatim}
 
-At that point you must be able hit f12 on the keyboard.  You can do this in one of two ways.
+Boot the Master computer by pushing the power button with a paperclip.
+
+After N minutes, the netconsole on the basestation will show the
+isntall dialog.  Hit enter to start the installer and wait for it to
+complete.
+
+\subsection{Forcing netboot}
+
+If the robot BIOS is not configured to netboot, you will need to be
+able hit f12 on the keyboard.  You can do this in one of two ways.
 
 The easier way to to connect up to the KVM.  (See section XYZ on connecting to the KVM.)
 
@@ -340,19 +528,8 @@ Alternatively, plug a keyboard into the PR2.  This can be done using
 the aux usb port under the back cover.  To remove this cover, follow
 the instructions in section XYZ.
 
-Boot the Master computer by pushing the power button with a paperclip.
-
-You will hear 2 beeps followed by a short pause, and then another 2
-beeps.  After the 4th beep, hit f12 on the keyboard (either physically
-or through the KVM) to force the Master computer to netboot.
-
-After N minutes, the netconsole on the basestation will show the
-isntall diaglog.  Hit enter to start the installer and wait for it to
-complete.
-
-\subsection{Pairing the robot with the basestation}
-
-This section needs work.  Still changing the mechanism that this uses.
-
-
+When the robot is booting you will hear 2 beeps followed by a short
+pause, and then another 2 beeps.  After the 4th beep, hit f12 on the
+keyboard (either physically or through the KVM) to force the Master
+computer to netboot.
 
