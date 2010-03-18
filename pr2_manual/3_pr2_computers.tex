@@ -301,17 +301,20 @@ basestation.  The default account is ``pr2admin'' with password
 plugged into the robot via the service port.
 
 \subsection{Requirements}
-For the basestation to work properly the IP address you assign it,
-either via DHCP or via static IP, must be visible on both the wired
-and wireless networks on port \texttt{1194}.  This is the port that
-VPN uses when the robot makes its connection back to the basestation.
-Depending on how secure your network is, you may need assistance from
-your local sysadmin to configure this properly.
+For the basestation to work properly, it needs to be given a static
+IP.  This IP can be given to the basestation either statically or
+assigned via a DHCP server, but it needs to be constant.  the IP
+address you assign it must be visible on both the wired and wireless
+networks on port \texttt{1194}.  This is the port that VPN uses when
+the robot makes its connection back to the basestation.  Depending on
+how secure your network is, you may need assistance from your local
+sysadmin to configure this properly.
 
 Additionally, for the robot to be able to find the basestation, both
 the wired and wireless networks must provide a DHCP server.  The
 operation of the system is that the robot will acquire an IP address
-via DHCP and then contact the robot.
+via DHCP and then contact the basetation at the known IP address that
+it is paired to.
 
 \subsection{Initialize the Basestation VPN Server}
 One of the primary functions of the basestation is to host a VPN
@@ -333,9 +336,11 @@ There are two ways to set up the basestation, using DHCP or static IP.
 \subsubsection{DHCP}
 
 If you are using DHCP, you must make sure that your DHCP server
-respects the client-id specification.  The default client-id for the
-basestation is ``basestation.''  If you need to change this, you must
-edit the file \texttt{/etc/dhcp3/dhclient.conf}, and change the line:
+respects the client-id specification and is configured to assign a
+consistant IP address to the client-id of the basestation.  The
+default client-id for the basestation is ``basestation.''  If you need
+to change this, you must edit the file
+\texttt{/etc/dhcp3/dhclient.conf}, and change the line:
 \begin{verbatim}
 send dhcp-client-identifier "basestation";
 \end{verbatim}
@@ -468,7 +473,7 @@ Robot forwarding is enabled whenever the networking starts, but to
 manually start forwarding, just run:
 
 \begin{verbatim}
-sudo robot_forward stop
+sudo robot_forward start
 \end{verbatim}
 
 \section{Software Maintenance}
