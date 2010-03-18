@@ -7,9 +7,31 @@ Talk about guidelines for safe operation (e.g. is it OK in a normal lab environm
 \chapter{PR2 hardware}
 
 \section{What's in the box}
-The PR2 will arrive in a big crate.  In the crate should be:
-\subsection{PR2 robot}
-\subsection{Wireless run-stop}
+THe PR2 ships in 3 packages:
+
+\begin{tabular}{| l | l |}
+\hline      
+  Main robot crate & Large wooden crate which contains the PR2 itself \\ \hline
+  Accessory crate & Crate which contains accessory kit, tool kit, and robot base-station \\ \hline
+  Calibration target & Large checkerboard for accurate calibration of stereo cameras \\ \hline
+\end{tabular}
+
+\subsection{PR2}
+\subsection{Accessory kit}
+\subsubsection{Wireless Joystick}
+The PR2 ships with a bluetooth joystick for teleoperating the robot. The bluetooth joystick is a 
+\href{http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665411965#additionalImage1%22}{Sony DUALSHOCK®3} (Figure~\ref{fig:ps3joy}) 
+wireless controller. It can be charged using any standard USB A to mini-B USB cable. For more information, see the 
+\href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at \href{http://www.ros.org}{ros.org}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{ps3joy.png}
+\caption{The PR2 bluetooth joystick.}
+\label{fig:ps3joy}
+\end{figure}
+
+\subsubsection{Wireless run-stop}
 \label{wirelessrunstop}
 The PR2 comes with an \href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50} 
 wireless run-stop transmitter. When stopped or out of range, the wireless run-stop transmitter will halt the motors 
@@ -27,20 +49,18 @@ light flashing on the run-stop. While transmitting, the run-stop has a range of 
 powered by four AA batteries; the battery light will flash when the battery charge is low, which is an indication that 
 you should change the batteries.
 
-\subsection{Wireless Joystick}
-The PR2 ships with a bluetooth joystick for teleoperating the robot. The bluetooth joystick is a 
-\href{http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665411965#additionalImage1%22}{Sony DUALSHOCK®3} (Figure~\ref{fig:ps3joy}) 
-wireless controller. It can be charged using any standard USB A to mini-B USB cable. For more information, see the 
-\href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at \href{http://www.ros.org}{ros.org}.
+\TODO{Create and fill out subsection for every component of accessory kit}
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{ps3joy.png}
-\caption{The PR2 bluetooth joystick.}
-\label{fig:ps3joy}
-\end{figure}
+\subsection{Toolkit}
+\TODO{Include image of open toolkit, with callout labels to all tools by proper name}
+\TODO{TBD: The robot toolkit is not yet fully defined}
+
+\subsection{Calibration target}
+The calibration target which ships with the robot will be is a checkerboard 1" thick and approximately 3 feet on a side.  This is the recommended calibration target to use for calibrating the intrinsics of the stereo cameras on the robot.  The robot ships with stereo cameras already calibrated, but you may need to re-calibrate occasionally as vibration and thermal effects change the parameters over time.
 
 \subsection{Base-station computer}
+\TODO{Include picture of base-station here}
+The base-station computer ships without a monitor, keyboard, or mouse.  See section ??? for more information on how to configure your base-station.
 
 \section{Mechanism}
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
@@ -60,7 +80,7 @@ A frame serves an important function of facilitating transform record keeping th
   for propagating information such as reference coordinates of an optical image, origin of range sensor generated point cloud data or the reference pose for the grasp point of a gripper.
 
 A CAD approximated kinematic and inertial description of the PR2 can be found
-  in the \href{http://www.ros.org/wiki/pr2_description}{pr2\_description} package.
+  in the \href{http://www.ros.org/wiki/pr2\_description}{pr2\_description} package.
 This package uses a robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation
   called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)} created here at Willow Garage.
 
