@@ -3,6 +3,16 @@ The PR2 comes with the PR2 varient of the latest released distribution
 or ROS installed from binary debian packages in \texttt{/opt/ros} .  It is
 recommended to use this installation for it saves compile time and
 disk space.
+
+\paragraph{Start by getting rosinstall}
+There is more documentation on the wiki package page
+\href{http://www.ros.org/wiki/rosinstall}{rosinstall}.
+
+\begin{verbatim}
+wget --no-check-certificate http://ros.org/rosinstall -O ~/rosinstall
+chmod 755 ~/rosinstall
+\end{verbatim}
+
 \section{Installing code in user-space}
 To setup your environment with the installed packages type:
 \begin{verbatim}
@@ -12,9 +22,11 @@ To setup your environment with the installed packages type:
 To add another repository an overlay rosinstall file should be created
 like the following:
 \begin{verbatim}
-
-
+- VERSION-CONTROL-TYPE:
+    uri: URI
+    local-name: WORKING-COPY-NAME
 \end{verbatim}
+Recreate this as ~/custom.rosinstall substituting appropriately for the all caps secionds. 
 
 Then type:
 \begin{verbatim}
