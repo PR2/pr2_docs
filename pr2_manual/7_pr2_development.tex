@@ -1,7 +1,42 @@
 \chapter{Writing code on PR2}
+The PR2 comes with the PR2 varient of the latest released distribution
+or ROS installed from binary debian packages in \texttt{/opt/ros} .  It is
+recommended to use this installation for it saves compile time and
+disk space.
 \section{Installing code in user-space}
+To setup your environment with the installed packages type:
+\begin{verbatim}
+. /opt/ros/boxturtle/setup.sh
+\end{verbatim}
+\subsection{Installing another repository in user-space}
+To add another repository an overlay rosinstall file should be created
+like the following:
+\begin{verbatim}
+
+
+\end{verbatim}
+
+Then type:
+\begin{verbatim}
+~/rosinstall -o ~/local_dir ~/custom.rosinstall
+\end{verbatim}
+\subsubsection{Setting environment to use local\_dir}
+\begin{verbatim}
+. ~/local_dir/setup.sh
+\end{verbatim}
+
 \subsection{Creating a package}
+This is documented on the wiki in the
+\href{http://www.ros.org/wiki/roscreate}{roscreate package}
+
 \subsection{Using a local version of a stack}
+If a different version of a stack is desired instead of an installed
+one, add it to your overlay rosinstall file.  Stacks in overlays are
+prepended to the path and thus will take priority over an existing
+stack.  Note be careful, if changing a lower level stack, for all
+things which depend on it's changes must be rebuilt. This can be an
+issue if the dependent stacks are also installed.
+
 \section{Where to Start}
 \subsection{Documetation and Tutorials}
 Documentation for ROS and the PR2 can be found on \href{http://www.ros.org}{ros.org}. An overview 
