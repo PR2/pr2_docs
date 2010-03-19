@@ -197,32 +197,34 @@ runs through a planetary gearbox then is attached to a belt
 drive. These drivetrains are fully backdriveable and have low
 backlash.
 
-\TODO{Belt drive Diagram}
+%\TODO{Belt drive Diagram}
+\paragraph{Standard Belt Drives}
+The following motors use belt drives as described above: Caster Wheel,
+Caster Turret, Head Tilt, Shoulder Pan, Shoulder Lift, and the Upper
+Arm Roll.
+\paragraph{Semi-Standard Belt Drives}
+The Upper Arm Flex is standard except that there is an additional 90
+degree bevel gear pair on this joint between the gearbox and the belt
+drive.  The Laser Tilt is standard except that there is no gearbox,
+there is a flex coupler in it's place.  And the encoder is on the
+mechanism side of the flex coupler.  The Head Pan is standard except
+that the gearbox is replaced by gears, with the encoder on the
+mechanism side of the gears.
 
-The following motors use belt drives as described above:
-\begin{itemize}
-\item Caster Wheel
-\item Caster Turret
-\item Head Tilt
-\item Head Pan
-\subitem Note: The gearbox is replaced by gears, with the encoder on the mechanism side of the gears.  
-\item Shoulder Pan
-\item Shoulder Lift
-\item Upper Arm Roll
-\item Upper Arm Flex
-\subitem Note: There is an additional 90 degree bevel gear pair on this joint between the gearbox and the belt drive. 
-\item Laser Tilt
-\subitem Note: There is no gearbox, there is a flex coupler in it's place.  And the encoder is on the mechanism side of the flex coupler.
-\end{itemize}
 
 
 \subsubsection{Gear Drives}
-The wrist, head pan and forearm roll use 
-\paragraph{Wrist }
-The wrist utilized a differential drive between 
+The wrist, head pan and forearm roll use gear drives.  
+
+\paragraph{Wrist}
+The wrist utilized a differential drive between two motors.  If they
+are turned in the same direction the wrist rolls, if they are turned
+oposite the wrist flexes.  The differential bevel gears are attached
+after a standard encoder, motor, gearhead assembly.
+
 \TODO {wrist diagram}
 
-\paragraph{Forearm roll }
+\paragraph{Forearm roll}
 The forearm roll has a traditional encoder, motor, gearbox assembly
 with a pinion gear attached to the output shaft.  The pinion gear
 directly drives a nylon gear built into the forearm body.
@@ -231,13 +233,13 @@ directly drives a nylon gear built into the forearm body.
 There are two drive trains which use lead screws as their primary
 method of movement, the torso lift and gripper.  
 
-\paragraph{Torso Lift }
+\paragraph{Torso Lift}
 The torso lift is driven by a vertical lead screw.  The motor is
 augmented by a gas spring vertically such that the motor only needs to
 lift a portion of the weight of the torso.  The torso is also mounted
-such that the lift mechanism cannot pull downward. \TODO{check this is still true} 
+such that the lift mechanism cannot pull downward.
 
-\paragraph{Gripper }
+\paragraph{Gripper}
 The gripper is a pair of 4 bar linkages which are coupled through a
 gearing on one of the piviots.  The mechanism is actuated using a lead
 screw between the two fourbar linkages. Between the actuator and the
@@ -248,23 +250,40 @@ The gripper is backdriveable when off, however challenging.
 Backdriving the gripper when torque is applied is very hard, but
 possible.
 
-\subsubsection{Possible Errors}
-\paragraph{Fault Conditions}
-\paragraph{Observed failures during testing}
-\begin{itemize}
-\item Belt broken \TODO {document counterbalance failure??}
-\item Stripped belt teeth
-\item Loose set screw
-\end{itemize}
-\paragraph{Running Errors}
-There has been no measured hysteresis or backlash in the drivetrains
-except in the two forms below.  \TODO{verify with vijay}
+\paragraph{Arm Counter Balance}
+Although not an actuated drivetrain the arm counter balance is one of
+the more complicated mechanisms on the PR2. Inside of the shoulder
+turret there are two springs.  These springs are attached to belts
+which run over cams and provide a uniform downward force.
+
+In the upper arm there is a four-bar linkage which transmits the
+torque through to the elbow flex joint.  As the arm moves through its
+configuration space the linkage changes the amount of leverage with
+which the counterbalance is pulling which compensates for the
+different configurations.
+
+\subsubsection{Drivetrain Limitations}
+The drivetrains are high fidelity however there are still limitations.
+Below are the most observable limitations.
+
+%\paragraph{Fault Conditions}
+%\paragraph{Observed failures during testing}
+%\begin{itemize}
+%\item Belt broken \TODO {document counterbalance failure??}
+%\item Stripped belt teeth
+%\item Loose set screw
+%\end{itemize}
+%\paragraph{Running Errors}
+%There has been no measured hysteresis or backlash in the drivetrains
+%except in the two forms below.  \TODO{verify with vijay}
 
 \paragraph{Belt Stretch}
-This is unavoidable.  So far it has not been enough to effect usage.
-It is large enough to be measured by the calibration.
-\paragraph{Encoder Noise}
-This is unavoidable.  It usually manifests itself as a jitter in the
+On all the belt driven joints.  The belts do stretch when under load.
+The stretching is small but measureable.
+
+\paragraph{Encoder Discritization}
+As the arm is moving slowly the discrete nature of the encoders can
+become evident.  It usually manifests itself as a jitter in the
 velocity.  It can be filtered out to some extent, but not too much for
 it will cause lag.
 
