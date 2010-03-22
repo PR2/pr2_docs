@@ -1,9 +1,3 @@
-\chapter{Safety and the PR2}
-Point out which parts of the code are considered part of the hardware safety systems (e.g. joint current limits), 
-and make it clear that changing them can cause problems.
-
-Talk about guidelines for safe operation (e.g. is it OK in a normal lab environment?)
-
 \chapter{PR2 hardware}
 
 \section{What's in the box}
@@ -11,12 +5,13 @@ THe PR2 ships in 3 packages:
 
 \begin{tabular}{| l | l |}
 \hline      
-  Main robot crate & Large wooden crate which contains the PR2 itself \\ \hline
+  Robot crate & Large wooden crate which contains the PR2 itself \\ \hline
   Accessory crate & Crate which contains accessory kit, tool kit, and robot base-station \\ \hline
   Calibration target & Large checkerboard for accurate calibration of stereo cameras \\ \hline
 \end{tabular}
 
 \subsection{PR2}
+See later sections for more detail on the PR2 robot itself and how to get it out of the crate.
 \subsection{Accessory kit}
 \subsubsection{Wireless Joystick}
 The PR2 ships with a bluetooth joystick for teleoperating the robot. The bluetooth joystick is a 
@@ -49,14 +44,28 @@ light flashing on the run-stop. While transmitting, the run-stop has a range of 
 powered by four AA batteries; the battery light will flash when the battery charge is low, which is an indication that 
 you should change the batteries.
 
-\TODO{Create and fill out subsection for every component of accessory kit}
+\subsubsection{15 FT Robot Power Cord and 3-foot self plug-in Robot Power Cord}
+\TODO{Include images of both power cords}
+To recharge the PR2's batteries, it must be plugged into a 120V electrical outlet.  Use only the provided power cords - many power cords and power strips have thinner conductors and cannot safely supply the current required by the PR2.  Using inappropriate cables is hazardous and may cause fire.  When plugging the robot is to charge by hand, you may use either cable.  When attepting to have the PR2 plug itself in, you must use the shorter self-plug-in cord with attached checkerboard.  The self-plug-in cord has magnets on the side opposite the checkerboard which should be used to attach it to the base as shown \TODO{Include image of self-plug-in cable attached to magnets}
+
+\subsubsection{Sensorized fingertips and boots}
+\TODO{Include image of fingertips and boots}
+The PR2 ships with sensorless fingertips attached.  We have also developed fingertips which have an integrated 22-element pressure sensor, but they are easy to damage and are not as robust as the rest of the PR2.  We provide 5 fingertip sensors (2 for each gripper, plus 1 spare), as well as 20 rubber protective "boots" which prevent the sensor from coming into direct contact with the environment.  When using the fingertip sensors, you should always have an undamaged boot in good condition installed over the sensor.  Continuing to use the fingertip sensors after the rubber boot is damaged greatly increases the chance that you will damage the sensors themselves.  See section \TODO{Create maintenance section for replacing fingertip sensors} for more information.
+
+\subsubsection{Small calibration target}
+\TODO{Include image of small checkerboard}
+This calibration target, which looks like a checkerboard, is used for the PR2 self-calibration.  The robot holds the checkerboard in one gripper and uses it to calibrate the arms, the head, the cameras, and the tilting laser together.
+
+\subsubsection{User Manual}
+Printed version of this document
 
 \subsection{Toolkit}
 \TODO{Include image of open toolkit, with callout labels to all tools by proper name}
+
 \TODO{TBD: The robot toolkit is not yet fully defined}
 
-\subsection{Calibration target}
-The calibration target which ships with the robot will be is a checkerboard 1" thick and approximately 3 feet on a side.  This is the recommended calibration target to use for calibrating the intrinsics of the stereo cameras on the robot.  The robot ships with stereo cameras already calibrated, but you may need to re-calibrate occasionally as vibration and thermal effects change the parameters over time.
+\subsection{Large calibration target}
+The large calibration target which ships with the robot looks like a checkerboard 1" thick and approximately 3 feet on a side.  This is the recommended calibration target to use for calibrating the intrinsics of the stereo cameras on the robot.  The robot ships with stereo cameras already calibrated, but you may need to re-calibrate occasionally as vibration and thermal effects change the parameters over time.
 
 \subsection{Base-station computer}
 \TODO{Include picture of base-station here}
@@ -66,6 +75,18 @@ The base-station computer ships without a monitor, keyboard, or mouse.  See sect
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
 
 \subsection{Robot Anatomy}
+
+\subsection{Terminology}
+\TODO{From below, define link, joint, frame, motor, etc as well as basic naming conventions.}
+
+\subsection{Links and Joints}
+\TODO{Pulling from below, describe each component of the robot.  Include updated tables of joint limits, torques, home positions, etc.}
+
+\TODO{Provide links to more information (URDF, etc.)}
+
+\subsection{Drivetrains}
+\TODO{For each type of drivetrain, start with a list of joints and provide key information (invert mapping from what Tully did)}
+
 
 Kinematically speaking, the PR2 can be broken down into {\bf links} by individual degrees of freedoms.  Each {\bf link} consist of one
 rigid body component that can be represented by a single collision model and a single lumped inertial property.

@@ -7,7 +7,7 @@ PS2PDF = ps2pdf
 BASE_NAME = main
 CHEAT_NAME = ROScheatsheet
 
-OTHER_FILES = 1_introduction.tex 2_pr2_hardware.tex 3_pr2_computers.tex 4_ros.tex  5_pr2_software.tex 6_pr2_bringup.tex  7_pr2_development.tex 8_pr2_maintenance.tex 
+OTHER_FILES = 1_introduction.tex 1_safety.tex 2_pr2_hardware.tex 3_pr2_computers.tex 4_ros.tex  5_pr2_software.tex 6_pr2_bringup.tex  7_pr2_development.tex 8_pr2_maintenance.tex 
 PDF_FILES = $(subst dia,pdf,$(shell ls images/*.dia))
 
 all: $(PDF_FILES) $(BASE_NAME).pdf $(CHEAT_NAME).pdf

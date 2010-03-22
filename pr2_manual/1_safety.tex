@@ -1,0 +1,110 @@
+
+\chapter{Safety}
+
+Safety is a key goal at Willow Garage.  It is important, it is challenging, and it is a continual process shared by the designer, user, and administrator of a robot.  In the following we provide an overview of the issues, describe some safety-related design features, enumerate a set of basic usage guidelines to support safety, and finally detail the explicit safety program.
+
+\section{Overview}
+
+Safety is a vitally important concern whenever you are around a PR2. It’s a heavy piece of equipment with many moving parts. It travels though the environment and can carry and manipulate a wide variety of objects. Its movements and actions are not completely predictable. It can cause significant damage if it falls on or runs over someone. There are several ways it can pinch, grab, and twist fingers or other parts of the body. It can wield dangerous implements and knock heavy things over. You must always be cautious and attentive when you are around a PR2.
+
+Safety is neither absolute criterion nor a one-time event.  Instead it is an appreciation that risks are inherent to any robotic endeavor and they must be minimized as well as weighed against benefits.  It is a goal for which the entire community must continually strive.
+
+We emphasize safety to avoid harm to any person, animal, or equipment.  We also recognize that robots in general will not gain wide acceptance or fulfill their potential unless the community can adequately manage safety.
+
+Managing safety is challenge when dealing with any complex engineering system.  In the case of the PR2, consider also the open, extensible, programmable, experimental nature of the platform.  The PR2's capabilities and behaviors change over time, with user interactions, and with re-programming.
+
+With this in mind, Willow Garage has chosen a three-fold approach.  First, we have designed the PR2 to minimize potential risks and maximize inherent safety, cognizant of its uncertain uses.  Second, we communicate to all users about how to minimize risk. And third, we have implemented an explicit safety program to ensure that the community continues to identify potential hazards, seek design mitigations, and communicate effective usage guidelines.
+
+\section{Design Features}
+
+We have designed both hardware and software to minimize risks, while retaining the power of an open platform.  These aspects of the design are often described as inherent safety features.  For example, PR2's arms are back-drivable.  That means when an arm encounters an object, be it a table or a person, the interaction will drive the motors back and bring the arm to a stop.  The PR2 arms can't "punch through" an object the way traditional industrial robots can.
+
+We have further designed the PR2 arms with relatively small motors with respect to their payload.  This is possible due to a spring counterbalance offsetting the gravity forces acting on the arms.  That is, the arms do not need to hold their own weight against gravity.  And so the motors need only be strong enough to hold the payload.  The arms simply can't push very hard.
+
+In software, we have incorporated low level checking to limit the current in a motor, to limit the velocity of a motor, and to limit the range through which a motor should travel.  We obviously discourage users and developers from changing these configurations.  High level applications also avoid obstacles in navigation and movement using the various on-board sensors.  
+
+These design choices also help make PR2 robust.  However, a robot with the PR2’s capabilities can never be absolutely safe. Your safety as well as the safety of others critically depends on your constant attention. You must be aware of the potential dangers, anticipate possible problems, and plan to prevent their occurrence.
+
+\section{General Usage Guidelines}
+
+While many guidelines for the safe use of a robot stem from common sense, we enumerate a basic set here.  We stress the importance of following these guidelines but re-emphasize that these guidelines alone do not guarantee safety but reduce risk.
+\begin{itemize}
+\item Every organization that uses a PR2 must appoint a Safety Officer. 
+\begin{itemize}
+\item The Safety Officer’s contact information should be known by everyone in the organization who uses the PR2 (including designers, developers, programmers, and end-users).
+\item Further details of the Safety Officer’s roles and responsibilities are described in section 2.4.
+\end{itemize}
+\item Before operating or working with the PR2 you must do the following:
+\begin{itemize}
+\item view the safety video
+\item read this User Manual, particularly Chapter 2 on Safety
+\item read and understand the latest list of potential hazards
+\item know how to contact your organization’s Safety Officer
+\end{itemize}
+\item Supervise children, visitors, and anyone who has not followed the previous guideline.  In particular, make sure they
+\begin{itemize}
+\item do not come within range of the PR2 when active
+\item are aware the robot could move unexpectedly and is potentially dangerous
+\item are not alone with the PR2
+\item do not operate the PR2
+\end{itemize}
+\item Maintain a safe environment.  Safety is not only an issue of how you operate the robot, but also the environment.
+\begin{itemize}
+\item Make sure the robot has adequate and level space for any expected or unexpected operation
+\item Make sure the the environment is free of objects that could pose a risk if knocked, hit, or otherwise affected by the PR2
+\item Make sure no animals are the near the robot.
+\end{itemize}
+\item The PR2 is designed to operate in an laboratory environment
+\begin{itemize}
+\item It should not be operated outdoors
+\item It should not come in contact with liquids
+\item It should not be operated within 7 meters of the top of a stairway
+\end{itemize}
+\item Anticipate potential problems and hazards.  Always imagine what might happen if the robot malfunctions or behaves in a way different from the desired action.  Be vigilant.
+\item The operator should always have immediate access to the run/stop and stop the robot at the first sign of a problem.
+\item Use common sense when operating the robot.
+\begin{itemize}
+\item Do not allow the robot to grab or hit any person
+\item Do not allow the robot to drive into contact with or over any body part.
+\item Do not allow the robot to interact with any sharp or dangerous items
+\end{itemize}
+\item Pay attention to warning labels on the robot.
+\item Do not remove the covers of a PR2 without prior and appropriate instruction by Willow Garage. There are high voltages and a variety of pinching and other mechanical dangers in the interior of the robot. 
+\item Do not modify or remove any part of the software safety features.
+\end{itemize}
+
+\section{Safety Program}
+
+Safety is a continual process, and in particular should include
+
+\begin{itemize}
+\item an awareness of risks
+\item a critical examination to expose risks, assess risks, discover mitigations, and evaluate trade-offs
+\item any deliberate actions needed to minimize and mitigate current and future risks.
+\end{itemize}
+
+To facilitate this process and communication within the community, Willow Garage has implemented a safety program.
+
+\subsection{Willow Garage Safety Board}
+
+The Willow Garage Safety Board identifies hazards related to Willow Garage products and ensures that appropriate actions are taken to mitigate those hazards. The Board maintains a database to keep track of the hazards and mitigation actions. To identify additional hazards for the database, the Board commissions Hazard Brainstorming Meetings and reviews incident reports from the field. To initiate actions that reduce the severity and/or likelihood of specific hazards, the Board commissions Hazard Response Projects. To ensure that appropriate actions remain in force, the Board commissions Hazard Response Audits. The Board works with Safety Officers in external organizations to improve safety across all users of Willow Garage products.
+The core Safety Board includes senior members of the Willow Garage management. Additional employees serve for term appointments. Members of the Board spend at least one day a month on safety related work.
+\subsection{Hazard Database}
+
+The Hazard Database includes three types of entity: Hazards, Incidents, and Responses.
+Hazards describe things the system might do that can cause damage, for example, running into something or falling down stairs. Each Hazard includes an estimate of its severity and likelihood of occurrence. Based on these estimates, the Hazard is assigned a priority for action.
+Incidents describe specific examples of Hazards, either things that have actually occurred or hypothetical occurrences. Each Incident is associated in the database with the Hazard(s) that it exemplifies. 
+Responses describe actions that reduce the severity and/or likelihood of a hazard. These can involve changes to the design or documentation of the hardware and software, additional warnings to the community, or changes to the safety training and video.
+
+The information in the Hazard Database is summarized in several reports that document the current understanding of potential hazards and the associated mitigating actions. Chief among these is the Prioritized Hazard Report, which lists the Hazards in the database in order of their priority.
+
+\subsection{Safety Officers}
+
+Each organization that uses Willow Garage products will appoint a Safety Officer who is responsible for all aspects of safety in the use of those products. The Safety Officer will:
+\begin{itemize}
+\item remain informed of all known safety hazards and mitigations, 
+\item ensure that all known mitigations are implemented in their organization, 
+\item ensure that everyone involved with the products receives safety training, 
+\item report any safety incidents to Willow Garage in a timely fashion, and 
+\item work with the Willow Garage Safety Board to improve safety. 
+\end{itemize}
