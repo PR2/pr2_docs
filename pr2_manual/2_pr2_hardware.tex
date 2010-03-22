@@ -550,18 +550,22 @@ see the \href{http://www.ros.org/wiki/sound_play}{sound\_play} package at \href{
 
 \section{Power system}
 \subsection{Overview}
-The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of 120V wall current and provides power the computers, motors, and sensors in the system.  Power distribution is controlled by the {\it Power Board}, which communicates over Ethernet.
+The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of 120V wall current. The batteries power the computers, motors, and sensors on the robot.  Power distribution is controlled by the \emph{Power Board}, which communicates over Ethernet.
 \subsection{Power Busses}
-The robot has several internal power busses:
+The robot has four internal power busses:
 \begin{description}
-\item[120v] The robot has a 3-prong IEC320 plug in the back of the base, which is connected through a circuit breaker to the inputs of the four AC-DC converters that are used to charge the battery packs.  The system is designed to pull up to 15A, so it is fine to plug the robot in to any 15A wall socket, but you should make sure there are no other devices which draw significant power on the same circuit (e.g., computers or heaters).
-%LT: Ideally, add image of back panel once we have the PR2 betas done w/ Ryan's stickers on that panel.
-\item[Motor Power Bus] The motor controllers are fed from circuit breakers on the power board. The motor power bus can be in one of three states.  When enabled, they provide a direct connection to the unregulated battery power, which ranges from 52V when the batteries are fully discharged up to 72V when connected to wall power.  When the motors are in standby mode, the power board provides a low-power 18V supply that is used for communication and maintaing encoder position counts.  When disabled (e.g., in the event of a major power-system problem or if manually disabled), these circuit-breakers will also shut off without cutting power to the computers or sensors.  There are three independent motor power busses - left arm, right arm, and base/head, which can be monitored 
+\item[120v] The robot has a 3-prong IEC320 plug in the back of the base, which is connected through a circuit breaker to the inputs of the four AC-DC converters that are used to charge the battery packs.  The system is designed to draw less than 15A, a standard 15A or 20A outlet will suffice. The load is capable at times of approaching the 15A limit, you should make sure there are no other devices which draw significant power on the same circuit (e.g., computers or heaters).
+\underline{Ideally, add image of back panel once we have the PR2 betas done w/ Ryan's stickers on that panel.}
+\item[Motor Power Bus] The motors get power through 3 descrete circuit breakers on the power board. 
+These create three independent motor power busses: left arm, right arm, and base/head.
+The motor power bus can be in one of three states.  
+\emph{Enabled}, provides a direct connection to the unregulated battery power. The voltage will ranges from 52V when the batteries are fully discharged up to 72V when connected to wall power.  
+\emph{Standby}, the power board provides a low-power 18V supply that is used for communication and maintaing encoder position counts.  
+\emph{Disabled}, total shut-down of the circuit (e.g., in the event of a major power-system problem or manually disabled through the control panel).
 \item[12V system bus]
-12V power for sensors that is provided by the power board.  This is also the recommended source of power for user modifications.
-%LT: What do you mean by "user modifications?"
+12V power for sensors supplied by the power board. This is also the recommended source of power for user supplied accessories.
 \item[12V computer power]
-12V power for computers that is provided by the power board.
+12V power for the computers supplied by the power board.
 \end{description}
 \subsection{Batteries}
 The battery system has four battery bays comprised of four \href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL}
@@ -572,8 +576,8 @@ For more information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean
 
 \subsection{Power board}
 
-\subsection{Getting Power for sensors}
-The electrical system in the robot is comprised of two primary systems. One operates from the batteries and is an unregulated voltage. The second bus provides a well regulated 12V supply. The regulated 12V supply is the only supply designed for additions and expansion. This 12V supply is essentially always on once the Power board completes a self test. It is also monitored for undervoltage conditions and is fairly robust.
+\subsection{Power for sensors}
+As mentioned previously, the power board provides a \emph{12V system bus}, that provides a well regulated 12V supply. The regulated 12V supply is the only supply designed for additions and expansion. This 12V supply is essentially always on once the Power board completes a self test. It is also monitored for undervoltage conditions and is fairly robust.
 
 
 A few limitations should be followed when adding loads to the 12V user supply. This supply is already supporting the 2 Hokuyo scanners, 2 ethernet switches, the wireless AP and the E-stop receiver. Considering the loads and the supplies capabilities with some headroom this leaves 5A for expansion.\\
@@ -599,3 +603,5 @@ In the lower back, directly connecting to the power board.\\
 Before something is connected to this bus, strongly consider if hot plugging is safe. If you are uncertain, the safest choice is to shut the power system off completely.\\
 
 All 12V connectors in the robot use the same connector, a 2x1 Molex Mini-Fit Jr. The mating connector part number is {\bf 39-01-3022} or from Digikey {\bf WM1021-ND}. Pin one is negative and pin 2 is positive. Pin 2 is the pin closest to the latch.
+
+
