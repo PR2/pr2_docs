@@ -575,6 +575,93 @@ current battery controller. This provides the PR2 with approximately two hours o
 For more information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean\_server} package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Power board}
+The power board is central to the PR2's power system. This is where the power from the batteries passes through to the rest of the system. The power board monitors total power drawn from the batteries by measuring the voltage and current at the power board input.
+
+The battery power is used to provide regulated twelve volts to the computers and the system bus through DC converters. Three unregulated circuits are also provided with a unique electronic circuit breaker functionality. All outputs are ultimately controlled by the processor located on this board.
+
+
+Here is an image of the power board, with e-stop receiver, removed from a robot.
+
+\includegraphics[scale=0.4]{pb_cropped1.jpg}
+
+
+The power board contains an ARM processor with an ethernet interface. The processor is responsible for performing a self test at power-on, monitoring the state of all busses, providing information about the electrical system and responding to commands. The power board is the first thing to turn on and can not be turned off without switching off the DC circuit to the whole robot.
+
+Besides supplying power the power board also interfaces with the emergency stop radio receiver and the emergency stop button. The emergency stop system is designed to reduce the power on the motor bus to a level where only the board communications and their encoder positions are maintained. The red button and radio system are described as providing a physical run/stop control over the motors in the robot. This description is used because this mechanism is implemented in hardware and can not be altered by software. 
+
+Please note that the run/stop system only reduces power to the motor power bus and nothing else. If there is an electrical problem or power needs to be shutdown for service, the red circuit breaker on the rear lower panel is the only way to totally shut off the power board.
+
+The power board contains many LEDs used to indicate status. I will show their locations and briefly describe their meanings.
+
+The LEDs in green indicate the 3 regulated 12V outputs are enabled and functional.
+\includegraphics[scale=0.6]{pb_power1.jpg} 
+
+The Blue LEDs indicate the motor bus power is enabled. Blue indicates a voltage higher than the 18V standby. These LEDs can also be orange if the output state is in the standby state.
+\includegraphics[scale=0.5]{pb_power2.jpg}
+
+The status LEDs are used by the processor for debugging. In the event of a failure a status code will display on these LEDs. Someone must count the number of rapid blinks followed by a slight pause.
+Status1 indicates the location where the fault occured and Status2 the cause of the fault.
+\includegraphics[scale=0.6]{pb_power3.jpg}
+
+The following table provides some meaning for the error codes. For further diagnosis please provide the status codes in bug reports.
+
+\begin{tabular}{|c|c|}
+\hline
+count & location \\
+\hline
+\hline
+1 & Self Test \\
+\hline
+2 & Main Loop \\
+\hline
+3 & Breaker 0 \\
+\hline
+4 & Breaker 1 \\
+\hline
+5 & Breaker 2 \\
+\hline
+6 & Calibration Test \\
+\hline
+\end{tabular}
+
+\begin{tabular}{c|c|}
+\hline
+\multicolumn{2}{|c|}{Main Loop Message} \\
+\hline
+count &  message \\
+\hline
+\hline
+1 & Under Voltage Lockout \\
+\hline
+2 & Over Temperature Lockout \\
+\hline
+3 & Under Current condition \\
+\hline
+4 & Over Current condition \\
+\hline
+5 & Failed Self Test \\
+\hline
+6 & 18v Failure \\
+\hline
+7 & Fan tachometer failure \\
+\hline
+8 & calibration CRC failure \\
+\hline
+9 & Battery voltage low  \\
+\hline
+& \\
+\hline
+\multicolumn{2}{|c|}{Circuit Message} \\
+\hline
+1 & Disable via software command \\
+\hline
+2 & Failed during turn on cycle \\
+\hline
+3 & Shutdown by E-stop \\
+\hline
+4 & Circuit breaker tripped  \\
+\hline
+\end{tabular}
 
 \subsection{Power for sensors}
 As mentioned previously, the power board provides a \emph{12V system bus}, that provides a well regulated 12V supply. The regulated 12V supply is the only supply designed for additions and expansion. This 12V supply is essentially always on once the Power board completes a self test. It is also monitored for undervoltage conditions and is fairly robust.
