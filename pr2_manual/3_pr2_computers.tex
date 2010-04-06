@@ -11,79 +11,79 @@ Additionally, the PR2 ships with a basestation computer which
 facilitates seamless communication with the PR2 when transitioning
 between wired and wireless networks, and additionally helps in
 a number of maintenance tasks.
-\subsection{Computer 1 (Master)}
-Computer 1 is physically located on the right side of the
+\subsection{Computer 1 (c1)}
+Computer 1 (c1) is physically located on the right side of the
 robot. It is referred to as the master computer because it serves a
 number of key roles for the computer infrastructure:
 \begin{itemize}
-\item Computer 1 stores the operating system for both computers. 
-  Computer 2 cannot boot unless computer 1 has booted first.
-\item Computer 1 is connected to the PR2 ethercat network, and is the
-  only computer that can perform motor control.
-\item Computer 1 provides routing for the rest of the robot when it is plugged
+\item c1 stores the operating system for both computers.  c2 cannot
+  boot unless c1 has booted first.
+\item c1 is connected to the PR2 ethercat network, and is the only
+  computer that can perform motor control.
+\item c1 provides routing for the rest of the robot when it is plugged
   in via the WAN port .
-\item Computer 1 provides routing for the rest of the robot when connected to
+\item c1 provides routing for the rest of the robot when connected to
   another network via an openVPN tunnel
-\item Computer 1 provides DHCP services for other devices connected to the
+\item c1 provides DHCP services for other devices connected to the
   robot internal network.
 \end{itemize}
 
-Computer 1's PCI slot is used for a 4-port ethernet card, giving it a
+c1's PCI slot is used for a 4-port ethernet card, giving it a
 total of 6 ethernet ports. These are:
 \begin{itemize}
 \item \texttt{lan0 - lan3}: connection to internal robot network 
-\item \texttt{wan0}: connected directly to WAN port on back of robot 
+\item \texttt{wan0}: connected directly to WAN port on back of robot
 \item \texttt{ecat0}: connected to robot ethercat network 
 \end{itemize}
 
-\subsection{Computer 2 (Slave)}
-Computer 2 is physically located on the left side of the
-robot. It is referred to as the slave computer because it netboots
-from computer 1.
+\subsection{Computer 2 (c2)}
+Computer 2 (c2) is physically located on the left side of the
+robot. It is sometimes referred to as the slave computer because it
+netboots from c1.
 
-Computer 2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1},
-both of which are connected to the internal robot network.
+c2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1}, both of
+which are connected to the internal robot network.
 
 \subsection{Basestation}
 The basestation is a Zareason xPC.  It is a dedicated
 point of contact through which network traffic to the robot can be
-routed.  The basestation has 2 ethernet ports. \texttt{eth0}, on the motherboard,
-is the primary ethernet port and is intended to be plugged into your
-local network.  \texttt{eth1}, on the pci card, is a dedicated port for
-servicing the robot.  When necessary, this port should be plugged
+routed.  It has 2 ethernet ports, \texttt{wan0}, on the motherboard,
+is the primary ethernet port.  It is intended to be plugged into your
+building network.  \texttt{lan0}, on the pci card is a dedicated port
+for servicing the robot.  When necessary, this port should be plugged
 directly into the robot service port.
 
 When configured properly, it is important that the basestation is
-visible on port \texttt{1194} both via your local wired network and 
-your local wireless network.  This will likely require
+visible on port \texttt{1194} both via your wired building network as
+well as via your building wireless network.  This will likely require
 assistance from your local network administrator.
 
 \section{Networking}
 The majority of communication between components onboard the PR2
-happens via an onboard ethernet network.  This onboard network can be
-accessed directly via either wired or wireless connections.
-Additionally, the robot can be accessed via the basestation through a
-VPN tunnel.
+happens via an onboard ethernet network, referred to as the ``robot
+internal network.''  This onboard network can be accessed directly via
+either wired or wireless connections.  Additionally, the robot can be
+accessed via the basestation through a VPN tunnel.
 \subsection{Network segments}
 \begin{itemize}
 \item \texttt{10.68.0.0}: Robot Internal Network 1. The
   \texttt{10.68.0.0} subnet is the primary network used internally by
-  the computers on the robot.  Both computers have addresses on this
-  subnet.  Many of the ethernet-based devices, such as the power
-  board, are given addresses on this subnet.  The robot Service Port,
-  and the cradlepoint ctr350 Wireless Access Point are directly
-  connected to this network.  The master computer, if booted, will
-  give out IP addresses via DHCP in the range
-  \texttt{10.68.0.100-10.68.0.199}.  Important addresses on this
+  the computers on the robot.  Both computers and the basestation have
+  addresses on this subnet.  Additinoally, many of the ethernet-based
+  devices, such as the power board, are given addresses on this
+  subnet.  The robot Service Port, and the cradlepoint ctr350 Wireless
+  Access Point are directly connected to this network.  The master
+  computer, if booted, will give out IP addresses via DHCP in the
+  range \texttt{10.68.0.100-10.68.0.199}.  Important addresses on this
   network:
   \begin{itemize}
-  \item \texttt{10.68.0.1} - c1 (master computer)
-  \item \texttt{10.68.0.2} - c2 (slave computer)
-  \item \texttt{10.68.0.5} - wifi-router (linksys router)
-  \item \texttt{10.68.0.6} - reserved for basestation on local network
-  \item \texttt{10.68.0.91} - c1-esms (master computer enterprise server management system)
-  \item \texttt{10.68.0.92} - c2-esms (master computer enterprise server management system)
-  \item \texttt{10.68.0.250} - wap (wireless access point)
+  \item \texttt{10.68.0.1} - c1 (lan0)
+  \item \texttt{10.68.0.2} - c2 (lan0)
+  \item \texttt{10.68.0.5} - wifi-router
+  \item \texttt{10.68.0.6} - basestation (lan0)
+  \item \texttt{10.68.0.91} - c1-esms
+  \item \texttt{10.68.0.92} - c2-esms
+  \item \texttt{10.68.0.250} - wap
   \end{itemize}
 \item \texttt{10.69.0.0}: Robot Internal Network 2.  The
   \texttt{10.69.0.0} network is a second internal subnet.
@@ -91,6 +91,10 @@ VPN tunnel.
   accross the computer's two network interfaces of the computers. This way, heavy
   network utilization by the cameras is less likely to interfere with
   more critical computer functions such as NFS.
+  \begin{itemize}
+  \item \texttt{10.69.0.11} - c1 (lan1)
+  \item \texttt{10.69.0.12} - c2 (lan1)
+  \end{itemize}
 \item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
   basestation is to function as a VPN server for the robot.  Each
   robot can be given a unique VPN subnet to facilitate the operation
@@ -101,38 +105,39 @@ VPN tunnel.
   be configured to require users to be assigned a vpn key to access
   the robot VPN network.  Important addresses on this network:
   \begin{itemize}
-  \item \texttt{10.68.X.1} - c1 (master computer)
-  \item \texttt{10.68.X.2} - c2 (slave computer)
-  \item \texttt{10.68.255.1} - basestation
+  \item \texttt{10.68.X.1} - c1 (tun0)
+  \item \texttt{10.68.X.2} - c2 (via c1:tun0)
+  \item \texttt{10.68.255.1} - basestation (tun0)
   \end{itemize}
 \end{itemize}
 
 \subsection{Service Port} The robot service port is the bottom
 ethernet port on the back panel of the robot.  It connects directly to
 the robot internel network, allowing you to connect to the computers
-directly.  \textit{DO NOT PLUG THIS PORT INTO YOUR LOCAL NETWORK.}
-The master computer serves DHCP for this network and if it conflicts
-with another DHCP server this will most likely cause problems both on
-your local network and on the robot network depending on which DHCP
-server takes precedence.
-\subsection{Wireless access point} The robot comes configured with a
-cradlepoint ctr350 configured as a wireless access point
-\href{http://www.cradlepoint.com/products/ctr350-mobile-broadband-router}.
-The ESSID of this network defaults to PRLAN, and allows direct access
-to the Robot Internal Network.
+directly.  \textit{DO NOT PLUG THIS PORT INTO YOUR BUILDING NETWORK.}
+c1 serves DHCP for this network and if it conflicts with another DHCP
+server this will most likely cause problems both on your building
+network and on the robot network depending on which DHCP server takes
+precedence.
 \subsection{WAN port} The robot WAN port is the top ethernet port on
 the back panel of the robot.  This connects directly to \texttt{wan0}
 on the master computer.  This port is intended to be plugged into your
-local network.  The robot will attempt to acquire an IP address via
+building network.  The robot will attempt to acquire an IP address via
 DHCP, and then attempt to contact the basestation at a known IP
 address.
+\subsection{Wireless access point} The robot comes configured with a
+cradlepoint ctr350 configured as a wireless access point (wap)
+\href{http://www.cradlepoint.com/products/ctr350-mobile-broadband-router}.
+The ESSID of this network defaults to <ROBOTNAME>LAN, and allows
+direct access to the Robot Internal Network.
+
 \subsection{Wireless router}
 The PR2 has a
 \href{http://www.linksysbycisco.com/US/en/products/WRT610N}{Linksys
   WRT610N} dual-N band wireless router.  This router can be configured
-to connect to your local wireless network.  In the absence of a WAN
+to connect to your building wireless network.  In the absence of a WAN
 connection, the robot will attempt to contact the basestation through
-the wireless router instead.
+this wireless router instead.
 
 \section{OS}
 The operating system running on the PR2 computers is an extended
@@ -145,45 +150,46 @@ is the next place to look.
 
 \subsection{NFS and Unionfs}
 The single largest difference between a normal Ubuntu installation and
-the PR2 configuration is that the Slave computer mounts nearly its
-entire filesystem via NFS.  The exceptions to this are the directories
-\texttt{/etc}, \texttt{/var}, and \texttt{/pr2bin} which are mounted
-via unionfs-fuse.  In short, unionfs allows one to specify an
-additional overlay on top of the underlying filesystem.  The contents
-of this overlay can be found in the directory \texttt{/slave} on the
-master machine.  Files added here will show up in the appropriate
-location on the slave machine.  For more information on how this is
-set up, see the man page for \texttt{unionfs-fuse} and look at the
-init-script \texttt{unionfs-fuse-nfs-root}.
+the PR2 configuration is that c2 mounts nearly its entire filesystem
+via NFS.  The exceptions to this are the directories \texttt{/etc},
+\texttt{/var}, and \texttt{/pr2bin} which are mounted via
+unionfs-fuse.  In short, unionfs allows one to specify an additional
+overlay on top of the underlying filesystem.  The contents of this
+overlay can be found in the directory \texttt{/slave} on the master
+machine.  Files added here will show up in the appropriate location on
+c2.  For more information on how this is set up, see the man page for
+\texttt{unionfs-fuse} and look at the init-script
+\texttt{/etc/unionfs-fuse-nfs-root}.
 
-New software and configuration changes should only be made on the
-master machine.  Since the slave machine mounts most of its
-filesystems read-only, this will usually be enforced for you.  If you
-are using a non-standard piece of software that attempts to write to
-the filesystem outside of your home directory you will likely need to
-make accommodating changes to either the computer configuration or the
-software you are trying to run.
+New software and configuration changes should only be made on c1.
+Since c2 mounts most of its filesystems read-only, this will usually
+be enforced for you.  If you are using a non-standard piece of
+software that attempts to write to the filesystem outside of your home
+directory you will likely need to make accommodating changes to either
+the computer configuration or the software you are trying to run.
 
 \subsection{autofs}
 Both of the computers have automount configured for mounting the
 \texttt{/home} partition of the other computer in a
 computer-independent way using autofs. These automounts are located in
-the directory \texttt{/pr}. To get to the home partition on computer 1
-you can use the path \texttt{/pr/1/} and to get to the home partition
-on computer 2 you can use the path \texttt{/pr/2/}. You should rarely
-need to do this explicitly, but it is necessary to make sense of home
-directory locations.
+the directory \texttt{/pr}. To get to the home partition on c1 you can
+use the path \texttt{/pr/1/} and to get to the home partition on c2
+you can use the path \texttt{/pr/2/}. You should rarely need to do
+this explicitly, but it is necessary to make sense of home directory
+locations.
 
 \subsection{Home directories}
 The default configuration for user home directories (as given in
-\texttt{/etc/passwd} is \texttt{/u/username}.  Instead of a directory,
-this location is by default a symlink to \texttt{/pr/1/username}.  To
-place a users home directory at a different location, such as the disk
-on the slave computer, an admin can simply move (or copy) the home
-directory and update the symlink accordingly.
+\texttt{/etc/passwd}) is \texttt{/u/username}.  Instead of a
+directory, this location is by default a symlink to
+\texttt{/pr/1/username} (locating the home directory on c1).  To place
+a users home directory at a different location, such as the disk on
+c2, an admin can simply move (or copy) the home directory and update
+the symlink accordingly.
 
 \subsection{Kernel}
-Discuss RT\_PREEMT and anything else non-vanilla about the kernel.  (BLAISE HAS AGREED TO FILL THIS IN).
+Discuss RT\_PREEMT and anything else non-vanilla about the kernel.
+(BLAISE HAS AGREED TO FILL THIS IN).
 
 \subsection{Storage}
 Each computer has two hard-drives - one internal 2.5" 500Gb
@@ -191,60 +197,78 @@ Each computer has two hard-drives - one internal 2.5" 500Gb
   Momentus} drive, and a slot for a removable 3.5" SATA hard-drive
 that is exposed on the top of the robot base.
 
-By default the only hard-drive used is the internal drive on the
-Master computer.  There are 3 relevant partitions created during
-installation:
+By default the only hard-drive used is the internal drive on c1.
+There are 3 relevant partitions created during installation:
 \begin{itemize}
-\item  \texttt{c1:/dev/sda1} -- \texttt{/} -- holds the root filesystem for the OS
-\item  \texttt{c1:/dev/sda5} -- \texttt{c1:/home} -- stores user home directories (linked to by \texttt{/u} by way of \texttt{/pr/1})
-\item  \texttt{c1:/dev/sda6} -- \texttt{/hwlog} -- stores hardware logs generated by the pr2
+\item \texttt{c1:/dev/sda1} -- \texttt{/} -- holds the root filesystem
+  for the OS
+\item \texttt{c1:/dev/sda5} -- \texttt{c1:/home} -- stores user home
+  directories (linked to by \texttt{/u} by way of \texttt{/pr/1})
+\item \texttt{c1:/dev/sda6} -- \texttt{/hwlog} -- stores hardware logs
+  generated by the pr2
 \end{itemize}
 
-The internal hard-drive on the Slave computer has a single partition,
-which is generally used as extra user storage:
+The internal hard-drive on c2 has a single partition, which is
+generally used as extra user storage:
 \begin{itemize}
-\item  \texttt{c2:/dev/sda1} -- \texttt{c2:/home} -- stores user home directories (linked to by \texttt{/u} by way of \texttt{/pr/2})
+\item \texttt{c2:/dev/sda1} -- \texttt{c2:/home} -- stores user home
+  directories (linked to by \texttt{/u} by way of \texttt{/pr/2})
 \end{itemize}
 
-Finally, both computers are configured to make use of the additional
-removable drives.  Any drive loaded into the removable bay will always
-show up as \texttt{/dev/removable}.
+Finally, both computers are configured to conveniently make use of the
+additional removable drives.  Any drive loaded into the removable bayn
+should always show up as \texttt{/dev/removable}.  The mount mount:
+\texttt{/removable} is set up to allow users to mount the first
+partition on this drive.
 \begin{itemize}
 \item \texttt{/dev/removable1} -- \texttt{/removable} -- stores
   temporary data users may want to move off the robot, primarily used
-  for large bag files.  This NOT mounted by default.  Users must
-  explicitly
+  for large bag files.  This is NOT mounted by default.  To use a
+  driver, users must explicitly
 \begin{verbatim}
-$ mount /dev/removable
+user@c1$ mount /dev/removable
 \end{verbatim}
 to use it, and should 
 \begin{verbatim}
-$ umount /dev/removable
+user@c1$ umount /dev/removable
 \end{verbatim}
-when done.
+when done.  Until the drive is unmounted, you do not have a guarantee
+the data has been written to disk, and if the robot runs out of
+batteries, your data may be list.
 \end{itemize}
 
 \subsubsection{Formatting Drives}
 If you want to partion / reformat one of the removable drives, or the
-the internal drive on the slave machine, yuo can use the
-\texttt{formatdisk} helper utility.  Simply pass it the name of the
-drive you want to format, for example:
+the internal drive on c2, yuo can use the \texttt{formatdisk} helper
+utility.  Simply pass it the name of the drive you want to format, for
+example:
 \begin{verbatim}
-$ sudo formatdisk /dev/sda
+pr2admin@c2$ sudo formatdisk /dev/sda
+\end{verbatim}
+or
+\begin{verbatim}
+pr2admin@c1$ sudo formatdisk /dev/removable
 \end{verbatim}
 
-\subsection{User accounts}
-\label{creating accounts}
+\subsection{Default user account}
+The default account on the robot is ``pr2admin''.  When the robot is
+first installed, it does not have a password set, however, this
+password is set as part of the branding process.  When you first
+receive the PR2 from Willow Garage the password will most likely be
+set to ``willow''.
+
+\subsection{Creating user accounts}
 The expectation is that each person logging into the robot to develop
 code will have their own user account.  Any robot admin can create a
 new user using the
 \texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?adduser}{adduser}}
-command (NOT the \texttt{useradd} command).
+command (NOT the \texttt{useradd} command), on c1.  User accounts are
+automatically mirrored on c2.
 
 Some examples:
 \begin{verbatim}
-$ sudo adduser bob
-$ sudo adduser bill --shell /usr/bin/tcsh --uid 2000
+pr2admin@c1$ sudo adduser bob
+pr2admin@c1$ sudo adduser bill --shell /usr/bin/tcsh --uid 2000
 \end{verbatim}
 
 \textit{Note: it may be helpful to assign users the same UID used on
@@ -258,15 +282,17 @@ automatically by the script: \texttt{/usr/local/sbin/adduser.local}.
 There are a couple of important groups on the pr2:
 \begin{itemize}
 \item \texttt{admin} -- Members of this group have full root privileges when using the sudo command
-\item \texttt{rosadmin} -- Members of this group have access to change pr2-specific configuration settings
+\item \texttt{rosadmin} -- Members of this group have access to change ros-specific configuration settings in \texttt{/etc/ros}
 \item \texttt{apt} -- Members of this group can install new software
 \end{itemize}
 
-To add a user to a group, use the \texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?usermod}{usermod}} command.  The most
-common invocation is \texttt{-a} (append) \texttt{-G} (group).  For example:
+To add a user to a group, use the
+\texttt{\href{http://unixhelp.ed.ac.uk/CGI/man-cgi?usermod}{usermod}}
+command.  The most common invocation uses the options \texttt{-a}
+(append) and \texttt{-G} (group).  For example:
 
 \begin{verbatim}
-$ sudo usermod -a -G admin bob
+pr2admin@c1$ sudo usermod -a -G admin bob
 \end{verbatim}
 
 \subsection{Backing up and restoring users}
@@ -274,14 +300,13 @@ Before reinstalling the robot operating system you will likely want to
 back up the user accounts. This can be done with the command:
 \texttt{pr2-usermigrate}. To save users:
 \begin{verbatim}
-$ sudo pr2-usermigrate save myrobot.users
+pr2admin@c1$ sudo pr2-usermigrate save myrobot.users
 \end{verbatim}
 
 Move this file off the robot before reinstalling.  Then, to restore users:
 \begin{verbatim}
-$ sudo pr2-usermigrate load myrobot.users
+pr2admin@c1$ sudo pr2-usermigrate load myrobot.users
 \end{verbatim}
-
 
 \subsection{Clock synchronization}
 Consistent time-stamping of data from the two computers is important
@@ -293,6 +318,14 @@ is to have the two computers tightly coupled to one another, but
 loosely coupled to an external time source to prevent the robot time
 from drifting too far from the outside world.
 
+If you find your clocks in an inconsistant state, you may want to try
+restarting chrony on the basestation, c1, and c2, in that order.
+\begin{verbatim}
+pr2admin@basestation$ sudo /etc/init.d/chrony restart
+pr2admin@c1$ sudo /etc/init.d/chrony restart
+pr2admin@c2$ sudo /etc/init.d/chrony restart
+\end{verbatim}
+
 \section{Basestation Setup and Pairing}
 Before you can use the robot and basestation, it needs to be
 configured.  This configuration can be done by logging into the
@@ -301,20 +334,51 @@ basestation.  The default account is ``pr2admin'' with password
 plugged into the robot via the service port.
 
 \subsection{Requirements}
-For the basestation to work properly, it needs to be given a static
-IP.  This IP can be given to the basestation either statically or
-assigned via a DHCP server, but it needs to be constant.  the IP
-address you assign it must be visible on both the wired and wireless
-networks on port \texttt{1194}.  This is the port that VPN uses when
-the robot makes its connection back to the basestation.  Depending on
-how secure your network is, you may need assistance from your local
-sysadmin to configure this properly.
 
-Additionally, for the robot to be able to find the basestation, both
-the wired and wireless networks must provide a DHCP server.  The
-operation of the system is that the robot will acquire an IP address
-via DHCP and then contact the basetation at the known IP address that
-it is paired to.
+\subsubsection{Naming}
+It order for ROS to work properly, it depends on each computer in your
+system being able to correctly resolve the hostnames of all other
+computers in your ROS system.  For an in depth explanation, please
+familiarize yourslef with
+\href{http://www.ros.org/wiki/ROS/NetworkSetup}{http://www.ros.org/wiki/ROS/NetworkSetup}.
+However, in short, you are probably going to need 3 hostnames, and 3
+IP addresses -- one for the basestation, and one for each of the two
+robot computers.  Each of these 3 hostnames must either be resolved by
+your building network DNS server, or else they will need to be added
+to the \texttt{/etc/hosts} file of all the relevant computers.
+
+For the remainder of this section in our examples we will assume that
+our basestation has been given the hostname \texttt{prbase1}, and our
+computers will be named \texttt{prx1} and \texttt{prx2}, and are
+configured statically as:
+
+\begin{itemize}
+\item \texttt{prbase1} -- \texttt{192.168.1.100}
+\item \texttt{prx1} -- \texttt{192.168.1.101}
+\item \texttt{prx2} -- \texttt{192.168.1.102}
+\end{itemize}
+
+For the robot to be able to find the basestation, it needs to be given
+a constant IP address.  Unless you have a reason not to, this IP
+address should be assigned to the basestation statically.  However, if
+you are certain that your DHCP server will always assign the same IP,
+it is ok for this IP to be assigned via DHCP.
+
+The IP address assigned to your basestation must be visible on both
+the wired and wireless segments of your building network on port
+\texttt{1194}.  This is the port that VPN uses when the robot makes
+its connection back to the basestation (it can be changed by modifying
+\texttt{/etc/openvpn/server.conf} on the basestation).  Depending on
+how secure your network is, and whether these segments are separated
+by a firewall, you may need assistance from your local sysadmin to
+allow traffic through on this port.
+
+Finally, for the robot to be able to find the basestation, both the
+wired and wireless networks must provide a DHCP server.  The operation
+of the system is that the robot will acquire an IP address via DHCP
+and then contact the basetation at the known IP address that it is
+paired to.  Review the section BLAH for an explanation of the network
+overview.
 
 \subsection{Initialize the Basestation VPN Server}
 One of the primary functions of the basestation is to host a VPN
