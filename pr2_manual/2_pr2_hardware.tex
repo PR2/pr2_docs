@@ -325,7 +325,7 @@ Discuss the drive-train approach, how/why things work, what types of errors we e
 \subsubsection{Motor controller boards}
 Each motor/encoder on the PR2 has its dedicated \emph{Motor Controller
   Board} (MCB). The MCB detects and counts transitions in the encoder
-signal, measures the current the motor is using, and commands the
+signal, measures the motor current, and commands the
 voltage going to the motor. Each MCB runs a PI-control loop to control
 the motor current to a desired value, by commanding the motor
 voltage. This control loop is executed at 100~kHz on an FPGA.  A
@@ -335,7 +335,7 @@ the main computers.
 \subsubsection{Controller manager}
 The \emph{Controller Manager} (CM) is the lowest level software
 component that directly talks to the MCB's. The CM runs in a hard
-realtime process and is guaranteed to be executed at 1~kHz. This means
+realtime process and is guaranteed to be executed at 1~kHz. This means that
 the CM sends desired motor torques to the MCB's every milisecond, and
 receives measured motor torques and positions in the same milisecond.
 
@@ -350,15 +350,15 @@ Before undertaking any new or risky operations with your PR2, please consult the
 
 \subsubsection{Environmental specs}
 
-The PR2 is an indoor, household robot. Operating outside this type of environment could cause damage to the PR2, or injury or death to operators.
+The PR2 is an indoor, household robot. Operating outside this type of environment could cause damage to the PR2, and  injury or death to operators.
 
 \paragraph{Water}
 
-The PR2 has not been tested for any type of contact with water or any other liquid. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) or liquid handling. Water contact can cause damage to the electrical circuitry and the mechanism.
+The PR2 has not been tested for any type of contact with water or any other liquid. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) and any other liquid. Water contact can cause damage to the electrical circuitry and the mechanism.
 
 \paragraph{Temperature and Humidity}
 
-Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. Temperatures outside of this range can cause malfunctions in the PR2 power system and instruments. The PR2 has been tested in high humidity, but under no circumstances should condensation be allowed to form on the vehicle.
+Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. Temperatures outside of this range can cause malfunctions in the PR2 power system and instruments. The PR2 has been tested in high humidity, but under no circumstances should condensation be allowed to form on the mechanism.
 
 \paragraph{Drive Surface}
 
@@ -366,7 +366,7 @@ The drive surface of the PR2 must be capable of supporting the entire weight of 
 
 \paragraph{Incline Surface}
 
-The PR2 is ready for ADA compatible ramps, which specifies a 1/12 slope. Ramps that are steeper than 1/12 slope are unsafe and may be a tip over hazard.
+The PR2 is ready for ADA-compliant ramps, which are at 1/12 slope. Ramps that are steeper than a 1/12 slope are unsafe and may be a tip over hazard.
 
 \paragraph{Other Environmental Specs}
 
@@ -459,7 +459,7 @@ The soft limits have been carefully implemented and validated by Willow Garage. 
 Changing maximum allowable effort or maximum actuator current could cause serious damage to the PR2 and injury or death to operators. 
 
 \section{Sensors}
-The PR2 has a variety of sensors spread out over it's body:\\\\
+The PR2 has a variety of sensors on its body:\\\\
 \begin{overpic}[scale=0.45]{sensors.png}
 \put(46.9,50.9){\href{http://www.ros.org/wiki/prosilica_camera}{\includegraphics[scale=0.45]{sensors_prosilica.png}}}
 \put(49,51){\href{http://www.ros.org/wiki/wge100_camera}{\includegraphics[scale=0.45]{sensor_camera.png}}}
@@ -471,14 +471,14 @@ The PR2 has a variety of sensors spread out over it's body:\\\\
 \end{overpic}
 
 \subsection{Base Laser}
-The base laser of the PR2 is \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)} 
-scanning range finder that is located on PR2's base. This laser has a 30 m and 270$^\circ$ scanning range. For more information, 
+The base laser is a \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)} 
+scanning range finder. This laser has a 30 m and 270$^\circ$ scanning range. For more information, 
 see the \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Tilting Laser}
 \label{tilting laser}
 In addition to the base laser, the PR2 has a \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)}
-mounted on a tilting platform that is located just below the pan-tilt head. The tilting platform can sweep the scanning 
+mounted on a tilting platform located just below the pan-tilt head. The tilting platform can sweep the scanning 
 laser through 135$^\circ$ ($+90^\circ$ and $-45^\circ$ from level) and can be controlled using the
 default laser\_tilt\_controller. For more information, see the \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} 
 and \href{http://www.ros.org/wiki/pr2_default_controllers}{pr2\_default\_controllers} packages at \href{http://www.ros.org}{ros.org}.
@@ -488,7 +488,7 @@ The PR2 pan-tilt head has three cameras and a textured light projector:
 \begin{description}
 \label{stereo camera}
 \item[Wide Stereo Camera]
-The wide stereo camera of the PR2 is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo 
+The wide stereo camera is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo 
 uses the \href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC} imager chip
 and has a maximum resolution of 752 x 480 pixels at 15 fps. The camera has a field of view (FOV) of approximately 
 $90^\circ$ and a 2.5mm F2.5 \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4402.5-2.5-HR).pdf}{Marshall V-4402.5-2.5-HR} 
@@ -496,7 +496,7 @@ lens. For more information, see the \href{http://www.ros.org/wiki/wge100_camera}
 at \href{http://www.ros.org}{ros.org}.
 
 \item[Narrow Stereo Camera]
-The narrow stereo camera of the PR2 is part of the dual stereo pair and is a 100Mb monchrome ethernet camera. 
+The narrow stereo camera is part of the dual stereo pair and is a 100Mb monochrome ethernet camera. 
 The narrow stereo uses the \href{http://www.aptina.com/products/image_sensors/mt9v032c12stm/#overview}{Aptina MT9V032C12STM} 
 imager chip and has a max resolution of 752 x 480 pixels at 15 fps. The camera has a FOV of approximately $55^\circ$ and 
 a 5.6mm F2.0  \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4405.6-2.0-HR).pdf}{Marshall V-4405.6-2.0-HR}
@@ -538,7 +538,7 @@ package at \href{http://www.ros.org}{ros.org}.
 
 \item[Fingertip Pressure Sensors]
 The default fingertips of the PR2 are sturdy aluminum blocks with non-slip 
-rubber covers, for added friction and compliance in grasping.  However, the 
+rubber covers for added friction and compliance in grasping.  However, the 
 aluminum tips can be swapped out for an (included) set of RoboTouch tactile 
 sensing pads made by Pressure Profile Systems, each with 22 tactile sensing 
 elements: 15 in a 5x3 array on the front surface, 2 on top, 2 on each side, 
@@ -548,8 +548,7 @@ connect to the robot via an SPI ribbon cable and two screws, and have a
 maximum scan rate of 35 Hz.
 
 The tactile sensors are highly fragile when not protected by the rubber 
-covering, and so care should be taken not to damage the rubber covering when 
-the tactile sensors are being used on the robot.  For more information, 
+covering, and so care should be taken not to damage the rubber covering.  For more information, 
 see the \href{http://www.ros.org/wiki/fingertip\_pressure}{fingertip\_pressure} package at \href{http://ros.org}{ros.org}.
 
 \item[Calibration LED]
@@ -565,16 +564,18 @@ at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Speaker}
 The PR2 has one \href{http://www.logitech.com/index.cfm/speakers_audio/home_pc_speakers/devices/199&cl=us,en}{Logitech V20 notebook speaker} 
-that is located under the pan-tilt head next to the tilting laser. For more information, 
+located under the pan-tilt head next to the tilting laser. For more information, 
 see the \href{http://www.ros.org/wiki/sound_play}{sound\_play} package at \href{http://www.ros.org}{ros.org}.
 
 \section{Power system}
 \subsection{Overview}
-The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of 120V wall current. The batteries power the computers, motors, and sensors on the robot.  Power distribution is controlled by the \emph{Power Board}, which communicates over Ethernet.
+The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of a 120V wall current. The batteries power the computers, motors, and sensors on the robot.  Power distribution is controlled by the \emph{Power Board}, which communicates over Ethernet.
 \subsection{Power Busses}
 The robot has four internal power busses:
 \begin{description}
-\item[120v] The robot has a 3-prong IEC320 plug in the back of the base, which is connected through a circuit breaker to the inputs of the four AC-DC converters that are used to charge the battery packs.  The system is designed to draw less than 15A, a standard 15A or 20A outlet will suffice. The load is capable at times of approaching the 15A limit, you should make sure there are no other devices which draw significant power on the same circuit (e.g., computers or heaters).
+\item[120V] The robot has a 3-prong IEC320 plug in the back of the base, which is connected through a circuit breaker to the four AC-DC converters used to charge the 
+battery packs.  The system is designed to draw less than 15A, a standard 15A or 20A outlet will suffice. The load is capable at times of approaching the 15A limit, 
+make sure there are no other devices which draw significant power on the same circuit (e.g., computers or heaters).
 \underline{Ideally, add image of back panel once we have the PR2 betas done w/ Ryan's stickers on that panel.}
 \item[Motor Power Bus] The motors get power through 3 descrete circuit breakers on the power board. 
 These create three independent motor power busses: left arm, right arm, and base/head.
