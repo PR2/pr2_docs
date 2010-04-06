@@ -1,18 +1,18 @@
 \chapter{PR2 Computers}
-Covers the configuration of the computers and software that comes installed on the robot
+This section covers the configuration of the computers and software that comes installed on the robot
 \section{Computer hardware}
-PR2 has two computers, each has 24 Gb of random-access memory (RAM), 2
+The PR2 has two computers, each with 24 Gb of random-access memory (RAM), 2
 quad-core Nehalem processors, and two attached hard-drives.  The
 motherboards are XXX from Rackable systems.  For more information
-about the computers themselves, please see the users's manual and
+about the computers themselves, please see the user manual and
 documentation at XXX (link to Rackable information).
 
 Additionally, the PR2 ships with a basestation computer which
 facilitates seamless communication with the PR2 when transitioning
-between wired and wireless networks and additionally serves a role in
+between wired and wireless networks, and additionally helps in
 a number of maintenance tasks.
 \subsection{Computer 1 (Master)}
-Computer 1 is the computer physically located on the right side of the
+Computer 1 is physically located on the right side of the
 robot. It is referred to as the master computer because it serves a
 number of key roles for the computer infrastructure:
 \begin{itemize}
@@ -31,13 +31,13 @@ number of key roles for the computer infrastructure:
 Computer 1's PCI slot is used for a 4-port ethernet card, giving it a
 total of 6 ethernet ports. These are:
 \begin{itemize}
-\item \texttt{lan0 - lan4}: connection to internal robot network 
+\item \texttt{lan0 - lan3}: connection to internal robot network 
 \item \texttt{wan0}: connected directly to WAN port on back of robot 
 \item \texttt{ecat0}: connected to robot ethercat network 
 \end{itemize}
 
 \subsection{Computer 2 (Slave)}
-Computer 2 is the computer physically located on the left side of the
+Computer 2 is physically located on the left side of the
 robot. It is referred to as the slave computer because it netboots
 from computer 1.
 
@@ -45,17 +45,17 @@ Computer 2 only has 2 ethernet ports, \texttt{lan0} and \texttt{lan1},
 both of which are connected to the internal robot network.
 
 \subsection{Basestation}
-The basestation is a zareason xPC.  It is intended to be a dedicated
+The basestation is a Zareason xPC.  It is a dedicated
 point of contact through which network traffic to the robot can be
-routed.  It has 2 ethernet ports, \texttt{eth0}, on the motherboard,
-is the primary ethernet port.  It is intended to be plugged into your
-local network.  \texttt{eth1}, on the pci card is a dedicated port for
+routed.  The basestation has 2 ethernet ports. \texttt{eth0}, on the motherboard,
+is the primary ethernet port and is intended to be plugged into your
+local network.  \texttt{eth1}, on the pci card, is a dedicated port for
 servicing the robot.  When necessary, this port should be plugged
 directly into the robot service port.
 
 When configured properly, it is important that the basestation is
-visible on port \texttt{1194} both via your local wired network as
-well as via your local wireless network.  This will likely require
+visible on port \texttt{1194} both via your local wired network and 
+your local wireless network.  This will likely require
 assistance from your local network administrator.
 
 \section{Networking}
@@ -86,9 +86,9 @@ VPN tunnel.
   \item \texttt{10.68.0.250} - wap (wireless access point)
   \end{itemize}
 \item \texttt{10.69.0.0}: Robot Internal Network 2.  The
-  \texttt{10.69.0.0} network is a second subnet internal to the robot.
+  \texttt{10.69.0.0} network is a second internal subnet.
   The cameras are given addresses on this subnet to partition traffic
-  accross the two network interfaces of the computers.  This way heavy
+  accross the computer's two network interfaces of the computers. This way, heavy
   network utilization by the cameras is less likely to interfere with
   more critical computer functions such as NFS.
 \item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
