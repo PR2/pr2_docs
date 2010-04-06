@@ -1,7 +1,7 @@
 \chapter{PR2 hardware}
 
 \section{What's in the box}
-THe PR2 ships in 3 packages:
+The PR2 ships in 3 packages:
 
 \begin{tabular}{| l | l |}
 \hline      
@@ -29,7 +29,7 @@ wireless controller. It can be charged using any standard USB A to mini-B USB ca
 \subsubsection{Wireless run-stop}
 \label{wirelessrunstop}
 The PR2 comes with an \href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50} 
-wireless run-stop transmitter. When stopped or out of range, the wireless run-stop transmitter will halt the motors 
+wireless run-stop transmitter. When the red button is pressed, or the unit is out of range, the wireless run-stop transmitter will halt the motors 
 and put the power system in standby mode. 
 
 \begin{figure}[h]
@@ -41,8 +41,7 @@ and put the power system in standby mode.
 
 To start the run-stop, press the green start button (Figure~\ref{fig:runstop}); if this works properly, you will see a 
 light flashing on the run-stop. While transmitting, the run-stop has a range of approximately 800 ft. The run-stop is 
-powered by four AA batteries; the battery light will flash when the battery charge is low, which is an indication that 
-you should change the batteries.
+powered by four AA batteries; the battery light will flash when the battery charge is low and new batteries are required.
 
 \subsubsection{15 FT Robot Power Cord and 3-foot self plug-in Robot Power Cord}
 \TODO{Include images of both power cords}
@@ -88,16 +87,16 @@ PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety o
 \TODO{For each type of drivetrain, start with a list of joints and provide key information (invert mapping from what Tully did)}
 
 
-Kinematically speaking, the PR2 can be broken down into {\bf links} by individual degrees of freedoms.  Each {\bf link} consist of one
+Kinematically speaking, the PR2 can be broken down into {\bf links} by individual degrees of freedoms.  Each {\bf link} consists of one
 rigid body component that can be represented by a single collision model and a single lumped inertial property.
-All links are interconnected together by {\bf joint} constraints in the form of revolute, prismatic or fixed {\bf joints}.
-In this literature, a revolute joint without limits is also called a continuous joint.
+All links are interconnected by {\bf joint} constraints in the form of revolute, prismatic or fixed {\bf joints}.
+A revolute joint without limits is also called a continuous joint.
 In general, the entire PR2 mechanism is represented by a tree where each node is a {\bf link}
   and the edges connecting individual nodes are {\bf joints}.
-In the tree representation of the PR2, each node (link) can be connected (via joints) to only one parent node but can have arbitrarily many child nodes.
+In the tree representation of the PR2, each node (link) can be connected (via joints) to only one parent node but can have an arbitrary number of child nodes.
 
-A link without collision or inertial components is referred to as a {\bf frame}. Frames are always rigidly attached to parent links via fixed joints and cannot have children links.
-A frame serves an important function of facilitating transform record keeping through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)}
+A link without collision or inertial components is referred to as a {\bf frame}. Frames are always rigidly attached to parent links via fixed joints and cannot have child links.
+A frame serves the important function of facilitating transform record keeping through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)}
   for propagating information such as reference coordinates of an optical image, origin of range sensor generated point cloud data or the reference pose for the grasp point of a gripper.
 
 A CAD approximated kinematic and inertial description of the PR2 can be found
@@ -105,17 +104,17 @@ A CAD approximated kinematic and inertial description of the PR2 can be found
 This package uses a robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation
   called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)} created here at Willow Garage.
 
-Rather than diving into all 32 DOF's of the PR2 in detail right away, the next section examines the robot by its major components:  head, torso, arms, base and casters.
+Rather than diving into all 32 DOFs in detail right away, the next section examines the robot's major components:  head, torso, arms, base and casters.
 This overall breakdown of the PR2 robot is depicted in Figure~\ref{fig:pr2_basic_breakdown}.
 
 \subsubsection{Head}
 The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
 The {\bf head\_pan\_link} is attached to the PR2 torso ({\bf torso\_lift\_link}) by another revolute joint called the {\bf head\_pan\_joint}.
 
-The individual head sensors are detailed separately in the section~\ref{subsec:pr2_sensors}
+The individual head sensors are detailed separately in section~\ref{subsec:pr2_sensors}
 
 \subsubsection{Arms}
-The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gripper.  Each components is separately described in detail below:
+The PR2 arms can be subdivided into shoulder, upper arm, forearm and gripper.  Each component is separately described in detail below:
 \begin{itemize}
 \item Shoulers
   \begin{itemize}
@@ -150,7 +149,7 @@ The PR2 arms can be further subdivided into shoulder, upper arm, forearm and gri
 The PR2 {\bf torso\_lift\_link} refers to the torso part of the PR2 that moves up and down with the elevator actuator.
 
 \subsubsection{Base}
-The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 computers and is also rigidly attached to the base Hokuyo laser scanner.
+The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 computers. It is rigidly attached to the base Hokuyo laser scanner.
 
 \subsubsection{Casters}
 The PR2 has 4 caster units.  Each caster contains one actuated steering degree of freedom and two individually actuated wheels.
@@ -188,7 +187,7 @@ The PR2 contains the following sensors:
 
 \subsubsection{PR2 Coordinate System}
 \label{sec:pr2_coordinate_system}
-The reference {\bf home pose} of the PR2 robot is defined as the robot pose with all the joint angles at zero,
+The reference {\bf home pose} of the PR2 robot is defined as the robot pose with all of the joint angles at zero,
 with the PR2 robot facing the positive x-direction, positive z-axis pointing upwards and positive y-axis pointing to the {\it robot-left} (see Figure~\ref{fig:pr2_home_pose}).
 
 \begin{figure}[!h]
@@ -205,7 +204,7 @@ with the PR2 robot facing the positive x-direction, positive z-axis pointing upw
 \end{figure}
 
 \subsection{Drivetrains}
-The PR2 drivetrains have been designed to be low inertia and
+The PR2 drivetrains are low inertia and
 backdrivable with minimal backlash. There are three types of
 drivetrains on the PR2, gear drives, belt drives, and lead screw
 drives.  
@@ -214,7 +213,7 @@ drives.
 The most common drivetrain on the PR2 is the belt drive.  
 
 The typical link drivetrain is a DC motor with attached encoder.  It
-runs through a planetary gearbox then is attached to a belt
+runs through a planetary gearbox that is attached to a belt
 drive. These drivetrains are fully backdriveable and have low
 backlash.
 
@@ -238,7 +237,7 @@ mechanism side of the gears.
 The wrist, head pan and forearm roll use gear drives.  
 
 \paragraph{Wrist}
-The wrist utilized a differential drive between two motors.  If they
+The wrist uses a differential drive between two motors.  If they
 are turned in the same direction the wrist rolls, if they are turned
 oposite the wrist flexes.  The differential bevel gears are attached
 after a standard encoder, motor, gearhead assembly.
