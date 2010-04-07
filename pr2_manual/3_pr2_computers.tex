@@ -62,20 +62,25 @@ assistance from your local network administrator.
 The majority of communication between components onboard the PR2
 happens via an onboard ethernet network, referred to as the ``robot
 internal network.''  This onboard network can be accessed directly via
-either wired or wireless connections.  Additionally, the robot can be
-accessed via the basestation through a VPN tunnel.
+either wired connection (through the service port), or wireless
+connection (through the WAP).  Additionally, the robot can be accessed
+via the basestation through a VPN tunnel.
 \subsection{Network segments}
+There are a couple of different important network segments, outlined
+here, and discussed in more detail in the section ``Network
+Explanation'' below.
 \begin{itemize}
 \item \texttt{10.68.0.0}: Robot Internal Network 1. The
   \texttt{10.68.0.0} subnet is the primary network used internally by
   the computers on the robot.  Both computers and the basestation have
-  addresses on this subnet.  Additinoally, many of the ethernet-based
+  addresses on this subnet.  Additionally, many of the ethernet-based
   devices, such as the power board, are given addresses on this
   subnet.  The robot Service Port, and the cradlepoint ctr350 Wireless
-  Access Point are directly connected to this network.  The master
-  computer, if booted, will give out IP addresses via DHCP in the
-  range \texttt{10.68.0.100-10.68.0.199}.  Important addresses on this
-  network:
+  Access Point are directly connected to this network, allowing a user
+  to easily put their laptop on the robot internal network.  The
+  master computer, if booted, will give out IP addresses via DHCP in
+  the range \texttt{10.68.0.100-10.68.0.199}.  Important addresses on
+  this network:
   \begin{itemize}
   \item \texttt{10.68.0.1} - c1 (lan0)
   \item \texttt{10.68.0.2} - c2 (lan0)
@@ -86,9 +91,9 @@ accessed via the basestation through a VPN tunnel.
   \item \texttt{10.68.0.250} - wap
   \end{itemize}
 \item \texttt{10.69.0.0}: Robot Internal Network 2.  The
-  \texttt{10.69.0.0} network is a second internal subnet.
-  The cameras are given addresses on this subnet to partition traffic
-  accross the computer's two network interfaces of the computers. This way, heavy
+  \texttt{10.69.0.0} network is a second internal subnet.  The cameras
+  are given addresses on this subnet to partition traffic accross the
+  computer's two network interfaces of the computers. This way, heavy
   network utilization by the cameras is less likely to interfere with
   more critical computer functions such as NFS.
   \begin{itemize}
@@ -98,17 +103,82 @@ accessed via the basestation through a VPN tunnel.
 \item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
   basestation is to function as a VPN server for the robot.  Each
   robot can be given a unique VPN subnet to facilitate the operation
-  of multiple robots using a single VPN server.  Under normal
-  operation the basestation will automatically forward relevant
-  traffic into the VPN network, hiding this from the end-user.
-  However, if greater security is desired, the basestation can instead
-  be configured to require users to be assigned a vpn key to access
-  the robot VPN network.  Important addresses on this network:
+  of multiple robots using a single VPN server.  The basestation can
+  be configured to forward to automatically forward relevant traffic
+  from the building network into the VPN network, hiding this from the
+  end-user.  However, if greater security is desired, the basestation
+  can instead be configured to require users to be assigned a vpn key
+  to access the robot VPN network.  Important addresses on this
+  network:
   \begin{itemize}
   \item \texttt{10.68.X.1} - c1 (tun0)
   \item \texttt{10.68.X.2} - c2 (via c1:tun0)
   \item \texttt{10.68.255.1} - basestation (tun0)
   \end{itemize}
+\end{itemize}
+\subsection{Network Explanation}
+\includegraphics[width=400px]{images/pr2_network_diagram.pdf}
+
+The above figure depicts the interaction between the robot and
+building networks.  The dotted lines show paths which may or may not
+be connected at any given point in time.  That is, the basestation or
+a laptop may not always be plugged into the service port, and the
+robot WAN port may not always be plugged into the building network.
+The colored lines depict pathways that different network traffic
+follows.  The main thing of importance to note is that there are three
+ways to talk to the robot: direct wire, direct wireless, or VPN.
+Additionally, the VPN traffic itself can be routed in one of two ways,
+either via a wired or wireless path.
+the VPN.  \textit{Note: for clarity, we have labeled all interfaces
+  connected to the building network as WAN, and interfaces connected
+  to the robot network as LAN, but this may well not be the case for
+  laptops or desktops on your actual network, where the usual default
+  interface name is typically ``eth0''}
+\begin{itemize}
+\item \textbf{Direct wired connection}.  One possibility is to connect
+  a laptop, or the basestation \texttt{lan0} port to the robot service
+  port.  This simply puts the laptop, or the basetation directly on
+  the robot internal network.  The basestation is always configured to
+  use the IP address \texttt{10.68.0.6}, whereas the laptop will
+  likely be configured to use DHCP.  When plugged into the service
+  port, you can talk to the robot on its lan ports directly.  This
+  system will work even if the VPN system is not functioning.  This is
+  typically used for reinstalling the robot, or debugging other networking
+  problems.
+\item \textbf{Direct wireless connection}.  Another possibility is to
+  connect a laptop directly to the robot WAP.  This is essentially
+  identical to plugging into the service port.  The robot computers
+  can be reached directly on the \texttt{10.68.0.0/24} subnet.
+\item \textbf{VPN connection}.  When not plugged into the service
+  port, the basestation and robot communicate over VPN.  The
+  basestation acts as the VPN server, and is always reachable at
+  \texttt{10.68.255.1}.  However, there are two mechanism through
+  which the VPN traffic may be routed.
+  \begin{itemize}
+  \item \textbf{Wired VPN connection}. The wired VPN connection is
+    depicted in blue.  This only occurs when the robot WAN port is
+    plugged into the building network.  Note that \texttt{wan0} on c1
+    goes directly to the robot WAN port.  When this is plugged into
+    the building network, c1 acquires an IP address via DHCP.  At that
+    point c1 initiates a connection to the basestation using a
+    specified static IP address.  Once this connection is established,
+    all vpn traffic is routed through this pathway.
+  \item \textbf{Wireless VPN connection}.  The wireless VPN connection
+    is depicted in red.  If the WAN port is not plugged in, the robot
+    falls back on its wireless connection.  A secondary route instead
+    sends traffic through the wifi-router, which must be configured to
+    connect to the building wireless network.  In many cases, the
+    wireless network is located outside the firewall, so it is
+    important that the static IP of the basestation resolves properly
+    and is allowed through the firewall on port 1194.
+  \end{itemize}
+  Regardless of how the robot is connected to the basestation, a
+  desktop situated on the building network will always talk to the
+  robot in the same way.  Traffic from the desktop, depicted in green,
+  is actually routed through the basestation and into the VPN tunnel.
+  Once in the tunnel, which pathway the robot is using is abstracted
+  and the traffic seamlessly emerges from the other side of the
+  tunnel.
 \end{itemize}
 
 \subsection{Service Port} The robot service port is the bottom
@@ -126,10 +196,13 @@ building network.  The robot will attempt to acquire an IP address via
 DHCP, and then attempt to contact the basestation at a known IP
 address.
 \subsection{Wireless access point} The robot comes configured with a
-cradlepoint ctr350 configured as a wireless access point (wap)
+cradlepoint ctr350 configured as a Wireless Access Point (WAP)
 \href{http://www.cradlepoint.com/products/ctr350-mobile-broadband-router}.
 The ESSID of this network defaults to <ROBOTNAME>LAN, and allows
-direct access to the Robot Internal Network.
+direct access to the Robot Internal Network.  You can configure the
+WAP by plugging into the robot service port and going to the IP
+address: \texttt{10.68.0.250}.  The default login and password are
+``root'', ``willow.''
 
 \subsection{Wireless router}
 The PR2 has a
@@ -137,7 +210,10 @@ The PR2 has a
   WRT610N} dual-N band wireless router.  This router can be configured
 to connect to your building wireless network.  In the absence of a WAN
 connection, the robot will attempt to contact the basestation through
-this wireless router instead.
+this wireless router instead. You can configure the wireless router by
+plugging into the robot service port and going to the IP address:
+\texttt{10.68.0.5}.  The default login and password are ``root'',
+``willow.''
 
 \section{OS}
 The operating system running on the PR2 computers is an extended
@@ -147,6 +223,26 @@ familiar to for Ubuntu users. If you run into a computer problem not
 covered by the PR2 documentation, the
 \href{https://help.ubuntu.com/9.04/index.html}{Ubuntu Documentation}
 is the next place to look.
+
+\subsection{Networking}
+To keep connections behaving sensibly when transitioning the VPN
+connection to the basestation, the robot is configured to route ALL
+traffic that is not on the robot internal network out through the
+basestation.  This means that if VPN is not connected your robot will
+not be able to see the outside world.
+
+This is handled using an \texttt{ip rule} configuration.  Most of
+these rules are added by the init-script:
+\texttt{/etc/init.d/iprules.sh}.  If you need to temporarily disable
+the rule preventing traffic from going anywhere but the basestation,
+you can manually remove the rule:
+
+\begin{verbatim}
+pr2admin@c1:~$ sudo ip rule del priority 3000
+\end{verbatim}
+
+This may be useful to do when repairing a system in a particularly bad
+state.
 
 \subsection{NFS and Unionfs}
 The single largest difference between a normal Ubuntu installation and
@@ -339,25 +435,15 @@ plugged into the robot via the service port.
 It order for ROS to work properly, it depends on each computer in your
 system being able to correctly resolve the hostnames of all other
 computers in your ROS system.  For an in depth explanation, please
-familiarize yourslef with
+familiarize yourself with
 \href{http://www.ros.org/wiki/ROS/NetworkSetup}{http://www.ros.org/wiki/ROS/NetworkSetup}.
 However, in short, you are probably going to need 3 hostnames, and 3
 IP addresses -- one for the basestation, and one for each of the two
-robot computers.  Each of these 3 hostnames must either be resolved by
+robot computers.  Each of these 3 hostnames MUST either be resolved by
 your building network DNS server, or else they will need to be added
 to the \texttt{/etc/hosts} file of all the relevant computers.
 
-For the remainder of this section in our examples we will assume that
-our basestation has been given the hostname \texttt{prbase1}, and our
-computers will be named \texttt{prx1} and \texttt{prx2}, and are
-configured statically as:
-
-\begin{itemize}
-\item \texttt{prbase1} -- \texttt{192.168.1.100}
-\item \texttt{prx1} -- \texttt{192.168.1.101}
-\item \texttt{prx2} -- \texttt{192.168.1.102}
-\end{itemize}
-
+\subsubsection{IP Address configuration}
 For the robot to be able to find the basestation, it needs to be given
 a constant IP address.  Unless you have a reason not to, this IP
 address should be assigned to the basestation statically.  However, if
@@ -377,46 +463,50 @@ Finally, for the robot to be able to find the basestation, both the
 wired and wireless networks must provide a DHCP server.  The operation
 of the system is that the robot will acquire an IP address via DHCP
 and then contact the basetation at the known IP address that it is
-paired to.  Review the section BLAH for an explanation of the network
+paired to.  Review the section on Networking for a more thorough
 overview.
 
-\subsection{Initialize the Basestation VPN Server}
-One of the primary functions of the basestation is to host a VPN
-server that the robot can connect to.  The server needs an appropriate
-key.  To generate the key for the VPN server run:
+\subsubsection{Examples}
 
-\begin{verbatim}
-$ sudo /etc/openvpn/gen_server_key
-\end{verbatim}
+In the remainder of the examples in this section we will assume that
+our basestation has been given the hostname \texttt{prbase1}, and our
+computers will be named \texttt{prx1} and \texttt{prx2}.  We assume
+that DNS resolves them correctly as follows:
 
-It will prompt you for some information.  It is good practice to get
-the information correct, but will not actually impact the performance
-of the robot.
+\begin{itemize}
+\item \texttt{prbase1} -- \texttt{192.168.1.100}
+\item \texttt{prx1} -- \texttt{192.168.1.101}
+\item \texttt{prx2} -- \texttt{192.168.1.102}
+\end{itemize}
+
+\subsection{Plugging things in}
+\includegraphics[width=350px]{images/pr2_basestation_plugs.pdf}
+
+When plugging in the basestation, make sure that you plug WAN0 (on the
+motherboard) into your building network.  LAN0, on the PCI card, is
+only intended to be plugged into the robot service port.
+
+Additionally, it is important to plug the DVI port into the installed
+graphics card (on the right side of the computer) and not the extra
+DVI port on the motherboard.
+
+There is only one place to plug in the power, and your keyboard/mouse
+can be plugged into any of the available USB ports.
 
 \subsection{Configure the Basestation Network}
 
-There are two ways to set up the basestation, using DHCP or static IP.
-
-\subsubsection{DHCP}
-
-If you are using DHCP, you must make sure that your DHCP server
-respects the client-id specification and is configured to assign a
-consistant IP address to the client-id of the basestation.  The
-default client-id for the basestation is ``basestation.''  If you need
-to change this, you must edit the file
-\texttt{/etc/dhcp3/dhclient.conf}, and change the line:
-\begin{verbatim}
-send dhcp-client-identifier "basestation";
-\end{verbatim}
-To use a different client-id of your choice.
+There are two ways to set up the basestation, using a static IP, or
+DHCP.  It is strongly recommended that you use a Static IP unless you
+have a very good reason to use DHCP and understand configuring your
+DHCP server to obey client-id-based requests.
 
 \subsubsection{Static IP}
 
 To configure the basestation with a static IP, you must edit the file
-\texttt{/etc/network/interfaces} and change eth0 to use a staic ip
+\texttt{/etc/network/interfaces} and change \texttt{wan0} to use a staic ip
 address, for example:
 \begin{verbatim}
-iface eth0 inet static
+iface wan0 inet static
       address 192.168.1.100
       netmask 255.255.255.0
       gateway 192.168.1.1
@@ -431,113 +521,203 @@ search school.edu
 nameserver 192.168.1.1
 \end{verbatim}
 
+\subsubsection{DHCP}
+If you are using DHCP, you must make sure that your DHCP server
+respects the client-id specification and is configured to assign a
+consistant IP address to the client-id of the basestation.
+\textit{NOTE: macaddress based assignment of IPs will not work
+  correctly because the basestation also acquires IPs on behalf of the
+  robot.}  The default client-id for the basestation is
+``basestation.''  If you need to change this to a different client-id,
+you must edit the file \texttt{/etc/dhcp3/dhclient.conf}, and change
+the line, for example
+\begin{verbatim}
+send dhcp-client-identifier "prbase1";
+\end{verbatim}
+To use a different client-id of your choice.
+
 \subsubsection{Hostname}
-If you want to change the hostname of the robot to something other
-than ``basestation,'' you will need to edit the files:
-\texttt{/etc/hostname}, and \texttt{/etc/hosts}, replacing instances
-of ``basestation'' with your new name as appropriate.
+You will also likely need to change the hostname of the basestation.
+Leaving it as ``basestation'' is ok, but you need to make sure the DNS
+server correctly resolves this name to the IP address you have
+assigned the basestation.  To change the hostname you will need to
+edit the files: \texttt{/etc/hostname}, to just contain the name of
+the basestation.  For example:
+\begin{verbatim}
+prbase1
+\end{verbatim}
+and edit \texttt{/etc/hosts} to resolve the basestation locally.
+After modifying, \texttt{/etc/hosts} it should look something like:
+\begin{verbatim}
+127.0.0.1       localhost
+127.0.1.1       prbase1.willowgarage.com        prbase1
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+### The following lines were added automatically by pr2-basestation ####
+10.68.0.1 c1
+10.68.0.2 c2
+### The preceeding lines were added automatically by pr2-basestation ###
+\end{verbatim}
+Finally, you need to actually set the hostname using the hostname command, for example:
+\begin{verbatim}
+pr2admin@basestation$ sudo hostname prbase1
+\end{verbatim}
 
 \subsubsection{Applying Settings}
-Once you have reconfigured the network, you should run:
-\begin{verbatim}
-/etc/init.d/networking restart
-\end{verbatim}
-for the changes to take effect.
+Once you have reconfigured the network, you should reboot the
+basestation to make sure the network comes back up correctly.
 
 \subsection{Configure the Robot Wifi}
 The Linksys wrt610n on the robot is located at the IP address:
-\texttt{10.68.0.5}. To configure it, open a web-browser on the robot
-and go to: \texttt{http://10.68.0.5}.  Click on the
-``Wireless'' tab.  The default login should be ``root'' and
-``willow,'' although after a factory reset the router may end up with
-login, ``root'' and ``admin''.  Make sure one of the radios is in
-client mode and enter the SSID for your network.  If you need to
-change other settings, make sure that under ``Setup,'' the WAN
-connection type is ``Automatic Configuration - DHCP'', the local IP
-Address is \texttt{10.68.0.5}, and the DHCP Server is Disabled.
+\texttt{10.68.0.5}. To configure it, either plug a laptop or a
+basestation into the robot service port, open a web-browser and go to:
+\texttt{http://10.68.0.5}.  Click on the ``Wireless'' tab.  The
+default login should be ``root'' and ``willow,'' although after a
+factory reset the router may end up with login, ``root'' and
+``admin''.  Set either ``Wireless Physical Interface wl0'' (for 2.5
+Ghz) or ``Wireless Physical Interface wl1'' (for 5 Ghz) to client mode
+and enter the SSID for your network.  If you need to change other
+settings, make sure that under ``Setup,'' the WAN connection type is
+``Automatic Configuration - DHCP'', the local IP Address is
+\texttt{10.68.0.5}, and the DHCP Server is Disabled.  When you are
+done, make sure you choose to ``Apply Settings.''
 
 To test the setup of the wireless, you can temporarily add a route on
 the basestation which will route a particular IP address through the
 wifi router.
 \begin{verbatim}
-$ sudo ip route add 157.22.19.22 via 10.68.0.5 dev eth1
+$ sudo ip route add 157.22.19.22 via 10.68.0.5 dev lan0
 \end{verbatim}
-Then point your web-browser to:
-\texttt{http://157.22.19.22}. This should take you to the
-willowgarage home page.  Once that is working, you should remember to
-disable the route so that it works if the robot is not plugged into
-the service port.
+Then point your web-browser to: \texttt{http://157.22.19.22}. This
+should take you to the willowgarage home page.  
+
+It may take a short time for the wireless router to connect to the
+network. 
+
+Once that is working, you should remember to disable the route so that
+it works if the basestation is not plugged into the service port:
 \begin{verbatim}
-$ sudo ip route del 157.22.19.22 via 10.68.0.5 dev eth1
+$ sudo ip route del 157.22.19.22 via 10.68.0.5 dev lan0
 \end{verbatim}
+
+\subsection{Initialize the Basestation VPN Server}
+One of the primary functions of the basestation is to host a VPN
+server that the robot can connect to.  The server needs an appropriate
+key.  To generate the key for the VPN server run:
+
+\begin{verbatim}
+pr2admin@basestation$ sudo /etc/openvpn/gen_server_key
+\end{verbatim}
+
+It will prompt you for some information.  It is good practice to get
+the information correct, but will not actually impact the performance
+of the robot.
 
 \subsection{Pairing with the Robot}
 
-Robot pairing is performed with the the \texttt{robot\_setup} command
-on the basestation.  It takes 3 arguments:
+Robot pairing is performed with the the \texttt{robot-setup} command
+on the basestation.  It takes 5 arguments:
 
 \begin{itemize}
-\item name -- This is the name your robot will be given.  The Master will be ``name1'' and the slave will be ``name2''.
-\item VPN subnet -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.
-\item Basestation IP -- This is the IP address where the robot can reach the basestation.
+\item robotname -- This is the name your robot will be given.
+\item c1name -- This is the intended hostname of c1.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
+\item c2name -- This is the intended hostname of c2.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
+\item VPN subnet -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.  No two robots on the same basestation should be assigned the same VPN subnet.
+\item Basestation IP -- This is the static IP address you have assigned to your basestation \texttt{wan0}.
+  It is worth checking that it is correct using the \texttt{ifconfig} command:
+\begin{verbatim}
+pr2admin@basestation:~$ ifconfig wan0
+wan0      Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8  
+          inet addr:192.168.1.100  Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::230:1bff:fe48:c8f8/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2702 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2709 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:129699 (129.6 KB)  TX bytes:218528 (218.5 KB)
+          Interrupt:17 
+\end{verbatim}
+In this case the address is \texttt{192.168.1.100}.
 \end{itemize}
 
-
 \begin{verbatim}
-$ sudo robot-brand <ROBOT_NAME> <C1_NAME> <C2_NAME> <VPN_SUBNET> <BASESTATION_IP>
+pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> <C2_NAME> <VPN_SUBNET> <BASESTATION_IP>
 \end{verbatim}
 
-For example, if your robot were going to be named ``prx'', c1 was going to named ``prx1'', c2 was going to be named ``prx2'', and your basestation was located at \texttt{192.168.1.100}, you would run:
+For example, if your robot were going to be named ``prx'', c1 was
+going to named ``prx1'', c2 was going to be named ``prx2'', and your
+basestation was located at \texttt{192.168.1.100}, you would run:
 
 \begin{verbatim}
-$ sudo robot-brand prx prx1 prx2 10.68.1.0 192.168.1.100
+pr2admin@prbase1$ sudo robot-brand prx prx1 prx2 10.68.1.0 192.168.1.100
 \end{verbatim}
 
-During the pairing, you will be given the option to reformat the slave
-disk and removable drives.  If you choose yes to this, all data will
-be removed.
+During the branding process, it may prompt you for the password of
+``root@c1''.  By default this will be ``willow''.  Additionally, you
+may be prompted to choose a password for the pr2admin account.
 
-When the script finishes, you should be able to connect to the robot over the VPN:
-
+When the script finishes, you should be able to connect to the robot
+over the VPN.  Check that it works and then exit.
 \begin{verbatim}
-$ ssh pr2admin@10.68.1.1
+pr2admin@prbase1$ ssh pr2admin@10.68.1.1
+pr2admin@prx1:~$ exit
 \end{verbatim}
 
 \subsection{Forwarding IPs to the robot}
 
-To make contacting the robot from your local network more convenient,
+To make contacting the robot from your building network more convenient,
 the basestation can be configured to forward IP addresses (assigned
 statically or via DHCP) to the robot.
 
-To set this up, edit the file: \texttt{/etc/robot\_forward.conf} and add the lines:
+To set this up, edit the file: \texttt{/etc/robot-forward.conf} and add the lines:
 
 \begin{verbatim}
-<NAME>1 10.68.1.1 <ROBOT_IP1>
-<NAME>2 10.68.1.2 <ROBOT_IP2>
+<C1_NAME> <VPN_SUBNET>.1 <ROBOT_IP1>
+<C2_NAME> <VPN_SUBNET>.2 <ROBOT_IP2>
 \end{verbatim}
 
-For example
+For example, in our case we would use:
 
 \begin{verbatim}
 prx1 10.68.1.1 192.168.1.101
 prx2 10.68.1.2 192.168.1.102
 \end{verbatim}
 
-Alternatively, you can also have these IPs assigned via DHCP:
+Note that for this to work properly, we should have named our robot
+computers prx1 and prx2, respectively, and furthermore our DNS server
+should resolve ``prx1'' to \texttt{192.168.1.101}, and ``prx2'' to
+\texttt{192.168.1.102}.
+
+Much like the basestation, you can also have these IPs assigned via DHCP:
 
 \begin{verbatim}
 prx1 10.68.1.1 dhcp
 prx2 10.68.1.2 dhcp
 \end{verbatim}
 
-If this is the case the IP addresses will be acquired using the
-client-id's ``prx1'' and ``prx2'' respectively.
+In which case the basestation will use the client-id's ``prx1'' and
+``prx2'' to acquire 2 IP addresses from the DHCP server.  These IPs
+should be assigned consistantly given the client-id's, and should
+match the IPs that the DNS server returns for the particular hostnames.  
 
 Robot forwarding is enabled whenever the networking starts, but to
-manually start forwarding, just run:
+manually start forwarding, you can run:
 
 \begin{verbatim}
-sudo robot-forward start
+pr2admin@prbase1$ sudo robot-forward start
+\end{verbatim}
+
+Likewise, to disable forwarding you can run:
+
+\begin{verbatim}
+pr2admin@prbase1$ sudo robot-forward stop
 \end{verbatim}
 
 \section{Software Maintenance}
@@ -566,6 +746,27 @@ $ sudo apt-get dist-upgrade
 Which will update all packages on your system, pulling in security fixes for
 the pr2 configuration as well as for the appropriate ros-release.
 
+\section{Reinstall the Basestation}
+If you have a basestation USB installer, you can reinstall the
+basestation to revert it to a completely fresh state.  Creating a new
+USB installer is outside the scope of this manual, but instructions
+for downloading and creating one can be found on the PR2 website.
+
+\subsection{Booting off the USB installer}
+To boot off the USB installer:
+\begin{itemize}
+\item Insert the USB stick into one of the USB ports in the basestation
+\item Reboot the basestation
+\item Press the \texttt{<DEL>} key to enter setup
+\item Choose ``Advanced BIOS Features''
+\item Choose ``Hard Disk Boot Priority''
+\item Select the drive listed as ``USB-HDD0'' and hit ``Page Up'' to make it number 1
+\item Hit ``F10'' to save and exit the setup
+\item The computer should boot off of the USB stick.
+\item If the installer complains about not being able to find the ISO, hit ``Enter'' to continue, twice and the installation should continue.
+\item When the installer completes, hit ``Enter'' to shut down and remove the USB stick.
+\item When the basestation boots you should have a fresh image -- consult the section on Basestation Setup and Pairing to configure the basestation.
+\end{itemize}
 
 \section{Reinstall the Robot}
 
@@ -586,9 +787,13 @@ After N minutes, the netconsole on the basestation will show the
 isntall dialog.  Hit enter to start the installer and wait for it to
 complete.
 
+Once the installer has completed and the robot is shut down, you can
+boot it up.  You will now need to pair it with the basestation before
+you can use it.
+
 \subsection{Forcing netboot}
 
-If the robot BIOS is not configured to netboot, you will need to be
+If the robot BIOS is not configured to netboot, you might need to be
 able hit f12 on the keyboard.  You can do this in one of two ways.
 
 The easier way to to connect up to the KVM.  (See section XYZ on connecting to the KVM.)
