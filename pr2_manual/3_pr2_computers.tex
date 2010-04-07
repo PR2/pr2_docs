@@ -70,17 +70,17 @@ There are a couple of different important network segments, outlined
 here, and discussed in more detail in the section ``Network
 Explanation'' below.
 \begin{itemize}
-\item \texttt{10.68.0.0}: Robot Internal Network 1. The
+\item \texttt{10.68.0.0/24}: Primary Robot Internal Network. The
   \texttt{10.68.0.0} subnet is the primary network used internally by
   the computers on the robot.  Both computers and the basestation have
   addresses on this subnet.  Additionally, many of the ethernet-based
   devices, such as the power board, are given addresses on this
   subnet.  The robot Service Port, and the cradlepoint ctr350 Wireless
   Access Point are directly connected to this network, allowing a user
-  to easily put their laptop on the robot internal network.  The
-  master computer, if booted, will give out IP addresses via DHCP in
-  the range \texttt{10.68.0.100-10.68.0.199}.  Important addresses on
-  this network:
+  to easily put their laptop on the robot internal network.  c1, if
+  booted, will give out IP addresses via DHCP in the range
+  \texttt{10.68.0.100-10.68.0.199}.  Important addresses on this
+  network:
   \begin{itemize}
   \item \texttt{10.68.0.1} - c1 (lan0)
   \item \texttt{10.68.0.2} - c2 (lan0)
@@ -90,7 +90,7 @@ Explanation'' below.
   \item \texttt{10.68.0.92} - c2-esms
   \item \texttt{10.68.0.250} - wap
   \end{itemize}
-\item \texttt{10.69.0.0}: Robot Internal Network 2.  The
+\item \texttt{10.69.0.0/24}: Secondary Robot Internal Network.  The
   \texttt{10.69.0.0} network is a second internal subnet.  The cameras
   are given addresses on this subnet to partition traffic accross the
   computer's two network interfaces of the computers. This way, heavy
@@ -100,12 +100,12 @@ Explanation'' below.
   \item \texttt{10.69.0.11} - c1 (lan1)
   \item \texttt{10.69.0.12} - c2 (lan1)
   \end{itemize}
-\item \texttt{10.68.X.0}: Robot VPN Network. The primarily role of the
-  basestation is to function as a VPN server for the robot.  Each
+\item \texttt{10.68.X.0/24}: Robot VPN Network. The primarily role of
+  the basestation is to function as a VPN server for the robot.  Each
   robot can be given a unique VPN subnet to facilitate the operation
   of multiple robots using a single VPN server.  The basestation can
-  be configured to forward to automatically forward relevant traffic
-  from the building network into the VPN network, hiding this from the
+  be configured to automatically forward relevant traffic from the
+  building network into the VPN network, hiding this from the
   end-user.  However, if greater security is desired, the basestation
   can instead be configured to require users to be assigned a vpn key
   to access the robot VPN network.  Important addresses on this
@@ -141,10 +141,10 @@ the VPN.  \textit{Note: for clarity, we have labeled all interfaces
   the robot internal network.  The basestation is always configured to
   use the IP address \texttt{10.68.0.6}, whereas the laptop will
   likely be configured to use DHCP.  When plugged into the service
-  port, you can talk to the robot on its lan ports directly.  This
-  system will work even if the VPN system is not functioning.  This is
-  typically used for reinstalling the robot, or debugging other networking
-  problems.
+  port, you can talk to the robot LAN ports directly on the
+  \texttt{10.68.0.0/24} subnet.  This system will work even if the VPN
+  system is not functioning.  This is typically used for reinstalling
+  the robot, or debugging other networking problems.
 \item \textbf{Direct wireless connection}.  Another possibility is to
   connect a laptop directly to the robot WAP.  This is essentially
   identical to plugging into the service port.  The robot computers
@@ -191,14 +191,13 @@ network and on the robot network depending on which DHCP server takes
 precedence.
 \subsection{WAN port} The robot WAN port is the top ethernet port on
 the back panel of the robot.  This connects directly to \texttt{wan0}
-on the master computer.  This port is intended to be plugged into your
-building network.  The robot will attempt to acquire an IP address via
-DHCP, and then attempt to contact the basestation at a known IP
-address.
+on c1.  This port is intended to be plugged into your building
+network.  The robot will attempt to acquire an IP address via DHCP,
+and then attempt to contact the basestation at a known IP address.
 \subsection{Wireless access point} The robot comes configured with a
 cradlepoint ctr350 configured as a Wireless Access Point (WAP)
 \href{http://www.cradlepoint.com/products/ctr350-mobile-broadband-router}.
-The ESSID of this network defaults to <ROBOTNAME>LAN, and allows
+The ESSID of this network defaults to ``\<ROBOTNAME\>_LAN'', and allows
 direct access to the Robot Internal Network.  You can configure the
 WAP by plugging into the robot service port and going to the IP
 address: \texttt{10.68.0.250}.  The default login and password are
@@ -229,7 +228,8 @@ To keep connections behaving sensibly when transitioning the VPN
 connection to the basestation, the robot is configured to route ALL
 traffic that is not on the robot internal network out through the
 basestation.  This means that if VPN is not connected your robot will
-not be able to see the outside world.
+not be able to see the outside world even though it might appear that
+the network is configured appropriately.
 
 This is handled using an \texttt{ip rule} configuration.  Most of
 these rules are added by the init-script:
@@ -238,11 +238,12 @@ the rule preventing traffic from going anywhere but the basestation,
 you can manually remove the rule:
 
 \begin{verbatim}
-pr2admin@c1:~$ sudo ip rule del priority 3000
+pr2admin@c1$ sudo ip rule del priority 3000
 \end{verbatim}
 
 This may be useful to do when repairing a system in a particularly bad
-state.
+state since otherwise you may not be able to fetch necessary software
+updates or download necessary configuration files.
 
 \subsection{NFS and Unionfs}
 The single largest difference between a normal Ubuntu installation and
@@ -251,9 +252,9 @@ via NFS.  The exceptions to this are the directories \texttt{/etc},
 \texttt{/var}, and \texttt{/pr2bin} which are mounted via
 unionfs-fuse.  In short, unionfs allows one to specify an additional
 overlay on top of the underlying filesystem.  The contents of this
-overlay can be found in the directory \texttt{/slave} on the master
-machine.  Files added here will show up in the appropriate location on
-c2.  For more information on how this is set up, see the man page for
+overlay can be found in the directory \texttt{/slave} on c1.  Files
+added here will show up in the appropriate location on c2.  For more
+information on how this is set up, see the man page for
 \texttt{unionfs-fuse} and look at the init-script
 \texttt{/etc/unionfs-fuse-nfs-root}.
 
@@ -299,7 +300,7 @@ There are 3 relevant partitions created during installation:
 \item \texttt{c1:/dev/sda1} -- \texttt{/} -- holds the root filesystem
   for the OS
 \item \texttt{c1:/dev/sda5} -- \texttt{c1:/home} -- stores user home
-  directories (linked to by \texttt{/u} by way of \texttt{/pr/1})
+  directories (linked to from \texttt{/u} by way of \texttt{/pr/1})
 \item \texttt{c1:/dev/sda6} -- \texttt{/hwlog} -- stores hardware logs
   generated by the pr2
 \end{itemize}
@@ -308,19 +309,19 @@ The internal hard-drive on c2 has a single partition, which is
 generally used as extra user storage:
 \begin{itemize}
 \item \texttt{c2:/dev/sda1} -- \texttt{c2:/home} -- stores user home
-  directories (linked to by \texttt{/u} by way of \texttt{/pr/2})
+  directories (linked to from \texttt{/u} by way of \texttt{/pr/2})
 \end{itemize}
 
 Finally, both computers are configured to conveniently make use of the
-additional removable drives.  Any drive loaded into the removable bayn
-should always show up as \texttt{/dev/removable}.  The mount mount:
+additional removable drives.  Any drive loaded into the removable bay
+should always show up as \texttt{/dev/removable}.  The mount point:
 \texttt{/removable} is set up to allow users to mount the first
 partition on this drive.
 \begin{itemize}
 \item \texttt{/dev/removable1} -- \texttt{/removable} -- stores
   temporary data users may want to move off the robot, primarily used
   for large bag files.  This is NOT mounted by default.  To use a
-  driver, users must explicitly
+  driver users must explicitly
 \begin{verbatim}
 user@c1$ mount /dev/removable
 \end{verbatim}
@@ -330,12 +331,12 @@ user@c1$ umount /dev/removable
 \end{verbatim}
 when done.  Until the drive is unmounted, you do not have a guarantee
 the data has been written to disk, and if the robot runs out of
-batteries, your data may be list.
+batteries, your data may be lost.
 \end{itemize}
 
 \subsubsection{Formatting Drives}
 If you want to partion / reformat one of the removable drives, or the
-the internal drive on c2, yuo can use the \texttt{formatdisk} helper
+the internal drive on c2, you can use the \texttt{formatdisk} helper
 utility.  Simply pass it the name of the drive you want to format, for
 example:
 \begin{verbatim}
@@ -368,11 +369,14 @@ pr2admin@c1$ sudo adduser bill --shell /usr/bin/tcsh --uid 2000
 \end{verbatim}
 
 \textit{Note: it may be helpful to assign users the same UID used on
-  your local network so the UIDs are consistent when mounting shares
+  your building network so the UIDs are consistent when mounting shares
   or moving around the removable drives.}
 
-Moving the home directory and creating the symlink is handled
-automatically by the script: \texttt{/usr/local/sbin/adduser.local}.
+Moving the home directory and creating the symlink is handled for you
+by the script: \texttt{/usr/local/sbin/adduser.local}, which gets run
+automatically as a part of user-creation.  You should not need to
+worry about this script at all unless you are changing the
+user-creation process.
 
 \subsection{User groups}
 There are a couple of important groups on the pr2:
@@ -510,8 +514,8 @@ iface wan0 inet static
       address 192.168.1.100
       netmask 255.255.255.0
       gateway 192.168.1.1
-      post-up robot_forward start
-      pre-down robot_forward stop
+      post-up robot-forward start
+      pre-down robot-forward stop
 \end{verbatim}
 You will also need to update \texttt{/etc/resolv.conf} to contain the
 appropriate nameserver, e.g.,
@@ -530,11 +534,10 @@ consistant IP address to the client-id of the basestation.
   robot.}  The default client-id for the basestation is
 ``basestation.''  If you need to change this to a different client-id,
 you must edit the file \texttt{/etc/dhcp3/dhclient.conf}, and change
-the line, for example
+the relevant line, for example
 \begin{verbatim}
 send dhcp-client-identifier "prbase1";
 \end{verbatim}
-To use a different client-id of your choice.
 
 \subsubsection{Hostname}
 You will also likely need to change the hostname of the basestation.
@@ -622,7 +625,7 @@ of the robot.
 
 \subsection{Pairing with the Robot}
 
-Robot pairing is performed with the the \texttt{robot-setup} command
+Robot pairing is performed with the the \texttt{robot-brand} command
 on the basestation.  It takes 5 arguments:
 
 \begin{itemize}
@@ -646,6 +649,9 @@ wan0      Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8
 \end{verbatim}
 In this case the address is \texttt{192.168.1.100}.
 \end{itemize}
+
+To actually brand the robot, first plug the basestation into the
+service port of the robot, and then use the robot-brand command
 
 \begin{verbatim}
 pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> <C2_NAME> <VPN_SUBNET> <BASESTATION_IP>
@@ -714,7 +720,21 @@ manually start forwarding, you can run:
 pr2admin@prbase1$ sudo robot-forward start
 \end{verbatim}
 
-Likewise, to disable forwarding you can run:
+You should not be able to contact the robot at the IP address you have
+given it, and, if your DNS server is set up properly, using it's
+hostname.  For example:
+
+\begin{verbatim}
+pr2admin@prbase1$ ssh pr2admin@192.168.1.101
+\end{verbatim}
+
+and
+
+\begin{verbatim}
+pr2admin@prbase1$ ssh pr2admin@prx1
+\end{verbatim}
+
+If you need to disable forwarding you can run:
 
 \begin{verbatim}
 pr2admin@prbase1$ sudo robot-forward stop
@@ -770,21 +790,20 @@ To boot off the USB installer:
 
 \section{Reinstall the Robot}
 
-To reinstall the robot, first back up anything you need off of the
-master machine.  Next, shutdown the comptuers using
-\texttt{pr2-shutdown --netboot}.
+To reinstall the robot, first back up anything you need off of c1.
+Next, shutdown the comptuers using \texttt{pr2-shutdown --netboot}.
 
 You must then plug the service port directly into the basestation.
 You can then run the robot installer:
 
 \begin{verbatim}
-$ sudo robot-installer
+pr2admin@basestation$ sudo robot-install
 \end{verbatim}
 
-Boot the Master computer by pushing the power button with a paperclip.
+Boot c1 by pushing the power button with a paperclip.
 
 After N minutes, the netconsole on the basestation will show the
-isntall dialog.  Hit enter to start the installer and wait for it to
+install dialog.  Hit enter to start the installer and wait for it to
 complete.
 
 Once the installer has completed and the robot is shut down, you can
@@ -804,6 +823,5 @@ the instructions in section XYZ.
 
 When the robot is booting you will hear 2 beeps followed by a short
 pause, and then another 2 beeps.  After the 4th beep, hit f12 on the
-keyboard (either physically or through the KVM) to force the Master
-computer to netboot.
+keyboard (either physically or through the KVM) to force c1 to netboot.
 
