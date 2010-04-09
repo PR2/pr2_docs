@@ -76,113 +76,86 @@ PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety o
 \subsection{Robot Anatomy}
 
 \subsection{Terminology}
-\TODO{From below, define link, joint, frame, motor, etc as well as basic naming conventions.}
+We talk about the robot kinematics using the concepts of joints, links, frames, actuators, and transmissions.  Each of these is defined and represented in code, as well as having a unique name.  In general, a single joint will have an actuator and a transmission and will connect two links together.  A link is a rigid body in the kinematic tree, and will have a coordinate frame, but not all frames are associated with links.  We allow "fixed" joints, so some rigid bodies that could be considered one link are considered to be two links rigidly joined together.  This is done mostly at locations where there is a physical interface between components.
+
+\begin{description}
+\item[Link] We consider a link to be a rigid body within the robot.  It generally has geometry to define visual and collision-space representations, has inertial properties, and has a name.  The links for the PR2 are defined in the "URDF" description that can be found in the pr2\_description package.
+\item[Frame] Frames are geometric entities that represent coordinate frames in space.  Every link has an associated frame, but we also use frames to represent other things, such as the optical frame of a camera, the global map, or the location of a detected object.  Frames are always defined relative to one another, and relationships and transformations between them are tracked using the tf package.
+\item[Joint] Joints are considered part of the robot, and define the relationship between links.  The joints for the PR2 are defined in the URDF description that can be found in the pr2\_description package.  The PR2 has mostly rotational joints, but the torso is translational, and there are also a number of "fixed" joints used to represent the notion that two links are part of the same rigid body.  Rotational and translational joints are generally represented in the same way in the system, and we refer to joint "effort" instead of force or torque, as well as using position, and velocity to represent both linear and angular movement.
+\item[Actuator] The motor/encoder units in the PR2 are explicitly modelled as "actuators".  The actuator model treats them as torque sources with position measurement.  The details of the actuator model (e.g. the motor torque constant or max current), as well as the name of the actuator, are stored on the motor controller boards.
+\item[Transmission] We use transmissions, also defined in the URDF robot description, to represent the mapping between actuators and joints.  They map actuator position into joint position (meters or radians), and map from commanded joint efforts (torques or forces) to actuator efforts.  In most cases in the robot this is a linear mapping between one joint and one actuator that just defines a reduction, but in the wrist we have 2 motors controlling two joints in a cross-coupled manner, and in the gripper the mapping from motor rotation to gripper position is non-linear.
+\end{description}
+
+In general, the names for a link and the associated frame will be similar (e.g. r\_forearm\_link and r\_forearm\_frame), and the names for an actuator, a transmission, and the associated joint will be similar (e.g. r\_elbow\_flex\_motor, r\_elbow\_flex\_trans, and r\_elbow\_flex\_joint).  For components such as arms and casters that are included in the robot in multiple locations, we use a short prefix to indicate which location we are referring to
+
+\begin{tabular}{| l | l |}
+\hline
+  l\_ & left (from the robot's perspective) \\ \hline
+  r\_ & right \\ \hline
+  fr\_ & front right \\ \hline
+  fl\_ & front left \\ \hline
+  bl\_ & back left \\ \hline
+  br\_ & back right \\ \hline
+\end{tabular}
 
 \subsection{Links and Joints}
-\TODO{Pulling from below, describe each component of the robot.  Include updated tables of joint limits, torques, home positions, etc.}
+By component, below is a list of the links and joints in the PR2:
+\subsubsection{Base-Body-Spine}
+The base-body-spine assembly of the PR2 has only one joint - the prismatic {\bf torso\_lift\_joint} which moves the torso up and down relative to the base.  The {\bf base\_link} holds the rear panel with electrical/network connections, the computers, and the battery system, as well as bolting directly to the casters.  The {\bf torso\_lift\_link}, which moves up and down, contains the speaker, and the IMU, as well as serving as the attachment point for both arms and for the head.
+\subsubsection{Head}
+The pan-tilt head which holds the wide and narrow stereo cameras, the 5 mega-pixel camera, and the texture projector is made up of two links - the {\bf head\_pan\_link}, connected to the torso by the {\bf head\_pan\_joint}, and the {\bf head\_tilt\_link}, connected to the pan link by the {\bf head\_tilt\_joint}.  The sensors are all attached to the tilt link.
 
-\TODO{Provide links to more information (URDF, etc.)}
+The upper Hokuyo laser range-finder is mounted to the {\ laser\_mount\_link}, which is tilted up and down by the {\bf laser\_tilt\_mount\_joint}
+\subsubsection{Casters}
+Each robot has four steered and driven casters, one at each corner of the base.  The casters are refered to as front right, front left, back right, and back left.  They are named according to the above table of location prefixes ({\bf fr\_}, {\bf fl\_}, {\bf br\_}, and {\bf bl\_}).  Each caster consists of a rotation joint {\bf location\_caster\_rotation\_joint}, which rotates or steers the body of the caster, called the {\bf location\_caster\_rotation\_link}, around a vertical axis.  Attached to the body of the caster are two parallel driven wheels, whose drive joints are {\bf location\_caster\_r\_wheel\_joint} and {\bf location\_caster\_l\_wheel\_joint}.
 
-\subsection{Drivetrains}
-\TODO{For each type of drivetrain, start with a list of joints and provide key information (invert mapping from what Tully did)}
+\subsubsection{Arms}
+The arm has 7 degrees of freedom.  Starting from the attachment to the torso, the first joint is the {\bf location\_shoulder\_pan\_joint} which rotates the {\bf location\_shoulder\_pan\_link}, or shoulder turret, around a vertical axis.
 
+The shoulder turret contains the springs that store energy to counterbalance the mass of the rest of the arm.  Two degrees of freedom, the {\bf location\_shoulder\_lift\_joint} and {\bf location\_upperarm\_roll\_joint} attach the {\bf location\_upper\_arm\_link} to the shoulder.
 
-Kinematically speaking, the PR2 can be broken down into {\bf links} by individual degrees of freedoms.  Each {\bf link} consists of one
-rigid body component that can be represented by a single collision model and a single lumped inertial property.
-All links are interconnected by {\bf joint} constraints in the form of revolute, prismatic or fixed {\bf joints}.
-A revolute joint without limits is also called a continuous joint.
-In general, the entire PR2 mechanism is represented by a tree where each node is a {\bf link}
-  and the edges connecting individual nodes are {\bf joints}.
-In the tree representation of the PR2, each node (link) can be connected (via joints) to only one parent node but can have an arbitrary number of child nodes.
+The upper arm contains the counterbalance bar, which is a large steel bar that attaches to the counterbalance attachment and transmits the counterbalance forces into the structure of the arm.  The upper-arm also contains motors for the {\bf location\_elbow\_flex\_joint} and {\bf location\_forearm\_roll\_joint}, which connect the forearm to the upper-arm.
 
-A link without collision or inertial components is referred to as a {\bf frame}. Frames are always rigidly attached to parent links via fixed joints and cannot have child links.
-A frame serves the important function of facilitating transform record keeping through our \href{http://www.ros.org/wiki/tf}{Transform and Frames Library (TF)}
-  for propagating information such as reference coordinates of an optical image, origin of range sensor generated point cloud data or the reference pose for the grasp point of a gripper.
+The forearm ({\bf location\_forearm\_link}) contains a 640x480 color camera that can always see the gripper, as well as the two motor which drive the {\bf wrist\_flex\_joint} and the continuous {\bf location\_wrist\_roll\_joint} that attaches to the gripper.
 
+\subsubsection{Grippers}
+The gripper consists of a central palm link called the {\bf location\_gripper\_palm\_link} which is rigidly fixed to the {\bf location\_wrist\_roll\_link} and has a single actuated degree of freedom.  The motor in the gripper drives the 4 joints of the gripper together to result in parallel motion of the fingertips.  The parallel distance between the gripper tips is treated as a translational joint, called {\bf location\_gripper\_joint} that can be controlled.  The four rotational joints in the hand which are constrained to move together are also modelled as joints which can be observed but not controlled.  The gripper also contains a 3-dof accelerometer and an LED which can be turned on and off to assist in calibration or finding the location of the gripper in camera images.
+
+\subsubsection{Home Pose}
+In order to describe the PR2 robot pose and joint positions in a consistent manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system}.
+
+\subsubsection{Additional Information}
 A CAD approximated kinematic and inertial description of the PR2 can be found
   in the \href{http://www.ros.org/wiki/pr2\_description}{pr2\_description} package.
 This package uses a robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation
   called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)} created here at Willow Garage.
 
-Rather than diving into all 32 DOFs in detail right away, the next section examines the robot's major components:  head, torso, arms, base and casters.
-This overall breakdown of the PR2 robot is depicted in Figure~\ref{fig:pr2_basic_breakdown}.
+\TODO{Include updated tables of joint limits, torques, home positions, etc.}
 
-\subsubsection{Head}
-The PR2 head consists of two links: {\bf head\_pan\_link} and {\bf head\_tilt\_link}.  The {\bf head\_tilt\_link} is attached via a revolute joint called {\bf head\_tilt\_joint} to the {\bf head\_pan\_link}.
-The {\bf head\_pan\_link} is attached to the PR2 torso ({\bf torso\_lift\_link}) by another revolute joint called the {\bf head\_pan\_joint}.
+\subsection{Drivetrains}
+\begin{description}
+\item[torso drivetrain]
+The torso is driven up and down on a linear rail by a combination of a gas spring, which supports most of the weight of the torso, and a lead-screw which is driven via an RE40 motor with 113:1 gearhead connected to a continuous belt drive with a  5:1 reduction.  As a result of the force from the gas-spring not being constant over the range of travel, the lead-screw may be loaded up, down, or neutrally as different points of travel of the torso.  Position sensing of torso lift is done via optical encoder on the back of the motor, so any backlash in the lead-screw, belt, or gearhead is not sensed.  The torso joint is quite low efficiency, so commanding large forces (in the range of 1000 newtons) will be required to move the torso.  The maximum speed of the torso lift joint is limited by the thermal rating of the lead-screw nut.  Driving the torso lift link faster than the velocity limit will cause permanent damage to the lead-screw assembly.  Similary, driving at the safety limit but with excessive load
+Because of the large reduction, the torso lift link is capable of exerting high forces, so take care
 
-The individual head sensors are detailed separately in section~\ref{subsec:pr2_sensors}
+\item[head drivetrains]
+The drivetrains for the head pan, head tilt, and laser tilt are all fairly similar.  Since precise pointing of sensors is important, all three of these joints have 10,000 count encoders mounted in the drivetrain after the major sources of potential backlash (gears).  The laser tilt axis is driven directly by the motor, through the encoder, and then via a belt-drive.  The head pan and tilt are both driven from the motor through a gearset (planetary gearhead for the tilt joint and external spur gears for the pan joint).  The encoder is mounted on the shaft after the gearset, and then a belt drive is used for the final stage reduction.  These drivetrains are all high-efficiency and capable of very high velocities.  The software velocity and position limits on these joints are important to prevent hard collisions with the joint stops, which will cause damage to the hardware (espially to the sensors).  If the mass of the head is changes significantly, the pan and tilt link gains may need to be re-tuned.
 
-\subsubsection{Arms}
-The PR2 arms can be subdivided into shoulder, upper arm, forearm and gripper.  Each component is separately described in detail below:
-\begin{itemize}
-\item Shoulers
-  \begin{itemize}
-  \item {\bf l\_shoulder\_pan\_link} {\bf r\_shoulder\_pan\_link}
-  \item {\bf l\_shoulder\_lift\_link} {\bf r\_shoulder\_lift\_link}
-  \item {\bf l\_upper\_arm\_roll\_link} {\bf r\_upper\_arm\_roll\_link}
-  \end{itemize}
-\item Upper Arms
-  \begin{itemize}
-  \item {\bf l\_upper\_arm\_link} {\bf r\_upper\_arm\_link}
-  \item {\bf l\_elbow\_flex\_link} {\bf r\_elbow\_flex\_link}
-  \item {\bf l\_forearm\_roll\_link} {\bf r\_forearm\_roll\_link}
-  \end{itemize}
-\item Forearms
-  \begin{itemize}
-  \item {\bf l\_forearm\_link} {\bf r\_forearm\_link}
-  \item {\bf l\_wrist\_flex\_link} {\bf r\_wrist\_flex\_link}
-  \item {\bf l\_wrist\_roll\_link} {\bf r\_wrist\_roll\_link}
-  \end{itemize}
-\item Grippers
-  \begin{itemize}
-  \item {\bf l\_gripper\_palm\_link} {\bf r\_gripper\_palm\_link}
-  \item {\bf l\_gripper\_l\_finger\_link} {\bf l\_gripper\_r\_finger\_link}
-        {\bf r\_gripper\_l\_finger\_link} {\bf r\_gripper\_r\_finger\_link}
-  \item {\bf l\_gripper\_l\_finger\_tip\_link} {\bf l\_gripper\_r\_finger\_tip\_link}
-        {\bf r\_gripper\_l\_finger\_tip\_link} {\bf r\_gripper\_r\_finger\_tip\_link}
-  \end{itemize}
-\end{itemize}
+\item[caster drivetrains]
+The three joints in each caster have basically the same drivetrain, which is a Maxon amax-32 motor with a gearhead and a continuous belt output.  Position sensing is done via an encoder on the back of the motor.  The drivetrain is efficient enough to be easily backdriveable.  To rotate the caster, all three motors work together (the rotation motor drives the rotation, and the two wheels drive in opposite directions to provide additional forces.  To drive, the two wheel motors rotate in the same direction and the rotation motor helps to keep them aligned in the proper direction.
 
+\item[arm drivetrains]
+The first four degree of freedom in the arm (shoulder pan, shoulder lift, upperarm roll, and elbow flex) are all driven with RE40 motors that have single-stage planetary gearheads which output to a toothed pulley that runs on a belt.  These belts all have terminations at either end of a capstan on the moving link, which is how the torque is transmitted.  The terminations are also the way that these belts are tensioned, and propoer belt tensioning is important to prevent backlash (which can come from extra slack in the belt), friction (which can come from extra tension in the belt), and excess wear (which can come from a belt which is too tight, too loose, or just misaligned).  The position is measured via an optical encoder on the back of the motor, so the backlash of the gearhead and the stretch of the belt both contribute to the error in the sensed position.  Velocity limits are important on these joints to prevent motor damage from running over speed, as well as to prevent rapid decelleration which can damage the motor, gearhead, and belt.
 
-\subsubsection{Torso}
-The PR2 {\bf torso\_lift\_link} refers to the torso part of the PR2 that moves up and down with the elevator actuator.
+These drivetrains are all fairly high efficiency, which means they can be backdriven.  This is made possible by the low force requirements on those joints due to the arm counterbalance.  The counterbalance uses a system of springs and linkages to compensate for the effect of gravity on the upper arm and forearm links.  The compensation should be effective throughout the range of motion of the first four links of the arm.
 
-\subsubsection{Base}
-The PR2 {\bf base\_link} is the lower part of the PR2 body, housing the PR2 computers. It is rigidly attached to the base Hokuyo laser scanner.
+\item[wrist drivetrains]
+The forearm roll joint is driven by a motor in the upperarm with a planetary gearhead and external spur gear.  Position is measured via an optical encoder on the back of the motor.  Because of the higher gear reduction, the efficiency and backdriveability of this joint is not as good as that of the first four joints of the arm.
 
-\subsubsection{Casters}
-The PR2 has 4 caster units.  Each caster contains one actuated steering degree of freedom and two individually actuated wheels.
+\item[gripper drivetrain]
+The gripper consists of two fingers with two joints each.  Within each finger, a four-bar linkage constrains the two joints to move together so that the fingertips remain parallel.  The two fingers are constrained together with a sector gear that meshes between the first phalanges of the two fingers.  The motion of the fingers is driven by a motor which drives a lead-screw in the palm of the hand.  This lead-screw is embedded in the four-bar linkage so that the rotation of the motor has a nonlinear relationship to the movement of the joints.  The gripper can be back-driven when significant force is applied.  Unlike all other non-continuous joints in the system, the gripper has no calibration flag.  Initial homing is done by closing the gripper until it gets blocked and then treating that position as a zero point.  This means that the gripper is unable to detect if it has miscalibrated on startup.
 
-\subsubsection{Home Pose}
-In order to describe the PR2 robot pose and joint positions in a consistent manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system}.
-
-\subsubsection{Sensors}
-\label{subsec:pr2_sensors}
-Details of the PR2 sensors are described here.
-The PR2 contains the following sensors:
-\begin{itemize}
-\item Image Sensors
-  \begin{itemize}
-  \item Dual Stereo Cameras
-    \begin{itemize}
-    \item Narrow Stereo Camera Pair
-    \item Wide Stereo Camera Pair
-    \end{itemize}
-  \item Prosilica Camera
-  \item Forearm Cameras
-  \end{itemize}
-\item Range Sensors
-  \begin{itemize}
-  \item Tilting Hokuyo Laser Scanner
-  \item Base Hokuyo Laser Scanner
-  \end{itemize}
-\item Accelerometers
-  \begin{itemize}
-  \item IMU
-  \item Gripper Palm Mounted Accelerometers
-  \end{itemize}
-\end{itemize}
+\end{description}
 
 
 \subsubsection{PR2 Coordinate System}
@@ -202,12 +175,6 @@ with the PR2 robot facing the positive x-direction, positive z-axis pointing upw
 \caption{The PR2 Sensors.}
 \label{fig:urdf_sensor}
 \end{figure}
-
-\subsection{Drivetrains}
-The PR2 drivetrains are low inertia and
-backdrivable with minimal backlash. There are three types of
-drivetrains on the PR2, gear drives, belt drives, and lead screw
-drives.  
 
 \subsubsection{Belt Drives}
 The most common drivetrain on the PR2 is the belt drive.  
