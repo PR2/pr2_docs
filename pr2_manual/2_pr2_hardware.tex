@@ -133,24 +133,45 @@ This package uses a robot specific Extensible Markup Language (XML) and Document
 \TODO{Include updated tables of joint limits, torques, home positions, etc.}
 
 \subsection{Drivetrains}
+The joints in the PR2 are all actuated with brushed electric motors, and all position sensing is done with optical incremental quadrature encoders.  Except where noted, each joint has an optical sensor (interrupt or reflective) which is used at startup to identify a home position.  Once the home position is identified, the incremental encoders are used to track motion.  All drivetrains in the robot have positive-engagement drives (gears or belts), and the motor controllers monitor for encoder errors, so there should not be any drift in measured position over time, although the repeatibility of the calibration sensors may cause minor differences in position sensing between runs.
+
+Velocity estimates are made by differentiating the position sensors, which will lead to 
+
 \begin{description}
-\item[torso drivetrain]
+\item[Torso Drivetrain]
 The torso is driven up and down on a linear rail by a combination of a gas spring, which supports most of the weight of the torso, and a lead-screw which is driven via an RE40 motor with 113:1 gearhead connected to a continuous belt drive with a  5:1 reduction.  As a result of the force from the gas-spring not being constant over the range of travel, the lead-screw may be loaded up, down, or neutrally as different points of travel of the torso.  Position sensing of torso lift is done via optical encoder on the back of the motor, so any backlash in the lead-screw, belt, or gearhead is not sensed.  The torso joint is quite low efficiency, so commanding large forces (in the range of 1000 newtons) will be required to move the torso.  The maximum speed of the torso lift joint is limited by the thermal rating of the lead-screw nut.  Driving the torso lift link faster than the velocity limit will cause permanent damage to the lead-screw assembly.  Similary, driving at the safety limit but with excessive load
 Because of the large reduction, the torso lift link is capable of exerting high forces, so take care
 
-\item[head drivetrains]
+\item[Head Drivetrains]
 The drivetrains for the head pan, head tilt, and laser tilt are all fairly similar.  Since precise pointing of sensors is important, all three of these joints have 10,000 count encoders mounted in the drivetrain after the major sources of potential backlash (gears).  The laser tilt axis is driven directly by the motor, through the encoder, and then via a belt-drive.  The head pan and tilt are both driven from the motor through a gearset (planetary gearhead for the tilt joint and external spur gears for the pan joint).  The encoder is mounted on the shaft after the gearset, and then a belt drive is used for the final stage reduction.  These drivetrains are all high-efficiency and capable of very high velocities.  The software velocity and position limits on these joints are important to prevent hard collisions with the joint stops, which will cause damage to the hardware (espially to the sensors).  If the mass of the head is changes significantly, the pan and tilt link gains may need to be re-tuned.
 
-\item[caster drivetrains]
+\item[Caster Drivetrains]
 The three joints in each caster have basically the same drivetrain, which is a Maxon amax-32 motor with a gearhead and a continuous belt output.  Position sensing is done via an encoder on the back of the motor.  The drivetrain is efficient enough to be easily backdriveable.  To rotate the caster, all three motors work together (the rotation motor drives the rotation, and the two wheels drive in opposite directions to provide additional forces.  To drive, the two wheel motors rotate in the same direction and the rotation motor helps to keep them aligned in the proper direction.
 
-\item[arm drivetrains]
+\item[Arm Drivetrains]
 The first four degree of freedom in the arm (shoulder pan, shoulder lift, upperarm roll, and elbow flex) are all driven with RE40 motors that have single-stage planetary gearheads which output to a toothed pulley that runs on a belt.  These belts all have terminations at either end of a capstan on the moving link, which is how the torque is transmitted.  The terminations are also the way that these belts are tensioned, and propoer belt tensioning is important to prevent backlash (which can come from extra slack in the belt), friction (which can come from extra tension in the belt), and excess wear (which can come from a belt which is too tight, too loose, or just misaligned).  The position is measured via an optical encoder on the back of the motor, so the backlash of the gearhead and the stretch of the belt both contribute to the error in the sensed position.  Velocity limits are important on these joints to prevent motor damage from running over speed, as well as to prevent rapid decelleration which can damage the motor, gearhead, and belt.
 
 These drivetrains are all fairly high efficiency, which means they can be backdriven.  This is made possible by the low force requirements on those joints due to the arm counterbalance.  The counterbalance uses a system of springs and linkages to compensate for the effect of gravity on the upper arm and forearm links.  The compensation should be effective throughout the range of motion of the first four links of the arm.
 
-\item[wrist drivetrains]
+\item[Arm Counterbalance]
+Although not an actuated drivetrain the arm counter balance is one of
+the more complicated mechanisms on the PR2. Inside of the shoulder
+turret there are two springs.  These springs are attached to belts
+which run over cams and provide a uniform downward force.
+
+In the upper arm there is a four-bar linkage which transmits the
+torque through to the shoulder lift joint, upper-arm roll joint, and elbow flex joint.  As the arm moves through its
+configuration space the linkage changes the amount of leverage with
+which the counterbalance is pulling which compensates for the effect of the mass of the arm in difference configurations.
+
+\item[Wrist Drivetrains]
 The forearm roll joint is driven by a motor in the upperarm with a planetary gearhead and external spur gear.  Position is measured via an optical encoder on the back of the motor.  Because of the higher gear reduction, the efficiency and backdriveability of this joint is not as good as that of the first four joints of the arm.
+
+The wrist flex and roll use a differential drive between two motors.  If the motors
+are turned in the same direction the wrist rolls, if they are turned
+oposite the wrist flexes.  The differential bevel gears are attached
+after a standard encoder, motor, gearhead assembly.
+
 
 \item[gripper drivetrain]
 The gripper consists of two fingers with two joints each.  Within each finger, a four-bar linkage constrains the two joints to move together so that the fingertips remain parallel.  The two fingers are constrained together with a sector gear that meshes between the first phalanges of the two fingers.  The motion of the fingers is driven by a motor which drives a lead-screw in the palm of the hand.  This lead-screw is embedded in the four-bar linkage so that the rotation of the motor has a nonlinear relationship to the movement of the joints.  The gripper can be back-driven when significant force is applied.  Unlike all other non-continuous joints in the system, the gripper has no calibration flag.  Initial homing is done by closing the gripper until it gets blocked and then treating that position as a zero point.  This means that the gripper is unable to detect if it has miscalibrated on startup.
@@ -176,107 +197,11 @@ with the PR2 robot facing the positive x-direction, positive z-axis pointing upw
 \label{fig:urdf_sensor}
 \end{figure}
 
-\subsubsection{Belt Drives}
-The most common drivetrain on the PR2 is the belt drive.  
-
-The typical link drivetrain is a DC motor with attached encoder.  It
-runs through a planetary gearbox that is attached to a belt
-drive. These drivetrains are fully backdriveable and have low
-backlash.
-
-%\TODO{Belt drive Diagram}
-\paragraph{Standard Belt Drives}
-The following motors use belt drives as described above: Caster Wheel,
-Caster Turret, Head Tilt, Shoulder Pan, Shoulder Lift, and the Upper
-Arm Roll.
-\paragraph{Semi-Standard Belt Drives}
-The Upper Arm Flex is standard except that there is an additional 90
-degree bevel gear pair on this joint between the gearbox and the belt
-drive.  The Laser Tilt is standard except that there is no gearbox,
-there is a flex coupler in it's place.  And the encoder is on the
-mechanism side of the flex coupler.  The Head Pan is standard except
-that the gearbox is replaced by gears, with the encoder on the
-mechanism side of the gears.
-
-
-
-\subsubsection{Gear Drives}
-The wrist, head pan and forearm roll use gear drives.  
-
-\paragraph{Wrist}
-The wrist uses a differential drive between two motors.  If they
-are turned in the same direction the wrist rolls, if they are turned
-oposite the wrist flexes.  The differential bevel gears are attached
-after a standard encoder, motor, gearhead assembly.
-
 \TODO {wrist diagram}
-
-\paragraph{Forearm roll}
-The forearm roll has a traditional encoder, motor, gearbox assembly
-with a pinion gear attached to the output shaft.  The pinion gear
-directly drives a nylon gear built into the forearm body.
-
-\subsubsection{Lead Screw Drives}
-There are two drive trains which use lead screws as their primary
-method of movement, the torso lift and gripper.  
-
-\paragraph{Torso Lift}
-The torso lift is driven by a vertical lead screw.  The motor is
-augmented by a gas spring vertically such that the motor only needs to
-lift a portion of the weight of the torso.  The torso is also mounted
-such that the lift mechanism cannot pull downward.
-
-\paragraph{Gripper}
-The gripper is a pair of 4 bar linkages which are coupled through a
-gearing on one of the piviots.  The mechanism is actuated using a lead
-screw between the two fourbar linkages. Between the actuator and the
-gearing the movement of the grippers is limited to a single degree of
-freedom.
-
-The gripper is backdriveable when off, however challenging.
-Backdriving the gripper when torque is applied is very hard, but
-possible.
-
-\paragraph{Arm Counter Balance}
-Although not an actuated drivetrain the arm counter balance is one of
-the more complicated mechanisms on the PR2. Inside of the shoulder
-turret there are two springs.  These springs are attached to belts
-which run over cams and provide a uniform downward force.
-
-In the upper arm there is a four-bar linkage which transmits the
-torque through to the elbow flex joint.  As the arm moves through its
-configuration space the linkage changes the amount of leverage with
-which the counterbalance is pulling which compensates for the
-different configurations.
 
 \subsubsection{Drivetrain Limitations}
 The drivetrains are high fidelity however there are still limitations.
 Below are the most observable limitations.
-
-%\paragraph{Fault Conditions}
-%\paragraph{Observed failures during testing}
-%\begin{itemize}
-%\item Belt broken \TODO {document counterbalance failure??}
-%\item Stripped belt teeth
-%\item Loose set screw
-%\end{itemize}
-%\paragraph{Running Errors}
-%There has been no measured hysteresis or backlash in the drivetrains
-%except in the two forms below.  \TODO{verify with vijay}
-
-\paragraph{Belt Stretch}
-On all the belt driven joints.  The belts do stretch when under load.
-The stretching is small but measureable.
-
-\paragraph{Encoder Discritization}
-As the arm is moving slowly the discrete nature of the encoders can
-become evident.  It usually manifests itself as a jitter in the
-velocity.  It can be filtered out to some extent, but not too much for
-it will cause lag.
-
-
-
-Discuss the drive-train approach, how/why things work, what types of errors we expect to see and don't expect to see
 
 \subsection{Motion control}
 
