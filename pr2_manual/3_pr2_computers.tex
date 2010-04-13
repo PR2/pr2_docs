@@ -506,6 +506,8 @@ DHCP server to obey client-id-based requests.
 To configure the basestation with a static IP, you must edit the file
 \texttt{/etc/network/interfaces} and change \texttt{wan0} to use a staic ip
 address, for example:
+
+\begin{minipage}{1.0\linewidth}
 \begin{verbatim}
 iface wan0 inet static
       address 192.168.1.100
@@ -513,7 +515,10 @@ iface wan0 inet static
       gateway 192.168.1.1
       post-up robot-forward start
       pre-down robot-forward stop
+
 \end{verbatim}
+\end{minipage}
+
 You will also need to update \texttt{/etc/resolv.conf} to contain the
 appropriate nameserver, e.g.,
 \begin{verbatim}
@@ -551,6 +556,10 @@ After modifying, \texttt{/etc/hosts} it should look something like:
 \begin{verbatim}
 127.0.0.1       localhost
 127.0.1.1       prbase1.willowgarage.com        prbase1
+10.68.255.1     prbase1.willowgarage.com        prbase1
+
+10.68.0.1 c1
+10.68.0.2 c2
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
@@ -559,11 +568,6 @@ ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ff02::3 ip6-allhosts
-
-### The following lines were added automatically by pr2-basestation ####
-10.68.0.1 c1
-10.68.0.2 c2
-### The preceeding lines were added automatically by pr2-basestation ###
 \end{verbatim}
 Finally, you need to actually set the hostname using the hostname command, for example:
 \begin{verbatim}
@@ -630,8 +634,10 @@ on the basestation.  It takes 5 arguments:
 \item c1name -- This is the intended hostname of c1.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
 \item c2name -- This is the intended hostname of c2.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
 \item VPN subnet -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.  No two robots on the same basestation should be assigned the same VPN subnet.
-\item Basestation IP -- This is the static IP address you have assigned to your basestation \texttt{wan0}.
+\item (OPTIONAL) Basestation IP -- By default this is taken from the IP assigned to \texttt{wan0}. 
   It is worth checking that it is correct using the \texttt{ifconfig} command:
+
+  \begin{minipage}{1.0\linewidth}    
 \begin{verbatim}
 pr2admin@basestation:~$ ifconfig wan0
 wan0      Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8  
@@ -643,7 +649,9 @@ wan0      Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8
           collisions:0 txqueuelen:1000 
           RX bytes:129699 (129.6 KB)  TX bytes:218528 (218.5 KB)
           Interrupt:17 
+
 \end{verbatim}
+  \end{minipage}
 In this case the address is \texttt{192.168.1.100}.
 \end{itemize}
 
@@ -651,7 +659,8 @@ To actually brand the robot, first plug the basestation into the
 service port of the robot, and then use the robot-brand command
 
 \begin{verbatim}
-pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> <C2_NAME> <VPN_SUBNET> <BASESTATION_IP>
+pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> \
+                      <C2_NAME> <VPN_SUBNET> [<BASESTATION_IP>]
 \end{verbatim}
 
 For example, if your robot were going to be named ``prx'', c1 was
@@ -659,7 +668,7 @@ going to named ``prx1'', c2 was going to be named ``prx2'', and your
 basestation was located at \texttt{192.168.1.100}, you would run:
 
 \begin{verbatim}
-pr2admin@prbase1$ sudo robot-brand prx prx1 prx2 10.68.1.0 192.168.1.100
+pr2admin@prbase1$ sudo robot-brand prx prx1 prx2 10.68.1.0
 \end{verbatim}
 
 During the branding process, it may prompt you for the password of
