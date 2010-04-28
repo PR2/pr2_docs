@@ -3,15 +3,15 @@
 \section{What's in the box}
 The PR2 ships in 3 packages:
 
-\begin{tabular}{| l | l |}
+\begin{tabularx}{\linewidth}{| l | X |}
 \hline      
   Robot crate & Large wooden crate which contains the PR2 itself \\ \hline
   Accessory crate & Crate which contains accessory kit, tool kit, and robot base-station \\ \hline
   Calibration target & Large checkerboard for accurate calibration of stereo cameras \\ \hline
-\end{tabular}
+\end{tabularx}
 
 \subsection{PR2}
-See later sections for more detail on the PR2 robot itself and how to get it out of the crate.
+See later sections in this chapter for more detail on the PR2 robot itself or see Chapter 5 for instructions on getting it out of the crate and set up in your lab.
 \subsection{Accessory kit}
 \subsubsection{Wireless Joystick}
 The PR2 ships with a bluetooth joystick for teleoperating the robot. The
@@ -22,7 +22,7 @@ using any standard USB A to mini-B USB cable. For more information, see the
 \href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at
 \href{http://www.ros.org}{ros.org}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{ps3joy.png}
 \caption{The PR2 bluetooth joystick.}
@@ -37,12 +37,12 @@ wireless run-stop transmitter. When the red button is pressed, or the unit is
 out of range, the wireless run-stop transmitter will halt the motors and put the
 power system in standby mode.
 
-\begin{figure}[h]
+\begin{figure*}[ht]
 \centering
 \includegraphics[width=150px]{run_stop.png}
 \caption{The PR2 wireless run-stop.}
 \label{fig:wirelessrunstop}
-\end{figure}
+\end{figure*}
 
 To start the run-stop, press the green start button (Figure~\ref{fig:wirelessrunstop});
 if this works properly, you will see a light flashing on the run-stop. While
@@ -51,7 +51,22 @@ powered by four AA batteries; the battery light will flash when the battery
 charge is low and new batteries are required.
 
 \subsubsection{15 FT Robot Power Cord and 3-foot self plug-in Robot Power Cord}
-\TODO{Include images of both power cords} To recharge the PR2's batteries, it
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=150px]{images/long_plug.png}
+\caption{15 Foot power cord}
+\label{fig:longcord}
+\end{figure*}
+\label{longcord}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=150px]{images/short_plug.png}
+\caption{Self plug-in power cord}
+\label{fig:shortcord}
+\end{figure*}
+\label{shortcord}
+To recharge the PR2's batteries, it
 must be plugged into a 120V electrical outlet.  Use only the provided power
 cords - many power cords and power strips have thinner conductors and cannot
 safely supply the current required by the PR2.  Using inappropriate cables is
@@ -59,11 +74,19 @@ hazardous and may cause fire.  When plugging the robot is to charge by hand, you
 may use either cable.  When attepting to have the PR2 plug itself in, you must
 use the shorter self-plug-in cord with attached checkerboard.  The self-plug-in
 cord has magnets on the side opposite the checkerboard which should be used to
-attach it to the base as shown \TODO{Include image of self-plug-in cable
-  attached to magnets}
+attach it to the magnetic pad on the base.
 
 \subsubsection{Sensorized fingertips and boots}
-\TODO{Include image of fingertips and boots} The PR2 ships with sensorless
+\begin{figure}[ht]
+\centering
+\includegraphics[width=150px]{images/fingertips.png}
+\caption{Fingertip sensors and replacement boots}
+\label{fig:fingertips}
+\end{figure}
+\label{fingertips}
+
+
+The PR2 ships with sensorless
 fingertips attached.  We have also developed fingertips which have an integrated
 22-element pressure sensor, but they are easy to damage and are not as robust as
 the rest of the PR2.  We provide 5 fingertip sensors (2 for each gripper, plus 1
@@ -72,11 +95,18 @@ coming into direct contact with the environment.  When using the fingertip
 sensors, you should always have an undamaged boot in good condition installed
 over the sensor.  Continuing to use the fingertip sensors after the rubber boot
 is damaged greatly increases the chance that you will damage the sensors
-themselves.  See section \TODO{Create maintenance section for replacing
-  fingertip sensors} for more information.
+themselves.  See the support site at \href{http://support.willowgarage.com}{support.willowgarage.com} for more information.
 
 \subsubsection{Small calibration target}
-\TODO{Include image of small checkerboard} This calibration target, which looks
+\begin{figure}[ht]
+\centering
+\includegraphics[width=150px]{images/hand_checkerboard.png}
+\caption{Small calibration target}
+\label{fig:hand_checkerboard}
+\end{figure}
+\label{hand_checkerboard}
+
+This small hand-held calibration target, which looks
 like a checkerboard, is used for the PR2 self-calibration.  The robot holds the
 checkerboard in one gripper and uses it to calibrate the arms, the head, the
 cameras, and the tilting laser together.
@@ -85,9 +115,14 @@ cameras, and the tilting laser together.
 Printed version of this document
 
 \subsection{Toolkit}
-\TODO{Include image of open toolkit, with callout labels to all tools by proper name}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=150px]{images/toolkit.png}
+\caption{PR2 toolkit}
+\label{fig:toolkit}
+\end{figure}
+\label{toolkit}
 
-\TODO{TBD: The robot toolkit is not yet fully defined}
 
 \subsection{Large calibration target}
 The large calibration target which ships with the robot looks like a
@@ -98,7 +133,16 @@ calibrated, but you may need to re-calibrate occasionally as vibration and
 thermal effects change the parameters over time.
 
 \subsection{Base-station computer}
-\TODO{Include picture of base-station here} The base-station computer ships
+\begin{figure}[ht]
+\centering
+\includegraphics[width=150px]{images/basestation.png}
+\includegraphics[width=150px]{images/basestation_back.png}
+\caption{PR2 Base-station computer}
+\label{fig:basestation}
+\end{figure}
+\label{basestation}
+
+The base-station computer ships
 without a monitor, keyboard, or mouse.  See section ??? for more information on
 how to configure your base-station.
 
@@ -236,20 +280,15 @@ but not controlled.  The gripper also contains a 3-dof accelerometer and an LED
 which can be turned on and off to assist in calibration or finding the location
 of the gripper in camera images.
 
-\subsubsection{Home Pose}
-In order to describe the PR2 robot pose and joint positions in a consistent
-manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is
-described in detail in section~\ref{sec:pr2_coordinate_system}.
-
 \subsubsection{Additional Information}
 A CAD approximated kinematic and inertial description of the PR2 can be found in
 the \href{http://www.ros.org/wiki/pr2\_description}{pr2\_description} package.
 This package uses a robot specific Extensible Markup Language (XML) and Document
 Object Model (DOM) representation called
-\href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}
-created here at Willow Garage.
+\href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}, which can
+be converted or exported to other formats such as COLLADA.
 
-\TODO{Include updated tables of joint limits, torques, home positions, etc.}
+%\TODO{Include updated tables of joint limits, torques, home positions, etc.}
 
 \subsection{Drivetrains}
 The joints in the PR2 are all actuated with brushed electric motors, and all
@@ -262,8 +301,16 @@ controllers monitor for encoder errors, so there should not be any drift in
 measured position over time, although the repeatibility of the calibration
 sensors may cause minor differences in position sensing between runs.
 
-Velocity estimates are made by differentiating the position sensors, which will
-lead to
+Velocity estimates are made by differentiating the position sensors at 1ms, so the
+quantization of the encoders produces noise in the velocity signal, which is
+especially significant at low speeds.
+
+Torque estimates are made by measuring the commanded current of the motor and
+using the values of the torque constant from the datasheet together with the
+model of the transmission.  These transmission models assume 100\% efficiency,
+and accuracy of torque estimates and commands is limited by the friction in the
+drivetrain, so joint torque accuracy should be characterized where you are
+relying on it.
 
 \begin{description}
 \item[Torso Drivetrain] The torso is driven up and down on a linear rail by a
@@ -352,7 +399,7 @@ oposite the wrist flexes.  The differential bevel gears are attached after a
 standard encoder, motor, gearhead assembly.
 
 
-\item[gripper drivetrain] The gripper consists of two fingers with two joints
+\item[Gripper Drivetrain] The gripper consists of two fingers with two joints
   each.  Within each finger, a four-bar linkage constrains the two joints to
   move together so that the fingertips remain parallel.  The two fingers are
   constrained together with a sector gear that meshes between the first
@@ -369,12 +416,23 @@ standard encoder, motor, gearhead assembly.
 \end{description}
 
 
+\subsubsection{Home Pose}
+In order to describe the PR2 robot pose and joint positions in a consistent
+manner, a {\bf home pose} of the robot has been defined.  At the home pose,
+all joint-angles are considered to be at zero.  In the home pose the casters
+are facing straight ahead, the arms are straight ahead in front of the body,
+the grippers are closed, the tilting laser is level, and the head is centered
+and flat.  For most joints the calibration reference point is not at the home
+pose, or zero position, and the URDF contains the offsets between the flag
+positions and the home position.
+
 \subsubsection{PR2 Coordinate System}
 \label{sec:pr2_coordinate_system}
-The reference {\bf home pose} of the PR2 robot is defined as the robot pose with
-all of the joint angles at zero, with the PR2 robot facing the positive
-x-direction, positive z-axis pointing upwards and positive y-axis pointing to
-the {\it robot-left} (see Figure~\ref{fig:pr2_home_pose}).
+The coordinate frames for all links of the PR2 are defined to be aligned with
+ a world coordinate frame of positive z-axis up, positive x-axis forward, and
+positive y-axis robot-left when the PR2 is in the home pose.  All joint angle conventions
+are chosen so that at the home position, positive motion of the joint causes positive
+motion around one of the positive axes of the world coordinate system.
 
 \begin{figure}[!h]
 \centering
@@ -389,16 +447,9 @@ the {\it robot-left} (see Figure~\ref{fig:pr2_home_pose}).
 \label{fig:urdf_sensor}
 \end{figure}
 
-\TODO {wrist diagram}
-
-\subsubsection{Drivetrain Limitations}
-The drivetrains are high fidelity however there are still limitations.  Below
-are the most observable limitations.
-
 \subsection{Motion control}
 
-
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=290px]{images/mechanism_control.png}
 \caption{Motion control layout.}
@@ -411,20 +462,39 @@ Each motor/encoder on the PR2 has its dedicated \emph{Motor Controller Board}
 (MCB). The MCB detects and counts transitions in the encoder signal, measures
 the motor current, and commands the voltage going to the motor. Each MCB runs a
 PI-control loop to control the motor current to a desired value, by commanding
-the motor voltage. This control loop is executed at 100~kHz on an FPGA.  A
-shared etherCAT link allows all MCB's in the PR2 to communicate with the main
-computers.
+the motor voltage. This control loop is closed at 100kHz on an FPGA on the MCB.  A
+shared etherCAT realtime Ethernet link with the first computer allows all MCBs
+ in the PR2 to communicate with the main computers with deterministic timing.
 
-\subsubsection{Controller manager}
-The \emph{Controller Manager} (CM) is the lowest level software component that
-directly talks to the MCB's. The CM runs in a hard realtime process and is
-guaranteed to be executed at 1~kHz. This means that the CM sends desired motor
-torques to the MCB's every milisecond, and receives measured motor torques and
-positions in the same milisecond.
+Each MCB has the following inputs and outputs:
+\begin{description}
+\item[Encoder input] Each MCB can read quadrature incremental encoder input.  In proper operation, this should never skip or drift.
+\item[Power input] Each MCB is connected to the raw battery-power bus, and using the circuit breakers you can switch between "enabled", which provides 44-80VDC
+to the MCB and allows it to drive the motor, "standby", which provides 18VDC to the MCB and allows it to continue to communicate and read sensors but
+doesn't allow driving the motors, and "disabled", which turns off power the the MCB altogether.
+\item[Digital input] Each MCB has a digital input which is used for detecting the flags at the calibration positions on power-up.  The MCB internally latches the encoder counts at the time that the digital input transitions from high to low and from low to high, which accurate detection of calibration flag positions.
+\item[Digital output] Each MCB has a digital output.  On the gripper, this is used to control the LED mounted in the hand.
+Elsewhere in the robot, this is used to generate synchronization pulses which allow synchronizing the cameras, the projector,
+and the motion control systems together precisely.
+\item[Motor output] Each MCB can drive a single brushed DC motor.  The MCB drives the output with an H-bridge and uses a current-measurement to do closed-loop current control on the motor.
+\item[SPI] There are two SPI ports which are only available on the gripper MCBs and which are used to connect to the fingerip sensors.
+\end{description}
 
-The CM has a dynamic plugin loading mechanism that allows controller algorithms
-to get inserted and executed inside the 1~kHz realtime loop.
+\subsubsection{Realtime loop}
+The realtime loop for the PR2 is a single process, which can be found in the pr2\_ethercat package.  At runtime, the node is called {\bf realtime\_loop}.
 
+This process uses the RT\_PREEMPT extensions to the Linux kernel to run as a hard realtime process, with a cycle time of 1ms, and performs both controller update computations and communication over EtherCAT with the MCBs.  Non-realtime threads within the same process are used to communicate over ROS to publish diagnostics, configure controllers, and otherwise control the behavior of the PR2's motion-control system
+
+\subsubsection{Controller manager}.  
+Within the realtime loop, the controller update is dealt with by a ROS component which contains both realtime and non-realtime functionality,
+called the \emph{Controller Manager}.  Controlle Manager has an update step which
+is called by the realtime loop at 1khz which receives measured motor torques and positions and sends
+desired motor torques for the next cycle.
+
+The Controller Manager includes the joint-limit safety code that enforces position, velocity, and torque limits
+which are necessary to keep the PR2 from damaging its hardware.  In addition, it has a
+dynamic plugin loading mechanism that allows shared libraries containing realtime controllers to be loaded
+and executed inside the 1kHz realtime loop.
 
 \subsection{Mechanical specs}
 
@@ -475,7 +545,7 @@ Joint position, velocity, and force limits are implemented in the PR2's URDF
 file, in the ``/etc/ros/urdf/robot.xml" file on your PR2. These joint limits
 control the range of travel of the mechanism, the allowable velocity to prevent
 overtravel. These limits are enforced by pr2\_controller\_manager, and are
-designed to prevent poorly designed controllers from damaging the PR2 and
+designed to prevent poorly commanded control efforts from damaging the PR2 and
 harming operators.
 
 The limits below are from the PR2 URDF file. If a velocity or torque limit is
@@ -557,18 +627,24 @@ $\ast$\_gripper\_joint                 & prismatic  & 86 mm        & 0 mm \\
 
 On the PR2, ``soft limits" stop the joints from reaching the full range of
 motion to prevent damage to the mechanism. These soft limits, similar to a
-virual spring, are specified in the robot's URDF file. For an explanation of
+virtual spring, are specified in the robot's URDF file. For an explanation of
 their implementation, see
 http://www.ros.org/wiki/pr2\_controller\_manager/safety\_limits.
 
-The soft limits have been carefully implemented and validated by Willow
-Garage. Under no circumstances should they be changed without prior written
+The soft limits have been validated by Willow Garage, and are required for safe operation of the PR2.
+Under no circumstances should these limits be increased without prior written
 authorization by Willow Garage Safety. Unauthorized and unvalidated modification
-of these limits could cause mechanism damage and injury or death to PR2
+of these limits could cause mechanism damage and increase the risk of injury or death to PR2
 operators.
 
-Changing maximum allowable effort or maximum actuator current could cause
-serious damage to the PR2 and injury or death to operators.
+Mechanism damage resulting from changing these limits can include:
+\begin{itemize}
+\item{Thermal damage to motors from exceeding maximum current specifications}
+\item{Damage to drive-trains resulting from collision with end-stops}
+\item{Premature wear and damage to motor, gear-head, or drive-train resulting from operating over the components' rated speed}
+\item{Premature wear of slip-rings or other electrical connections from operating over the componnts' rated speed}
+\item{Vibration damage to sensors or other components resulting from excessive velocities or collisions with joint-stops}
+\end{itemize}
 
 \section{Sensors}
 The PR2 has a variety of sensors on its body:\\\\
@@ -924,9 +1000,9 @@ In the lower back, directly connecting to the power board.\\
 
 {\bf insert picture}\\
 
-Before something is connected to this bus, strongly consider if hot plugging is
-safe. If you are uncertain, the safest choice is to shut the power system off
-completely.\\
+The robot electrical systems are complex, and it is easy to damage robot components
+by hot-plugging.  Never plug in or unplug any components inside the robot unless
+the power system is shut off completely.
 
 All 12V connectors in the robot use the same connector, a 2x1 Molex Mini-Fit
 Jr. The mating connector part number is {\bf 39-01-3022} or from Digikey {\bf
