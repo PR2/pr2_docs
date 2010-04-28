@@ -14,10 +14,13 @@ The PR2 ships in 3 packages:
 See later sections for more detail on the PR2 robot itself and how to get it out of the crate.
 \subsection{Accessory kit}
 \subsubsection{Wireless Joystick}
-The PR2 ships with a bluetooth joystick for teleoperating the robot. The bluetooth joystick is a 
-\href{http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665411965#additionalImage1%22}{Sony DUALSHOCK®3} (Figure~\ref{fig:ps3joy}) 
-wireless controller. It can be charged using any standard USB A to mini-B USB cable. For more information, see the 
-\href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at \href{http://www.ros.org}{ros.org}.
+The PR2 ships with a bluetooth joystick for teleoperating the robot. The
+bluetooth joystick is a
+\href{http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665411965#additionalImage1%22}{Sony
+  DUALSHOCK3} (Figure~\ref{fig:ps3joy}) wireless controller. It can be charged
+using any standard USB A to mini-B USB cable. For more information, see the
+\href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at
+\href{http://www.ros.org}{ros.org}.
 
 \begin{figure}[h]
 \centering
@@ -28,32 +31,55 @@ wireless controller. It can be charged using any standard USB A to mini-B USB ca
 
 \subsubsection{Wireless run-stop}
 \label{wirelessrunstop}
-The PR2 comes with an \href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50} 
-wireless run-stop transmitter. When the red button is pressed, or the unit is out of range, the wireless run-stop transmitter will halt the motors 
-and put the power system in standby mode. 
+The PR2 comes with an
+\href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50}
+wireless run-stop transmitter. When the red button is pressed, or the unit is
+out of range, the wireless run-stop transmitter will halt the motors and put the
+power system in standby mode.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=150px]{run_stop.png}
 \caption{The PR2 wireless run-stop.}
-\label{fig:runstop}
+\label{fig:wirelessrunstop}
 \end{figure}
 
-To start the run-stop, press the green start button (Figure~\ref{fig:runstop}); if this works properly, you will see a 
-light flashing on the run-stop. While transmitting, the run-stop has a range of approximately 800 ft. The run-stop is 
-powered by four AA batteries; the battery light will flash when the battery charge is low and new batteries are required.
+To start the run-stop, press the green start button (Figure~\ref{fig:wirelessrunstop});
+if this works properly, you will see a light flashing on the run-stop. While
+transmitting, the run-stop has a range of approximately 800 ft. The run-stop is
+powered by four AA batteries; the battery light will flash when the battery
+charge is low and new batteries are required.
 
 \subsubsection{15 FT Robot Power Cord and 3-foot self plug-in Robot Power Cord}
-\TODO{Include images of both power cords}
-To recharge the PR2's batteries, it must be plugged into a 120V electrical outlet.  Use only the provided power cords - many power cords and power strips have thinner conductors and cannot safely supply the current required by the PR2.  Using inappropriate cables is hazardous and may cause fire.  When plugging the robot is to charge by hand, you may use either cable.  When attepting to have the PR2 plug itself in, you must use the shorter self-plug-in cord with attached checkerboard.  The self-plug-in cord has magnets on the side opposite the checkerboard which should be used to attach it to the base as shown \TODO{Include image of self-plug-in cable attached to magnets}
+\TODO{Include images of both power cords} To recharge the PR2's batteries, it
+must be plugged into a 120V electrical outlet.  Use only the provided power
+cords - many power cords and power strips have thinner conductors and cannot
+safely supply the current required by the PR2.  Using inappropriate cables is
+hazardous and may cause fire.  When plugging the robot is to charge by hand, you
+may use either cable.  When attepting to have the PR2 plug itself in, you must
+use the shorter self-plug-in cord with attached checkerboard.  The self-plug-in
+cord has magnets on the side opposite the checkerboard which should be used to
+attach it to the base as shown \TODO{Include image of self-plug-in cable
+  attached to magnets}
 
 \subsubsection{Sensorized fingertips and boots}
-\TODO{Include image of fingertips and boots}
-The PR2 ships with sensorless fingertips attached.  We have also developed fingertips which have an integrated 22-element pressure sensor, but they are easy to damage and are not as robust as the rest of the PR2.  We provide 5 fingertip sensors (2 for each gripper, plus 1 spare), as well as 20 rubber protective "boots" which prevent the sensor from coming into direct contact with the environment.  When using the fingertip sensors, you should always have an undamaged boot in good condition installed over the sensor.  Continuing to use the fingertip sensors after the rubber boot is damaged greatly increases the chance that you will damage the sensors themselves.  See section \TODO{Create maintenance section for replacing fingertip sensors} for more information.
+\TODO{Include image of fingertips and boots} The PR2 ships with sensorless
+fingertips attached.  We have also developed fingertips which have an integrated
+22-element pressure sensor, but they are easy to damage and are not as robust as
+the rest of the PR2.  We provide 5 fingertip sensors (2 for each gripper, plus 1
+spare), as well as 20 rubber protective "boots" which prevent the sensor from
+coming into direct contact with the environment.  When using the fingertip
+sensors, you should always have an undamaged boot in good condition installed
+over the sensor.  Continuing to use the fingertip sensors after the rubber boot
+is damaged greatly increases the chance that you will damage the sensors
+themselves.  See section \TODO{Create maintenance section for replacing
+  fingertip sensors} for more information.
 
 \subsubsection{Small calibration target}
-\TODO{Include image of small checkerboard}
-This calibration target, which looks like a checkerboard, is used for the PR2 self-calibration.  The robot holds the checkerboard in one gripper and uses it to calibrate the arms, the head, the cameras, and the tilting laser together.
+\TODO{Include image of small checkerboard} This calibration target, which looks
+like a checkerboard, is used for the PR2 self-calibration.  The robot holds the
+checkerboard in one gripper and uses it to calibrate the arms, the head, the
+cameras, and the tilting laser together.
 
 \subsubsection{User Manual}
 Printed version of this document
@@ -64,29 +90,77 @@ Printed version of this document
 \TODO{TBD: The robot toolkit is not yet fully defined}
 
 \subsection{Large calibration target}
-The large calibration target which ships with the robot looks like a checkerboard 1" thick and approximately 3 feet on a side.  This is the recommended calibration target to use for calibrating the intrinsics of the stereo cameras on the robot.  The robot ships with stereo cameras already calibrated, but you may need to re-calibrate occasionally as vibration and thermal effects change the parameters over time.
+The large calibration target which ships with the robot looks like a
+checkerboard 1" thick and approximately 3 feet on a side.  This is the
+recommended calibration target to use for calibrating the intrinsics of the
+stereo cameras on the robot.  The robot ships with stereo cameras already
+calibrated, but you may need to re-calibrate occasionally as vibration and
+thermal effects change the parameters over time.
 
 \subsection{Base-station computer}
-\TODO{Include picture of base-station here}
-The base-station computer ships without a monitor, keyboard, or mouse.  See section ??? for more information on how to configure your base-station.
+\TODO{Include picture of base-station here} The base-station computer ships
+without a monitor, keyboard, or mouse.  See section ??? for more information on
+how to configure your base-station.
 
 \section{Mechanism}
-PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety of sensors on a pan-tilt head.
+PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety
+of sensors on a pan-tilt head.
 
 \subsection{Robot Anatomy}
 
 \subsection{Terminology}
-We talk about the robot kinematics using the concepts of joints, links, frames, actuators, and transmissions.  Each of these is defined and represented in code, as well as having a unique name.  In general, a single joint will have an actuator and a transmission and will connect two links together.  A link is a rigid body in the kinematic tree, and will have a coordinate frame, but not all frames are associated with links.  We allow "fixed" joints, so some rigid bodies that could be considered one link are considered to be two links rigidly joined together.  This is done mostly at locations where there is a physical interface between components.
+We talk about the robot kinematics using the concepts of joints, links, frames,
+actuators, and transmissions.  Each of these is defined and represented in code,
+as well as having a unique name.  In general, a single joint will have an
+actuator and a transmission and will connect two links together.  A link is a
+rigid body in the kinematic tree, and will have a coordinate frame, but not all
+frames are associated with links.  We allow "fixed" joints, so some rigid bodies
+that could be considered one link are considered to be two links rigidly joined
+together.  This is done mostly at locations where there is a physical interface
+between components.
 
 \begin{description}
-\item[Link] We consider a link to be a rigid body within the robot.  It generally has geometry to define visual and collision-space representations, has inertial properties, and has a name.  The links for the PR2 are defined in the "URDF" description that can be found in the pr2\_description package.
-\item[Frame] Frames are geometric entities that represent coordinate frames in space.  Every link has an associated frame, but we also use frames to represent other things, such as the optical frame of a camera, the global map, or the location of a detected object.  Frames are always defined relative to one another, and relationships and transformations between them are tracked using the tf package.
-\item[Joint] Joints are considered part of the robot, and define the relationship between links.  The joints for the PR2 are defined in the URDF description that can be found in the pr2\_description package.  The PR2 has mostly rotational joints, but the torso is translational, and there are also a number of "fixed" joints used to represent the notion that two links are part of the same rigid body.  Rotational and translational joints are generally represented in the same way in the system, and we refer to joint "effort" instead of force or torque, as well as using position, and velocity to represent both linear and angular movement.
-\item[Actuator] The motor/encoder units in the PR2 are explicitly modelled as "actuators".  The actuator model treats them as torque sources with position measurement.  The details of the actuator model (e.g. the motor torque constant or max current), as well as the name of the actuator, are stored on the motor controller boards.
-\item[Transmission] We use transmissions, also defined in the URDF robot description, to represent the mapping between actuators and joints.  They map actuator position into joint position (meters or radians), and map from commanded joint efforts (torques or forces) to actuator efforts.  In most cases in the robot this is a linear mapping between one joint and one actuator that just defines a reduction, but in the wrist we have 2 motors controlling two joints in a cross-coupled manner, and in the gripper the mapping from motor rotation to gripper position is non-linear.
+\item[Link] We consider a link to be a rigid body within the robot.  It
+  generally has geometry to define visual and collision-space representations,
+  has inertial properties, and has a name.  The links for the PR2 are defined in
+  the "URDF" description that can be found in the pr2\_description package.
+\item[Frame] Frames are geometric entities that represent coordinate frames in
+  space.  Every link has an associated frame, but we also use frames to
+  represent other things, such as the optical frame of a camera, the global map,
+  or the location of a detected object.  Frames are always defined relative to
+  one another, and relationships and transformations between them are tracked
+  using the tf package.
+\item[Joint] Joints are considered part of the robot, and define the
+  relationship between links.  The joints for the PR2 are defined in the URDF
+  description that can be found in the pr2\_description package.  The PR2 has
+  mostly rotational joints, but the torso is translational, and there are also a
+  number of "fixed" joints used to represent the notion that two links are part
+  of the same rigid body.  Rotational and translational joints are generally
+  represented in the same way in the system, and we refer to joint "effort"
+  instead of force or torque, as well as using position, and velocity to
+  represent both linear and angular movement.
+\item[Actuator] The motor/encoder units in the PR2 are explicitly modelled as
+  "actuators".  The actuator model treats them as torque sources with position
+  measurement.  The details of the actuator model (e.g. the motor torque
+  constant or max current), as well as the name of the actuator, are stored on
+  the motor controller boards.
+\item[Transmission] We use transmissions, also defined in the URDF robot
+  description, to represent the mapping between actuators and joints.  They map
+  actuator position into joint position (meters or radians), and map from
+  commanded joint efforts (torques or forces) to actuator efforts.  In most
+  cases in the robot this is a linear mapping between one joint and one actuator
+  that just defines a reduction, but in the wrist we have 2 motors controlling
+  two joints in a cross-coupled manner, and in the gripper the mapping from
+  motor rotation to gripper position is non-linear.
 \end{description}
 
-In general, the names for a link and the associated frame will be similar (e.g. r\_forearm\_link and r\_forearm\_frame), and the names for an actuator, a transmission, and the associated joint will be similar (e.g. r\_elbow\_flex\_motor, r\_elbow\_flex\_trans, and r\_elbow\_flex\_joint).  For components such as arms and casters that are included in the robot in multiple locations, we use a short prefix to indicate which location we are referring to
+In general, the names for a link and the associated frame will be similar
+(e.g. r\_forearm\_link and r\_forearm\_frame), and the names for an actuator, a
+transmission, and the associated joint will be similar
+(e.g. r\_elbow\_flex\_motor, r\_elbow\_flex\_trans, and r\_elbow\_flex\_joint).
+For components such as arms and casters that are included in the robot in
+multiple locations, we use a short prefix to indicate which location we are
+referring to
 
 \begin{tabular}{| l | l |}
 \hline
@@ -101,88 +175,206 @@ In general, the names for a link and the associated frame will be similar (e.g. 
 \subsection{Links and Joints}
 By component, below is a list of the links and joints in the PR2:
 \subsubsection{Base-Body-Spine}
-The base-body-spine assembly of the PR2 has only one joint - the prismatic {\bf torso\_lift\_joint} which moves the torso up and down relative to the base.  The {\bf base\_link} holds the rear panel with electrical/network connections, the computers, and the battery system, as well as bolting directly to the casters.  The {\bf torso\_lift\_link}, which moves up and down, contains the speaker, and the IMU, as well as serving as the attachment point for both arms and for the head.
+The base-body-spine assembly of the PR2 has only one joint - the prismatic {\bf
+  torso\_lift\_joint} which moves the torso up and down relative to the base.
+The {\bf base\_link} holds the rear panel with electrical/network connections,
+the computers, and the battery system, as well as bolting directly to the
+casters.  The {\bf torso\_lift\_link}, which moves up and down, contains the
+speaker, and the IMU, as well as serving as the attachment point for both arms
+and for the head.
 \subsubsection{Head}
-The pan-tilt head which holds the wide and narrow stereo cameras, the 5 mega-pixel camera, and the texture projector is made up of two links - the {\bf head\_pan\_link}, connected to the torso by the {\bf head\_pan\_joint}, and the {\bf head\_tilt\_link}, connected to the pan link by the {\bf head\_tilt\_joint}.  The sensors are all attached to the tilt link.
+The pan-tilt head which holds the wide and narrow stereo cameras, the 5
+mega-pixel camera, and the texture projector is made up of two links - the {\bf
+  head\_pan\_link}, connected to the torso by the {\bf head\_pan\_joint}, and
+the {\bf head\_tilt\_link}, connected to the pan link by the {\bf
+  head\_tilt\_joint}.  The sensors are all attached to the tilt link.
 
-The upper Hokuyo laser range-finder is mounted to the {\ laser\_mount\_link}, which is tilted up and down by the {\bf laser\_tilt\_mount\_joint}
+The upper Hokuyo laser range-finder is mounted to the {\ laser\_mount\_link},
+which is tilted up and down by the {\bf laser\_tilt\_mount\_joint}
 \subsubsection{Casters}
-Each robot has four steered and driven casters, one at each corner of the base.  The casters are refered to as front right, front left, back right, and back left.  They are named according to the above table of location prefixes ({\bf fr\_}, {\bf fl\_}, {\bf br\_}, and {\bf bl\_}).  Each caster consists of a rotation joint {\bf location\_caster\_rotation\_joint}, which rotates or steers the body of the caster, called the {\bf location\_caster\_rotation\_link}, around a vertical axis.  Attached to the body of the caster are two parallel driven wheels, whose drive joints are {\bf location\_caster\_r\_wheel\_joint} and {\bf location\_caster\_l\_wheel\_joint}.
+Each robot has four steered and driven casters, one at each corner of the base.
+The casters are refered to as front right, front left, back right, and back
+left.  They are named according to the above table of location prefixes ({\bf
+  fr\_}, {\bf fl\_}, {\bf br\_}, and {\bf bl\_}).  Each caster consists of a
+rotation joint {\bf location\_caster\_rotation\_joint}, which rotates or steers
+the body of the caster, called the {\bf location\_caster\_rotation\_link},
+around a vertical axis.  Attached to the body of the caster are two parallel
+driven wheels, whose drive joints are {\bf location\_caster\_r\_wheel\_joint}
+and {\bf location\_caster\_l\_wheel\_joint}.
 
 \subsubsection{Arms}
-The arm has 7 degrees of freedom.  Starting from the attachment to the torso, the first joint is the {\bf location\_shoulder\_pan\_joint} which rotates the {\bf location\_shoulder\_pan\_link}, or shoulder turret, around a vertical axis.
+The arm has 7 degrees of freedom.  Starting from the attachment to the torso,
+the first joint is the {\bf location\_shoulder\_pan\_joint} which rotates the
+{\bf location\_shoulder\_pan\_link}, or shoulder turret, around a vertical axis.
 
-The shoulder turret contains the springs that store energy to counterbalance the mass of the rest of the arm.  Two degrees of freedom, the {\bf location\_shoulder\_lift\_joint} and {\bf location\_upperarm\_roll\_joint} attach the {\bf location\_upper\_arm\_link} to the shoulder.
+The shoulder turret contains the springs that store energy to counterbalance the
+mass of the rest of the arm.  Two degrees of freedom, the {\bf
+  location\_shoulder\_lift\_joint} and {\bf location\_upperarm\_roll\_joint}
+attach the {\bf location\_upper\_arm\_link} to the shoulder.
 
-The upper arm contains the counterbalance bar, which is a large steel bar that attaches to the counterbalance attachment and transmits the counterbalance forces into the structure of the arm.  The upper-arm also contains motors for the {\bf location\_elbow\_flex\_joint} and {\bf location\_forearm\_roll\_joint}, which connect the forearm to the upper-arm.
+The upper arm contains the counterbalance bar, which is a large steel bar that
+attaches to the counterbalance attachment and transmits the counterbalance
+forces into the structure of the arm.  The upper-arm also contains motors for
+the {\bf location\_elbow\_flex\_joint} and {\bf location\_forearm\_roll\_joint},
+which connect the forearm to the upper-arm.
 
-The forearm ({\bf location\_forearm\_link}) contains a 640x480 color camera that can always see the gripper, as well as the two motor which drive the {\bf wrist\_flex\_joint} and the continuous {\bf location\_wrist\_roll\_joint} that attaches to the gripper.
+The forearm ({\bf location\_forearm\_link}) contains a 640x480 color camera that
+can always see the gripper, as well as the two motor which drive the {\bf
+  wrist\_flex\_joint} and the continuous {\bf location\_wrist\_roll\_joint} that
+attaches to the gripper.
 
 \subsubsection{Grippers}
-The gripper consists of a central palm link called the {\bf location\_gripper\_palm\_link} which is rigidly fixed to the {\bf location\_wrist\_roll\_link} and has a single actuated degree of freedom.  The motor in the gripper drives the 4 joints of the gripper together to result in parallel motion of the fingertips.  The parallel distance between the gripper tips is treated as a translational joint, called {\bf location\_gripper\_joint} that can be controlled.  The four rotational joints in the hand which are constrained to move together are also modelled as joints which can be observed but not controlled.  The gripper also contains a 3-dof accelerometer and an LED which can be turned on and off to assist in calibration or finding the location of the gripper in camera images.
+The gripper consists of a central palm link called the {\bf
+  location\_gripper\_palm\_link} which is rigidly fixed to the {\bf
+  location\_wrist\_roll\_link} and has a single actuated degree of freedom.  The
+motor in the gripper drives the 4 joints of the gripper together to result in
+parallel motion of the fingertips.  The parallel distance between the gripper
+tips is treated as a translational joint, called {\bf location\_gripper\_joint}
+that can be controlled.  The four rotational joints in the hand which are
+constrained to move together are also modelled as joints which can be observed
+but not controlled.  The gripper also contains a 3-dof accelerometer and an LED
+which can be turned on and off to assist in calibration or finding the location
+of the gripper in camera images.
 
 \subsubsection{Home Pose}
-In order to describe the PR2 robot pose and joint positions in a consistent manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is described in detail in section~\ref{sec:pr2_coordinate_system}.
+In order to describe the PR2 robot pose and joint positions in a consistent
+manner, a {\bf home pose} of the robot has been defined.  The {\bf home pose} is
+described in detail in section~\ref{sec:pr2_coordinate_system}.
 
 \subsubsection{Additional Information}
-A CAD approximated kinematic and inertial description of the PR2 can be found
-  in the \href{http://www.ros.org/wiki/pr2\_description}{pr2\_description} package.
-This package uses a robot specific Extensible Markup Language (XML) and Document Object Model (DOM) representation
-  called \href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)} created here at Willow Garage.
+A CAD approximated kinematic and inertial description of the PR2 can be found in
+the \href{http://www.ros.org/wiki/pr2\_description}{pr2\_description} package.
+This package uses a robot specific Extensible Markup Language (XML) and Document
+Object Model (DOM) representation called
+\href{http://www.ros.org/wiki/urdf}{Uniform Robot Description Format(URDF)}
+created here at Willow Garage.
 
 \TODO{Include updated tables of joint limits, torques, home positions, etc.}
 
 \subsection{Drivetrains}
-The joints in the PR2 are all actuated with brushed electric motors, and all position sensing is done with optical incremental quadrature encoders.  Except where noted, each joint has an optical sensor (interrupt or reflective) which is used at startup to identify a home position.  Once the home position is identified, the incremental encoders are used to track motion.  All drivetrains in the robot have positive-engagement drives (gears or belts), and the motor controllers monitor for encoder errors, so there should not be any drift in measured position over time, although the repeatibility of the calibration sensors may cause minor differences in position sensing between runs.
+The joints in the PR2 are all actuated with brushed electric motors, and all
+position sensing is done with optical incremental quadrature encoders.  Except
+where noted, each joint has an optical sensor (interrupt or reflective) which is
+used at startup to identify a home position.  Once the home position is
+identified, the incremental encoders are used to track motion.  All drivetrains
+in the robot have positive-engagement drives (gears or belts), and the motor
+controllers monitor for encoder errors, so there should not be any drift in
+measured position over time, although the repeatibility of the calibration
+sensors may cause minor differences in position sensing between runs.
 
-Velocity estimates are made by differentiating the position sensors, which will lead to 
+Velocity estimates are made by differentiating the position sensors, which will
+lead to
 
 \begin{description}
-\item[Torso Drivetrain]
-The torso is driven up and down on a linear rail by a combination of a gas spring, which supports most of the weight of the torso, and a lead-screw which is driven via an RE40 motor with 113:1 gearhead connected to a continuous belt drive with a  5:1 reduction.  As a result of the force from the gas-spring not being constant over the range of travel, the lead-screw may be loaded up, down, or neutrally as different points of travel of the torso.  Position sensing of torso lift is done via optical encoder on the back of the motor, so any backlash in the lead-screw, belt, or gearhead is not sensed.  The torso joint is quite low efficiency, so commanding large forces (in the range of 1000 newtons) will be required to move the torso.  The maximum speed of the torso lift joint is limited by the thermal rating of the lead-screw nut.  Driving the torso lift link faster than the velocity limit will cause permanent damage to the lead-screw assembly.  Similary, driving at the safety limit but with excessive load
-Because of the large reduction, the torso lift link is capable of exerting high forces, so take care
+\item[Torso Drivetrain] The torso is driven up and down on a linear rail by a
+  combination of a gas spring, which supports most of the weight of the torso,
+  and a lead-screw which is driven via an RE40 motor with 113:1 gearhead
+  connected to a continuous belt drive with a 5:1 reduction.  As a result of the
+  force from the gas-spring not being constant over the range of travel, the
+  lead-screw may be loaded up, down, or neutrally as different points of travel
+  of the torso.  Position sensing of torso lift is done via optical encoder on
+  the back of the motor, so any backlash in the lead-screw, belt, or gearhead is
+  not sensed.  The torso joint is quite low efficiency, so commanding large
+  forces (in the range of 1000 newtons) will be required to move the torso.  The
+  maximum speed of the torso lift joint is limited by the thermal rating of the
+  lead-screw nut.  Driving the torso lift link faster than the velocity limit
+  will cause permanent damage to the lead-screw assembly.  Similary, driving at
+  the safety limit but with excessive load Because of the large reduction, the
+  torso lift link is capable of exerting high forces, so take care
 
-\item[Head Drivetrains]
-The drivetrains for the head pan, head tilt, and laser tilt are all fairly similar.  Since precise pointing of sensors is important, all three of these joints have 10,000 count encoders mounted in the drivetrain after the major sources of potential backlash (gears).  The laser tilt axis is driven directly by the motor, through the encoder, and then via a belt-drive.  The head pan and tilt are both driven from the motor through a gearset (planetary gearhead for the tilt joint and external spur gears for the pan joint).  The encoder is mounted on the shaft after the gearset, and then a belt drive is used for the final stage reduction.  These drivetrains are all high-efficiency and capable of very high velocities.  The software velocity and position limits on these joints are important to prevent hard collisions with the joint stops, which will cause damage to the hardware (espially to the sensors).  If the mass of the head is changes significantly, the pan and tilt link gains may need to be re-tuned.
+\item[Head Drivetrains] The drivetrains for the head pan, head tilt, and laser
+  tilt are all fairly similar.  Since precise pointing of sensors is important,
+  all three of these joints have 10,000 count encoders mounted in the drivetrain
+  after the major sources of potential backlash (gears).  The laser tilt axis is
+  driven directly by the motor, through the encoder, and then via a belt-drive.
+  The head pan and tilt are both driven from the motor through a gearset
+  (planetary gearhead for the tilt joint and external spur gears for the pan
+  joint).  The encoder is mounted on the shaft after the gearset, and then a
+  belt drive is used for the final stage reduction.  These drivetrains are all
+  high-efficiency and capable of very high velocities.  The software velocity
+  and position limits on these joints are important to prevent hard collisions
+  with the joint stops, which will cause damage to the hardware (espially to the
+  sensors).  If the mass of the head is changes significantly, the pan and tilt
+  link gains may need to be re-tuned.
 
-\item[Caster Drivetrains]
-The three joints in each caster have basically the same drivetrain, which is a Maxon amax-32 motor with a gearhead and a continuous belt output.  Position sensing is done via an encoder on the back of the motor.  The drivetrain is efficient enough to be easily backdriveable.  To rotate the caster, all three motors work together (the rotation motor drives the rotation, and the two wheels drive in opposite directions to provide additional forces.  To drive, the two wheel motors rotate in the same direction and the rotation motor helps to keep them aligned in the proper direction.
+\item[Caster Drivetrains] The three joints in each caster have basically the
+  same drivetrain, which is a Maxon amax-32 motor with a gearhead and a
+  continuous belt output.  Position sensing is done via an encoder on the back
+  of the motor.  The drivetrain is efficient enough to be easily backdriveable.
+  To rotate the caster, all three motors work together (the rotation motor
+  drives the rotation, and the two wheels drive in opposite directions to
+  provide additional forces.  To drive, the two wheel motors rotate in the same
+  direction and the rotation motor helps to keep them aligned in the proper
+  direction.
 
-\item[Arm Drivetrains]
-The first four degree of freedom in the arm (shoulder pan, shoulder lift, upperarm roll, and elbow flex) are all driven with RE40 motors that have single-stage planetary gearheads which output to a toothed pulley that runs on a belt.  These belts all have terminations at either end of a capstan on the moving link, which is how the torque is transmitted.  The terminations are also the way that these belts are tensioned, and propoer belt tensioning is important to prevent backlash (which can come from extra slack in the belt), friction (which can come from extra tension in the belt), and excess wear (which can come from a belt which is too tight, too loose, or just misaligned).  The position is measured via an optical encoder on the back of the motor, so the backlash of the gearhead and the stretch of the belt both contribute to the error in the sensed position.  Velocity limits are important on these joints to prevent motor damage from running over speed, as well as to prevent rapid decelleration which can damage the motor, gearhead, and belt.
+\item[Arm Drivetrains] The first four degree of freedom in the arm (shoulder
+  pan, shoulder lift, upperarm roll, and elbow flex) are all driven with RE40
+  motors that have single-stage planetary gearheads which output to a toothed
+  pulley that runs on a belt.  These belts all have terminations at either end
+  of a capstan on the moving link, which is how the torque is transmitted.  The
+  terminations are also the way that these belts are tensioned, and propoer belt
+  tensioning is important to prevent backlash (which can come from extra slack
+  in the belt), friction (which can come from extra tension in the belt), and
+  excess wear (which can come from a belt which is too tight, too loose, or just
+  misaligned).  The position is measured via an optical encoder on the back of
+  the motor, so the backlash of the gearhead and the stretch of the belt both
+  contribute to the error in the sensed position.  Velocity limits are important
+  on these joints to prevent motor damage from running over speed, as well as to
+  prevent rapid decelleration which can damage the motor, gearhead, and belt.
 
-These drivetrains are all fairly high efficiency, which means they can be backdriven.  This is made possible by the low force requirements on those joints due to the arm counterbalance.  The counterbalance uses a system of springs and linkages to compensate for the effect of gravity on the upper arm and forearm links.  The compensation should be effective throughout the range of motion of the first four links of the arm.
+These drivetrains are all fairly high efficiency, which means they can be
+backdriven.  This is made possible by the low force requirements on those joints
+due to the arm counterbalance.  The counterbalance uses a system of springs and
+linkages to compensate for the effect of gravity on the upper arm and forearm
+links.  The compensation should be effective throughout the range of motion of
+the first four links of the arm.
 
-\item[Arm Counterbalance]
-Although not an actuated drivetrain the arm counter balance is one of
-the more complicated mechanisms on the PR2. Inside of the shoulder
-turret there are two springs.  These springs are attached to belts
-which run over cams and provide a uniform downward force.
+\item[Arm Counterbalance] Although not an actuated drivetrain the arm counter
+  balance is one of the more complicated mechanisms on the PR2. Inside of the
+  shoulder turret there are two springs.  These springs are attached to belts
+  which run over cams and provide a uniform downward force.
 
-In the upper arm there is a four-bar linkage which transmits the
-torque through to the shoulder lift joint, upper-arm roll joint, and elbow flex joint.  As the arm moves through its
-configuration space the linkage changes the amount of leverage with
-which the counterbalance is pulling which compensates for the effect of the mass of the arm in difference configurations.
+In the upper arm there is a four-bar linkage which transmits the torque through
+to the shoulder lift joint, upper-arm roll joint, and elbow flex joint.  As the
+arm moves through its configuration space the linkage changes the amount of
+leverage with which the counterbalance is pulling which compensates for the
+effect of the mass of the arm in difference configurations.
 
-\item[Wrist Drivetrains]
-The forearm roll joint is driven by a motor in the upperarm with a planetary gearhead and external spur gear.  Position is measured via an optical encoder on the back of the motor.  Because of the higher gear reduction, the efficiency and backdriveability of this joint is not as good as that of the first four joints of the arm.
+\item[Wrist Drivetrains] The forearm roll joint is driven by a motor in the
+  upperarm with a planetary gearhead and external spur gear.  Position is
+  measured via an optical encoder on the back of the motor.  Because of the
+  higher gear reduction, the efficiency and backdriveability of this joint is
+  not as good as that of the first four joints of the arm.
 
-The wrist flex and roll use a differential drive between two motors.  If the motors
-are turned in the same direction the wrist rolls, if they are turned
-oposite the wrist flexes.  The differential bevel gears are attached
-after a standard encoder, motor, gearhead assembly.
+The wrist flex and roll use a differential drive between two motors.  If the
+motors are turned in the same direction the wrist rolls, if they are turned
+oposite the wrist flexes.  The differential bevel gears are attached after a
+standard encoder, motor, gearhead assembly.
 
 
-\item[gripper drivetrain]
-The gripper consists of two fingers with two joints each.  Within each finger, a four-bar linkage constrains the two joints to move together so that the fingertips remain parallel.  The two fingers are constrained together with a sector gear that meshes between the first phalanges of the two fingers.  The motion of the fingers is driven by a motor which drives a lead-screw in the palm of the hand.  This lead-screw is embedded in the four-bar linkage so that the rotation of the motor has a nonlinear relationship to the movement of the joints.  The gripper can be back-driven when significant force is applied.  Unlike all other non-continuous joints in the system, the gripper has no calibration flag.  Initial homing is done by closing the gripper until it gets blocked and then treating that position as a zero point.  This means that the gripper is unable to detect if it has miscalibrated on startup.
+\item[gripper drivetrain] The gripper consists of two fingers with two joints
+  each.  Within each finger, a four-bar linkage constrains the two joints to
+  move together so that the fingertips remain parallel.  The two fingers are
+  constrained together with a sector gear that meshes between the first
+  phalanges of the two fingers.  The motion of the fingers is driven by a motor
+  which drives a lead-screw in the palm of the hand.  This lead-screw is
+  embedded in the four-bar linkage so that the rotation of the motor has a
+  nonlinear relationship to the movement of the joints.  The gripper can be
+  back-driven when significant force is applied.  Unlike all other
+  non-continuous joints in the system, the gripper has no calibration flag.
+  Initial homing is done by closing the gripper until it gets blocked and then
+  treating that position as a zero point.  This means that the gripper is unable
+  to detect if it has miscalibrated on startup.
 
 \end{description}
 
 
 \subsubsection{PR2 Coordinate System}
 \label{sec:pr2_coordinate_system}
-The reference {\bf home pose} of the PR2 robot is defined as the robot pose with all of the joint angles at zero,
-with the PR2 robot facing the positive x-direction, positive z-axis pointing upwards and positive y-axis pointing to the {\it robot-left} (see Figure~\ref{fig:pr2_home_pose}).
+The reference {\bf home pose} of the PR2 robot is defined as the robot pose with
+all of the joint angles at zero, with the PR2 robot facing the positive
+x-direction, positive z-axis pointing upwards and positive y-axis pointing to
+the {\it robot-left} (see Figure~\ref{fig:pr2_home_pose}).
 
 \begin{figure}[!h]
 \centering
@@ -200,8 +392,8 @@ with the PR2 robot facing the positive x-direction, positive z-axis pointing upw
 \TODO {wrist diagram}
 
 \subsubsection{Drivetrain Limitations}
-The drivetrains are high fidelity however there are still limitations.
-Below are the most observable limitations.
+The drivetrains are high fidelity however there are still limitations.  Below
+are the most observable limitations.
 
 \subsection{Motion control}
 
@@ -215,30 +407,31 @@ Below are the most observable limitations.
 
 
 \subsubsection{Motor controller boards}
-Each motor/encoder on the PR2 has its dedicated \emph{Motor Controller
-  Board} (MCB). The MCB detects and counts transitions in the encoder
-signal, measures the motor current, and commands the
-voltage going to the motor. Each MCB runs a PI-control loop to control
-the motor current to a desired value, by commanding the motor
-voltage. This control loop is executed at 100~kHz on an FPGA.  A
-shared etherCAT link allows all MCB's in the PR2 to communicate with
-the main computers.
+Each motor/encoder on the PR2 has its dedicated \emph{Motor Controller Board}
+(MCB). The MCB detects and counts transitions in the encoder signal, measures
+the motor current, and commands the voltage going to the motor. Each MCB runs a
+PI-control loop to control the motor current to a desired value, by commanding
+the motor voltage. This control loop is executed at 100~kHz on an FPGA.  A
+shared etherCAT link allows all MCB's in the PR2 to communicate with the main
+computers.
 
 \subsubsection{Controller manager}
-The \emph{Controller Manager} (CM) is the lowest level software
-component that directly talks to the MCB's. The CM runs in a hard
-realtime process and is guaranteed to be executed at 1~kHz. This means that
-the CM sends desired motor torques to the MCB's every milisecond, and
-receives measured motor torques and positions in the same milisecond.
+The \emph{Controller Manager} (CM) is the lowest level software component that
+directly talks to the MCB's. The CM runs in a hard realtime process and is
+guaranteed to be executed at 1~kHz. This means that the CM sends desired motor
+torques to the MCB's every milisecond, and receives measured motor torques and
+positions in the same milisecond.
 
-The CM has a dynamic plugin loading mechanism that allows controller
-algorithms to get inserted and executed inside the 1~kHz realtime
-loop.
+The CM has a dynamic plugin loading mechanism that allows controller algorithms
+to get inserted and executed inside the 1~kHz realtime loop.
 
 
 \subsection{Mechanical specs}
 
-Before undertaking any new or risky operations with your PR2, please consult these mechanical specifications. Do not operate the PR2 outside of these specifications. If you have any questions about your PR2's specifications, please contact Willow Garage Support.
+Before undertaking any new or risky operations with your PR2, please consult
+these mechanical specifications. Do not operate the PR2 outside of these
+specifications. If you have any questions about your PR2's specifications,
+please contact Willow Garage Support.
 
 \subsubsection{Environmental specs}
 
@@ -246,19 +439,28 @@ The PR2 is an indoor, household robot. Operating outside this type of environmen
 
 \paragraph{Water}
 
-The PR2 has not been tested for any type of contact with water or any other liquid. Under no circumstances should the PR2 come in contact with water from rain, mist, ground water (puddles) and any other liquid. Water contact can cause damage to the electrical circuitry and the mechanism.
+The PR2 has not been tested for any type of contact with water or any other
+liquid. Under no circumstances should the PR2 come in contact with water from
+rain, mist, ground water (puddles) and any other liquid. Water contact can cause
+damage to the electrical circuitry and the mechanism.
 
 \paragraph{Temperature and Humidity}
 
-Temperature testing of the PR2 has allowed the unit to run between 15 and 35C. Temperatures outside of this range can cause malfunctions in the PR2 power system and instruments. The PR2 has been tested in high humidity, but under no circumstances should condensation be allowed to form on the mechanism.
+Temperature testing of the PR2 has allowed the unit to run between 15 and
+35C. Temperatures outside of this range can cause malfunctions in the PR2 power
+system and instruments. The PR2 has been tested in high humidity, but under no
+circumstances should condensation be allowed to form on the mechanism.
 
 \paragraph{Drive Surface}
 
-The drive surface of the PR2 must be capable of supporting the entire weight of the PR2, about 450 pounds (220 kgs). If the surface is too soft, the PR2 can get stuck and fail to drive. A commercial carpet or tile is recommended. 
+The drive surface of the PR2 must be capable of supporting the entire weight of
+the PR2, about 450 pounds (220 kgs). If the surface is too soft, the PR2 can get
+stuck and fail to drive. A commercial carpet or tile is recommended.
 
 \paragraph{Incline Surface}
 
-The PR2 is ready for ADA-compliant ramps, which are at 1/12 slope. Ramps that are steeper than a 1/12 slope are unsafe and may be a tip over hazard.
+The PR2 is ready for ADA-compliant ramps, which are at 1/12 slope. Ramps that
+are steeper than a 1/12 slope are unsafe and may be a tip over hazard.
 
 \paragraph{Other Environmental Specs}
 
@@ -269,11 +471,15 @@ The PR2 is ready for ADA-compliant ramps, which are at 1/12 slope. Ramps that ar
 
 \subsubsection{Forces and torques}
 
-Joint position, velocity, and force limits are implemented in the PR2's URDF file, in the ``/etc/ros/urdf/robot.xml" file on your PR2. These joint limits control the range of travel of the mechanism, the allowable velocity to prevent overtravel. These limits are enforced by pr2\_controller\_manager, and are designed to prevent poorly designed controllers from damaging the PR2 and harming operators. 
+Joint position, velocity, and force limits are implemented in the PR2's URDF
+file, in the ``/etc/ros/urdf/robot.xml" file on your PR2. These joint limits
+control the range of travel of the mechanism, the allowable velocity to prevent
+overtravel. These limits are enforced by pr2\_controller\_manager, and are
+designed to prevent poorly designed controllers from damaging the PR2 and
+harming operators.
 
-
-
-The limits below are from the PR2 URDF file. If a velocity or torque limit is not specified, no value is enforced by pr2\_controller\_manager.
+The limits below are from the PR2 URDF file. If a velocity or torque limit is
+not specified, no value is enforced by pr2\_controller\_manager.
 
 \begin{tabular}{l*{2}{c}}
 Joint  & Velocity (rad/s or m/s) & Torque (Nm or N) \\
@@ -294,7 +500,11 @@ $\ast$\_wrist\_roll\_joint             & 3.60  & 10.00 \\
 $\ast$\_gripper\_joint                 & 0.20  & 1000  \\
 \end{tabular}
 
-The PR2 motor controller boards (MCB's) will not allow a current command greater than the maximum continuous current specified for the joint's actuator. This means that maximum joint effort may be lower than the maximum effort specified above. Below are the actuators for each joint (Maxon part number), and their maximum allowable commanded current. 
+The PR2 motor controller boards (MCB's) will not allow a current command greater
+than the maximum continuous current specified for the joint's actuator. This
+means that maximum joint effort may be lower than the maximum effort specified
+above. Below are the actuators for each joint (Maxon part number), and their
+maximum allowable commanded current.
 
 \begin{tabular}{ll*{2}{c}}
 Joint  & Motor & Power (W) & Max Current \\
@@ -319,7 +529,8 @@ More information about each actuator may be found in Maxon datasheets.
 
 \subsubsection{Joint Limits and Types}
 
-The position limits for the PR2 are specified below. These ``hard limits" are the maximum travel for the mechanism. 
+The position limits for the PR2 are specified below. These ``hard limits" are
+the maximum travel for the mechanism.
 
 \begin{tabular}{ll*{2}{c}}
 Joint  & Type  & Limit (+) & Limit (-) \\
@@ -344,11 +555,20 @@ $\ast$\_gripper\_joint                 & prismatic  & 86 mm        & 0 mm \\
 
 \subsubsection{Modifying Joint Limits}
 
-On the PR2, ``soft limits" stop the joints from reaching the full range of motion to prevent damage to the mechanism. These soft limits, similar to a virual spring, are specified in the robot's URDF file. For an explanation of their implementation, see http://www.ros.org/wiki/pr2\_controller\_manager/safety\_limits.
+On the PR2, ``soft limits" stop the joints from reaching the full range of
+motion to prevent damage to the mechanism. These soft limits, similar to a
+virual spring, are specified in the robot's URDF file. For an explanation of
+their implementation, see
+http://www.ros.org/wiki/pr2\_controller\_manager/safety\_limits.
 
-The soft limits have been carefully implemented and validated by Willow Garage. Under no circumstances should they be changed without prior written authorization by Willow Garage Safety. Unauthorized and unvalidated modification of these limits could cause mechanism damage and injury or death to PR2 operators. 
+The soft limits have been carefully implemented and validated by Willow
+Garage. Under no circumstances should they be changed without prior written
+authorization by Willow Garage Safety. Unauthorized and unvalidated modification
+of these limits could cause mechanism damage and injury or death to PR2
+operators.
 
-Changing maximum allowable effort or maximum actuator current could cause serious damage to the PR2 and injury or death to operators. 
+Changing maximum allowable effort or maximum actuator current could cause
+serious damage to the PR2 and injury or death to operators.
 
 \section{Sensors}
 The PR2 has a variety of sensors on its body:\\\\
@@ -363,160 +583,258 @@ The PR2 has a variety of sensors on its body:\\\\
 \end{overpic}
 
 \subsection{Base Laser}
-The base laser is a \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)} 
-scanning range finder. This laser has a 30 m and 270$^\circ$ scanning range. For more information, 
-see the \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at \href{http://www.ros.org}{ros.org}.
+The base laser is a
+\href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG
+  (UTM-30LX)} scanning range finder. This laser has a 30 m and 270$^\circ$
+scanning range. For more information, see the
+\href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} package at
+\href{http://www.ros.org}{ros.org}.
 
 \subsection{Tilting Laser}
 \label{tilting laser}
-In addition to the base laser, the PR2 has a \href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG (UTM-30LX)}
-mounted on a tilting platform located just below the pan-tilt head. The tilting platform can sweep the scanning 
-laser through 135$^\circ$ ($+90^\circ$ and $-45^\circ$ from level) and can be controlled using the
-default laser\_tilt\_controller. For more information, see the \href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} 
-and \href{http://www.ros.org/wiki/pr2_default_controllers}{pr2\_default\_controllers} packages at \href{http://www.ros.org}{ros.org}.
+In addition to the base laser, the PR2 has a
+\href{http://www.hokuyo-aut.jp/02sensor/07scanner/utm_30lx.html}{Hokuyo Top-URG
+  (UTM-30LX)} mounted on a tilting platform located just below the pan-tilt
+head. The tilting platform can sweep the scanning laser through 135$^\circ$
+($+90^\circ$ and $-45^\circ$ from level) and can be controlled using the default
+laser\_tilt\_controller. For more information, see the
+\href{http://www.ros.org/wiki/hokuyo_node}{hokuyo\_node} and
+\href{http://www.ros.org/wiki/pr2_default_controllers}{pr2\_default\_controllers}
+packages at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Head Cameras}
 The PR2 pan-tilt head has three cameras and a textured light projector:
 \begin{description}
 \label{stereo camera}
-\item[Wide Stereo Camera]
-The wide stereo camera is part of the dual stereo pair and is a 100Mb color ethernet camera. The wide stereo 
-uses the \href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC} imager chip
-and has a maximum resolution of 752 x 480 pixels at 15 fps. The camera has a field of view (FOV) of approximately 
-$90^\circ$ and a 2.5mm F2.5 \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4402.5-2.5-HR).pdf}{Marshall V-4402.5-2.5-HR} 
-lens. For more information, see the \href{http://www.ros.org/wiki/wge100_camera}{TODO} package
-at \href{http://www.ros.org}{ros.org}.
+\item[Wide Stereo Camera] The wide stereo camera is part of the dual stereo pair
+  and is a 100Mb color ethernet camera. The wide stereo uses the
+  \href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina
+    MT9V032C12STC} imager chip and has a maximum resolution of 752 x 480 pixels
+  at 15 fps. The camera has a field of view (FOV) of approximately $90^\circ$
+  and a 2.5mm F2.5
+  \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4402.5-2.5-HR).pdf}{Marshall
+    V-4402.5-2.5-HR} lens. For more information, see the
+  \href{http://www.ros.org/wiki/wge100_camera}{TODO} package at
+  \href{http://www.ros.org}{ros.org}.
 
-\item[Narrow Stereo Camera]
-The narrow stereo camera is part of the dual stereo pair and is a 100Mb monochrome ethernet camera. 
-The narrow stereo uses the \href{http://www.aptina.com/products/image_sensors/mt9v032c12stm/#overview}{Aptina MT9V032C12STM} 
-imager chip and has a max resolution of 752 x 480 pixels at 15 fps. The camera has a FOV of approximately $55^\circ$ and 
-a 5.6mm F2.0  \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4405.6-2.0-HR).pdf}{Marshall V-4405.6-2.0-HR}
-lens. For more information, see the \href{http://www.ros.org/wiki/wge100_camera}{TODO} package
-at \href{http://www.ros.org}{ros.org}.
+\item[Narrow Stereo Camera] The narrow stereo camera is part of the dual stereo
+  pair and is a 100Mb monochrome ethernet camera.  The narrow stereo uses the
+  \href{http://www.aptina.com/products/image_sensors/mt9v032c12stm/#overview}{Aptina
+    MT9V032C12STM} imager chip and has a max resolution of 752 x 480 pixels at
+  15 fps. The camera has a FOV of approximately $55^\circ$ and a 5.6mm F2.0
+  \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4405.6-2.0-HR).pdf}{Marshall
+    V-4405.6-2.0-HR} lens. For more information, see the
+  \href{http://www.ros.org/wiki/wge100_camera}{TODO} package at
+  \href{http://www.ros.org}{ros.org}.
 
 \item[Gigabit Ethernet Camera]
 \label{ethernet camera}
-The PR2 has a gigabit ethernet camera located to the left of the dual stereo pair on the pan-tilt head. 
-The gigabit ethernet camera is a \href{http://www.prosilica.com/products/gc2450.html}{Prosilica GC2450C},  
-which uses the Sony ICX-625AQ imager chip and has a maximum resolution of 2448 x 2050 pixels at 15 fps. 
-Additionally, the gigabit ethernet camera has a 8mm F1.4-F16 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM8JC&co=10000348}{Kowa LM8JC} 
-lens. For more information, see the \href{http://www.ros.org/wiki/prosilica_camera}{prosilica\_camera} 
-package at \href{http://www.ros.org}{ros.org}.
+The PR2 has a gigabit ethernet camera located to the left of the dual stereo
+pair on the pan-tilt head.  The gigabit ethernet camera is a
+\href{http://www.prosilica.com/products/gc2450.html}{Prosilica GC2450C}, which
+uses the Sony ICX-625AQ imager chip and has a maximum resolution of 2448 x 2050
+pixels at 15 fps.  Additionally, the gigabit ethernet camera has a 8mm F1.4-F16
+\href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM8JC&co=10000348}{Kowa
+  LM8JC} lens. For more information, see the
+\href{http://www.ros.org/wiki/prosilica_camera}{prosilica\_camera} package at
+\href{http://www.ros.org}{ros.org}.
 
 \item[Textured Light Projector]
 \label{texture projector}
-The PR2 has a textured light projector located to the (robot's) left of the dual stereo pair on the pan-tilt head. 
-The projector has a FOV of approximately $55^\circ$ and a 5.6mm F2.0 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa LM12JC} 
-lens.  For more information, see the \href{http://www.ros.org/wiki/TODO}{TODO} package at \href{http://www.ros.org}{ros.org}.
+The PR2 has a textured light projector located to the (robot's) left of the dual
+stereo pair on the pan-tilt head.  The projector has a FOV of approximately
+$55^\circ$ and a 5.6mm F2.0
+\href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa
+  LM12JC} lens.  For more information, see the
+\href{http://www.ros.org/wiki/TODO}{TODO} package at
+\href{http://www.ros.org}{ros.org}.
 
 \end{description}
 
 \subsection{Forearm cameras}
-Each forearm of the PR2 is equipped with a 12V 100Mb color ethernet camera. The forearm camera uses the 
-\href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina MT9V032C12STC}  imager chip
-and has a maximum resolution of 752 x 480 pixels at 15 fps. Additionally, the forearm camera has a 2.5mm F2.0 lens.  
-For more information, see the \href{http://www.ros.org/wiki/wge100_camera}{wge100\_camera} package
-at \href{http://www.ros.org}{ros.org}.
+Each forearm of the PR2 is equipped with a 12V 100Mb color ethernet camera. The
+forearm camera uses the
+\href{http://www.aptina.com/products/image_sensors/mt9v032c12stc/#overview}{Aptina
+  MT9V032C12STC} imager chip and has a maximum resolution of 752 x 480 pixels at
+15 fps. Additionally, the forearm camera has a 2.5mm F2.0 lens.  For more
+information, see the
+\href{http://www.ros.org/wiki/wge100_camera}{wge100\_camera} package at
+\href{http://www.ros.org}{ros.org}.
 
 \subsection{Gripper Sensors}
 \begin{description}
 
-\item[Accelerometer]
-The gripper of the PR2 is equipped with a \href{http://www.bosch-sensortec.com/content/language1/html/3474.htm}{Bosch BMA150} 
-digital triaxal accelerometer. The measurement range ($\pm$2g, $\pm$4g, or $\pm$8g) and bandwidth (25Hz - 1500Hz) 
-of the accelerometer can be selected in software. For more information, see the \href{http://www.ros.org/wiki/wge100_camera}{TODO} 
-package at \href{http://www.ros.org}{ros.org}.
+\item[Accelerometer] The gripper of the PR2 is equipped with a
+  \href{http://www.bosch-sensortec.com/content/language1/html/3474.htm}{Bosch
+    BMA150} digital triaxal accelerometer. The measurement range ($\pm$2g,
+  $\pm$4g, or $\pm$8g) and bandwidth (25Hz - 1500Hz) of the accelerometer can be
+  selected in software. For more information, see the
+  \href{http://www.ros.org/wiki/wge100_camera}{TODO} package at
+  \href{http://www.ros.org}{ros.org}.
 
-\item[Fingertip Pressure Sensors]
-The default fingertips of the PR2 are sturdy aluminum blocks with non-slip 
-rubber covers for added friction and compliance in grasping.  However, the 
-aluminum tips can be swapped out for an (included) set of RoboTouch tactile 
-sensing pads made by Pressure Profile Systems, each with 22 tactile sensing 
-elements: 15 in a 5x3 array on the front surface, 2 on top, 2 on each side, 
-and 1 in back, near the top.  Each tactile element has a pressure range of 
-0-30 psi (0-205 kPa) and sensitivity of 0.1 psi (0.7 kPa).  The sensors 
-connect to the robot via an SPI ribbon cable and two screws, and have a 
-maximum scan rate of 35 Hz.
+\item[Fingertip Pressure Sensors] The default fingertips of the PR2 are sturdy
+  aluminum blocks with non-slip rubber covers for added friction and compliance
+  in grasping.  However, the aluminum tips can be swapped out for an (included)
+  set of RoboTouch tactile sensing pads made by Pressure Profile Systems, each
+  with 22 tactile sensing elements: 15 in a 5x3 array on the front surface, 2 on
+  top, 2 on each side, and 1 in back, near the top.  Each tactile element has a
+  pressure range of 0-30 psi (0-205 kPa) and sensitivity of 0.1 psi (0.7 kPa).
+  The sensors connect to the robot via an SPI ribbon cable and two screws, and
+  have a maximum scan rate of 35 Hz.
 
-The tactile sensors are highly fragile when not protected by the rubber 
-covering, and so care should be taken not to damage the rubber covering.  For more information, 
-see the \href{http://www.ros.org/wiki/fingertip\_pressure}{fingertip\_pressure} package at \href{http://ros.org}{ros.org}.
+The tactile sensors are highly fragile when not protected by the rubber
+covering, and so care should be taken not to damage the rubber covering.  For
+more information, see the
+\href{http://www.ros.org/wiki/fingertip\_pressure}{fingertip\_pressure} package
+at \href{http://ros.org}{ros.org}.
 
 \item[Calibration LED]
 
 \end{description}
 
 \subsection{Inertial measurement unit}
-The PR2 has an inertial measurement unit (IMU) located next to the tilting laser. The IMU is a 
-\href{http://www.microstrain.com/3dm-gx2.aspx}{MicroStrain Inertial-Link 3DM-GX2} which has an 
-accelerometer range of $\pm$5g and a gyro range of $300^\circ/s$. For more information, see 
-the \href{http://www.ros.org/wiki/microstrain_3dmgx2_imu}{microstrain\_3dmgx2\_imu} package 
-at \href{http://www.ros.org}{ros.org}.
+The PR2 has an inertial measurement unit (IMU) located next to the tilting
+laser. The IMU is a \href{http://www.microstrain.com/3dm-gx2.aspx}{MicroStrain
+  Inertial-Link 3DM-GX2} which has an accelerometer range of $\pm$5g and a gyro
+range of $300^\circ/s$. For more information, see the
+\href{http://www.ros.org/wiki/microstrain_3dmgx2_imu}{microstrain\_3dmgx2\_imu}
+package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Speaker}
-The PR2 has one \href{http://www.logitech.com/index.cfm/speakers_audio/home_pc_speakers/devices/199&cl=us,en}{Logitech V20 notebook speaker} 
-located under the pan-tilt head next to the tilting laser. For more information, 
-see the \href{http://www.ros.org/wiki/sound_play}{sound\_play} package at \href{http://www.ros.org}{ros.org}.
+The PR2 has one
+\href{http://www.logitech.com/index.cfm/speakers_audio/home_pc_speakers/devices/199&cl=us,en}{Logitech
+  V20 notebook speaker} located under the pan-tilt head next to the tilting
+laser. For more information, see the
+\href{http://www.ros.org/wiki/sound_play}{sound\_play} package at
+\href{http://www.ros.org}{ros.org}.
 
 \section{Power system}
 \subsection{Overview}
-The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of a 120V wall current. The batteries power the computers, motors, and sensors on the robot.  Power distribution is controlled by the \emph{Power Board}, which communicates over Ethernet.
+The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of a 120V
+wall current. The batteries power the computers, motors, and sensors on the
+robot.  Power distribution is controlled by the \emph{Power Board}, which
+communicates over Ethernet.
 \subsection{Power Busses}
 The robot has four internal power busses:
 \begin{description}
-\item[120V] The robot has a 3-prong IEC320 plug in the back of the base, which is connected through a circuit breaker to the four AC-DC converters used to charge the 
-battery packs.  The system is designed to draw less than 15A, a standard 15A or 20A outlet will suffice. The load is capable at times of approaching the 15A limit, 
-make sure there are no other devices which draw significant power on the same circuit (e.g., computers or heaters).
-\underline{Ideally, add image of back panel once we have the PR2 betas done w/ Ryan's stickers on that panel.}
-\item[Motor Power Bus] The motors get power through 3 descrete circuit breakers on the power board. 
-These create three independent motor power busses: left arm, right arm, and base/head.
-The motor power bus can be in one of three states.  
-\emph{Enabled}, provides a direct connection to the unregulated battery power. The voltage will ranges from 52V when the batteries are fully discharged up to 72V when connected to wall power.  
-\emph{Standby}, the power board provides a low-power 18V supply that is used for communication and maintaing encoder position counts.  
-\emph{Disabled}, total shut-down of the circuit (e.g., in the event of a major power-system problem or manually disabled through the control panel).
-\item[12V system bus]
-12V power for sensors supplied by the power board. This is also the recommended source of power for user supplied accessories.
-\item[12V computer power]
-12V power for the computers supplied by the power board.
+\item[120V] The robot has a 3-prong IEC320 plug in the back of the base, which
+  is connected through a circuit breaker to the four AC-DC converters used to
+  charge the battery packs.  The system is designed to draw less than 15A, a
+  standard 15A or 20A outlet will suffice. The load is capable at times of
+  approaching the 15A limit, make sure there are no other devices which draw
+  significant power on the same circuit (e.g., computers or heaters).
+  \underline{Ideally, add image of back panel once we have the PR2 betas done w/
+    Ryan's stickers on that panel.}
+\item[Motor Power Bus] The motors get power through 3 descrete circuit breakers
+  on the power board.  These create three independent motor power busses: left
+  arm, right arm, and base/head.  The motor power bus can be in one of three
+  states.  \emph{Enabled}, provides a direct connection to the unregulated
+  battery power. The voltage will ranges from 52V when the batteries are fully
+  discharged up to 72V when connected to wall power.  \emph{Standby}, the power
+  board provides a low-power 18V supply that is used for communication and
+  maintaing encoder position counts.  \emph{Disabled}, total shut-down of the
+  circuit (e.g., in the event of a major power-system problem or manually
+  disabled through the control panel).
+\item[12V system bus] 12V power for sensors supplied by the power board. This is
+  also the recommended source of power for user supplied accessories.
+\item[12V computer power] 12V power for the computers supplied by the power
+  board.
 \end{description}
 \subsection{Batteries}
-The battery system has four battery bays comprised of four \href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL}
-14.4V Li-ion batteries, a \href{http://www.v-infinity.com/adtemplate_child.asp?c=710918&p=903285&catky=764537&subcatky1=46887&subcatky2=320934}{V-INFINITY VF-S320-18A-CF}
-18V AC-DC Power Supply, and a \href{http://www.oceanserver-store.com/xpmibamamo.html}{Ocean Server XP-04SRW} four-channel high 
-current battery controller. This provides the PR2 with approximately two hours of countinous operation after a full recharge. 
-For more information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean\_server} package at \href{http://www.ros.org}{ros.org}.
+The battery system has four battery bays comprised of four
+\href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL} 14.4V
+Li-ion batteries, a
+\href{http://www.v-infinity.com/adtemplate_child.asp?c=710918&p=903285&catky=764537&subcatky1=46887&subcatky2=320934}{V-INFINITY
+  VF-S320-18A-CF} 18V AC-DC Power Supply, and a
+\href{http://www.oceanserver-store.com/xpmibamamo.html}{Ocean Server XP-04SRW}
+four-channel high current battery controller. This provides the PR2 with
+approximately two hours of countinous operation after a full recharge.  For more
+information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean\_server}
+package at \href{http://www.ros.org}{ros.org}.
 
 \subsection{Power board}
-The power board is central to the PR2's power system. This is where the power from the batteries passes through to the rest of the system. The power board monitors total power drawn from the batteries by measuring the voltage and current at the power board input.
+The power board is central to the PR2's power system. This is where
+the power from the batteries passes through to the rest of the
+system. The power board monitors total power drawn from the batteries
+by measuring the voltage and current at the power board input.
 
-The battery power is used to provide regulated twelve volts to the computers and the system bus through DC converters. Three unregulated circuits are also provided with a unique electronic circuit breaker functionality. All outputs are ultimately controlled by the processor located on this board.
+The battery power is used to provide regulated twelve volts to the computers and
+the system bus through DC converters. Three unregulated circuits are also
+provided with a unique electronic circuit breaker functionality. All outputs are
+ultimately controlled by the processor located on this board.
 
+Figure~\ref{fig:power_board} shows the power board, with e-stop receiver, removed from a robot.
 
-Here is an image of the power board, with e-stop receiver, removed from a robot.
-
+\begin{figure}[tb]
+\centering
 \includegraphics[scale=0.4]{pb_cropped1.jpg}
+\caption{PR2 power board}
+\label{fig:power_board}
+\end{figure}
 
 
-The power board contains an ARM processor with an ethernet interface. The processor is responsible for performing a self test at power-on, monitoring the state of all busses, providing information about the electrical system and responding to commands. The power board is the first thing to turn on and can not be turned off without switching off the DC circuit to the whole robot.
+The power board contains an ARM processor with an ethernet interface. The
+processor is responsible for performing a self test at power-on, monitoring the
+state of all busses, providing information about the electrical system and
+responding to commands. The power board is the first thing to turn on and can
+not be turned off without switching off the DC circuit to the whole robot.
 
-Besides supplying power the power board also interfaces with the emergency stop radio receiver and the emergency stop button. The emergency stop system is designed to reduce the power on the motor bus to a level where only the board communications and their encoder positions are maintained. The red button and radio system are described as providing a physical run/stop control over the motors in the robot. This description is used because this mechanism is implemented in hardware and can not be altered by software. 
+Besides supplying power the power board also interfaces with the emergency stop
+radio receiver and the emergency stop button. The emergency stop system is
+designed to reduce the power on the motor bus to a level where only the board
+communications and their encoder positions are maintained. The red button and
+radio system are described as providing a physical run/stop control over the
+motors in the robot. This description is used because this mechanism is
+implemented in hardware and can not be altered by software.
 
-Please note that the run/stop system only reduces power to the motor power bus and nothing else. If there is an electrical problem or power needs to be shutdown for service, the red circuit breaker on the rear lower panel is the only way to totally shut off the power board.
+Please note that the run/stop system only reduces power to the motor power bus
+and nothing else. If there is an electrical problem or power needs to be
+shutdown for service, the red circuit breaker on the rear lower panel is the
+only way to totally shut off the power board.\\
 
-The power board contains many LEDs used to indicate status. I will show their locations and briefly describe their meanings.
+The power board contains many LEDs used to indicate status. 
+\begin{description}
+\item{12V Power Bus} The LEDs in green indicate the 3 regulated 12V
+  outputs are enabled and functional, shown in
+  Figure~\ref{fig:12Vbus}.
+\item{MCB Power Bus}The Blue LEDs, Figure~\ref{fig:MCBbus}, indicate
+  the motor bus power is enabled. Blue indicates a voltage higher than
+  the 18V standby. These LEDs can also be orange if the output state
+  is in the standby state.
 
-The LEDs in green indicate the 3 regulated 12V outputs are enabled and functional.
-\includegraphics[scale=0.6]{pb_power1.jpg} 
+\item{Power Board Status}The status LEDs,
+  Figure~\ref{fig:powerboardstatus}, are used by the processor for
+  debugging. In the event of a failure a status code will display on
+  these LEDs. Someone must count the number of rapid blinks followed
+  by a slight pause.  Status1 indicates the location where the fault
+  occured and Status2 the cause of the fault.
+\end{description}
 
-The Blue LEDs indicate the motor bus power is enabled. Blue indicates a voltage higher than the 18V standby. These LEDs can also be orange if the output state is in the standby state.
-\includegraphics[scale=0.5]{pb_power2.jpg}
 
-The status LEDs are used by the processor for debugging. In the event of a failure a status code will display on these LEDs. Someone must count the number of rapid blinks followed by a slight pause.
-Status1 indicates the location where the fault occured and Status2 the cause of the fault.
-\includegraphics[scale=0.6]{pb_power3.jpg}
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.2]{pb_power1.jpg}
+\caption{12V Bus Indicator LEDs}
+\label{fig:12Vbus}
+\end{figure}
 
-The following table provides some meaning for the error codes. For further diagnosis please provide the status codes in bug reports.
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.2]{pb_power2.jpg}
+\caption{MCB Bus Indicator LEDs}
+\label{fig:MCBbus}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.2]{pb_power3.jpg}
+\caption{Power Board Status LEDs}
+\label{fig:powerboardstatus}
+\end{figure}
+
+
+The following table provides some meaning for the error codes. For further
+diagnosis please provide the status codes in bug reports.
 
 \begin{tabular}{|c|c|}
 \hline
@@ -577,10 +895,16 @@ count &  message \\
 \end{tabular}
 
 \subsection{Power for sensors}
-As mentioned previously, the power board provides a \emph{12V system bus}, that provides a well regulated 12V supply. The regulated 12V supply is the only supply designed for additions and expansion. This 12V supply is essentially always on once the Power board completes a self test. It is also monitored for undervoltage conditions and is fairly robust.
+As mentioned previously, the power board provides a \emph{12V system bus}, that
+provides a well regulated 12V supply. The regulated 12V supply is the only
+supply designed for additions and expansion. This 12V supply is essentially
+always on once the Power board completes a self test. It is also monitored for
+undervoltage conditions and is fairly robust.
 
-
-A few limitations should be followed when adding loads to the 12V user supply. This supply is already supporting the 2 Hokuyo scanners, 2 ethernet switches, the wireless AP and the E-stop receiver. Considering the loads and the supplies capabilities with some headroom this leaves 5A for expansion.\\
+A few limitations should be followed when adding loads to the 12V user
+supply. This supply is already supporting the 2 Hokuyo scanners, 2 ethernet
+switches, the wireless AP and the E-stop receiver. Considering the loads and the
+supplies capabilities with some headroom this leaves 5A for expansion.\\
 
 {\bf 5A limit on 12V expansion}\\
 
@@ -600,8 +924,13 @@ In the lower back, directly connecting to the power board.\\
 
 {\bf insert picture}\\
 
-Before something is connected to this bus, strongly consider if hot plugging is safe. If you are uncertain, the safest choice is to shut the power system off completely.\\
+Before something is connected to this bus, strongly consider if hot plugging is
+safe. If you are uncertain, the safest choice is to shut the power system off
+completely.\\
 
-All 12V connectors in the robot use the same connector, a 2x1 Molex Mini-Fit Jr. The mating connector part number is {\bf 39-01-3022} or from Digikey {\bf WM1021-ND}. Pin one is negative and pin 2 is positive. Pin 2 is the pin closest to the latch.
+All 12V connectors in the robot use the same connector, a 2x1 Molex Mini-Fit
+Jr. The mating connector part number is {\bf 39-01-3022} or from Digikey {\bf
+  WM1021-ND}. Pin one is negative and pin 2 is positive. Pin 2 is the pin
+closest to the latch.
 
 

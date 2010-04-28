@@ -5,7 +5,7 @@ Safety is a key goal at Willow Garage.  It is important, it is challenging, and 
 
 \section{Overview}
 
-Safety is a vitally important concern whenever you are around a PR2. It’s a heavy piece of equipment with many moving parts. It travels though the environment and can carry and manipulate a wide variety of objects. Its movements and actions are not completely predictable. It can cause significant damage if it falls on or runs over someone. There are several ways it can pinch, grab, and twist fingers or other parts of the body. It can wield dangerous implements and knock heavy things over. You must always be cautious and attentive when you are around a PR2.
+Safety is a vitally important concern whenever you are around a PR2. It is a heavy piece of equipment with many moving parts. It travels though the environment and can carry and manipulate a wide variety of objects. Its movements and actions are not completely predictable. It can cause significant damage if it falls on or runs over someone. There are several ways it can pinch, grab, and twist fingers or other parts of the body. It can wield dangerous implements and knock heavy things over. You must always be cautious and attentive when you are around a PR2.
 
 Safety is neither absolute criterion nor a one-time event.  Instead it is an appreciation that risks are inherent to any robotic endeavor and they must be minimized as well as weighed against benefits.  It is a goal for which the entire community must continually strive.
 
@@ -21,25 +21,25 @@ We have designed both hardware and software to minimize risks, while retaining t
 
 We have further designed the PR2 arms with relatively small motors with respect to their payload.  This is possible due to a spring counterbalance offsetting the gravity forces acting on the arms.  That is, the arms do not need to hold their own weight against gravity.  And so the motors need only be strong enough to hold the payload.  The arms simply can't push very hard.
 
-In software, we have incorporated low level checking to limit the current in a motor, to limit the velocity of a motor, and to limit the range through which a motor should travel.  We obviously discourage users and developers from changing these configurations.  High level applications also avoid obstacles in navigation and movement using the various on-board sensors.  
+In software, we have incorporated low level checking to limit the current in a motor, to limit the velocity of a motor, and to limit the range through which a motor should travel.  We obviously discourage users and developers from changing these configurations.  High level applications also avoid obstacles in navigation and movement using the various on-board sensors.
 
-These design choices also help make PR2 robust.  However, a robot with the PR2’s capabilities can never be absolutely safe. Your safety as well as the safety of others critically depends on your constant attention. You must be aware of the potential dangers, anticipate possible problems, and plan to prevent their occurrence.
+These design choices also help make PR2 robust.  However, a robot with the PR2's capabilities can never be absolutely safe. Your safety as well as the safety of others critically depends on your constant attention. You must be aware of the potential dangers, anticipate possible problems, and plan to prevent their occurrence.
 
 \section{General Usage Guidelines}
 
 While many guidelines for the safe use of a robot stem from common sense, we enumerate a basic set here.  We stress the importance of following these guidelines but re-emphasize that these guidelines alone do not guarantee safety but reduce risk.
 \begin{itemize}
-\item Every organization that uses a PR2 must appoint a Safety Officer. 
+\item Every organization that uses a PR2 must appoint a Safety Officer.
 \begin{itemize}
-\item The Safety Officer’s contact information should be known by everyone in the organization who uses the PR2 (including designers, developers, programmers, and end-users).
-\item Further details of the Safety Officer’s roles and responsibilities are described in section 2.4.
+\item The Safety Officer's contact information should be known by everyone in the organization who uses the PR2 (including designers, developers, programmers, and end-users).
+\item Further details of the Safety Officer's roles and responsibilities are described in section 2.4.
 \end{itemize}
 \item Before operating or working with the PR2 you must do the following:
 \begin{itemize}
 \item view the safety video
 \item read this User Manual, particularly Chapter 2 on Safety
 \item read and understand the latest list of potential hazards
-\item know how to contact your organization’s Safety Officer
+\item know how to contact your organization's Safety Officer
 \end{itemize}
 \item Supervise children, visitors, and anyone who has not followed the previous guideline.  In particular, make sure they
 \begin{itemize}
@@ -69,7 +69,7 @@ While many guidelines for the safe use of a robot stem from common sense, we enu
 \item Do not allow the robot to interact with any sharp or dangerous items
 \end{itemize}
 \item Pay attention to warning labels on the robot.
-\item Do not remove the covers of a PR2 without prior and appropriate instruction by Willow Garage. There are high voltages and a variety of pinching and other mechanical dangers in the interior of the robot. 
+\item Do not remove the covers of a PR2 without prior and appropriate instruction by Willow Garage. There are high voltages and a variety of pinching and other mechanical dangers in the interior of the robot.
 \item Do not modify or remove any part of the software safety features.
 \end{itemize}
 
@@ -93,7 +93,7 @@ The core Safety Board includes senior members of the Willow Garage management. A
 
 The Hazard Database includes three types of entity: Hazards, Incidents, and Responses.
 Hazards describe things the system might do that can cause damage, for example, running into something or falling down stairs. Each Hazard includes an estimate of its severity and likelihood of occurrence. Based on these estimates, the Hazard is assigned a priority for action.
-Incidents describe specific examples of Hazards, either things that have actually occurred or hypothetical occurrences. Each Incident is associated in the database with the Hazard(s) that it exemplifies. 
+Incidents describe specific examples of Hazards, either things that have actually occurred or hypothetical occurrences. Each Incident is associated in the database with the Hazard(s) that it exemplifies.
 Responses describe actions that reduce the severity and/or likelihood of a hazard. These can involve changes to the design or documentation of the hardware and software, additional warnings to the community, or changes to the safety training and video.
 
 The information in the Hazard Database is summarized in several reports that document the current understanding of potential hazards and the associated mitigating actions. Chief among these is the Prioritized Hazard Report, which lists the Hazards in the database in order of their priority.
@@ -102,9 +102,9 @@ The information in the Hazard Database is summarized in several reports that doc
 
 Each organization that uses Willow Garage products will appoint a Safety Officer who is responsible for all aspects of safety in the use of those products. The Safety Officer will:
 \begin{itemize}
-\item remain informed of all known safety hazards and mitigations, 
-\item ensure that all known mitigations are implemented in their organization, 
-\item ensure that everyone involved with the products receives safety training, 
-\item report any safety incidents to Willow Garage in a timely fashion, and 
-\item work with the Willow Garage Safety Board to improve safety. 
+\item remain informed of all known safety hazards and mitigations,
+\item ensure that all known mitigations are implemented in their organization,
+\item ensure that everyone involved with the products receives safety training,
+\item report any safety incidents to Willow Garage in a timely fashion, and
+\item work with the Willow Garage Safety Board to improve safety.
 \end{itemize}
