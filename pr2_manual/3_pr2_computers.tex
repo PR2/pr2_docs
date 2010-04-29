@@ -222,25 +222,47 @@ is the next place to look.
 
 \subsection{Networking}
 To keep connections behaving sensibly when transitioning the VPN
-connection to the basestation, the robot is configured to route ALL
-traffic that is not on the robot internal network out through the
-basestation.  This means that if VPN is not connected your robot will
-not be able to see the outside world even though it might appear that
-the network is configured appropriately.
+connection to the basestation between wired and wireless, the robot is
+configured to route ALL traffic that is not on the robot internal
+network out through the basestation.  Any traffic not routed via the
+basestation is sent to a blackhole to keep connections from getting
+broken.  This means that if VPN is not connected your robot will not
+be able to see the outside world even though it might appear that the
+network is configured appropriately.
 
 This is handled using an \texttt{ip rule} configuration.  Most of
 these rules are added by the init-script:
-\texttt{/etc/init.d/iprules.sh}.  If you need to temporarily disable
-the rule preventing traffic from going anywhere but the basestation,
-you can manually remove the rule:
+\texttt{/etc/init.d/iprules.sh}.  You can view the current rule
+configuration using the command \texttt{ip rule}:
+\begin{verbatim}
+pr2admin@c1:$ ip rule
+0:from all lookup local 
+1000:from all to 10.68.0.0/24 lookup main 
+1001:from all to 10.0.2.239 lookup main 
+1002:from all to 10.68.1.0/24 lookup main 
+2000:from all lookup vpn 
+3000:from all blackhole
+32766:from all lookup main 
+32767:from all lookup default
+\end{verbatim}
+The two important rules are priority 2000 and 3000.  The priority 2000
+rule routes all traffic into the vpn routing table:
+\begin{verbatim}
+pr2admin@c1$ ip route list table vpn
+default via 10.68.1.6 dev tun0  metric 1 
+\end{verbatim}
+The priority 3000 rule is what sends things to the blackhole.  By
+disabling the priority 3000 rule, traffic which cannot be routed
+through the basestation, such as when the vpn tunnel is down, will
+simply go to the main routing table.
 
+To remove the priority 3000 rule, you can run:
 \begin{verbatim}
 pr2admin@c1$ sudo ip rule del priority 3000
 \end{verbatim}
-
-This may be useful to do when repairing a system in a particularly bad
-state since otherwise you may not be able to fetch necessary software
-updates or download necessary configuration files.
+This may be especially helpful when repairing a system in a
+particularly bad state since otherwise you may not be able to fetch
+necessary software updates or download necessary configuration files.
 
 \subsection{NFS and Unionfs}
 The single largest difference between a normal Ubuntu installation and
@@ -433,7 +455,7 @@ plugged into the robot via the service port.
 \subsection{Requirements}
 
 \subsubsection{Naming}
-It order for ROS to work properly, it depends on each computer in your
+In order for ROS to work properly, it depends on each computer in your
 system being able to correctly resolve the hostnames of all other
 computers in your ROS system.  For an in depth explanation, please
 familiarize yourself with
@@ -454,11 +476,12 @@ it is ok for this IP to be assigned via DHCP.
 The IP address assigned to your basestation must be visible on both
 the wired and wireless segments of your building network on port
 \texttt{1194}.  This is the port that VPN uses when the robot makes
-its connection back to the basestation (it can be changed by modifying
-\texttt{/etc/openvpn/server.conf} on the basestation).  Depending on
-how secure your network is, and whether these segments are separated
-by a firewall, you may need assistance from your local sysadmin to
-allow traffic through on this port.
+its connection back to the basestation (it can be changed by
+appropriately modifying \texttt{/etc/openvpn/server.conf} on the
+basestation, and \texttt{/etc/openvpn/basestation.conf} on the robot).
+Depending on how secure your network is, and whether these segments
+are separated by a firewall, you may need assistance from your local
+sysadmin to allow traffic through on this port.
 
 Finally, for the robot to be able to find the basestation, both the
 wired and wireless networks must provide a DHCP server.  The operation
@@ -501,13 +524,12 @@ DHCP.  It is strongly recommended that you use a Static IP unless you
 have a very good reason to use DHCP and understand configuring your
 DHCP server to obey client-id-based requests.
 
-\subsubsection{Static IP}
+\subsubsection{1. Configuring IPs}
 
-To configure the basestation with a static IP, you must edit the file
-\texttt{/etc/network/interfaces} and change \texttt{wan0} to use a staic ip
+\begin{itemize}
+\item \textbf{Static IP} -- To configure the basestation with a static IP, you must edit the file
+\texttt{/etc/network/interfaces} and change \texttt{wan0} to use a static ip
 address, for example:
-
-\begin{minipage}{1.0\linewidth}
 \begin{verbatim}
 iface wan0 inet static
       address 192.168.1.100
@@ -515,9 +537,7 @@ iface wan0 inet static
       gateway 192.168.1.1
       post-up robot-forward start
       pre-down robot-forward stop
-
 \end{verbatim}
-\end{minipage}
 
 You will also need to update \texttt{/etc/resolv.conf} to contain the
 appropriate nameserver, e.g.,
@@ -527,8 +547,7 @@ search school.edu
 nameserver 192.168.1.1
 \end{verbatim}
 
-\subsubsection{DHCP}
-If you are using DHCP, you must make sure that your DHCP server
+\item \textbf{DHCP} -- If you are using DHCP, you must make sure that your DHCP server
 respects the client-id specification and is configured to assign a
 consistant IP address to the client-id of the basestation.
 \textit{NOTE: macaddress based assignment of IPs will not work
@@ -540,8 +559,9 @@ the relevant line, for example
 \begin{verbatim}
 send dhcp-client-identifier "prbase1";
 \end{verbatim}
+\end{itemize}
 
-\subsubsection{Hostname}
+\subsubsection{2. Configuring Hostname}
 You will also likely need to change the hostname of the basestation.
 Leaving it as ``basestation'' is ok, but you need to make sure the DNS
 server correctly resolves this name to the IP address you have
@@ -574,9 +594,11 @@ Finally, you need to actually set the hostname using the hostname command, for e
 pr2admin@basestation$ sudo hostname prbase1
 \end{verbatim}
 
-\subsubsection{Applying Settings}
+\subsubsection{3. Applying Settings}
 Once you have reconfigured the network, you should reboot the
-basestation to make sure the network comes back up correctly.
+basestation to make sure the network comes back up correctly.  At this
+point you should be connected to your local network and be able to
+ping any machine that you may want to access the robot from.
 
 \subsection{Configure the Robot Wifi}
 The Linksys wrt610n on the robot is located at the IP address:
@@ -593,17 +615,18 @@ settings, make sure that under ``Setup,'' the WAN connection type is
 \texttt{10.68.0.5}, and the DHCP Server is Disabled.  When you are
 done, make sure you choose to ``Apply Settings.''
 
-To test the setup of the wireless, you can temporarily add a route on
-the basestation which will route a particular IP address through the
-wifi router.
+To test the setup of the wireless, you can temporarily add a specific
+route on the basestation which will route a particular IP address
+through the wifi router, and then try to access that ip address.  If
+you can reach that IP address once the routing entry is added, you
+know the wifi router is connected properly.  For example, to route
+requests to the willow garage website through the wifi-router
+explicitly:
 \begin{verbatim}
 $ sudo ip route add 157.22.19.22 via 10.68.0.5 dev lan0
 \end{verbatim}
 Then point your web-browser to: \texttt{http://157.22.19.22}. This
-should take you to the willowgarage home page.  
-
-It may take a short time for the wireless router to connect to the
-network. 
+should take you to the willowgarage home page via the wireless router.
 
 Once that is working, you should remember to disable the route so that
 it works if the basestation is not plugged into the service port:
@@ -629,13 +652,18 @@ of the robot.
 Robot pairing is performed with the the \texttt{robot-brand} command
 on the basestation.  It takes 5 arguments:
 
+\begin{verbatim}
+pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> \
+                      <C2_NAME> <VPN_SUBNET> [<BASESTATION_IP>]
+\end{verbatim}
+
 \begin{itemize}
-\item robotname -- This is the name your robot will be given.
-\item c1name -- This is the intended hostname of c1.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
-\item c2name -- This is the intended hostname of c2.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
-\item VPN subnet -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.  No two robots on the same basestation should be assigned the same VPN subnet.
-\item (OPTIONAL) Basestation IP -- By default this is taken from the IP assigned to \texttt{wan0}. 
-  It is worth checking that it is correct using the \texttt{ifconfig} command:
+\item \texttt{ROBOT\_NAME} -- This is the name your robot will be given.
+\item \texttt{C1\_NAME} -- This is the intended hostname of c1.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
+\item \texttt{C2\_NAME} -- This is the intended hostname of c2.  Your DNS server needs to resolve this to the IP address you intend to use for your robot.
+\item \texttt{VPN\_SUBNET} -- Unless you are using multiple robots, this should be 10.68.1.0.  The 3rd field of the IP, however, can be any value other than 0 and 255, which are reserved for the robot local network and the basestation server respectively.  No two robots on the same basestation should be assigned the same VPN subnet.
+\item (OPTIONAL) \texttt{BASESTATION\_IP} -- By default this is taken from the IP assigned to \texttt{wan0}. 
+ It is worth checking that it is correct using the \texttt{ifconfig} command:
 
   \begin{minipage}{1.0\linewidth}    
 \begin{verbatim}
@@ -658,14 +686,9 @@ In this case the address is \texttt{192.168.1.100}.
 To actually brand the robot, first plug the basestation into the
 service port of the robot, and then use the robot-brand command
 
-\begin{verbatim}
-pr2admin@basestation$ sudo robot-brand <ROBOT_NAME> <C1_NAME> \
-                      <C2_NAME> <VPN_SUBNET> [<BASESTATION_IP>]
-\end{verbatim}
-
 For example, if your robot were going to be named ``prx'', c1 was
-going to named ``prx1'', c2 was going to be named ``prx2'', and your
-basestation was located at \texttt{192.168.1.100}, you would run:
+going to named ``prx1'', c2 was going to be named ``prx2'', and you
+wanted to use the default \texttt{10.68.1.0} \texttt{192.168.1.100}, you would run:
 
 \begin{verbatim}
 pr2admin@prbase1$ sudo robot-brand prx prx1 prx2 10.68.1.0
@@ -684,9 +707,43 @@ pr2admin@prx1:~$ exit
 
 \subsection{Forwarding IPs to the robot}
 
-To make contacting the robot from your building network more convenient,
-the basestation can be configured to forward IP addresses (assigned
-statically or via DHCP) to the robot.
+To make contacting the robot from your building network more
+convenient, the basestation can be configured to forward IP addresses
+(assigned statically or via DHCP) to the robot.  This is achieved
+through a combination of ip-tables rules and additional ip addresses
+claimed by the basestation.
+
+First we want the basestation We want the robot to claim a couple
+extra IP addreseses.  These are the IPs that you will use to contact
+the robot from your local network.  Eventually these IP addresses
+should show up in ifconfig, for example:
+\begin{verbatim}
+wan0:prx1 Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8  
+          inet addr:192.168.1.101  Bcast:0.0.0.0  Mask:255.255.255.255
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          Interrupt:17 
+
+wan0:prx2 Link encap:Ethernet  HWaddr 00:30:1b:48:c8:f8  
+          inet addr:192.168.1.102  Bcast:0.0.0.0  Mask:255.255.255.255
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          Interrupt:17 
+\end{verbatim}
+
+Additionally, we want ip-tables to forward each of these IP addresses
+to the respective robot computer in the VPN.  In our IP tables
+(viewable with \texttt{iptables-save} we would expect to see something
+\begin{verbatim}
+-A PREROUTING -d 192.168.1.101/32 -j DNAT --to-destination 10.68.1.1 
+-A PREROUTING -d 192.168.1.102/32 -j DNAT --to-destination 10.68.1.2
+-A POSTROUTING -s 10.68.1.1/32 -j SNAT --to-source 192.168.1.101 
+-A POSTROUTING -s 10.68.1.2/32 -j SNAT --to-source 192.168.1.2 
+-A OUTPUT -d 192.168.1.101/32 -j DNAT --to-destination 10.68.1.1 
+-A OUTPUT -d 192.168.1.2/32 -j DNAT --to-destination 10.68.1.2 
+\end{verbatim}
+
+Setting this up by hand is tedious and time-consuming.  Instead we
+provide a utility called \texttt{robot-forward}, which takes care of
+setting this up automatically.
 
 To set this up, edit the file: \texttt{/etc/robot-forward.conf} and add the lines:
 
@@ -726,7 +783,7 @@ manually start forwarding, you can run:
 pr2admin@prbase1$ sudo robot-forward start
 \end{verbatim}
 
-You should not be able to contact the robot at the IP address you have
+You should now be able to contact the robot at the IP address you have
 given it, and, if your DNS server is set up properly, using it's
 hostname.  For example:
 
@@ -745,6 +802,9 @@ If you need to disable forwarding you can run:
 \begin{verbatim}
 pr2admin@prbase1$ sudo robot-forward stop
 \end{verbatim}
+
+At this point you should be done configuring the basestation to work
+on your network.
 
 \section{Software Maintenance}
 
@@ -766,6 +826,7 @@ all of the ROS software for the PR2.
 To upgrade the software on your robot, you can simply use \texttt{apt}:
 
 \begin{verbatim}
+$ sudo apt-get update
 $ sudo apt-get dist-upgrade
 \end{verbatim}
 
@@ -789,7 +850,10 @@ To boot off the USB installer:
 \item Select the drive listed as ``USB-HDD0'' and hit ``Page Up'' to make it number 1
 \item Hit ``F10'' to save and exit the setup
 \item The computer should boot off of the USB stick.
-\item If the installer complains about not being able to find the ISO, hit ``Enter'' to continue, twice and the installation should continue.
+\item If the installer complains about not being able to find the ISO,
+  choos ``Scan Hard Drive for ISO...'' and then hit ``Enter'' to
+  continue.
+\item Once the installer is actually progressing, it will take about half an hour to complete.
 \item When the installer completes, hit ``Enter'' to shut down and remove the USB stick.
 \item When the basestation boots you should have a fresh image -- consult the section on Basestation Setup and Pairing to configure the basestation.
 \end{itemize}
