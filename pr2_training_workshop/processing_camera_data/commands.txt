@@ -1,0 +1,45 @@
+------------------------
+Slides 3 & 4
+------------------------
+
+rosrun rviz rviz
+
+(add a camera display with the narrow cam)
+
+rosrun dynamic_reconfigure reconfigure_gui
+
+(turn on the texture)
+
+(adjust the exposure, etc.)
+
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
+
+rosrun image_view image_view image:=/forearm_camera_l/image_rect_color
+
+rosrun image_view image_view image:=/prosilica/image
+
+
+------------------------
+Slide 6
+------------------------
+
+rosrun image_view image_view image:=/wide_stereo/left/image_raw
+
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
+
+
+------------------------
+Slide 11
+------------------------
+
+rosrun image_view stereo_view stereo:=wide_stereo image:=image_rect_color
+
+
+------------------------
+Slide 12
+------------------------
+
+(Back to rviz, add a point cloud for the narrow cameras)
+
+(Turn the texture on and off)
+
