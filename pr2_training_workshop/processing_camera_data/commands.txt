@@ -7,6 +7,8 @@ If I need teleop:
 
 roslaunch pr2_teleop teleop_joystick.launch
 
+Switching workspaces: Ctrl + Alt + Left/Right
+
 ------------------------
 Slides 3 & 4
 ------------------------
