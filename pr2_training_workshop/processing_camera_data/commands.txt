@@ -1,4 +1,13 @@
 ------------------------
+Setup
+------------------------
+roslaunch pr2_mannequin_mode pr2_mannequin_mode.launch
+
+If I need teleop:
+
+roslaunch pr2_teleop teleop_joystick.launch
+
+------------------------
 Slides 3 & 4
 ------------------------
 
@@ -14,7 +23,7 @@ rosrun dynamic_reconfigure reconfigure_gui
 
 rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
 
-rosrun image_view image_view image:=/forearm_camera_l/image_rect_color
+rosrun image_view image_view image:=/l_forearm_cam/image_rect_color
 
 rosrun image_view image_view image:=/prosilica/image
 
