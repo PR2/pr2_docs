@@ -1,6 +1,7 @@
 #! /usr/bin/python
 import roslib
 roslib.load_manifest('pr2_mechanism_controllers')
+roslib.load_manifest('actionlib')
 
 import rospy
 import actionlib
