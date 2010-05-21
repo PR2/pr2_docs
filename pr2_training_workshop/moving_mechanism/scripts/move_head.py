@@ -5,6 +5,7 @@ roslib.load_manifest('actionlib')
 
 import rospy
 import actionlib
+import time
 from actionlib_msgs.msg import *
 from pr2_controllers_msgs.msg import *
 from geometry_msgs.msg import *
@@ -16,14 +17,18 @@ client = actionlib.SimpleActionClient(
 client.wait_for_server()
 
 g = PointHeadGoal()
-g.target.header.frame_id = 'base_link'
+g.target.header.frame_id = 'laser_tilt_link'
 g.target.point.x = 1.0
-g.target.point.y = 0.0
-g.target.point.z = 1.0
+g.target.point.y = 0.1
+g.target.point.z = 0.0
 g.min_duration = rospy.Duration(1.0)
 
 client.send_goal(g)
 client.wait_for_result()
+
+while not rospy.is_shutdown():
+    client.send_goal(g)
+    time.sleep(0.01)
 
 if client.get_state() == GoalStatus.SUCCEEDED:
     print "Succeeded"

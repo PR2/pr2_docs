@@ -13,6 +13,7 @@ time.sleep(1)
 
 movement = Twist()
 movement.linear.x = 0.1
+movement.angular.z = 0.2
 start_time = rospy.get_rostime()
 while rospy.get_rostime() < start_time + rospy.Duration(3.0):
     pub.publish(movement)

@@ -20,9 +20,6 @@ client.wait_for_result()
 
 result = client.get_result()
 did = []
-if client.get_state() != GoalStatus.SUCCEEDED:
-    did.append("failed")
-else:
-    if result.stalled: did.append("stalled")
-    if result.reached_goal: did.append("reached goal")
+if result.stalled: did.append("stalled")
+if result.reached_goal: did.append("reached goal")
 print ' and '.join(did)
