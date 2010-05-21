@@ -4,53 +4,76 @@ Setup
 roslaunch pr2_mannequin_mode pr2_mannequin_mode.launch
 
 If I need teleop:
-
 roslaunch pr2_teleop teleop_joystick.launch
 
 Switching workspaces: Ctrl + Alt + Left/Right
 
+-----------------------
+Slide 1
+-----------------------
+
+Remind all teams that images are big, plug their robot into wired ethernet!
+
 ------------------------
-Slides 3 & 4
+Slides 4 & 5
 ------------------------
 
 rosrun rviz rviz
-
 (add a camera display with the narrow cam)
 
-rosrun dynamic_reconfigure reconfigure_gui
-
-(turn on the texture)
-
-(adjust the exposure, etc.)
+(point out "prosilica" doesn't show up; we'll get to that in a minute)
 
 rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
 
 rosrun image_view image_view image:=/l_forearm_cam/image_rect_color
 
-rosrun image_view image_view image:=/prosilica/image
+------------------------
+Slides 6 & 7
+------------------------
 
+rosrun dynamic_reconfigure reconfigure_gui
+
+(adjust the exposure, etc.)
+
+(change /prosilica_driver to "Streaming" mode)
+
+(in rviz, add a camera display with the prosilica)
 
 ------------------------
-Slide 6
+Slide 8
+------------------------
+
+(in reconfigure_gui, turn on the texture)
+
+(in rviz, turn on point cloud for narrow_stereo_textured)
+
+(turn texture off again, compare with narrow_stereo)
+
+------------------------
+Slide 13
 ------------------------
 
 rosrun image_view image_view image:=/wide_stereo/left/image_raw
 
 rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
 
-
 ------------------------
-Slide 11
+Slide 18
 ------------------------
 
 rosrun image_view stereo_view stereo:=wide_stereo image:=image_rect_color
 
 
 ------------------------
-Slide 12
+Slide 19
 ------------------------
 
-(Back to rviz, add a point cloud for the narrow cameras)
+(Back to rviz, add a point cloud for the wide cameras)
 
-(Turn the texture on and off)
+------------------------
+Slide 28
+------------------------
 
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color compressed
+
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color theora
