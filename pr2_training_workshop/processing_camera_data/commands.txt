@@ -50,7 +50,19 @@ Slide 8
 (turn texture off again, compare with narrow_stereo)
 
 ------------------------
-Slide 13
+Slide 9
+------------------------
+
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color compressed
+
+rosparam set /compressed_image_transport_jpeg_quality 15
+
+rosparam delete /compressed_image_transport_jpeg_quality
+
+rosrun image_view image_view image:=/wide_stereo/left/image_rect_color theora
+
+------------------------
+Slide 14
 ------------------------
 
 rosrun image_view image_view image:=/wide_stereo/left/image_raw
@@ -58,22 +70,13 @@ rosrun image_view image_view image:=/wide_stereo/left/image_raw
 rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
 
 ------------------------
-Slide 18
+Slide 19
 ------------------------
 
 rosrun image_view stereo_view stereo:=wide_stereo image:=image_rect_color
 
-
 ------------------------
-Slide 19
+Slide 20
 ------------------------
 
 (Back to rviz, add a point cloud for the wide cameras)
-
-------------------------
-Slide 28
-------------------------
-
-rosrun image_view image_view image:=/wide_stereo/left/image_rect_color compressed
-
-rosrun image_view image_view image:=/wide_stereo/left/image_rect_color theora
