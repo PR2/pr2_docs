@@ -21,7 +21,9 @@ Slides 4 & 5
 rosrun rviz rviz
 (add a camera display with the narrow cam)
 
-(point out "prosilica" doesn't show up; we'll get to that in a minute)
+(point out "prosilica" doesn't show up because it's in polled mode; we'll get to that in a minute)
+
+*** CAN RVIZ VIEW PROSILICA IMAGES??? ***
 
 rosrun image_view image_view image:=/wide_stereo/left/image_rect_color
 
