@@ -127,11 +127,12 @@ Printed version of this document.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=150px]{images/toolkit.png}
+\includegraphics[width=150px]{images/toolkit_layout.png}
 \caption{PR2 toolkit}
 \label{fig:toolkit}
 \end{figure}
 \label{toolkit}
-A toolkit is provided with the PR2.  To avoid damaging the robot or injuring yourself, you should always these tools to follow the Repair and Replacement procedures at support.willowgarage.com when performing any hardware maintenance on the robot.
+A toolkit is provided with the PR2.  To avoid damaging the robot or injuring yourself, you should always use these tools and follow the Repair and Replacement procedures at support.willowgarage.com when performing any hardware maintenance on the robot.
 
 
 \subsection{Base-station computer}
@@ -689,7 +690,7 @@ The PR2 pan-tilt head has three cameras and a textured light projector:
   and a 2.5mm F2.5
   \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4402.5-2.5-HR).pdf}{Marshall
     V-4402.5-2.5-HR} lens. For more information, see the
-  \href{http://www.ros.org/wiki/wge100_camera}{wge100_camera} package at
+  \href{http://www.ros.org/wiki/wge100_camera}{wge100\_camera} package at
   \href{http://www.ros.org}{ros.org}.
 
 \item[Narrow Stereo Camera] The narrow stereo camera is part of the dual stereo
@@ -699,7 +700,7 @@ The PR2 pan-tilt head has three cameras and a textured light projector:
   15 fps. The camera has a FOV of approximately $55^\circ$ and a 5.6mm F2.0
   \href{http://www.mars-cam.com/lenses/ccd_cmos/Technology%20Report(V-4405.6-2.0-HR).pdf}{Marshall
     V-4405.6-2.0-HR} lens. For more information, see the
-  \href{http://www.ros.org/wiki/wge100_camera}{wge100_camera} package at
+  \href{http://www.ros.org/wiki/wge100_camera}{wge100\_camera} package at
   \href{http://www.ros.org}{ros.org}.
 
 \item[Gigabit Ethernet Camera]
@@ -721,7 +722,7 @@ stereo pair on the pan-tilt head.  The projector has a FOV of approximately
 $55^\circ$ and a 5.6mm F2.0
 \href{http://www.kowascope.com/frontend/proddetail.asp?pn=LM12JC&co=10000348}{Kowa
   LM12JC} lens.  For more information, see the
-\href{http://www.ros.org/wiki/pr2_camera_synchronizer}{pr2_camera_synchronizer} package at
+\href{http://www.ros.org/wiki/pr2_camera_synchronizer}{pr2\_camera\_synchronizer} package at
 \href{http://www.ros.org}{ros.org}.
 
 \end{description}
@@ -744,7 +745,7 @@ information, see the
     BMA150} digital triaxal accelerometer. The measurement range ($\pm$2g,
   $\pm$4g, or $\pm$8g) and bandwidth (25Hz - 1500Hz) of the accelerometer can be
   selected in software. For more information, see the
-  \href{http://www.ros.org/wiki/wge100_camera}{wge100_camera} package at
+  \href{http://www.ros.org/wiki/wge100_camera}{wge100\_camera} package at
   \href{http://www.ros.org}{ros.org}.
 
 \item[Fingertip Pressure Sensors] The default fingertips of the PR2 are sturdy
@@ -817,6 +818,7 @@ The robot has four internal power busses:
 \item[12V computer power] 12V power for the computers supplied by the power
   board.
 \end{description}
+\end{description}
 \subsection{Batteries}
 The battery system has four battery bays.  Each bay is comprised of four
 \href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL} 14.4V
@@ -856,29 +858,16 @@ state of all busses, providing information about the electrical system and
 responding to commands. The power board is the first thing to turn on and can
 not be turned off without switching off the DC circuit to the whole robot.
 
-Besides supplying power the power board also interfaces with the wireless run/stop
-radio receiver and the run/stop button. The run/stop system is
-designed to reduce the power on the motor bus to a level where only the board
-communications and their encoder positions are maintained. The red button and
-radio system are described as provide physical run/stop control over the
-motors in the robot. This mechanism is
-implemented in hardware and can not be altered by software.
-
-Please note that the run/stop system only reduces power to the motor power bus
-and nothing else. If there is an electrical problem or power needs to be
-shutdown for service, the red DC circuit breaker on the rear lower panel is the
-only way to totally shut off the power board.
-
 The power board contains many LEDs used to indicate status:
 \begin{description}
-\item{12V Power Bus} The LEDs in green indicate the 3 regulated 12V
+\item[12V Power Bus] The LEDs in green indicate the 3 regulated 12V
   outputs are enabled and functional, shown in Figure~\ref{fig:12Vbus}.
-\item{MCB Power Bus}The Blue LEDs, Figure~\ref{fig:MCBbus}, indicate
+\item[MCB Power Bus]The Blue LEDs, Figure~\ref{fig:MCBbus}, indicate
   the motor bus power is enabled. Blue indicates a voltage higher than
   the 18V standby. These LEDs can also be orange if the output state
   is in the standby state.
 
-\item{Power Board Status}The status LEDs,
+\item[Power Board Status]The status LEDs,
   Figure~\ref{fig:powerboardstatus}, are used by the processor for
   debugging. In the event of a failure a status code will display on
   these LEDs in the form of a number of rapid blinks followed
@@ -969,6 +958,22 @@ count &  message \\
 4 & Circuit breaker tripped  \\
 \hline
 \end{tabular}
+
+\subsection {Run/Stop controls}
+
+Besides supplying power the power board also interfaces with the wireless run/stop
+radio receiver and the run/stop button. The run/stop system is
+designed to reduce the power on the motor bus to a level where only the board
+communications and their encoder positions are maintained. The red button and
+radio system are described as provide physical run/stop control over the
+motors in the robot. This mechanism is
+implemented in hardware and can not be altered by software.
+
+Please note that the run/stop system only reduces power to the motor power bus
+and nothing else. If there is an electrical problem or power needs to be
+shutdown for service, the red DC circuit breaker on the rear lower panel is the
+only way to totally shut off the power board.
+
 
 \subsection{Power for sensors}
 The power board provides a \emph{12V system bus}, that
