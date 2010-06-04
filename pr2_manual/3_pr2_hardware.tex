@@ -18,7 +18,7 @@ The PR2 ships with a bluetooth joystick for teleoperating the robot. The
 bluetooth joystick is a
 \href{http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665411965#additionalImage1%22}{Sony
   DUALSHOCK3} (Figure~\ref{fig:ps3joy}) wireless controller. It can be charged
-using any standard USB A to mini-B USB cable. For more information, see the
+using any standard USB A to mini-B USB cable (one is included in the accessory kit). For more information, see the
 \href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at
 \href{http://www.ros.org}{ros.org}.
 
@@ -35,7 +35,7 @@ The PR2 comes with an
 \href{http://www.omnexcontrols.com/products/portable/t50.html}{OMNEX T50}
 wireless run-stop transmitter. When the red button is pressed, or the unit is
 out of range, the wireless run-stop transmitter will halt the motors and put the
-power system in standby mode.
+power system in standby mode. Note that this does not completely cut power to the robot.
 
 \begin{figure*}[ht]
 \centering
@@ -44,17 +44,17 @@ power system in standby mode.
 \label{fig:wirelessrunstop}
 \end{figure*}
 
-To start the run-stop, press the green start button (Figure~\ref{fig:wirelessrunstop});
-if this works properly, you will see a light flashing on the run-stop. While
-transmitting, the run-stop has a range of approximately 800 ft. The run-stop is
+To start the wireless run-stop, press the green start button (Figure~\ref{fig:wirelessrunstop});
+if this works properly, you will see a light flashing on the wireless run-stop beside the start button. While
+transmitting, the wireless run-stop has a range of approximately 800 ft. The wireless run-stop is
 powered by four AA batteries; the battery light will flash when the battery
 charge is low and new batteries are required.
 
-\subsubsection{15 FT Robot Power Cord and 3-foot self plug-in Robot Power Cord}
+\subsubsection{Robot Power Cord and Self Plug-in Robot Power Cord}
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=150px]{images/long_plug.png}
-\caption{15 Foot power cord}
+\caption{Robot Power Cord}
 \label{fig:longcord}
 \end{figure*}
 \label{longcord}
@@ -70,7 +70,7 @@ To recharge the PR2's batteries, it
 must be plugged into a 120V electrical outlet.  Use only the provided power
 cords - many power cords and power strips have thinner conductors and cannot
 safely supply the current required by the PR2.  Using inappropriate cables is
-hazardous and may cause fire.  When plugging the robot is to charge by hand, you
+hazardous and may cause fire.  When manually plugging the robot in to re-charge, you
 may use either cable.  When attepting to have the PR2 plug itself in, you must
 use the shorter self-plug-in cord with attached checkerboard.  The self-plug-in
 cord has magnets on the side opposite the checkerboard which should be used to
@@ -87,15 +87,15 @@ attach it to the magnetic pad on the base.
 
 
 The PR2 ships with sensorless
-fingertips attached.  We have also developed fingertips which have an integrated
-22-element pressure sensor, but they are easy to damage and are not as robust as
+fingertips attached.  Included in the accessory kit are fingertips which have an integrated
+22-element pressure sensor. These sensorized tips are easy to damage and are not as robust as
 the rest of the PR2.  We provide 5 fingertip sensors (2 for each gripper, plus 1
 spare), as well as 20 rubber protective "boots" which prevent the sensor from
 coming into direct contact with the environment.  When using the fingertip
 sensors, you should always have an undamaged boot in good condition installed
 over the sensor.  Continuing to use the fingertip sensors after the rubber boot
 is damaged greatly increases the chance that you will damage the sensors
-themselves.  See the support site at \href{http://support.willowgarage.com}{support.willowgarage.com} for more information.
+themselves.  Replacement sensor tips will be available to purchase from Willow Garage.  See the support site at \href{http://support.willowgarage.com}{support.willowgarage.com} for more information.
 
 \subsubsection{Small calibration target}
 \begin{figure}[ht]
@@ -109,10 +109,19 @@ themselves.  See the support site at \href{http://support.willowgarage.com}{supp
 This small hand-held calibration target, which looks
 like a checkerboard, is used for the PR2 self-calibration.  The robot holds the
 checkerboard in one gripper and uses it to calibrate the arms, the head, the
-cameras, and the tilting laser together.
+cameras, and the tilting laser together.  The squares on the board are 25mm in each direction.
+
+\subsection{Large calibration target}
+The large calibration target which ships with the robot looks like a
+checkerboard 1" thick and approximately 3 feet square.  This is the
+recommended calibration target to use for calibrating the intrinsics of the
+stereo cameras on the robot.  The robot ships with stereo cameras already
+calibrated, but you may need to re-calibrate after shipping, and occasionally as vibration and
+thermal effects change the parameters over time.  The squares on the board are 108mm in each direction.
+Since the flatness of the board is critical to the accuracy of the calibration, please store this where it will not warp.
 
 \subsubsection{User Manual}
-Printed version of this document
+Printed version of this document.
 
 \subsection{Toolkit}
 \begin{figure}[ht]
@@ -122,15 +131,8 @@ Printed version of this document
 \label{fig:toolkit}
 \end{figure}
 \label{toolkit}
+A toolkit is provided with the PR2.  To avoid damaging the robot or injuring yourself, you should always these tools to follow the Repair and Replacement procedures at support.willowgarage.com when performing any hardware maintenance on the robot.
 
-
-\subsection{Large calibration target}
-The large calibration target which ships with the robot looks like a
-checkerboard 1" thick and approximately 3 feet on a side.  This is the
-recommended calibration target to use for calibrating the intrinsics of the
-stereo cameras on the robot.  The robot ships with stereo cameras already
-calibrated, but you may need to re-calibrate occasionally as vibration and
-thermal effects change the parameters over time.
 
 \subsection{Base-station computer}
 \begin{figure}[ht]
@@ -143,14 +145,11 @@ thermal effects change the parameters over time.
 \label{basestation}
 
 The base-station computer ships
-without a monitor, keyboard, or mouse.  See section ??? for more information on
-how to configure your base-station.
+without a monitor, keyboard, or mouse.  See chapter 4 on computers for more information on how to configure your base-station.
 
 \section{Mechanism}
 PR2 is a 32-dof mobile manipulator with a mobile base, two arms, and a variety
 of sensors on a pan-tilt head.
-
-\subsection{Robot Anatomy}
 
 \subsection{Terminology}
 We talk about the robot kinematics using the concepts of joints, links, frames,
@@ -436,13 +435,13 @@ motion around one of the positive axes of the world coordinate system.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.3]{urdf_links.png}
+\includegraphics[scale=0.6]{urdf_links.png}
 \caption{The PR2 URDF Link Naming Scheme.}
 \label{fig:urdf_link_names}
-\includegraphics[scale=0.3]{urdf_joints.png}
+\includegraphics[scale=0.6]{urdf_joints.png}
 \caption{The PR2 URDF Joints Naming Scheme.}
 \label{fig:urdf_joints}
-\includegraphics[scale=0.3]{urdf_sensors.png}
+\includegraphics[scale=0.6]{urdf_sensors.png}
 \caption{The PR2 Sensors.}
 \label{fig:urdf_sensor}
 \end{figure}
@@ -789,27 +788,29 @@ laser. For more information, see the
 The PR2 has a Lithium-ion (Li-ion) battery system that is charged off of a 120V
 wall current. The batteries power the computers, motors, and sensors on the
 robot.  Power distribution is controlled by the \emph{Power Board}, which
-communicates over Ethernet.
+communicates over Ethernet to the computers in the base of the PR2.
 \subsection{Power Busses}
 The robot has four internal power busses:
 \begin{description}
-\item[120V] The robot has a 3-prong IEC320 plug in the back of the base, which
+\item[AC power] The robot has a 3-prong IEC320 plug in the back of the base, which
   is connected through a circuit breaker to the four AC-DC converters used to
-  charge the battery packs.  The system is designed to draw less than 15A, a
+  charge the battery packs.  With a 120V supply, the system is designed to draw less than 15A, so a
   standard 15A or 20A outlet will suffice. The load is capable at times of
   approaching the 15A limit, make sure there are no other devices which draw
-  significant power on the same circuit (e.g., computers or heaters).
-  \underline{Ideally, add image of back panel once we have the PR2 betas done w/
-    Ryan's stickers on that panel.}
-\item[Motor Power Bus] The motors get power through 3 descrete circuit breakers
+  significant power (e.g. computers or heaters) on the same circuit.
+\item[Motor Power Bus] The motors get power through 3 discrete circuit breakers
   on the power board.  These create three independent motor power busses: left
   arm, right arm, and base/head.  The motor power bus can be in one of three
-  states.  \emph{Enabled}, provides a direct connection to the unregulated
+  states.
+\begin{description}
+\item[Enabled], provides a direct connection to the unregulated
   battery power. The voltage will ranges from 52V when the batteries are fully
-  discharged up to 72V when connected to wall power.  \emph{Standby}, the power
+  discharged up to 72V when connected to wall power.  i
+\item[Standby], the power
   board provides a low-power 18V supply that is used for communication and
-  maintaing encoder position counts.  \emph{Disabled}, total shut-down of the
-  circuit (e.g., in the event of a major power-system problem or manually
+  maintaing encoder position counts.
+\item[Disabled], total shut-down of the
+  circuit (e.g., in the event of a major power-system problem or if manually
   disabled through the control panel).
 \item[12V system bus] 12V power for sensors supplied by the power board. This is
   also the recommended source of power for user supplied accessories.
@@ -817,7 +818,7 @@ The robot has four internal power busses:
   board.
 \end{description}
 \subsection{Batteries}
-The battery system has four battery bays comprised of four
+The battery system has four battery bays.  Each bay is comprised of four
 \href{http://www.oceanserver-store.com/18.html}{Ocean Server BA95HC-FL} 14.4V
 Li-ion batteries, a
 \href{http://www.v-infinity.com/adtemplate_child.asp?c=710918&p=903285&catky=764537&subcatky1=46887&subcatky2=320934}{V-INFINITY
@@ -837,7 +838,7 @@ by measuring the voltage and current at the power board input.
 The battery power is used to provide regulated twelve volts to the computers and
 the system bus through DC converters. Three unregulated circuits are also
 provided with a unique electronic circuit breaker functionality. All outputs are
-ultimately controlled by the processor located on this board.
+ultimately controlled by the processor located on the Power Board.
 
 Figure~\ref{fig:power_board} shows the power board, with e-stop receiver, removed from a robot.
 
@@ -849,30 +850,29 @@ Figure~\ref{fig:power_board} shows the power board, with e-stop receiver, remove
 \end{figure}
 
 
-The power board contains an ARM processor with an ethernet interface. The
+The Power Board contains an ARM processor with an ethernet interface. The
 processor is responsible for performing a self test at power-on, monitoring the
 state of all busses, providing information about the electrical system and
 responding to commands. The power board is the first thing to turn on and can
 not be turned off without switching off the DC circuit to the whole robot.
 
-Besides supplying power the power board also interfaces with the emergency stop
-radio receiver and the emergency stop button. The emergency stop system is
+Besides supplying power the power board also interfaces with the wireless run/stop
+radio receiver and the run/stop button. The run/stop system is
 designed to reduce the power on the motor bus to a level where only the board
 communications and their encoder positions are maintained. The red button and
-radio system are described as providing a physical run/stop control over the
-motors in the robot. This description is used because this mechanism is
+radio system are described as provide physical run/stop control over the
+motors in the robot. This mechanism is
 implemented in hardware and can not be altered by software.
 
 Please note that the run/stop system only reduces power to the motor power bus
 and nothing else. If there is an electrical problem or power needs to be
-shutdown for service, the red circuit breaker on the rear lower panel is the
-only way to totally shut off the power board.\\
+shutdown for service, the red DC circuit breaker on the rear lower panel is the
+only way to totally shut off the power board.
 
-The power board contains many LEDs used to indicate status. 
+The power board contains many LEDs used to indicate status:
 \begin{description}
 \item{12V Power Bus} The LEDs in green indicate the 3 regulated 12V
-  outputs are enabled and functional, shown in
-  Figure~\ref{fig:12Vbus}.
+  outputs are enabled and functional, shown in Figure~\ref{fig:12Vbus}.
 \item{MCB Power Bus}The Blue LEDs, Figure~\ref{fig:MCBbus}, indicate
   the motor bus power is enabled. Blue indicates a voltage higher than
   the 18V standby. These LEDs can also be orange if the output state
@@ -881,9 +881,9 @@ The power board contains many LEDs used to indicate status.
 \item{Power Board Status}The status LEDs,
   Figure~\ref{fig:powerboardstatus}, are used by the processor for
   debugging. In the event of a failure a status code will display on
-  these LEDs. Someone must count the number of rapid blinks followed
+  these LEDs in the form of a number of rapid blinks followed
   by a slight pause.  Status1 indicates the location where the fault
-  occured and Status2 the cause of the fault.
+  occured and Status2 indicates the cause of the fault.
 \end{description}
 
 
@@ -909,7 +909,7 @@ The power board contains many LEDs used to indicate status.
 \end{figure}
 
 
-The following table provides some meaning for the error codes. For further
+The following table decodes the meaning for the error codes. For further
 diagnosis please provide the status codes in bug reports.
 
 \begin{tabular}{|c|c|}
@@ -931,7 +931,7 @@ count & location \\
 \hline
 \end{tabular}
 
-\begin{tabular}{c|c|}
+\begin{tabular}{|c|c|}
 \hline
 \multicolumn{2}{|c|}{Main Loop Message} \\
 \hline
@@ -971,18 +971,15 @@ count &  message \\
 \end{tabular}
 
 \subsection{Power for sensors}
-As mentioned previously, the power board provides a \emph{12V system bus}, that
+The power board provides a \emph{12V system bus}, that
 provides a well regulated 12V supply. The regulated 12V supply is the only
 supply designed for additions and expansion. This 12V supply is essentially
-always on once the Power board completes a self test. It is also monitored for
-undervoltage conditions and is fairly robust.
+always on once the Power Board completes its self test. It is also monitored for
+undervoltage conditions.
 
-A few limitations should be followed when adding loads to the 12V user
-supply. This supply is already supporting the 2 Hokuyo scanners, 2 ethernet
-switches, the wireless AP and the E-stop receiver. Considering the loads and the
-supplies capabilities with some headroom this leaves 5A for expansion.\\
-
-{\bf 5A limit on 12V expansion}\\
+THe 12V use supply powers various electronics devices in the robot, including both Hokuyo scanners, the ethernet switches, the wireless
+AP, and the run/stop receiver.  There is 5A of
+additional capacity available for expansion.
 
 Access to the 12V accessory bus is available in several locations:\\
 
