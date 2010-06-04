@@ -22,7 +22,7 @@ using any standard USB A to mini-B USB cable (one is included in the accessory k
 \href{http://www.ros.org/wiki/ps3joy}{ps3joy} package at
 \href{http://www.ros.org}{ros.org}.
 
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{ps3joy.png}
 \caption{The PR2 bluetooth joystick.}
@@ -37,7 +37,7 @@ wireless run-stop transmitter. When the red button is pressed, or the unit is
 out of range, the wireless run-stop transmitter will halt the motors and put the
 power system in standby mode. Note that this does not completely cut power to the robot.
 
-\begin{figure*}[ht]
+\begin{figure*}[h!]
 \centering
 \includegraphics[width=150px]{run_stop.png}
 \caption{The PR2 wireless run-stop.}
@@ -51,7 +51,7 @@ powered by four AA batteries; the battery light will flash when the battery
 charge is low and new batteries are required.
 
 \subsubsection{Robot Power Cord and Self Plug-in Robot Power Cord}
-\begin{figure*}[ht]
+\begin{figure*}[h!]
 \centering
 \includegraphics[width=150px]{images/long_plug.png}
 \caption{Robot Power Cord}
@@ -59,7 +59,7 @@ charge is low and new batteries are required.
 \end{figure*}
 \label{longcord}
 
-\begin{figure*}[ht]
+\begin{figure*}[h!]
 \centering
 \includegraphics[width=150px]{images/short_plug.png}
 \caption{Self plug-in power cord}
@@ -77,7 +77,7 @@ cord has magnets on the side opposite the checkerboard which should be used to
 attach it to the magnetic pad on the base.
 
 \subsubsection{Sensorized fingertips and boots}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=150px]{images/fingertips.png}
 \caption{Fingertip sensors and replacement boots}
@@ -98,7 +98,7 @@ is damaged greatly increases the chance that you will damage the sensors
 themselves.  Replacement sensor tips will be available to purchase from Willow Garage.  See the support site at \href{http://support.willowgarage.com}{support.willowgarage.com} for more information.
 
 \subsubsection{Small calibration target}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=150px]{images/hand_checkerboard.png}
 \caption{Small calibration target}
@@ -124,7 +124,7 @@ Since the flatness of the board is critical to the accuracy of the calibration, 
 Printed version of this document.
 
 \subsection{Toolkit}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=150px]{images/toolkit.png}
 \includegraphics[width=150px]{images/toolkit_layout.png}
@@ -136,7 +136,7 @@ A toolkit is provided with the PR2.  To avoid damaging the robot or injuring you
 
 
 \subsection{Base-station computer}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=150px]{images/basestation.png}
 \includegraphics[width=150px]{images/basestation_back.png}
@@ -215,6 +215,22 @@ referring to
   bl\_ & back left \\ \hline
   br\_ & back right \\ \hline
 \end{tabular}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.6]{urdf_links.png}
+\caption{The PR2 URDF Link Naming Scheme.}
+\label{fig:urdf_link_names}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.6]{urdf_joints.png}
+\caption{The PR2 URDF Joints Naming Scheme.}
+\label{fig:urdf_joints}
+%\includegraphics[scale=0.4]{urdf_sensors.png}
+%\caption{The PR2 Sensors.}
+%\label{fig:urdf_sensor}
+\end{figure}
 
 \subsection{Links and Joints}
 By component, below is a list of the links and joints in the PR2:
@@ -434,22 +450,9 @@ positive y-axis robot-left when the PR2 is in the home pose.  All joint angle co
 are chosen so that at the home position, positive motion of the joint causes positive
 motion around one of the positive axes of the world coordinate system.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.6]{urdf_links.png}
-\caption{The PR2 URDF Link Naming Scheme.}
-\label{fig:urdf_link_names}
-\includegraphics[scale=0.6]{urdf_joints.png}
-\caption{The PR2 URDF Joints Naming Scheme.}
-\label{fig:urdf_joints}
-\includegraphics[scale=0.6]{urdf_sensors.png}
-\caption{The PR2 Sensors.}
-\label{fig:urdf_sensor}
-\end{figure}
-
 \subsection{Motion control}
 
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=290px]{images/mechanism_control.png}
 \caption{Motion control layout.}
