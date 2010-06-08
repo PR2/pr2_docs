@@ -112,8 +112,9 @@
 %\texttt{\href{http://www.ros.org/wiki/Stack}{stack}} & Collections of ROS packages that form a higher-level library. \\
 %\texttt{\href{http://www.ros.org/wiki/Stack Manifest}{stack manifest}}  & Description of a ROS stack.
 %\end{tabular}
-\vspace{-2.5 mm}
+
 \section{Filesystem Command-line Tools}
+\vspace{1.5mm}
 \begin{tabular}{@{}p{\the\MyLen}%
                 @{}p{\linewidth-\the\MyLen}@{}}
 \texttt{\href{http://www.ros.org/wiki/rospack}{rospack}}/\texttt{rosstack} & A tool inspecting \href{http://www.ros.org/wiki/Packages}{packages}/\href{http://www.ros.org/wiki/Stack}{stacks}. \\
@@ -123,7 +124,6 @@
 \texttt{\href{http://www.ros.org/wiki/roscreate}{roscreate}-stack} & Creates a new ROS stack.\\
 \texttt{\href{http://www.ros.org/wiki/rosdep}{rosdep}} & Installs ROS package system dependencies.\\
 \texttt{\href{http://www.ros.org/wiki/rosmake}{rosmake}} & Builds a ROS package.\\
-\texttt{\href{http://www.ros.org/wiki/rosmsg}{rosmsg}}/\texttt{rossrv} & Displays information about ROS \href{http://www.ros.org/wiki/msg}{message}/\href{http://www.ros.org/wiki/srv}{service} types .\\
 \texttt{\href{http://www.ros.org/wiki/roswtf}{roswtf}} & Displays a errors and warnings about a running ROS system or launch file.\\
 \texttt{\href{http://www.ros.org/wiki/rxdeps}{rxdeps}} & Displays package structure and dependencies.\\
 \end{tabular}
@@ -136,15 +136,15 @@ Us\=age:\\
 \> \texttt{\$ roscreate-pkg [package\_name]}\\
 \> \texttt{\$ rosmake [package]}\\
 \> \texttt{\$ rosdep install [package]}\\
-\> \texttt{\$ rosmsg show [message type]}\\
 \> \texttt{\$ roswtf or roswtf [file]}\\
 \> \texttt{\$ rxdeps [options]}
 \end{tabbing}
 
-\vspace{-2.5 mm}
+\vspace{-1mm}
 \section{Common Command-line Tools}
 \subsection{\href{http://www.ros.org/wiki/roscore}{roscore}}
 A collection of \href{http://www.ros.org/wiki/Nodes}{nodes} and programs that are pre-requisites of a ROS-based system. You must have a roscore running in order for ROS nodes to communicate.\\
+\vspace{-1.5mm}
 \begin{tabbing}
 ro\=score is currently defined as:\\
 \> \texttt{\href{http://www.ros.org/wiki/Master}{master}}\\
@@ -154,6 +154,44 @@ ro\=score is currently defined as:\\
 \begin{tabbing}
 Us\=age:\\
 \> \texttt{\$ roscore}
+\end{tabbing}
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rosmsg}{rosmsg/rossrv}}
+rosmsg/rossrv displays Message/Service (msg/srv) data structure definitions.\\
+Commands: \\
+\begin{tabular}{@{}p{\the\MyLen}%                                                                                         
+                @{}p{\linewidth-\the\MyLen}@{}}
+\texttt{rosmsg show}    & Display the fields in the msg. \\
+\texttt{rosmsg users}    & Search for code using the msg. \\
+\texttt{rosmsg md5}    & Display the msg md5 sum. \\
+\texttt{rosmsg package} & List all the messages in a package. \\
+\texttt{rosnode packages}    & List all the packages with messages.
+\end{tabular}
+\begin{tabbing}
+E\=x\=amples:\\
+\> Display the Pose msg:\\
+\> \> \texttt{\$ rosmsg show Pose}\\
+\> List the messages in nav\_msgs:\\
+\> \> \texttt{\$ rosmsg package nav\_msgs}\\
+\> List the files using sensor\_msgs/CameraInfo:\\
+\> \> \texttt{\$ rosmsg users sensor\_msgs/CameraInfo}
+\end{tabbing}
+
+
+
+\vspace{-1.5 mm}
+\subsection{\href{http://www.ros.org/wiki/rosrun}{rosrun}}
+rosrun allows you to run an executable in an arbitrary package without having to cd (or roscd) there first.\\
+\begin{tabbing}
+Us\=age:\\
+\> \texttt{\$ rosrun package executable}
+\end{tabbing}
+\vspace{-3.5mm}
+\begin{tabbing}
+E\=x\=ample:\\
+\> Run turtlesim:\\
+\> \> \texttt{\$ rosrun turtlesim turtlesim\_node}\\
 \end{tabbing}
 
 \vspace{-1.5 mm}
@@ -187,6 +225,8 @@ Starts ROS nodes locally and remotely via SSH, as well as setting parameters on 
 E\=x\=amples:\\
 \> Launch on a different port:\\
 \> \> \texttt{\$ roslaunch -p 1234 package filename.launch}\\
+\> Launch a file in a package:\\
+\> \> \texttt{\$ roslaunch package filename.launch}\\
 \> Launch on the local nodes:\\
 \> \> \texttt{\$ roslaunch --local package filename.launch}
 \end{tabbing}
@@ -270,27 +310,25 @@ E\=x\=amples:\\
 
 \vspace{-2.5 mm}
 \section{Logging Command-line Tools}
-\subsection{\href{http://www.ros.org/wiki/rosrecord}{rosrecord}}
-Records currently published topics and generates a ``.bag'' file (so named for historical reasons).
+\subsection{\href{http://www.ros.org/wiki/rosbag}{rosbag}}
+This is a set of tools for recording from and playing back to ROS topics. It is intended to be high performance and avoids deserialization and reserializationof the messages.\\ 
+\vspace{1.5mm}
+{\bf rosbag record} will generate a ``.bag'' file (so named for historical reasons) with the contents of all topics that you pass to it. 
 \begin{tabbing}
 E\=x\=amples:\\
 \> Record all topics:\\
-\> \>\texttt{\$ rosrecord -a}\\
+\> \>\texttt{\$ rosbag record -a}\\
 \> Record select topics:\\
-\> \>\texttt{\$ rosrecord topic1 topic2}\\
+\> \>\texttt{\$ rosbag record topic1 topic2}\\
 \end{tabbing}
-
-\vspace{-1.5 mm}
-\subsection{\href{http://www.ros.org/wiki/rosplay}{rosplay}}
-Replays the contents of one or more ``.bag'' files in a time-synchronized fashion.
+\vspace{-1.5mm}
+{\bf rosbag play} will take the contents of one or more bag file, and play them back in a time-synchronized fashion.
 \begin{tabbing}
 E\=x\=amples:\\
 \> Replay all messages without waiting:\\
-\> \>\texttt{\$ rosplay -a demo\_log.bag}\\
+\> \>\texttt{\$ rosbag play -a demo\_log.bag}\\
 \> Replay several bag files at once:\\
-\> \>\texttt{\$ rosplay demo1.bag demo2.bag}\\
-\> Check contents of the bag without playing back:\\
-\> \>\texttt{\$ rosplay -c demo1.bag}\\
+\> \>\texttt{\$ rosbag play demo1.bag demo2.bag}\\
 \end{tabbing}
 
 \vspace{-2.5 mm}
@@ -339,8 +377,8 @@ Us\=age:\\
 \end{tabbing}
 
 \vspace{-2.5 mm}
-\section{TF Command-line Tools}
-\vspace{-1.5 mm}
+\section{tf Command-line Tools}
+
 \subsection{\href{http://www.ros.org/wiki/tf\#tf_echo}{tf\_echo}}
 A tool that prints the information about a particular transformation between a source\_frame and a target\_frame.\\
 \vspace{2.5 mm}
@@ -371,10 +409,13 @@ Us\=age:\\
 
 
 
+
+
+
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
 
-Copyright \copyright\ 2009 Willow Garage
+Copyright \copyright\ 2010 Willow Garage
 \vspace{3000 mm}
 
 
