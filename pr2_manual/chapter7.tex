@@ -1,0 +1,27 @@
+\documentclass[11pt]{book}
+\usepackage[usenames,dvips,pdftex]{color}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{overpic, epic}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+
+\hypersetup{colorlinks=true, filecolor=black, linkcolor=black, urlcolor=blue, citecolor=black}
+
+
+\graphicspath{{./images/}}
+
+\begin{document}
+\title{Chapter 7: Writing code on PR2}
+\author{Willow Garage}
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\addtocounter {chapter} {6} 
+\input{7_pr2_development.tex}
+\end{document}
