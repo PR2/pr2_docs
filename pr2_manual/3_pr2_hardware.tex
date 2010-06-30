@@ -545,7 +545,7 @@ are steeper than a 1/12 slope are unsafe and may be a tip over hazard.
 \subsubsection{Forces and torques}
 
 Joint position, velocity, and force limits are implemented in the PR2's URDF
-file, in the ``/etc/ros/urdf/robot.xml" file on your PR2. These joint limits
+file, in the ``/etc/ros/$<$distro$>$/urdf/robot.xml" file on your PR2. These joint limits
 control the range of travel of the mechanism, the allowable velocity to prevent
 overtravel. These limits are enforced by pr2\_controller\_manager, and are
 designed to prevent poorly commanded control efforts from damaging the PR2 and

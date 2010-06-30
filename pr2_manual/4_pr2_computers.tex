@@ -211,7 +211,7 @@ plugging into the robot service port and going to the IP address:
 \texttt{10.68.0.5}.  The default login and password are ``root'',
 ``willow.''
 
-\section{OS}
+\section{Computer Configuration}
 The operating system running on the PR2 computers is an extended
 version of Ubuntu 9.04 (Jaunty Jackalope). It depends on a number of
 additional packages for system configuration, but should otherwise be
@@ -219,6 +219,17 @@ familiar to for Ubuntu users. If you run into a computer problem not
 covered by the PR2 documentation, the
 \href{https://help.ubuntu.com/9.04/index.html}{Ubuntu Documentation}
 is the next place to look.
+
+\subsection{BIOS}
+The BIOS configuration is slightly different between c1 and c2 to
+allow them to boot differently.  c1 defaults to booting off of the
+internal disk, while c2 defaults to netbooting off the lan0 interface.
+Early in the boot process, c1 is reconfigured to try netbooting off of
+the the lan1 interface before booting off the disk (using lan1 rather
+than lan0 enables the basestation to distinguish the 2 computers).  On
+a proper shutdown, c1 is switched back booting off the disk, but in
+the event of a hard power failure, the default BIOS state leaves c1
+netbooting.  This is convenient for reinstallation or recovery.
 
 \subsection{Networking}
 To keep connections behaving sensibly when transitioning the VPN
@@ -264,6 +275,12 @@ This may be especially helpful when repairing a system in a
 particularly bad state since otherwise you may not be able to fetch
 necessary software updates or download necessary configuration files.
 
+Additionally, iptables is configured using configuration files in
+\texttt{/etc/iptables.d/}.  These rules are responsible for providing
+firewalling on the robot \texttt{wan0} interface, turning on
+masquerading, and NATing incoming vpn traffic into the robot local
+network.
+
 \subsection{NFS and Unionfs}
 The single largest difference between a normal Ubuntu installation and
 the PR2 configuration is that c2 mounts nearly its entire filesystem
@@ -304,8 +321,9 @@ c2, an admin can simply move (or copy) the home directory and update
 the symlink accordingly.
 
 \subsection{Kernel}
-Discuss RT\_PREEMT and anything else non-vanilla about the kernel.
-(BLAISE HAS AGREED TO FILL THIS IN).
+Both c1 and c2 run a 2.6 kernel with the RT PREEMPT patch.  We compile
+the kernel in order to apply the patch and to enable some
+configuration.
 
 \subsection{Storage}
 Each computer has two hard-drives - one internal 2.5" 500Gb
@@ -365,6 +383,28 @@ or
 \begin{verbatim}
 pr2admin@c1$ sudo formatdisk /dev/removable
 \end{verbatim}
+
+\subsubsection{Drive maintenance}
+If you suspect a drive of having problems, you can run a selftest using smartmontools
+
+\begin{verbatim}
+pr2admin@c1$ sudo smartctl -t short /dev/sda
+\end{verbatim}
+
+After a few minutes, you can then check the results:
+\begin{verbatim}
+pr2admin@c1$ sudo smartctl -l selftest /dev/sda
+
+=== START OF READ SMART DATA SECTION ===
+SMART Self-test log structure revision number 1
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+# 1  Short offline       Completed without error       00%      4195         -
+# 2  Short offline       Completed without error       00%      3713  
+\end{verbatim}
+
+In the event that there are reported bad sectors,
+\texttt{\href{http://smartmontools.sourceforge.net/badblockhowto.html}{http://smartmontools.sourceforge.net/badblockhowto.html}}
+provides information on freeing the bad blocks.
 
 \subsection{Default user account}
 The default account on the robot is ``pr2admin''.  When the robot is
@@ -437,6 +477,9 @@ is to have the two computers tightly coupled to one another, but
 loosely coupled to an external time source to prevent the robot time
 from drifting too far from the outside world.
 
+Sometimes the clocks on the computers get into an inconsistant state.
+This will show up as an error in the pr2dashboard as: ``NTP offset from XXX to YYY: Offset too great''.
+
 If you find your clocks in an inconsistant state, you may want to try
 restarting chrony on the basestation, c1, and c2, in that order.
 \begin{verbatim}
@@ -444,6 +487,91 @@ pr2admin@basestation$ sudo /etc/init.d/chrony restart
 pr2admin@c1$ sudo /etc/init.d/chrony restart
 pr2admin@c2$ sudo /etc/init.d/chrony restart
 \end{verbatim}
+
+You should see the message:
+\begin{verbatim}
+Restarting time daemon: chronyd is running and online.
+\end{verbatim}
+
+If you see the message:
+\begin{verbatim}
+Restarting time daemon: chronyd is running and offline.
+\end{verbatim}
+
+You should restart chrony again.
+
+\subsection{Configuring the System ROS installation}
+The system ROS installation is managed by a set of configuration files
+in \texttt{/etc/ros}.  This configuration determines which distro is used,
+which ROS processes are launched by default, and contains the
+calibrated description of the robot URDF.  The default configuration
+files are provided by the package: \texttt{pr2-core}.  Additionally, there
+are packages, \texttt{pr2-core-boxturtle}, and \texttt{pr2-core-cturtle}, which
+provide specific configurations and dependencies for the different ROS distributions.
+
+In order to change which ROS distro is used by default, you simply
+need to change the symlink \texttt{/etc/ros/distro} to point to a
+different distribution.
+
+The two important entry points to \texttt{/etc/ros} that most users
+need to know about are \texttt{/etc/ros/setup.bash} and
+\texttt{/etc/ros/robot.launch}.  Note that each of these is actually
+just a symlink to the corresponding file in \texttt{/etc/ros/distro}.
+To make use of a specific distribution, you can explicitly use, e.g.,
+\texttt{/etc/ros/boxturtle/setup.bash}.
+
+\texttt{/etc/ros/setup.bash} works by loading a number of environment
+variables from files stored in \texttt{/etc/ros/distro/env/}.  The
+contents of each of these files will be loaded into the environment
+variable of the corresponding name.
+
+\texttt{/etc/ros/robot.launch} is responsible for setting up the robot
+configuration and then launching the minimal set of nodes for robot
+functionality.  The \texttt{robot.launch} files for different distros
+may need to load different URDFs or analyzer files.  It is important
+that this file should use distro-relative paths rather than depending
+on the ``distro'' symlink.  For example, in boxturtle, it will use
+``/etc/ros/boxturtle/urdf/robot.xml'' rather than
+``/etc/ros/distro/urdf/robot.xml.''  This allows the launch file to be
+used even if the distro symlink points to a different distribution.
+
+Finally, \texttt{/etc/ros/sensors/} is a directory containing logical
+symlinks to sensors.  While we have provided udev rules to mount
+sensors in consistant locations in \texttt{/dev/sensors/}, this 2nd
+layer of indirection allows us to create a symlink such as
+\texttt{/etc/ros/base\_hokuyo}, rather than having to modify
+\texttt{robot.launch} to use something like
+\texttt{/dev/sensors/hokuyo\_H0902620}.
+
+The two hokuyos are the most likely devices to be configured
+incorrectly.  If the lasers are switched, swap the symlinks for
+\texttt{/etc/ros/sensors/base\_hokuyo} and
+\texttt{/etc/ros/sensors/tilt\_hokuyo}.  Note that
+\texttt{/etc/ros/sensors} on c1 and c2 are different.  To modify the
+symlinks on c2, you actually need to modify
+\texttt{/slave/etc/ros/sensors} from the c1 machine.
+
+\subsection{Log files}
+The PR2 is configured to consolidate all system logs into
+\texttt{/var/log/messages}.
+
+\subsection{Udev}
+We have provided a number of custom udev rules to help give sensors
+more meaningful names.  These are all stored in
+\texttt{/etc/udev/rules.d/}.  \texttt{71-pr2-network-interface.rules}
+is responsible for renaming the network interfaces as lan0-lan4, wan0,
+and ecat0 consistantly based on mac-address ranges.
+\texttt{73-pr-aliases.rules} makes convenient aliases for the hokuyos,
+imu, batteries, and joystick.  All of these aliases end up in
+\texttt{/dev/sensors/}.  Finally \texttt{74-pr-disk.rules} is
+responsible for ensuring that the removable drive always just shows up
+as \texttt{/dev/removable}.
+
+It is important to note that the creation of these udev rules depends
+on a functioning ROS system.  If the ROS configuration from /etc/ros
+is non-functional, udev will not be able to talk to the hokuyos to
+create appropriate symlinks.  In the future there may be more sensors
+that depend on ROS for this initial configuration as well.
 
 \section{Basestation Setup and Pairing}
 Before you can use the robot and basestation, it needs to be
@@ -628,6 +756,10 @@ $ sudo ip route add 157.22.19.22 via 10.68.0.5 dev lan0
 Then point your web-browser to: \texttt{http://157.22.19.22}. This
 should take you to the willowgarage home page via the wireless router.
 
+If your building-infrastructure wireless access point requires
+accepting an EULA, this method will typically give you an opportunity
+to accept it.
+
 Once that is working, you should remember to disable the route so that
 it works if the basestation is not plugged into the service port:
 \begin{verbatim}
@@ -806,33 +938,6 @@ pr2admin@prbase1$ sudo robot-forward stop
 At this point you should be done configuring the basestation to work
 on your network.
 
-\section{Software Maintenance}
-
-When the robots ship, the most recent version of ROS and the PR2
-software stacks is installed in /opt/ros.  By default, new users will
-have a ROS installation which references the pre-installed code.
-Users who wish to modify or replace a part of the system are
-recommended to install a development version of the stacks or packages
-which they wish to modify, but to continue to use the base
-installation for most of the robot functionality.
-
-Debian packages exist for all of the custom software and
-configurations on the robot.  The package which pulls in all the other
-requirements is called \texttt{pr2-environment}.
-\texttt{pr2-environment} depends on \texttt{pr2-core}, which in turn
-depends on \texttt{ros-boxturtle-pr2}, the meta-package which contains
-all of the ROS software for the PR2.
-
-To upgrade the software on your robot, you can simply use \texttt{apt}:
-
-\begin{verbatim}
-$ sudo apt-get update
-$ sudo apt-get dist-upgrade
-\end{verbatim}
-
-Which will update all packages on your system, pulling in security fixes for
-the pr2 configuration as well as for the appropriate ros-release.
-
 \section{Reinstall the Basestation}
 If you have a basestation USB installer, you can reinstall the
 basestation to revert it to a completely fresh state.  Creating a new
@@ -852,6 +957,25 @@ To boot off the USB installer:
 \item The computer should boot off of the USB stick.
 \item If the installer complains about not being able to find the ISO,
   choos ``Scan Hard Drive for ISO...'' and then hit ``Enter'' to
+  continue.
+\item Once the installer is actually progressing, it will take about half an hour to complete.
+\item When the installer completes, hit ``Enter'' to shut down and remove the USB stick.
+\item When the basestation boots you should have a fresh image -- consult the section on Basestation Setup and Pairing to configure the basestation.
+\end{itemize}
+
+\subsection{Booting off the DVD installer}
+To boot off the DVD installer:
+\begin{itemize}
+\item Insert the the DVD into the drive on the basestation.
+\item Reboot the basestation
+\item Press the \texttt{<DEL>} key to enter setup
+\item Choose ``Advanced BIOS Features''
+\item Choose ``Hard Disk Boot Priority''
+\item Select the ``CDROM'' and hit ``Page Up'' to make it number 1
+\item Hit ``F10'' to save and exit the setup
+\item The computer should boot off of the USB stick.
+\item If the installer complains about not being able to find the ISO,
+  choose ``Scan Hard Drive for ISO...'' and then hit ``Enter'' to
   continue.
 \item Once the installer is actually progressing, it will take about half an hour to complete.
 \item When the installer completes, hit ``Enter'' to shut down and remove the USB stick.
@@ -895,3 +1019,83 @@ When the robot is booting you will hear 2 beeps followed by a short
 pause, and then another 2 beeps.  After the 4th beep, hit f12 on the
 keyboard (either physically or through the KVM) to force c1 to netboot.
 
+
+\section{Software Maintenance}
+
+When the robots ship, the most recent version of ROS and the PR2
+software stacks is installed in /opt/ros.  By default, new users will
+have a ROS installation which references the pre-installed code.
+Users who wish to modify or replace a part of the system are
+recommended to install a development version of the stacks or packages
+which they wish to modify, but to continue to use the base
+installation for most of the robot functionality.
+
+Debian packages exist for all of the custom software and
+configurations on the robot.  The package which pulls in all the other
+requirements is called \texttt{pr2-environment}.
+\texttt{pr2-environment} depends on \texttt{pr2-core}, which in turn
+depends on \texttt{ros-boxturtle-pr2}, the meta-package which contains
+all of the ROS software for the PR2.
+
+To upgrade the software on your robot, you can simply use \texttt{apt}:
+
+\begin{verbatim}
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+\end{verbatim}
+
+Which will update all packages on your system, pulling in security fixes for
+the pr2 configuration as well as for the appropriate ros-release.
+
+\subsection{Fixing the nvidia module}
+
+Occasionally upgrading the basestation will cause a new kernel to be
+installed. When this happens, the nvidia module which we build for the
+kernel will no longer work.  If this happens, once you reboot, X will
+fail to start.  Choose the option to to exit X.  The script to
+re-build and install the modules is located in
+\texttt{/usr/src/NVIDIA-Linux-x86\_64-195.36.15-pkg2.run}.  Simply run it:
+
+\begin{verbatim}
+pr2admin@basestation$ $ sudo /usr/src/NVIDIA-Linux-x86_64-195.36.15-pkg2.run 
+\end{verbatim}
+
+
+\section{Default Password Reference}
+There are many different devices which make up the PR2.  Many of these
+have passwords which should be changed for security purposes.  The
+default logins and passwords are:
+
+\begin{itemize}
+\item Basestation (10.68.0.6).  Standard unix logins:
+  \begin{itemize}
+  \item root - willow
+  \item pr2admin - willow
+  \end{itemize}
+\item C1 (10.68.0.1). Standard unix logins:
+  \begin{itemize}
+  \item root - willow
+  \item pr2admin - willow
+  \end{itemize}
+\item C1 (10.68.0.1). Web-interface login:
+  \begin{itemize}
+  \item admin - admin
+  \item guest - guest
+  \end{itemize}
+\item C1 ESMS (10.68.0.91)
+  \begin{itemize}
+  \item root - changeme
+  \end{itemize}
+\item C2 ESMS (10.68.0.92)
+  \begin{itemize}
+  \item root - changeme
+  \end{itemize}
+\item Wireless Router (10.68.0.5).
+  \begin{itemize}
+  \item root - willow
+  \end{itemize}
+\item Wireless Access Point (10.68.0.250))
+  \begin{itemize}
+  \item root - willow
+  \end{itemize}
+\end{itemize}
