@@ -19,47 +19,51 @@ We have further designed the PR2's arms using relatively small motors with respe
 
 In software, we have incorporated low-level checking to limit the current in a motor, the velocity of a motor, and the range through which a joint should travel.  We obviously discourage users and developers from changing these configurations.  High-level applications also avoid obstacles in navigation and movement using the various on-board sensors.  
 
-These design choices also help make the PR2 robust.  However, a robot with the PR2’s capabilities can never be absolutely safe. Your safety as well as the safety of others critically depends on your constant attention. You must be aware of the potential dangers of using a PR2, and learn to anticipate and prevent problems.
+These design choices also help make the PR2 robust.  However, a robot with the PR2’s capabilities can {\bf never} be absolutely safe. Your safety as well as the safety of others critically depends on your constant attention. You must be aware of the potential dangers of using a PR2, and learn to anticipate and prevent problems.
 
 \section{General Usage Guidelines}
 
-While many guidelines for the safe use of a robot stem from common sense, we enumerate a basic set here.  We stress the importance of following these guidelines but re-emphasize that these guidelines alone do not guarantee safety but reduce risk.
+While many guidelines for the safe use of a robot stem from common sense, we list a basic set here.  We stress the importance of following these guidelines but emphasize that these guidelines alone do not guarantee safety, only reduce risk.
 \begin{itemize}
 \item Every organization that uses a PR2 must appoint a {\bf Safety Officer}.
 \begin{itemize}
-\item The Safety Officer's contact information should be known by everyone in the organization who uses the PR2 (including designers, developers, programmers, and end-users).
+\item The Safety Officer's contact information should be known by everyone who uses the PR2 (including designers, developers, programmers, and end-users).
 \item Details of the Safety Officer's roles and responsibilities are described in section 2.4.
 \end{itemize}
 \item {\bf Before operating} or working with the PR2 you must do the following:
 \begin{itemize}
-\item view the safety video
-\item read this User Manual, in particular the entirety of Chapter 2 on Safety
-\item read and understand the latest list of potential hazards
+\item view the safety video,
+\item read this User Manual, in particular the entirety of Chapter 2 on Safety,
+\item read and understand the latest list of potential hazards, which can be found at \href{http://safety.willowgarage.com}{safety.willowgarage.com}, and
 \item know how to contact your organization's Safety Officer
 \end{itemize}
 \item {\bf Supervise children, visitors}, and anyone who has not followed the previous guideline.  In particular, make sure they
 \begin{itemize}
-\item do not come within range of the PR2 when active
-\item are aware the robot could move unexpectedly and is potentially dangerous
+\item do not come within range of the PR2 when active,
+\item are aware the robot could move unexpectedly and is potentially dangerous,
 \item are not alone with the PR2, and
-\item do not operate the PR2
+\item do not operate the PR2.
 \end{itemize}
-\item {\bf Maintain a safe environment}.  Safety is not only affected by how you operate the robot, but by the environment as well.
+\item {\bf Maintain a safe environment}.  Safety is not only affected by how you operate the robot, but by the environment as well. The PR2 is designed to operate in a laboratory environment.
 \begin{itemize}
-\item Make sure the robot has adequate and level space for any expected or unexpected operation
+\item Keep the robot {\bf at least 7 meters from the top of a stairway or any other dropoff}.
+\item Make sure the robot has adequate and level space for any expected or unexpected operation.
 \item If the robot travels on a ramp, make sure the spine is lowered and the arms are tucked in so that the center of gravity is as low as possible. The slope should not be more than 1:12. Ensure that the robot cannot fall off the edge under any circumstances.
 \item Make sure the the environment is free of objects that could pose a risk if knocked, hit, or otherwise affected by the PR2
 \item Make sure there are no cables or ropes that could be caught in the covers, wheels, or arms; these could pull other objects over.
 \item Make sure no animals are the near the robot.
 \item Keep fingers, hair, and clothing away from wheels and gears.
 \item Be aware of the location of emergency exits and make sure the robot cannot block them.
-\end{itemize}
-\item The PR2 is designed to operate in an {\bf laboratory environment}.
-\begin{itemize}
 \item Do not operate the robot outdoors.
-\item Do not allow the robot to come in contact with liquids (spilled drinks, rain, etc.). This is particularly important when the robot is plugged into an AC outlet .
-\item Keep the robot {\bf at least 7 meters from the top of a stairway or any other dropoff}.
 \end{itemize}
+\item Use caution to avoid electrical shock.
+\begin{itemize}
+\item Do not allow the robot to come in contact with liquids (spilled drinks, rain, etc.). This is particularly important when the robot is plugged into an AC outlet.
+\item If a robot does get wet, turn off the DC breaker and contact Willow Garage. If it is plugged into an AC outlet, don't touch the robot. Turn off the circuit breaker that controls the outlet.
+\item Before removing any covers, the PR2 should be unplugged and the DC breaker should be turned off.
+\item Make sure the power cord is in good condition. Cord insulation must be intact with no cracks or deterioration. Both connectors should be undamaged. If the power cord is damaged in any way, it should be discarded and replaced with a new cord from Willow Garage.
+\end{itemize}
+\item When plugging in the PR2, always attach the power cord to the AC inlet on the robot {\bf before} attaching it to the AC outlet on the wall. Unplug the cord from the wall before unplugging from the robot.
 \item Use extreme caution whenever the robot's spine is contracting. Objects or body parts could be crushed between the robot's body and base. Also keep people and objects away from the robot's joints.
 \item Make sure the batteries cannot be overheated or punctured.  Do not run the robot without its covers. They help protect the batteries from inadvertent collisions.
 \item The operator should always have immediate access to the {\bf run/stop} box and should stop the robot at the first sign of a problem. The stop button should always be pressed when examining, inspecting, or maintaining the robot.
@@ -71,13 +75,15 @@ While many guidelines for the safe use of a robot stem from common sense, we enu
 \item Do not allow the robot to operate potentially dangerous appliances (like stoves) or power tools.
 \end{itemize}
 \item Pay attention to {\bf warning labels} on the robot.
-\item {\bf Do not remove the covers} of a PR2 without prior and appropriate instruction by Willow Garage.
+\item {\bf Do not remove the covers} of a PR2 or disassemble it in any way without prior and appropriate instruction by Willow Garage.
 \begin{itemize}
 \item There are high voltages inside the robot.
 \item There are a variety of pinch points and other mechanical dangers in the interior of the robot.
 \item Counterbalances and springs store significant potential energy which could cause damage if unloaded abruptly.
 \end{itemize}
 \item Do not modify or remove any part of the {\bf software safety features}.
+\item If you are sensitive to 50 Hz flashing lights, the texture projector may trigger headaches or seizures.
+\item When you are developing software, you should consider that some people have adverse reactions to the flicker from the texture projector and only turn it on when necessary.
 \item Regularly inspect and maintain anything the robot interacts with.  For example, regularly inspect the electrical outlets the robot plugs into.
 \item {\bf Anticipate potential problems} and hazards.  Always imagine what might happen if the robot malfunctions or behaves in a way different from the desired action.  Be vigilant.
 \item Be aware that many things can go wrong even with a seemingly simple activity. For example, consider what might go wrong while driving the robot with the joystick:
@@ -97,23 +103,36 @@ While many guidelines for the safe use of a robot stem from common sense, we enu
 \end{itemize}
 
 \section{Safety Program}
-Safety is a continual process, requiring proactive examination of the robot and its environment, and risk identification and mitigation. To facilitate this process and communication within the community, Willow Garage has implemented a safety program, spearheaded by the Safety Board.
 
-\subsection{Willow Garage Safety Board}
-The Willow Garage Safety Board identifies hazards related to Willow Garage products and ensures that appropriate actions are taken to mitigate those hazards. The Board maintains a database to keep track of the hazards and mitigation actions. To identify additional hazards for the database, the Board commissions hazard brainstorming meetings and reviews incident reports from the field. To initiate actions that reduce the severity and/or likelihood of specific hazards, the Board commissions hazard response projects. To ensure that appropriate actions remain in force, the Board commissions hazard response audits. The Board works with Safety Officers in external organizations to improve safety across all users of Willow Garage products.
+The possibility of injury can never be completely eliminated when working with a PR2. Therefore, Willow Garage has instituted a safety program to focus continual effort and attention on risk reduction. The program is managed by a Safety Board and has three main goals:
 
-The core Safety Board includes senior members of the Willow Garage management. Additional employees serve for term appointments. Members of the Board spend at least one day per month on safety related work.
-
-\subsection{Hazard Database}
-The safety database tracks information about potential hazards, which are things the robot might do that could cause damage. Example hazards include running into something or falling down stairs. Each hazard is associated with estimates of its severity and likelihood of occurrence. The database also records information on safety incidents that have been reported. Each incident is associated in the database with the hazard(s) that it exemplifies. A list of the hazards is located at safety.willowgarage.com.
-
-\subsection{Safety Officers}
-
-Each organization that uses Willow Garage products will appoint a Safety Officer who is responsible for all aspects of safety in the use of those products. The Safety Officer will:
 \begin{itemize}
-\item remain informed of all known safety hazards and mitigations,
-\item ensure that all known mitigations are implemented in their organization,
-\item ensure that everyone involved with the products receives safety training,
-\item report any safety incidents to Willow Garage in a timely fashion, and
-\item work with the Willow Garage Safety Board to improve safety.
+\item Anticipation: identifying potential hazards associated with the PR2
+\item Mitigation: taking actions to reduce the likelihood and severity of hazards
+\item Communication: exchanging information about safety within the community
+\end{itemize}
+
+The foundation of the safety program is an ongoing effort to identify ways a PR2 could cause damage. We refer to these as hazards. For example, a robot could cause damage by running into a person or falling down stairs. The Safety Board maintains a list of all known hazards in a document called “PR2 Hazards”, which can be found on the \href{http://safety.willowgarage.com}{safety.willowgarage.com} web site. Anyone who works with a PR2 should review this list regularly. If you know of a potential source of damage that is not covered by one of the hazards in the list, please let us know, using one of the contact methods described below.
+
+When a hazard is identified, one or more of the following steps is taken:
+
+\begin{itemize}
+\item A design change is made to mitigate the potential damage. Examples of these can be found in the document called “Design for Risk Reduction” on the \href{http://safety.willowgarage.com}{safety.willowgarage.com} web site.
+\item A guideline is written to let people know how to avoid the potential damage. The list of guidelines can be found in an earlier section of this chapter or in a document called “PR2 Usage Guidelines” on the \href{http://safety.willowgarage.com}{safety.willowgarage.com} web site.
+\item A warning sticker is attached to the robot.
+\end{itemize}
+
+Communication is key to the safety program. There are several sources of information available to you:
+
+\begin{itemize}
+\item The web pages at \href{http://safety.willowgarage.com}{safety.willowgarage.com}.
+\item This chapter of the PR2 User Manual
+\item A Safety Officer for each PR2 site assists with two-way communication.
+\end{itemize}
+
+If you have any concerns about safety or if you witness a safety-related incident, please contact the Willow Garage Safety Board.
+
+\begin{itemize}
+\item By email at \href{mailto://safety@willowgarage.com}{safety@willowgarage.com}
+\item By phone at 650-475-9794
 \end{itemize}
