@@ -834,6 +834,16 @@ approximately two hours of countinous operation after a full recharge.  For more
 information, see the \href{http://www.ros.org/wiki/ocean\_server}{ocean\_server}
 package at \href{http://www.ros.org}{ros.org}.
 
+\subsubsection{Battery Temperature Warnings}
+
+The PR2 battery system reports a warning in the diagnostics if the temperature goes above 50C, which is the maximum recommended operational temperature of the batteries. 
+
+The batteries are exothermic when discharging, and tend to get hottest when they are near minimum charge. During a work day, when your PR2 is constantly charging and discharging, the temperature of the batteries can slowly climb. If your lab or workspace is warm (above 25C) you are much more likely to see this problem.
+
+After the battery temperature goes above approximately 54C, the batteries will not charge until the battery temperature drops below 46C. 
+
+If your batteries are reporting that they are too hot, then you need to reduce the load on the batteries. Generally, it is best to plug the robot in as soon as possible. It may take several hours for the batteries too cool down and charge.
+
 \subsection{Power board}
 The power board is central to the PR2's power system. This is where
 the power from the batteries passes through to the rest of the
