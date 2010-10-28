@@ -1,0 +1,19 @@
+*** C/common/common.mk	2010-10-27 13:50:27.059666785 -0700
+--- C/common/common.mk.old	2010-10-27 16:54:02.728314200 -0700
+***************
+*** 291,297 ****
+  else
+  # static linking, we will statically link against CUDA and CUDART
+    ifeq ($(USEDRVAPI),1)
+!      LIB += -lcuda -L/usr/lib64/nvidia-current  ${OPENGLLIB} $(PARAMGLLIB) $(RENDERCHECKGLLIB) $(CUDPPLIB) ${LIB} 
+    else
+       LIB += -lcudart
+       LIB += ${OPENGLLIB} $(PARAMGLLIB) $(RENDERCHECKGLLIB) $(CUDPPLIB) ${LIB}
+--- 291,297 ----
+  else
+  # static linking, we will statically link against CUDA and CUDART
+    ifeq ($(USEDRVAPI),1)
+!      LIB += -lcuda ${OPENGLLIB} $(PARAMGLLIB) $(RENDERCHECKGLLIB) $(CUDPPLIB) ${LIB} 
+    else
+       LIB += -lcudart
+       LIB += ${OPENGLLIB} $(PARAMGLLIB) $(RENDERCHECKGLLIB) $(CUDPPLIB) ${LIB}
