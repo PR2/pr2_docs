@@ -551,6 +551,18 @@ incorrectly.  If the lasers are switched, swap the symlinks for
 symlinks on c2, you actually need to modify
 \texttt{/slave/etc/ros/sensors} from the c1 machine.
 
+\subsubsection{Switching ROS Distributions Example}
+
+Example to switch from ROS boxturtle to ROS cturtle:
+\begin{verbatim}
+pr2admin@pr10XX:/etc/ros$ ls -l distro
+lrwxrwxrwx 1 root rosadmin    9 2010-11-10 15:27 distro -> boxturtle
+pr2admin@pr10XX:/etc/ros$ sudo rm distro
+pr2admin@pr10XX:/etc/ros$ sudo ln -s cturtle distro
+pr2admin@pr10XX:/etc/ros$ ls -l distro 
+lrwxrwxrwx 1 root root        7 2010-11-12 10:19 distro -> cturtle
+\end{verbatim}
+
 \subsection{Log files}
 The PR2 is configured to consolidate all system logs into
 \texttt{/var/log/messages}.
@@ -1059,6 +1071,7 @@ re-build and install the modules is located in
 \begin{verbatim}
 pr2admin@basestation$ $ sudo /usr/src/NVIDIA-Linux-x86_64-195.36.15-pkg2.run 
 \end{verbatim}
+
 
 
 \section{Default Password Reference}

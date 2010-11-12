@@ -844,13 +844,15 @@ After the battery temperature goes above approximately 54C, the batteries will n
 
 If your batteries are reporting that they are too hot, then you need to reduce the load on the batteries. Generally, it is best to plug the robot in as soon as possible. It may take several hours for the batteries too cool down and charge.
 
-\subsection{Power board}
+The main power board fan will run at full power whenever the batteries are above 46C. If the fan is abnormally loud, clean your fan filter.
+
+\subsection{Power Board}
 The power board is central to the PR2's power system. This is where
 the power from the batteries passes through to the rest of the
 system. The power board monitors total power drawn from the batteries
 by measuring the voltage and current at the power board input.
 
-The battery power is used to provide regulated twelve volts to the computers and
+The battery power is used to provide regulated 12V to the computers and
 the system bus through DC converters. Three unregulated circuits are also
 provided with a unique electronic circuit breaker functionality. All outputs are
 ultimately controlled by the processor located on the Power Board.
