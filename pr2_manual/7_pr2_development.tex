@@ -1,26 +1,24 @@
-\chapter{Writing code on PR2}
-The PR2 comes with the PR2 variant of the latest released distribution
-of ROS installed from binary debian packages in \texttt{/opt/ros} .  It is
-recommended to use this installation where possible to save compile time and
-disk space.
+\chapter{Writing Code on the PR2}
 
-\paragraph{Start by getting rosinstall}
+The PR2 comes with the latest released distribution
+of ROS installed from binary debian packages in \texttt{/opt/ros}. You'll need to set up your personal ROS environment to develop on the PR2. 
+
+
+\section{Installing code in user-space}
+
+PR2 developers typically use the installed versions of ROS to operate the PR2 systems and perform low-level functions. Developers test and integrate their own code by setting up an ``overlay'' of their ROS packages and the default installation.
+
+\subsection{rosinstall}
+
+Use \texttt{rosinstall} to install ROS software in your home directory on the PR2. You can use \texttt{rosinstall} to set up your basic ROS environment.
+
 There is more documentation on the wiki package page
 \href{http://www.ros.org/wiki/rosinstall}{rosinstall}.
 
-\begin{verbatim}
-wget --no-check-certificate http://ros.org/rosinstall -O ~/rosinstall
-chmod 755 ~/rosinstall
-\end{verbatim}
+\subsubsection{Make rosinstall file}
 
-\section{Installing code in user-space}
-To setup your environment with the installed packages type:
-\begin{verbatim}
-. /opt/ros/boxturtle/setup.sh
-\end{verbatim}
-\subsection{Installing another repository in user-space}
-To add another repository an overlay rosinstall file should be created
-like the following:
+You'll need to create a \texttt{rosinstall} file to store your own ROS packages, with installation instructions. See \href{http://www.ros.org/wiki/rosinstall#File\_format}{rosinstall file format} for details.
+
 \begin{verbatim}
 - VERSION-CONTROL-TYPE:
     uri: URI
@@ -30,27 +28,28 @@ Recreate this as ~/custom.rosinstall substituting appropriately for the all caps
 
 Then type:
 \begin{verbatim}
-~/rosinstall -o ~/local_dir ~/custom.rosinstall
+~/rosinstall  ~/local_dir /opt/ros/cturtle ~/custom.rosinstall
 \end{verbatim}
-\subsubsection{Setting environment to use local\_dir}
+
+Now, add the following line to your \texttt{~/.bashrc} file to source your local ROS configuration.
 \begin{verbatim}
 . ~/local_dir/setup.sh
 \end{verbatim}
 
 \subsection{Creating a package}
 This is documented on the wiki in the
-\href{http://www.ros.org/wiki/roscreate}{roscreate package}
+\href{http://www.ros.org/wiki/roscreate}{roscreate package} tool.
 
 \subsection{Using a local version of a stack}
 If a different version of a stack is desired instead of an installed
 one, add it to your overlay rosinstall file.  Stacks in overlays are
 prepended to the path and thus will take priority over an existing
-stack.  Note be careful, if changing a lower level stack, for all
-things which depend on it's changes must be rebuilt. This can be an
-issue if the dependent stacks are also installed.
+stack.  
 
-\section{Where to Start}
-\subsection{Documetation and Tutorials}
+{\bf Note:} If you modify any low-level stacks, you may need to rebuild any stacks that depend on them from source. For example, changes to \texttt{image\_common} may require that \texttt{stereo\_image\_proc} be rebuilt.
+
+\section{Learning ROS}
+\subsection{Documentation and Tutorials}
 Documentation for ROS and the PR2 can be found on \href{http://www.ros.org}{ros.org}. An overview 
 of the relevant libraries for filtering, navigation, cooridinate tranforms, etc., can be foung at 
 \href{http://www.ros.org/APIs}{http://www.ros.org/APIs}. Below is a listing of several tutorials 
@@ -72,11 +71,42 @@ the python and C++ APIs. More example tutorials can be found at
 \href{http://www.ros.org/wiki/turtle\_actionlib}{turtle actionlib}.
 \end{description}
 
+\section{ROS Help and Support}
+
 \subsection{Mailing Lists}
+
+For software or ROS questions, it is recommended to use mailings lists to contact developers.
+
 \begin{description}
 \item[\href{https://code.ros.org/mailman/listinfo/ros-users}{ros-users}] This mailing list 
 provides the latest ROS news and is a forum for posting questions to the ROS community for help. 
-\item[\href{http://lists.willowgarage.com/cgi-bin/mailman/listinfo/pr2-users}{PR2-users}] This 
+
+\item[\href{http://lists.willowgarage.com/cgi-bin/mailman/listinfo/pr2-users}{pr2-users}] This 
 mailing list provides the latest PR2 news and is a forum for posting questions to the PR2 community 
 for help.
+
+\item[\href{http://lists.willowgarage.com/cgi-bin/mailman/listinfo/pr2-admins}{pr2-admins}] This 
+mailing list is for network/system administrators of the PR2. 
+
+\end{description}
+
+Please follow these general guidelines when posting mailing list messages:
+\begin{description}
+\item[Don't Ask General Programming Questions] The mailing lists are for ROS questions only.
+\item[Be as clear as possible] Give very specific error messages. Give versions of relevant stacks, your operating system, and any other important details.
+\item[Copy-Paste Error Messages] Copy and paste entire error messages into your mailing list entry or ticket.
+\end{description}
+
+More information is available at \href{http://www.ros.org/wiki/Support}{ROS Support}.
+
+\subsection{Software Bugs/Tickets}
+
+To report software problems, file a ticket against the software component.
+
+\begin{description}
+\item[\href{https://code.ros.org/trac/ros/newticket}{ROS Trac}] Report problems with the core ROS stacks only.
+
+\item[\href{https://code.ros.org/trac/ros-pkg/newticket}{ROS-PKG Trac}] Report problems with any stack in ros-pkg (ex: camera\_drivers, laser\_drivers, common\_msgs, diagnostics).
+
+\item[\href{https://code.ros.org/trac/wg-ros-pkg/newticket}{WG-ROS-PKG Trac}] Report problems with any stack in wg-ros-pkg (ex: pr2\_mechanism, pr2\_robot).
 \end{description}

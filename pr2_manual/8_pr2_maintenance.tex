@@ -1,27 +1,73 @@
-\chapter{Maintaining PR2}
-\section{Installing upgraded stacks}
-Instructions on using the pr2\_admin user to install new version of stacks and apps next to what is already on the system.
+\chapter{Maintaining and Servicing the PR2}
 
-Instructions on how users set up their accounts to be either using the latest code all the time or to be locked to a particular version.  Discussion of the advantages of each.
-\section{Installing updated disk images}
-Instructions on installing an updated disk image from WG on the PR2 for, e.g. OS changes or robot configuration updates.  We need to figure out what is maintained during updates (e.g. network configuration?), and what is over-written.  This needs to be crisp and well-documented.
-\section{Resetting PR2}
-Sometimes, you may want to reset PR2 to factory defaults.  This is the process.
-This can either be done while preserving user data, or can be done as a full factory reset.
+The PR2 hardware requires little maintenance, but from time to time, you may be expected to service or perform minor repairs on your PR2. The information in this section will point you to the correct resources for hardware maintenance and servicing.
 
-Essentially, this is a full update to the last-installed disk image.
-\section{Diagnostics Logs}
-Since the PR2 is currently in beta, it is important for us to learn as much as we can about robot hardware usage and how problems develop.  To address this, we are requiring all PR2 beta sites to regularly transfer diagnostics logs to Willow Garage.
+If you have any questions about a PR2 hardware problem, or contact PR2 Support.
 
-These logs are gathered automatically by pr2\_core in the /hwlogs partition.  This directory should not be used for anything else, since everything there will be periodically transfered to Willow Garage.
-\subsection{Setting up automatic transfer}
-To make this process easier, we have provided a set of scripts to perform this log transfer automatically.  To enable those, just add the line XXX to the pr2\_admin crontab via these instructions:
-\subsection{Manual transfer}
-If you would prefer to not have the robot transfer logs back to Willow Garage automatically, you can transfer them manually instead.  To do this, either run the script "transfer\_logs", or look inside it to understand what it's doing and perform the transfer yourself.
-\section{Solving hardware problems}
-\subsection{Figuring out what's wrong}
-The first step if you suspect hardware problems should be to check the diagnostics display in pr2\_dashboard.  If that doesn't help you resolve the problem, you can run the full robot self test.  This is a GUI which allows you to select the portions of the robot you wish to qualify, and runs them through a variety of tests to diagnose problems.  Instructions on using it and interpreting the data it outputs go here.
-\subsection{Support}
-For hardware issues, please submit a ticket at support.willowgarage.com
-\subsection{Documentation}
-For more detailed documentation, see support.willowgarage.com.  This includes drawings and step-by-step instructions for replacing all user-servicable parts.
+\section{Regular Maintenance}
+
+\subsection{Software and Upgrades}
+
+For software upgrades of the PR2 and the basestation, please see the chapter on the PR2 computers.
+
+\subsection{Hardware Maintenance}
+
+Generally, your PR2 will require very little hardware maintenance. The procedures listed below are the only type of preventative maintenance that users should be doing. 
+
+All hardware maintenance instructions and procedures are available in the \href{http://pr2support.willowgarage.com/wiki/PR2 Service Information}{PR2 Service Information} section of the PR2 Support site. 
+
+\subsubsection{Fan Filter Cleaning / Replacement}
+
+From time to time, you may have to clean the fan filter on your PR2. Generally, you will know when it is time to clean the fan filter of the robot if the main fan becomes very loud. Instructions for cleaning and replacing the fan filter are available under \href{http://pr2support.willowgarage.com/wiki/PR2 Service Information}{PR2 Service Information} on the PR2 Support website.
+
+\subsubsection{Counterbalance Adjustment}
+
+The PR2 arms use a counterbalance mechanism to adjust for the weight of the arm. Over time, this counterbalance may loosen, or you may wish to adjust the counterbalance as part of a modification of the arm. The \href{http://pr2support.willowgarage.com/wiki/PR2 Service Information}{PR2 Service Information} page provides a guide to adjusting the PR2 arm counterbalance.
+
+\section{Hardware Problems and Diagnosis}
+
+If you have any hardware, electrical or computer problems with your PR2, you can use the PR2 Diagnostics and PR2 Support resources to diagnose and fix it.
+
+\subsection{Diagnostics System}
+
+The first step if you suspect hardware problems should be to check the diagnostics display in pr2\_dashboard. If you find any errors in the diagnostics system, check the \href{http://pr2support.willowgarage.com/wiki/FAQ}{FAQ} to see if it relates to a known problem.
+
+\subsection{PR2 Systemcheck}
+
+The \texttt{pr2-systemcheck} utility can perform a short self-test of the PR2. 
+
+To run pr2-systemcheck, run \texttt{sudo robot stop} to shut down ROS software. Then run \texttt{sudo pr2-systemcheck}.
+
+If you find any errors on the from \texttt{pr2-systemcheck}, check the \href{http://pr2support.willowgarage.com/wiki/FAQ}{FAQ} to see if it relates to a known problem.
+
+\section{Support}
+
+PR2 Support is available from mailing lists, the PR2 Support site, or from tickets to Willow Garage. Support from mailing lists and the PR2 Support site is free and available to anyone. Tickets to Willow Garage support are not free. Check your PR2 purchase agreement or Beta Program Agreement for details on service charges.
+
+\subsection{Mailing Lists and Software Documentation}
+
+Please see ``Writing Code on the PR2'' for a complete list of mailing lists and Trac system for software problems.
+
+\subsection{Report a Hardware Problem}
+
+For hardware issues, please submit a ticket at \href{http://pr2support.willowgarage.com}{PR2 Support}. The Willow Garage engineering team will assist in diagnosing and fixing your problem.
+
+\section{Additional Documentation}
+
+Complete documentation on the PR2 modularity specifications, remove and replace instructions and other maintenance procedures is available at \href{http://pr2support.willowgarage.com}{PR2 Support}.
+
+\subsection{FAQ}
+
+The \href{http://pr2support.willowgarage.com/wiki/FAQ}{FAQ} in the PR2 Support website lists a number of common problems and fixes to your PR2. The FAQ is written by members of the Willow Garage engineering team. Please check the FAQ before filing a hardware ticket.
+
+\subsection{Software Documentation}
+
+The \href{http://www.ros.org/wiki}{ROS Wiki} contains all documentation for ROS and related software.
+
+\subsection{PR2 Modularity Specifications}
+
+The PR2 Modularity Specification is available on the PR2 Support website under \href{http://pr2support.willowgarage.com/wiki/PR2 Modularity}{PR2 Modularity}. The modularity specifications cover mechanical and electrical interfaces to key PR2 components.
+
+\subsection{PR2 Remove/Replace Instructions}
+
+The PR2 Support website contains instructional documents for removing and replacing sub-assemblies of the PR2 under \href{http://pr2support.willowgarage.com/wiki/PR2 Service Information}{PR2 Service Information}.
