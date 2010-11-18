@@ -1,4 +1,4 @@
-\documentclass[11pt]{book}
+\documentclass[11pt]{report}
 \usepackage[usenames,dvips,pdftex]{color}
 \usepackage[pdftex]{color,graphicx}
 \usepackage{hyperref}
@@ -94,7 +94,7 @@ Invent also has a client API, which the \href{http://www.ros.org/wiki/wg\_invent
 
 \section {Invent Server}
 
-Invent runs on \texttt{iinvent.willowgarage.com} internally. The Invent server files are in \texttt{/var/www/invent.willowgarage.com/invent}. 
+Invent runs on \texttt{iinvent} internally. The Invent server files are in \texttt{/var/www/invent.willowgarage.com/invent}. 
 
 The following tools are key parts of Invent:
 \begin{itemize}
@@ -274,6 +274,28 @@ After patching the kernel module, reboot the machine. Running \texttt{sudo pr2-s
 
 The patch may need to upgraded periodically for different versions of the NVIDIA driver. If the test machines migrate to a different kernel, they may not need the patch at all.
 
+\subsection{Upgrading Debian Packages}
+
+Test machines can be changed by upgrading the debian packages, rebuilding them, and upgrading the test machines.
+
+\begin{itemize}
+\item [Update SVN Repo] Check in any changes to the ``pr2debs'' SVN repo.
+\item [Build] Run \texttt{./builddebs wg-teststation} to build latest debs.
+\item [Push To Server] \texttt{scp *.\{changes,deb\} pub5:/var/packages/wg-test/ubuntu/queue/lucid}
+\item [Release] Log in to ``pub5'' machine to release. Run \texttt{cd /var/packages/wg-test/ubuntu} and \texttt{reprepro -v processincoming lucid}
+\item [Upgrade] Run \texttt{apt-get update \&\& apt-get dist-upgrade} to pull new packages.
+\end{itemize}
+
+Always build the debian packages on the same architecture they'll be deployed on (ie, build on test machines).
+
+\subsection{Logins}
+
+Default password reference for test machines:
+\begin{itemize}
+\item [\texttt{root}] - \texttt{willow}
+\item [\texttt{wgtest}] - \texttt{gopr2}
+\end{itemize}
+The ``wgtest'' account is a shared account that is available on any Willow Garage machine. All tests should be run from the ``wgtest'' account.
 
 \section{Computer Installation}
 
