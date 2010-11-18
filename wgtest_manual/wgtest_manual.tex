@@ -1,0 +1,402 @@
+\documentclass[11pt]{book}
+\usepackage[usenames,dvips,pdftex]{color}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{overpic, epic}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+
+\hypersetup{colorlinks=true, filecolor=black, linkcolor=black, urlcolor=blue, citecolor=black}
+
+
+\graphicspath{{./images/}}
+
+\begin{document}
+\title{WG Test Systems Manual}
+\author{Kevin Watts}
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+\maketitle
+
+\tableofcontents
+\newpage
+
+
+\chapter {Introduction}
+
+This guide is for documenting, maintaining and enhancing the WG Hardware Test Systems. 
+
+The WG hardware test systems are responsible for qualifying and testing all PR2 production components.
+
+This system does not include ``EE'' tests which are used for the PR2 power board, MCB's or motors.
+
+
+\section {Software}
+
+The software for the WG hardware test system is located in the \href{http://code.ros.org}{wg-ros-pkg} repository. Principal stacks are:
+\begin{itemize}
+\item [\href{http://www.ros.org/wiki/wg\_hardware\_test}{wg\_hardware\_test}] Hardware testing stack.
+\item [\href{http://www.ros.org/wiki/wg\_hardware\_test}{wg\_hardware\_test}] PR2 Self Test stack.
+\end{itemize}
+
+All software documentation can be found in the ROS wiki under the respective stacks.
+
+\chapter {Invent}
+
+The WG Inventory System, known as {\bf Invent}, is located at \href{http://invent.willowgarage.com}{invent.willowgarage.com}. 
+
+\section{Invent Overview}
+The WG Inventory System, or device history record, contains data for individual parts and products used at Willow Garage. 
+
+\subsection{Invent vocabulary}
+\begin{itemize}
+\item[Product/Part] - Type of component. Ex: Hokuyo laser scanner
+\item[Item] - Serialized component. Ex: Prosilica camera 109104
+\item[Reference] - Unique identifier that can be attached to an individual part. This is usually a manufacturer's serial number or MAC address.
+\item[Sub-items/Children] - Any items that are assembled into the current item.
+\item[Location/Parent] - Location a part can be stored or moved to.
+\item[Key-Value] - Items can have arbitrary keys, stored with designated values. All qualification tests set the ``Test Status" key to ``PASS".
+\item[Attachment] - Attachment files of any binary type can be linked to an item or part.
+\end{itemize}
+
+\subsection{Serial Numbers}
+Invent serial numbers are of the form:
+\begin{verbatim}
+68-0XXXX-0YYYY
+\end{verbatim}
+The first values, \texttt{XXXX}, are the part number. All Hokuyo laser scanners have the part number ``3134". The second, \texttt{YYYY}, is the serial number of the device. Serial numbers are increasing from ``0000" for each device.
+
+\subsection{Users}
+Invent allows users to:
+\begin{itemize}
+\item[Lookup] items by serial number or ``reference"
+\item[Assemble] components together
+\item[Move] items to a new location
+\item[Print] barcode labels 
+\item[Add] or edit notes for items or products
+\item[View] testing data for different products
+\item[Add] new part numbers to Invent
+\end{itemize}
+
+Administrators can:
+\begin{itemize}
+\item[Edit Users] - Promote to admin, etc.
+\item[Edit Key-Values] - Delete or edit key-value of an item or product
+\item[Edit Notes] - Delete notes or testing data
+\end{itemize}
+
+\subsection{Client API}
+
+Invent also has a client API, which the \href{http://www.ros.org/wiki/wg\_invent\_client}{wg\_invent\_client} package provides an interface to. Users can use the client API to query and modify the Invent database. Testing data can be retrieved using the \href{http://www.ros.org/wiki/wgtest\_data\_analysis}{wgtest\_data\_analysis} package.
+
+
+\section {Invent Server}
+
+Invent runs on \texttt{iinvent.willowgarage.com} internally. The Invent server files are in \texttt{/var/www/invent.willowgarage.com/invent}. 
+
+The following tools are key parts of Invent:
+\begin{itemize}
+\item [Clearsilver] This allows making custom webpages with templates.
+\item [Pyclearsilver] This Python API to clearsilver was derived from the work of Scott Hassan of eGroups in 1998. This tool is best documented through the \href{http://www.ros.org/wiki/pyclearsilver}{ROS pyclearsilver page}.
+\item [Apache HTTP Server] Manages Invent webserver.
+\item [SQLite] Databases that are accessed through pyclearsilver.
+\end{itemize}
+
+Invent code is sourced controlled using a \texttt{git} repo. You may have to use \texttt{sudo} to get the proper permissions to modify files with \texttt{git}.
+
+The Invent database file is at \texttt{invent/invent.db3}. All testing data is at \texttt{wgtest/wgtest.db3}. Invent uses an sqlite database.
+
+Code and HTML templates for the main Invent system are in the \texttt{invent/mod/invent} directory. WG testing data is somewhat segregated, the code is \texttt{invent/mod/wgtest}.
+
+Structurally, Invent is very similar to (actually, it is the origin of) the \href{http://www.ros.org/wiki/web\_interface}{ROS Web interface}. 
+
+\subsection{Server API}
+
+The server side API is provided at \texttt{invent/mod/invent/cgibin/api.py} for the main Inventory system. The WG test API is  \texttt{invent/mod/wgtest/cgibin/api.py}.
+
+The main invent database stores all information related to parts, products and locations. The wgtest database stores only testing data, and prescribed sequences of tests. 
+
+
+
+\section {Invent Debug Server}
+
+The Invent debug clone is located at \href{http://cmi.willowgarage.com}{cmi.willowgarage.com}. This server is only available inside the WG network.
+
+The configuration of this server should be the same as the main Invent server. This server runs Ubuntu 8.04. Do not upgrade this server or you will not be able to run the Invent clone.
+
+\section{Debugging Invent}
+
+The log file for Invent is located at \texttt{/var/log/apache/error.log} on the Invent server. 
+
+\section{Invent vs xTuple}
+
+xTuple is used as an ERP to store the complete BoM of any project. Invent acts as a device-history-record, and tracks the location of serialized parts.
+
+\chapter {PR2 SCDS}
+
+\section{PR2 SCDS}
+
+PR2 SCDS is an SVN repository where all PR2 source controlled documents are stored. The repository server is located at \href{http://prdev.willowgarage.com}{prdev.willowgarage.com}.
+
+Test hardware and cables are stored in the \texttt{test\_hardware} directory. Some testing procedures, including the procedures for PR2 functional checks, are stored in \texttt{\_robot\_top\_level/bringup}.
+
+\subsection{PR2 SCDS Admin}
+
+PR2 SCDS can be maintained internally from the \texttt{iprdev} machine. 
+
+To create an account for Trac and SVN:
+\begin{itemize}
+\item \texttt{cd /etc/buildix}
+\item Give user Trac permissions with \texttt{htpasswd htpasswd USER}
+\item Give SVN permissions by editing \texttt{dav\_svn.authz}
+\end{itemize}
+
+\section{Test Sequences}
+
+Required tests for each component are determined by tables listed in PR2 SCDS. These tables can be set by the project engineering teams. These tables are listed in PR2 SCDS in \texttt{\_robot\_top\_level/tests\_reqd}. 
+
+The testing tables list the test ID and description, in the order that the test must be run.
+
+\subsection{Changing Test Sequences}
+
+Before changing any test sequences, verify that the test sequence is logically valid. In the \texttt{\_robot\_top\_level/test\_bom\_check} folder, run \texttt{check\_test\_bom.py}. 
+
+\section{Barcode Labels and Associations}
+
+Barcode labels for each part of the PR2 are stored in a special CSV document in PR2 SCDS, \texttt{\_robot\_top\_level/barcode\_labels}. This CSV document stores the part numbers of the barcodes, along with the test printed on each barcode. 
+
+In order to assemble components into a higher-level assembly, Invent loads CSV tables in \texttt{\_robot\_top\_level/barcode\_assoc}. Each CSV table specifies the quantity and type of required sub-components for an assembly. Only barcoded assemblies should be listed in these tables.
+
+
+\subsection{Changing Assembly BoM}
+
+Before changing the association structure for an assembly, make sure that the new associations are consistant with xTuple data. Invent stores only barcode associations (only serialized parts), but the full robot BoM is stored in xTuple.
+
+Export the latest robot BoM as a text file from xTuple. Check it into PR2 SCDS in \texttt{\_robot\_top\_level/xtuple\_bom\_check}. The script \texttt{wg\_check\_bom.py} verifies that the xTuple BoM is consistant with the barcode associations.
+
+\section{Updating Invent}
+
+After a test sequence for a component is changed, or the barcode associations are updated, Invent needs to be updated. Run the following scripts on the Invent server to update the databases.
+
+The script \texttt{invent/mod/invent/bom\_pr2scds.py} reloads the BoM information based on the barcode tables in PR2 SCDS. 
+
+The script \texttt{invent/mod/invent/tests\_pr2scds.py} reloads the required tests tables from PR2 SCDS and updates Invent.
+
+Always run update commands on the debug Invent server before running them on the main Invent server.
+
+
+
+
+
+\chapter{Hardware Test Computers}
+
+The WG hardware testing system uses approximately 30 computers to operate production tests. Before reading this section, it is helpful to read and understand the ``Computers'' section of the PR2 Manual.
+
+The test computers run Ubuntu 10.04 (Lucid) using an RT kernel. They share some of their computer configuration with the PR2.
+
+\section{Computer Configuration}
+
+The computer configuration for the WG testing computers is controlled through a series of debian packages. Like the PR2 computer packages, these packages allow the machines to be upgraded through \texttt{apt-get}.
+
+The packages are stored in an SVN repo at \href{https://code.ros.org/svn/pr2debs/trunk}{pr2debs}. The \texttt{wg-test} packages are for the test stations.
+
+\subsection{Packages}
+
+Four debian packages contain all the necessary tools for configuring a test machine. 
+
+\begin{itemize}
+\item [\texttt{wg-teststation}] This is the base package which contains most of the functionality.
+\item [\texttt{wg-testslave}] Installed on all slave machines.
+\item [\texttt{wg-testmaster}] Qualification machines
+\item [\texttt{wg-burnmaster}] Burn in master machines
+\end{itemize}
+
+The last three packages depend on the first one. 
+
+\subsection{Test Station Package}
+
+The \texttt{wg-teststation} package contains most of the functionality to create a test machine.
+
+\begin{itemize}
+\item [\texttt{/etc/nvidia-patch}] Patch script to fix the NVIDIA kernel module.
+\item [\texttt{/etc/ros}] ROS environment. Identical to \texttt{/etc/ros} directory on a PR2.
+\item [\texttt{/etc/sudoers}] Sudoers file allows \texttt{ckill} and \texttt{sendhwlog}.
+\item [\texttt{/etc/munin}] System monitoring.
+\item [\texttt{/etc/xdg}] Applications menu additions.
+\item [\texttt{/etc/ckill}] Whitelist for ckill.
+\item [\texttt{/usr/share}] Applications menu and \texttt{pr2-systemcheck}.
+\end{itemize}
+
+{\bf Note:} The \texttt{/hwlog} directory is set up by the installer, and is not modified by the debian packages.
+
+\subsection{Interfaces}
+
+Because of hardware differences between different types of test machine, the network interfaces need to be configured in the child debian packages.
+
+Test station network interfaces:
+\begin{itemize}
+\item [\texttt{ecat0}] EtherCAT interface.
+\item [\texttt{wan0}] Building network interface. DHCP.
+\item [\texttt{lan0}] 10.68.0.99. Connects to robot devices like cameras.
+\item [\texttt{lan0:1}] 192.168.1.10. Connects to PR2 power board.
+\item [\texttt{lan0:2}] 192.168.0.6. Connects to Cradlepoint WAP during qualification.
+\end{itemize}
+
+The network interfaces are set up by udev from the file \texttt{/etc/udev/rules.d/71-PACKAGE-interfaces.rules}. That file spells out the remappings from the default interfaces, like ``eth0'' to ``wan0'', etc.
+
+The network interfaces should be the only part of the test machine configuration that is hardware dependent. It is dependent on the correct MAC addresses to set the interfaces.
+
+\subsection{HW Logs}
+
+Diagnostic logs from each test machine can be recorded to the \texttt{/hwlog} directory on any test machine. This directory will be synced to the Willow Garage bag repository using the \texttt{pr2-sendhwlog} utility. 
+
+\subsection{Willow Garage Packages}
+
+These computers are installed with the standard Willow Garage development installation. They use NFS for the user filesystem, and LDAP for logins. 
+
+The ``wgtest'' account should have the permissions to run all tests.
+
+\subsection{Kernel}
+
+Currently, the test machines run a 2.6.33-4-rt Linux kernel. This gives them the RT-preempt patch to run realtime software. Eventually, they should be converted to use the same RT kernel as the PR2's.
+
+\subsection{ROS Environment}
+
+The ROS environment for the test machines is set from the configuration in the \texttt{/etc/ros} directory, similar to the PR2. If the \texttt{distro} symlink is set to \texttt{svn\_install} this allows the test machines to run off a partial SVN-based ROS installation, or an overlay. Note that the \texttt{svn\_install} may use the ``wgtest'' user's home directory.
+
+\subsection{NVIDIA RT Patch}
+
+Because of the realtime kernel on the test machines, the NVIDIA kernel module will not properly build. Run the script \texttt{/etc/nvidia-patch/patch-nvidia-rt} to patch the NVIDIA kernel module.
+
+After patching the kernel module, reboot the machine. Running \texttt{sudo pr2-systemcheck} will verify that the NVIDIA kernel module is loaded properly.
+
+The patch may need to upgraded periodically for different versions of the NVIDIA driver. If the test machines migrate to a different kernel, they may not need the patch at all.
+
+
+\section{Computer Installation}
+
+To install a new test machine, install Ubuntu 10.04 on the machine. Set up NFS and LDAP to operate the machine on the Willow Garage network. Set up \texttt{/etc/apt/sources.list.d} to look for packages for ROS, PR2 packages and WG Test packages.
+
+\begin{verbatim}
+deb http://wgs1.willowgarage.com/wg-packages/ lucid-wg main
+deb http://code.ros.org/packages/ros/ubuntu lucid main
+deb http://code.ros.org/packages/pr2-dev/ubuntu lucid main
+deb http://code.ros.org/packages/wg-test/ubuntu lucid main
+\end{verbatim}
+
+Then install the proper test machine package.
+\begin{verbatim}
+sudo apt-get install wg-testmaster
+\end{verbatim}
+That should install ROS, the RT Linux kernel and the necessary configuration files. After rebooting the machine, run \texttt{sudo pr2-systemcheck} to verify that it works.
+
+Alternatively, use the following preseed file:
+\begin{verbatim}
+d-i apt-setup/local0/repository string \
+   http://code.ros.org/packages/pr2-dev/ubuntu lucid main
+d-i apt-setup/local0/key string http://code.ros.org/packages/pr2.key
+d-i apt-setup/local0/comment string PR2 Debs
+
+d-i apt-setup/local1/repository string \
+   http://code.ros.org/packages/wg-test/ubuntu lucid main
+d-i apt-setup/local1/key string http://code.ros.org/packages/pr2.key
+d-i apt-setup/local1/comment string wg-test Debs
+
+d-i apt-setup/local2/repository string \
+   http://code.ros.org/packages/ros/ubuntu lucid main
+d-i apt-setup/local2/key string http://code.ros.org/packages/ros.key
+d-i apt-setup/local2/comment string ROS Debs
+
+d-i pkgsel/include string wg-teststation
+\end{verbatim}
+
+After installation, a computer must be added to the Willow Garage building network.
+
+\section{Computer Hardware}
+
+Three different types of computers are used for hardware testing.
+
+\subsection{Slaves}
+
+Slave computers are AOpen machines. These machines are either AOPen MP-45 or MP-965. 
+
+Possible WG part numbers:
+\begin{itemize}
+\item [68-03506] - MP965-D
+\item [68-02230] - MP965-D
+\item [68-03542] - MP45-DU
+\end{itemize}
+
+Slave computers need an additional ethernet interface installed for communicate over the building network. This uses a Belkin PCIe Express card (68-03512) to give an additional gigabit interface (\texttt{wan0}).
+
+Any slave machine that requires a \texttt{lan0} interface (to communicate with a wge100 camera) needs a USB ethernet adapter. 
+
+\subsection{Qualification Machines}
+
+Qualification machines are Zareason shuttle machines, with a special dual-port ethernet card (68-04491) plugged into the PCI Express slot. The card is almost impossible to find commercially.
+
+The lower ethernet port on the expansion card is used for the building network (\texttt{wan0}) and the upper is used for communicating with devices (\texttt{lan0}). The \texttt{ecat0} interface is on the motherboard of the computer.
+
+\subsection{Burn In Master Machines}
+
+These machines are Zareason shuttle machines, and are the same as the PR2 basestations. Burn in machines do not have an \texttt{ecat0} interface.
+
+The \texttt{wan0} interface is on the motherboard of the computer. The \texttt{lan0} interface is on the expansion card, and is used to communicate with power boards.
+
+\section{Troubleshooting}
+
+\subsection{PR2 Systemcheck}
+
+The utility \texttt{pr2-systemcheck} runs on the test machines. It can debug common problems with network interfaces or ROS configuration.
+
+\subsection{Power Supply}
+
+If a Zareason shuttle machine fails to boot, and reports ``Verifying DMI Pool Data...'', the machine's power supply may be damaged. 
+
+\subsection{Munin}
+
+Munin is a system monitoring tool that allows an administrator to track uptime of test machines. For Munin statistics, see \href{http://ckb.willowgarage.com/munin}{ckb.willowgarage.com/munin}.
+
+To allow another Munin server, the munin-node configuration files in \texttt{wg-teststation} will have to change.
+
+\subsection{Known Problems}
+
+On some slave machines, NFS may not come up. If you are prompted for a password to ``ssh'' into a machine, try running \texttt{sudo service autofs restart} to restart NFS.
+
+\section{List of Computers}
+
+The configuration files in the \href{http://www.ros.org/wiki/qualification}{qualificaton} and \href{http://www.ros.org/wiki/life\_test}{life\_test} packages contain a list of currently available test machines. 
+
+\chapter{Test Fixtures}
+
+\section{Mechanical Fixtures}
+
+The mechanical test fixtures for sub-assembly qualification and burn in are located in PR2 SCDS in the \texttt{test\_hardware} folder.
+
+The Google Doc ``Beta Test Fixture Components'' stores all mechanical components of the PR2 test fixtures.
+
+\section{Cables}
+
+Cables are also documented in PR2 SCDS.
+
+The Google Doc ``PR2 Beta Test Cable Master List'' contains details and purchasing information for ordering replacement cables.
+
+
+\chapter {People}
+
+More than this reference guide, the following people may be useful as resources:
+\begin{itemize}
+\item [Kevin Watts] Owner of WG Hardware Test Systems.
+\item [Derek King] Electrical Engineer. Maintains all EE tests.
+\item [Eric Berger] Managed development on test systems.
+\item [Scott Stanford] Mechanical test fixtures and cables.
+\item [Ryan Bahadur] Program Manager of PR2. Test flow.
+\item [Nathan Grennen] Systems admin. Computer installation and configuration.
+\item [Jeremy Leibs] Computer configuration.
+\end{itemize}
+
+
+
+\end{document}
