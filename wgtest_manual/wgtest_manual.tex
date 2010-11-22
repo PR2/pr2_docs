@@ -163,6 +163,8 @@ The testing tables list the test ID and description, in the order that the test 
 
 Before changing any test sequences, verify that the test sequence is logically valid. In the \texttt{\_robot\_top\_level/test\_bom\_check} folder, run \texttt{check\_test\_bom.py}. 
 
+Qualification tests need to be called out in the manufacturing drawings of the components that are tested. For example, the PR2 head (68-04040) calls out the pre-burn qualification test. Any changes to PR2 manufacturing drawings should be made through an ECO using a PR2 SCDS ticket.
+
 \section{Barcode Labels and Associations}
 
 Barcode labels for each part of the PR2 are stored in a special CSV document in PR2 SCDS, \texttt{\_robot\_top\_level/barcode\_labels}. This CSV document stores the part numbers of the barcodes, along with the test printed on each barcode. 
@@ -336,6 +338,7 @@ d-i pkgsel/include string wg-teststation
 
 After installation, a computer must be added to the Willow Garage building network.
 
+
 \section{Computer Hardware}
 
 Three different types of computers are used for hardware testing.
@@ -366,6 +369,18 @@ The lower ethernet port on the expansion card is used for the building network (
 These machines are Zareason shuttle machines, and are the same as the PR2 basestations. Burn in machines do not have an \texttt{ecat0} interface.
 
 The \texttt{wan0} interface is on the motherboard of the computer. The \texttt{lan0} interface is on the expansion card, and is used to communicate with power boards.
+
+\section{Test Stations}
+
+A ``Test Station'' contains a computer and power system to run qualification and/or burn in tests.
+
+\subsection{Power System}
+
+Stations are powered using a PR2 Power Board (WG007), either Rev A or Rev B. The power board needs both 12V and 60V power supplied to the appropriate inputs. Power boards communicate by sending UDP MULTICAST packets. The test station computer should connect to the power board on the ``lan0:1'' interface.
+
+\subsection{Burn in System}
+
+Like qualification stations, burn in slaves are computers paired with a WG007 board. Three computers can be paired with each power board, one for each breaker. Note that the power board is controlled by the ``master'' machine, not the slaves.
 
 \section{Troubleshooting}
 
