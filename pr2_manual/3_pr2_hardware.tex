@@ -462,7 +462,7 @@ shared etherCAT realtime Ethernet link with the first computer allows all MCBs
 \begin{description}
 \item[Encoder input] Each MCB can read quadrature incremental encoder input.  In proper operation, this should never skip or drift.
 \item[Power input] Each MCB is connected to the raw battery-power bus, and using the circuit breakers you can switch between "enabled", which provides 44-80VDC
-to the MCB and allows it to drive the motor, "standby", which provides 18VDC to the MCB and allows it to continue to communicate and read sensors but
+to the MCB and allows it to drive the motor, ``standby", which provides 18VDC to the MCB and allows it to continue to communicate and read sensors but
 doesn't allow driving the motors, and "disabled", which turns off power the the MCB altogether.
 \item[Digital input] Each MCB has a digital input which is used for detecting the flags at the calibration positions on power-up.  The MCB internally latches the encoder counts at the time that the digital input transitions from high to low and from low to high, which accurate detection of calibration flag positions.
 \item[Digital output] Each MCB has a digital output.  On the gripper, this is used to control the LED mounted in the hand.
