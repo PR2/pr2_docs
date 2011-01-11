@@ -781,18 +781,7 @@ it works if the basestation is not plugged into the service port:
 $ sudo ip route del 157.22.19.22 via 10.68.0.5 dev lan0
 \end{verbatim}
 
-\subsection{Initialize the Basestation VPN Server}
-One of the primary functions of the basestation is to host a VPN
-server that the robot can connect to.  The server needs an appropriate
-key.  To generate the key for the VPN server run:
 
-\begin{verbatim}
-pr2admin@basestation$ sudo /etc/openvpn/gen_server_key
-\end{verbatim}
-
-It will prompt you for some information.  It is good practice to get
-the information correct, but will not actually impact the performance
-of the robot.
 
 \subsection{Pairing with the Robot}
 
@@ -851,6 +840,22 @@ over the VPN.  Check that it works and then exit.
 pr2admin@prbase1$ ssh pr2admin@10.68.1.1
 pr2admin@prx1:~$ exit
 \end{verbatim}
+
+\subsubsection{Initialize the Basestation VPN Server}
+
+Initializing the basestation VPN server is redundant, since the ``robot-brand''
+step will do this for you. If you want to generate the key manually, follow the steps below.
+
+The server needs an appropriate key.  To generate the key for the VPN server run:
+\begin{verbatim}
+pr2admin@basestation$ sudo /etc/wg-openvpn/gen_server_key
+\end{verbatim}
+
+It will prompt you for some information.  It is good practice to get
+the information correct, but will not actually impact the performance
+of the robot.
+
+Note: For PR2's with Ubuntu Jaunty, the script is in \texttt{/etc/openvpn}. 
 
 \subsection{Forwarding IPs to the robot}
 
