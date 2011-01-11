@@ -213,12 +213,15 @@ plugging into the robot service port and going to the IP address:
 
 \section{Computer Configuration}
 The operating system running on the PR2 computers is an extended
-version of Ubuntu 9.04 (Jaunty Jackalope). It depends on a number of
+version of Ubuntu 10.04 (Lucid Lynx). It depends on a number of
 additional packages for system configuration, but should otherwise be
 familiar to for Ubuntu users. If you run into a computer problem not
 covered by the PR2 documentation, the
-\href{https://help.ubuntu.com/9.04/index.html}{Ubuntu Documentation}
+\href{https://help.ubuntu.com/10.04/index.html}{Ubuntu Documentation}
 is the next place to look.
+
+PR2/basestation installers previous to version 0.5 used Ubuntu 9.04
+(Jaunty Jackalope). 
 
 \subsection{BIOS}
 The BIOS configuration is slightly different between c1 and c2 to
@@ -1021,11 +1024,13 @@ you can use it.
 If the robot BIOS is not configured to netboot, you might need to be
 able hit f12 on the keyboard.  You can do this in one of two ways.
 
-The easier way to to connect up to the KVM.  (See section XYZ on connecting to the KVM.)
+The easiest way is to connect up to the remote KVM, or BMC. Using the remove 
+KVM is documented on the \href{http://pr2support.willowgarage.com}{PR2 Support}
+wiki.
 
 Alternatively, plug a keyboard into the PR2.  This can be done using
-the aux usb port under the back cover.  To remove this cover, follow
-the instructions in section XYZ.
+the AUX USB port under the top back cover.  To remove this cover, follow
+the instructions on the PR2 Support wiki.
 
 When the robot is booting you will hear 2 beeps followed by a short
 pause, and then another 2 beeps.  After the 4th beep, hit f12 on the
@@ -1059,10 +1064,10 @@ $ sudo apt-get dist-upgrade
 Which will update all packages on your system, pulling in security fixes for
 the pr2 configuration as well as for the appropriate ros-release.
 
-\subsection{Fixing the nvidia module}
+\subsection{Fixing the NVIDIA module}
 
 Occasionally upgrading the basestation will cause a new kernel to be
-installed. When this happens, the nvidia module which we build for the
+installed. When this happens, the NVIDIA module which we build for the
 kernel will no longer work.  If this happens, once you reboot, X will
 fail to start.  Choose the option to to exit X.  The script to
 re-build and install the modules is located in
