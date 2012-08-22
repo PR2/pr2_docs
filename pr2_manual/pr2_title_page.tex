@@ -1,0 +1,35 @@
+\documentclass[12pt,oneside,letterpaper]{memoir}
+\usepackage[pdftex]{graphicx}
+%\usepackage[margin=1.0in,noheadfoot]{geometry}
+%\pagenumbering{arabic}
+\usepackage{color}
+\definecolor{rltblue}{rgb}{0,0,0.75}
+\usepackage{verbatim}
+\usepackage[pdftex,pdfpagemode=UseOutlines,pdfauthor={Willow Garage},pdftitle={PR2 Manual},linkbordercolor={0 0 1},colorlinks=true,linkcolor=rltblue]{hyperref}
+
+\setlength{\uppermargin}{1.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\stockwidth}{8.5in}
+\setlrmarginsandblock{.75in}{1.5in}{*}
+%\setlength{\marginparsep}{0.25in}
+%\setlength{\marginparwidth}{0.6in}
+\checkandfixthelayout
+\chapterstyle{veelo}
+\definecolor{shadecolor}{gray}{0.9}
+%\setlength{\chapindent}{-1.5in}
+\newenvironment{code}{ \noindent \partopsep=0pt \parskip=0pt \topsep=0pt \shaded \footnotesize \verbatim}{\endverbatim \endshaded \vspace{1ex} }
+
+\begin{document}
+
+\title{PR2 User Manual}
+\author{Willow Garage}
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+\maketitle
+
+\cleardoublepage
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\mainmatter
+\setcounter{secnumdepth}{2}
