@@ -16,3 +16,4 @@
  - Reinstalling the Robot: http://pr2support.willowgarage.com/wiki/PR2%20Manual/Chapter16
  - Software Maintenance: http://pr2support.willowgarage.com/wiki/PR2%20Manual/Chapter17
  - Running the PR2: http://pr2support.willowgarage.com/wiki/PR2%20Manual/Chapter18
+ - PR2 SE: http://pr2support.willowgarage.com/wiki/PR2%20Manual/Chapter19
