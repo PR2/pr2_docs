@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+#
+# Notes:
+#
+#  run with: python pr2manual.py pr2.toc.txt
 from __future__ import with_statement
 
 import sys
@@ -106,35 +110,41 @@ def _fetch_pages(d, level=1, use_cache=False, flatten=True):
     for entry in d:
         assert isinstance(entry, dict)
         for k, v in entry.iteritems():
-            if type(v) == list:
-                _fetch_pages(v, level+1, use_cache)
-                continue
-            if v == None:
-              entry[k] = "Empty section"
-              continue
-            if v.strip().startswith('http:'):
-                p_text = _read_single_page(v, use_cache)
-                soup = BeautifulSoup(p_text)
-
-                # remove markup we don't want
-                _cleanup_wiki_parsetree(soup)
-
-                # push-down
-                _pushdown_headers(soup, level)
-                
-                # scan to the content div of wiki
-                contents = soup.findAll('div', id="content")
-                
-                content = contents[0]
-                entry[k] = { }
-                entry[k]['text'] = str(content)
-                entry[k]['tree'] = content
-            else:
-                # this is just text, leave it be
-                text = entry[k]
-                entry[k] = { }
-                entry[k]['text'] = text
-                entry[k]['tree'] = text 
+            try:
+                if type(v) == list:
+                    _fetch_pages(v, level+1, use_cache)
+                    continue
+                if v == None:
+                  entry[k] = "Empty section"
+                  continue
+                if v.strip().startswith('http:'):
+                    p_text = _read_single_page(v, use_cache)
+                    soup = BeautifulSoup(p_text)
+    
+                    # remove markup we don't want
+                    _cleanup_wiki_parsetree(soup)
+    
+                    # push-down
+                    _pushdown_headers(soup, level)
+                    
+                    # scan to the content div of wiki
+                    contents = soup.findAll('div', id="content")
+                    
+                    content = contents[0]
+                    entry[k] = { }
+                    entry[k]['text'] = str(content)
+                    entry[k]['tree'] = content
+                else:
+                    # this is just text, leave it be
+                    text = entry[k]
+                    entry[k] = { }
+                    entry[k]['text'] = text
+                    entry[k]['tree'] = text 
+            except:
+                print "Error processing page %s: %s"%(k, v)
+                import traceback
+                traceback.print_exc()
+                sys.exit(-1)
         
 def _anchor_key(k):
     return k.replace(' ', '_')
