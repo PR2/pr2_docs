@@ -35,10 +35,10 @@ This system does not include ``EE'' tests which are used for the PR2 power board
 
 \section {Software}
 
-The software for the WG hardware test system is located in the \href{http://code.ros.org}{wg-ros-pkg} repository. Principal stacks are:
+The software for the WG hardware test system is located in the \href{https://github.com/PR2}{PR2 Organization} on Github. Principal stacks are:
 \begin{itemize}
-\item [\href{http://www.ros.org/wiki/pr2\_self\_test}{pr2\_self\_test}] PR2 Self Test stack.
-\item [\href{http://www.ros.org/wiki/wg\_hardware\_test}{wg\_hardware\_test}] Hardware testing stack.
+\item [\href{https://github.com/PR2/pr2_self_test}{pr2\_self\_test}] PR2 Self Test stack.
+\item [\href{https://github.com/willowgarage/wg_hardware_test}{wg\_hardware\_test}] Hardware testing stack.
 \end{itemize}
 
 All software documentation can be found in the ROS wiki under the respective stacks.
@@ -118,13 +118,6 @@ The server side API is provided at \texttt{invent/mod/invent/cgibin/api.py} for 
 
 The main invent database stores all information related to parts, products and locations. The wgtest database stores only testing data, and prescribed sequences of tests. 
 
-
-
-\section {Invent Debug Server}
-
-The Invent debug clone is located at \href{http://cmi.willowgarage.com}{cmi.willowgarage.com}. This server is only available inside the WG network.
-
-The configuration of this server should be the same as the main Invent server. This server runs Ubuntu 8.04. Do not upgrade this server or you will not be able to run the Invent clone.
 
 \section{Debugging Invent}
 
@@ -206,16 +199,17 @@ The packages are stored in an SVN repo at \href{https://code.ros.org/svn/pr2debs
 
 \subsection{Packages}
 
-Four debian packages contain all the necessary tools for configuring a test machine. 
+Five debian packages contain all the necessary tools for configuring a test machine. 
 
 \begin{itemize}
+\item [\texttt{wg-test-repo}] This package configures the apt repository for wg-test debs.
 \item [\texttt{wg-teststation}] This is the base package which contains most of the functionality.
 \item [\texttt{wg-testslave}] Installed on all slave machines.
 \item [\texttt{wg-testmaster}] Qualification machines
 \item [\texttt{wg-burnmaster}] Burn in master machines
 \end{itemize}
 
-The last three packages depend on the first one. 
+The \texttt{wg-testslave}, \texttt{wg-testmaster} and \texttt{wg-burnmaster} packages depend on \texttt{wg-teststation}.
 
 \subsection{Test Station Package}
 
@@ -283,8 +277,8 @@ Test machines can be changed by upgrading the debian packages, rebuilding them, 
 \begin{itemize}
 \item [Update SVN Repo] Check in any changes to the ``pr2debs'' SVN repo.
 \item [Build] Run \texttt{./builddebs wg-teststation} to build latest debs.
-\item [Push To Server] \texttt{scp *.\{changes,deb\} pub5:/var/packages/wg-test/ubuntu/queue/lucid}
-\item [Release] Log in to ``pub5'' machine to release. Run \texttt{cd /var/packages/wg-test/ubuntu} and \texttt{reprepro -v processincoming lucid}
+\item [Push To Server] \texttt{scp *.\{changes,deb\} packages.willowgarage.com:/var/packages/wg-test/ubuntu/queue/lucid}
+\item [Release] Log in to ``packages.willowgarage.com'' machine to release. Run \texttt{cd /var/packages/wg-test/ubuntu} and \texttt{reprepro -v processincoming lucid}
 \item [Upgrade] Run \texttt{apt-get update \&\& apt-get dist-upgrade} to pull new packages.
 \end{itemize}
 
@@ -305,9 +299,9 @@ To install a new test machine, install Ubuntu 10.04 on the machine. Set up NFS a
 
 \begin{verbatim}
 deb http://wgs1.willowgarage.com/wg-packages/ lucid-wg main
-deb http://code.ros.org/packages/ros/ubuntu lucid main
-deb http://code.ros.org/packages/pr2-dev/ubuntu lucid main
-deb http://code.ros.org/packages/wg-test/ubuntu lucid main
+deb http://packages.ros.org/ros/ubuntu lucid main
+deb http://packages.willowgarage.com/pr2-dev/ubuntu lucid main
+deb http://packages.willowgarage.com/wg-test/ubuntu lucid main
 \end{verbatim}
 
 Then install the proper test machine package.
@@ -319,18 +313,18 @@ That should install ROS, the RT Linux kernel and the necessary configuration fil
 Alternatively, use the following preseed file:
 \begin{verbatim}
 d-i apt-setup/local0/repository string \
-   http://code.ros.org/packages/pr2-dev/ubuntu lucid main
-d-i apt-setup/local0/key string http://code.ros.org/packages/pr2.key
+   http://packages.willowgarage.com/pr2-dev/ubuntu lucid main
+d-i apt-setup/local0/key string http://packages.willowgarage.com/pr2.key
 d-i apt-setup/local0/comment string PR2 Debs
 
 d-i apt-setup/local1/repository string \
-   http://code.ros.org/packages/wg-test/ubuntu lucid main
-d-i apt-setup/local1/key string http://code.ros.org/packages/pr2.key
+   http://packages.willowgarage.com/wg-test/ubuntu lucid main
+d-i apt-setup/local1/key string http://packages.willowgarage.com/pr2.key
 d-i apt-setup/local1/comment string wg-test Debs
 
 d-i apt-setup/local2/repository string \
-   http://code.ros.org/packages/ros/ubuntu lucid main
-d-i apt-setup/local2/key string http://code.ros.org/packages/ros.key
+   http://packages.ros.org/ros/ubuntu lucid main
+d-i apt-setup/local2/key string http://packages.ros.org/ros.key
 d-i apt-setup/local2/comment string ROS Debs
 
 d-i pkgsel/include string wg-teststation
@@ -425,6 +419,7 @@ The Google Doc ``PR2 Beta Test Cable Master List'' contains details and purchasi
 
 More than this reference guide, the following people may be useful as resources:
 \begin{itemize}
+\item [Austin Hendrix] PR2 Software Owner
 \item [Kevin Watts] Owner of WG Hardware Test Systems.
 \item [Derek King] Electrical Engineer. Maintains all EE tests.
 \item [Eric Berger] Managed development on test systems.
